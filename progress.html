@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress</title>
+<meta name="description" content="Yearly goals and a running log of what actually happened.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <span class="nav-brand">Eileen Ip</span>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="progress.html" aria-current="page">Progress</a>
+    </div>
+  </nav>
+</header>
+
+<main class="progress-page container-narrow">
+  <div class="page-header">
+    <h1>Progress</h1>
+    <p>Yearly goals and a running log of what actually happened. Updated monthly, not weekly — this is a record, not a to-do list.</p>
+  </div>
+
+  <section class="progress-section">
+    <div class="section-label">2026 Goals</div>
+    <div class="goal-grid" id="goal-grid"></div>
+  </section>
+
+  <hr class="hr">
+
+  <section class="progress-section">
+    <div class="section-label">Monthly Log</div>
+    <div id="monthly-log"></div>
+  </section>
+
+  <hr class="hr">
+
+  <section>
+    <div class="section-label">Past Years</div>
+    <div id="past-years"></div>
+  </section>
+</main>
+
+<script src="data/progress-data.js"></script>
+<script src="js/progress.js"></script>
+</body>
+</html>

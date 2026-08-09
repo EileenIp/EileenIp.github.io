@@ -1,0 +1,31 @@
+[
+  {
+    "company": "Acme Analytics",
+    "role": "Graduate Data Analyst",
+    "location": "NSW",
+    "date_applied": "2026-03-01",
+    "status": "Interviewing",
+    "stage": "Online Assessment",
+    "reason": null,
+    "next_action": "Prepare for case study round",
+    "answers": [
+      {
+        "question": "Why have you chosen to apply to Acme Analytics?",
+        "tags": [
+          "mission",
+          "growth"
+        ],
+        "text": "Acme's focus on using data to improve public transit access lines up with why I got into analytics in the first place - I want my work to have a visible, everyday impact."
+      },
+      {
+        "question": "How <company> aligns with your personal aspirations?",
+        "tags": [
+          "mission",
+          "culture",
+          "mentorship"
+        ],
+        "text": "I'm looking for a graduate program with structured mentorship and rotational exposure across teams, which is exactly how Acme's program is set up."
+      }
+    ]
+  }
+]

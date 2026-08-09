@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Progress Entry (local tool)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --color-bg: #161826;
+    --color-surface: #232532;
+    --color-text: #e9e9ed;
+    --color-accent: #9184d9;
+    --color-divider: color-mix(in srgb, #e9e9ed 16%, transparent);
+    --font: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 32px 20px 80px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+
+  .notice {
+    background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+  .notice strong { color: var(--color-accent); }
+
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
+  .subtitle { color: color-mix(in srgb, var(--color-text) 60%, transparent); font-size: 13px; margin: 0 0 24px; }
+
+  fieldset { border: 1px solid var(--color-divider); border-radius: 8px; padding: 16px; margin: 0 0 16px; }
+  legend { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: color-mix(in srgb, var(--color-text) 65%, transparent); padding: 0 6px; }
+
+  .type-toggle { display: flex; gap: 16px; }
+  .type-toggle label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; }
+
+  label.field-label { display: block; font-size: 12px; margin: 14px 0 5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+  label.field-label:first-child { margin-top: 0; }
+
+  input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-divider);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 14px;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+  }
+
+  .radio-row { display: flex; gap: 18px; flex-wrap: wrap; }
+  .radio-row label { display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; }
+
+  .custom-cat-row { margin-top: 8px; display: none; }
+  .custom-cat-row.visible { display: block; }
+
+  button {
+    font: inherit;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid var(--color-accent);
+    background: transparent;
+    color: var(--color-accent);
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+  button:hover { background: color-mix(in srgb, var(--color-accent) 14%, transparent); }
+  button.secondary { border-color: var(--color-divider); color: var(--color-text); }
+  button.secondary:hover { background: color-mix(in srgb, var(--color-text) 8%, transparent); }
+
+  .actions { display: flex; gap: 10px; margin-top: 18px; }
+
+  .output-wrap { margin-top: 28px; }
+  .output-wrap h2 { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+  textarea#output {
+    width: 100%;
+    min-height: 160px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    white-space: pre;
+  }
+  .copy-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .copy-status { font-size: 12.5px; color: color-mix(in srgb, var(--color-text) 60%, transparent); }
+
+  .error { color: #e59a9a; font-size: 13px; margin-top: 10px; display: none; }
+  .error.visible { display: block; }
+
+  .hint { font-size: 11.5px; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="notice">
+    <strong>Local tool only.</strong> This form is not linked from the live site (index.html / progress.html)
+    and never will be automatically — don't add a nav link to it. It has no data of its own baked in and
+    performs no network requests, so the file itself is safe to commit to git as-is. It's what you generate
+    <em>with</em> it — pasted entries containing personal details — that you should keep out of anywhere you
+    don't want tracked. Nothing you type here is saved anywhere; closing the tab discards it.
+  </div>
+
+  <h1>Add Progress Entry</h1>
+  <p class="subtitle">Fill in a goal or a monthly log entry, generate the JSON, then paste it into <code>data/progress-data.js</code> yourself (or hand the JSON to Claude to insert).</p>
+
+  <fieldset>
+    <legend>Entry type</legend>
+    <div class="type-toggle">
+      <label><input type="radio" name="entryType" value="goal" checked> Goal</label>
+      <label><input type="radio" name="entryType" value="monthlyLog"> Monthly Log entry</label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Common</legend>
+    <label class="field-label" for="year">Year</label>
+    <input type="number" id="year" placeholder="2026" min="2000" max="2100">
+  </fieldset>
+
+  <fieldset id="goal-fields">
+    <legend>Goal</legend>
+
+    <label class="field-label" for="goal-title">Goal title</label>
+    <input type="text" id="goal-title" placeholder="e.g. Read 24 books">
+
+    <label class="field-label" for="goal-description">Description <span class="hint" style="display:inline;">(optional — shown as the card's body text; the current page expects one)</span></label>
+    <textarea id="goal-description" placeholder="A sentence or two of context."></textarea>
+
+    <label class="field-label" for="goal-category">Category</label>
+    <select id="goal-category">
+      <option value="Skills">Skills</option>
+      <option value="Career">Career</option>
+      <option value="Certifications">Certifications</option>
+      <option value="Projects">Projects</option>
+      <option value="__custom__">+ Add custom category…</option>
+    </select>
+    <div class="custom-cat-row" id="goal-category-custom-row">
+      <input type="text" id="goal-category-custom" placeholder="Custom category name">
+    </div>
+
+    <label class="field-label" for="goal-status">Status</label>
+    <select id="goal-status">
+      <option value="Not started">Not started</option>
+      <option value="In progress">In progress</option>
+      <option value="Done">Done</option>
+    </select>
+  </fieldset>
+
+  <fieldset id="log-fields" style="display:none;">
+    <legend>Monthly Log</legend>
+
+    <label class="field-label" for="log-month">Month</label>
+    <select id="log-month">
+      <option>January</option><option>February</option><option>March</option>
+      <option>April</option><option>May</option><option>June</option>
+      <option>July</option><option>August</option><option>September</option>
+      <option>October</option><option>November</option><option>December</option>
+    </select>
+
+    <label class="field-label" for="log-category">Category</label>
+    <select id="log-category">
+      <option value="Project Shipped">Project Shipped</option>
+      <option value="Learning">Learning</option>
+      <option value="Job Search">Job Search</option>
+      <option value="Certification">Certification</option>
+      <option value="Other">Other</option>
+      <option value="__custom__">+ Add custom category…</option>
+    </select>
+    <div class="custom-cat-row" id="log-category-custom-row">
+      <input type="text" id="log-category-custom" placeholder="Custom category name">
+    </div>
+
+    <label class="field-label" for="log-entry">Entry text</label>
+    <textarea id="log-entry" placeholder="What happened this month."></textarea>
+  </fieldset>
+
+  <div class="actions">
+    <button type="button" id="generate-btn">Generate JSON</button>
+    <button type="button" id="reset-btn" class="secondary">Reset form</button>
+  </div>
+  <div class="error" id="error-msg"></div>
+
+  <div class="output-wrap">
+    <h2>Output</h2>
+    <textarea id="output" readonly placeholder="Generated JSON will appear here."></textarea>
+    <div class="copy-row">
+      <button type="button" id="copy-btn" class="secondary">Copy to clipboard</button>
+      <span class="copy-status" id="copy-status"></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const typeRadios = document.querySelectorAll('input[name="entryType"]');
+  const goalFields = document.getElementById('goal-fields');
+  const logFields = document.getElementById('log-fields');
+  const errorMsg = document.getElementById('error-msg');
+  const output = document.getElementById('output');
+  const copyStatus = document.getElementById('copy-status');
+
+  function currentType() {
+    return document.querySelector('input[name="entryType"]:checked').value;
+  }
+
+  function syncFieldVisibility() {
+    const isGoal = currentType() === 'goal';
+    goalFields.style.display = isGoal ? '' : 'none';
+    logFields.style.display = isGoal ? 'none' : '';
+  }
+  typeRadios.forEach((r) => r.addEventListener('change', syncFieldVisibility));
+
+  function wireCustomCategory(selectId, rowId, inputId) {
+    const select = document.getElementById(selectId);
+    const row = document.getElementById(rowId);
+    select.addEventListener('change', () => {
+      const isCustom = select.value === '__custom__';
+      row.classList.toggle('visible', isCustom);
+      if (isCustom) document.getElementById(inputId).focus();
+    });
+  }
+  wireCustomCategory('goal-category', 'goal-category-custom-row', 'goal-category-custom');
+  wireCustomCategory('log-category', 'log-category-custom-row', 'log-category-custom');
+
+  function resolvedCategory(selectId, inputId) {
+    const select = document.getElementById(selectId);
+    if (select.value === '__custom__') {
+      return document.getElementById(inputId).value.trim();
+    }
+    return select.value;
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.classList.add('visible');
+  }
+  function clearError() {
+    errorMsg.textContent = '';
+    errorMsg.classList.remove('visible');
+  }
+
+  function buildEntry() {
+    const year = document.getElementById('year').value.trim();
+    if (!year) { showError('Year is required.'); return null; }
+    const yearNum = Number(year);
+    if (!Number.isInteger(yearNum)) { showError('Year must be a whole number.'); return null; }
+
+    if (currentType() === 'goal') {
+      const title = document.getElementById('goal-title').value.trim();
+      if (!title) { showError('Goal title is required.'); return null; }
+      const description = document.getElementById('goal-description').value.trim();
+      const category = resolvedCategory('goal-category', 'goal-category-custom');
+      if (!category) { showError('Enter a custom category name, or pick one from the list.'); return null; }
+      const status = document.getElementById('goal-status').value;
+
+      const entry = { title, description, category, status, year: yearNum };
+      if (!description) delete entry.description;
+      return entry;
+    }
+
+    const month = document.getElementById('log-month').value;
+    const category = resolvedCategory('log-category', 'log-category-custom');
+    if (!category) { showError('Enter a custom category name, or pick one from the list.'); return null; }
+    const entryText = document.getElementById('log-entry').value.trim();
+    if (!entryText) { showError('Entry text is required.'); return null; }
+
+    return { month, year: yearNum, category, entry: entryText };
+  }
+
+  document.getElementById('generate-btn').addEventListener('click', () => {
+    clearError();
+    copyStatus.textContent = '';
+    const entry = buildEntry();
+    if (!entry) { output.value = ''; return; }
+    output.value = JSON.stringify(entry, null, 2);
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach((el) => (el.value = ''));
+    document.querySelectorAll('select').forEach((el) => (el.selectedIndex = 0));
+    document.getElementById('goal-category-custom-row').classList.remove('visible');
+    document.getElementById('log-category-custom-row').classList.remove('visible');
+    output.value = '';
+    clearError();
+    copyStatus.textContent = '';
+  });
+
+  document.getElementById('copy-btn').addEventListener('click', async () => {
+    if (!output.value) { copyStatus.textContent = 'Nothing to copy yet — generate JSON first.'; return; }
+    try {
+      await navigator.clipboard.writeText(output.value);
+      copyStatus.textContent = 'Copied.';
+    } catch (err) {
+      output.select();
+      const ok = document.execCommand('copy');
+      copyStatus.textContent = ok ? 'Copied.' : 'Copy failed — select the text and copy manually.';
+    }
+  });
+
+  syncFieldVisibility();
+</script>
+</body>
+</html>

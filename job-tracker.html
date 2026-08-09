@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Application Timeline — Job Search</title>
+<meta name="description" content="A running log of every job application, most recent first.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <span class="nav-brand">Eileen Ip</span>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="job-tracker.html" aria-current="page">Job Tracker</a>
+      <a href="progress.html">Progress</a>
+    </div>
+  </nav>
+</header>
+
+<main class="tracker container-narrow">
+  <div class="tracker-header">
+    <span class="kicker">Job Search</span>
+    <h1>Application Timeline</h1>
+    <p class="text-muted">A running log of every role I've applied to, most recent first.</p>
+  </div>
+
+  <div class="stats-grid" id="stats-grid" aria-label="Application summary"></div>
+
+  <div class="timeline" id="timeline" aria-label="Application history">
+    <div class="timeline-rail"></div>
+  </div>
+
+  <p id="timeline-empty" class="text-muted" style="display:none; font-size: 13px;">
+    No applications yet — add rows to job-applications.xlsx and regenerate the JSON.
+  </p>
+  <p id="timeline-error" class="text-muted" style="display:none; font-size: 13px;">
+    Couldn't load application data. If you're viewing this file directly (file://), run it through a local server instead — see the README for the command.
+  </p>
+</main>
+
+<div class="dialog-backdrop" id="qa-backdrop">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+    <div class="dialog-head">
+      <div id="qa-title" class="dialog-title">Saved answers</div>
+      <button type="button" class="btn btn-secondary btn-icon" id="qa-close" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <div id="qa-body"></div>
+  </div>
+</div>
+
+<script src="js/job-tracker.js"></script>
+</body>
+</html>
