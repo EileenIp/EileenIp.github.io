@@ -2,10 +2,13 @@
   {
     "company": "origin",
     "role": "business analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-05-24",
+    "deadline": "2026-05-24",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -13,10 +16,13 @@
   {
     "company": "Qantas",
     "role": "data & analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-05-24",
+    "deadline": "2026-05-24",
     "status": "Withdrawn",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -24,10 +30,13 @@
   {
     "company": "mastercard",
     "role": "performance consultant",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-04-30",
+    "deadline": "2026-04-30",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -35,10 +44,13 @@
   {
     "company": "ADN",
     "role": "Junior Market Analyst",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": "2026-04-17",
+    "deadline": "2026-04-17",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -46,10 +58,13 @@
   {
     "company": "UQ",
     "role": "Data Analyst",
+    "type": "Full-time",
     "location": "QLD",
     "date_applied": "2026-04-17",
+    "deadline": "2026-04-17",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -57,10 +72,13 @@
   {
     "company": "ausnet",
     "role": "data analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-04-09",
+    "deadline": "2026-04-09",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -68,10 +86,13 @@
   {
     "company": "bank of america",
     "role": "Global Technology Summer Analyst",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": "2026-04-09",
+    "deadline": "2026-07-28",
     "status": "Applied",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -79,10 +100,13 @@
   {
     "company": "capgemini",
     "role": "Business Analysis",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-04-09",
+    "deadline": "2026-05-11",
     "status": "Applied",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -90,10 +114,13 @@
   {
     "company": "Commonwealth Bank",
     "role": "Advanced Analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-04-09",
+    "deadline": "2026-04-21",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -101,10 +128,13 @@
   {
     "company": "jane street",
     "role": "sales and trading",
+    "type": "Internship",
     "location": "QLD",
     "date_applied": "2026-04-09",
+    "deadline": "2026-04-09",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -112,10 +142,13 @@
   {
     "company": "Macquarie",
     "role": "data anlaytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-04-09",
+    "deadline": "2026-04-14",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -123,10 +156,13 @@
   {
     "company": "SIG",
     "role": "operations analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-04-09",
+    "deadline": "2026-04-09",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -134,10 +170,13 @@
   {
     "company": "EY",
     "role": "Consulting now is microsoft or sap not AI and Data",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": "2026-04-07",
+    "deadline": "2026-06-26",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -145,10 +184,13 @@
   {
     "company": "leidos",
     "role": "data sciencist",
+    "type": "Graduate Program",
     "location": "VIC",
     "date_applied": "2026-04-06",
+    "deadline": "2026-04-07",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -156,10 +198,13 @@
   {
     "company": "grant thornton",
     "role": "data analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-30",
+    "deadline": "2026-04-06",
     "status": "Applied",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -167,10 +212,13 @@
   {
     "company": "nbn",
     "role": "strategy",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-30",
+    "deadline": "2026-04-12",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -178,10 +226,13 @@
   {
     "company": "reserve bank of australia",
     "role": "IT business analysis",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-30",
+    "deadline": "2026-04-06",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -189,10 +240,13 @@
   {
     "company": "wsp",
     "role": "Digital & Data Insights",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-30",
+    "deadline": "2026-04-30",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -200,10 +254,13 @@
   {
     "company": "coles",
     "role": "digital stream data and analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-29",
+    "deadline": "2026-04-12",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -211,10 +268,13 @@
   {
     "company": "DXC",
     "role": "Business Analyst business pathway",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-29",
+    "deadline": "2026-04-13",
     "status": "Applied",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -222,10 +282,13 @@
   {
     "company": "Optus",
     "role": "Data Analytics or digital performance Analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-28",
+    "deadline": "2026-03-29",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -233,10 +296,13 @@
   {
     "company": "FMD",
     "role": "Project Grace: Data Analyst",
+    "type": "Graduate Program",
     "location": "VIC, NSW",
     "date_applied": "2026-03-27",
+    "deadline": "2026-03-31",
     "status": "Withdrawn",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -244,10 +310,13 @@
   {
     "company": "KordaMentha",
     "role": "Data Analytics",
+    "type": "Graduate Program",
     "location": "WA",
     "date_applied": "2026-03-27",
+    "deadline": "2026-03-29",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -255,10 +324,13 @@
   {
     "company": "Nab",
     "role": "Digital, Data & AI Data & Analytics",
+    "type": "Graduate Program",
     "location": "VIC, NSW",
     "date_applied": "2026-03-27",
+    "deadline": "2026-03-29",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -266,10 +338,13 @@
   {
     "company": "telstra",
     "role": "strategy data analytics & management",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-27",
+    "deadline": "2026-03-31",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -277,10 +352,13 @@
   {
     "company": "accenture",
     "role": "management analyst Consulting Analyst/Graduate Program 2027 \u2013 Australia and New Zealand",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-26",
+    "deadline": "2026-03-26",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -288,10 +366,13 @@
   {
     "company": "atlassian",
     "role": "Data Science",
+    "type": "Internship",
     "location": "Remote",
     "date_applied": "2026-03-25",
+    "deadline": "2026-04-17",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -299,10 +380,13 @@
   {
     "company": "Deloitte",
     "role": "Strategy, Risk & Transactions",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-25",
+    "deadline": "2026-04-07",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -310,10 +394,13 @@
   {
     "company": "GOVERNMENT",
     "role": "Data",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": "2026-03-25",
+    "deadline": "2026-03-31",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -321,10 +408,13 @@
   {
     "company": "quantium",
     "role": "Data & AI Analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-25",
+    "deadline": "2026-05-03",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -332,10 +422,13 @@
   {
     "company": "BDO",
     "role": "Digital & Technology OR Research and Development",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": "2026-03-22",
+    "deadline": "2026-03-23",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -343,10 +436,13 @@
   {
     "company": "RSM",
     "role": "Data Analytics",
+    "type": "Graduate Program",
     "location": "VIC",
     "date_applied": "2026-03-21",
+    "deadline": "2026-03-22",
     "status": "Withdrawn",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -354,10 +450,13 @@
   {
     "company": "Hoyoverse",
     "role": "data analyst",
+    "type": "Internship",
     "location": "Singapore",
     "date_applied": "2026-03-15",
+    "deadline": "2026-03-15",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -365,10 +464,13 @@
   {
     "company": "Pwc",
     "role": "Data Analytics & AI",
+    "type": "Graduate Program",
     "location": "VIC, NSW",
     "date_applied": "2026-03-13",
+    "deadline": "2026-03-14",
     "status": "Rejected",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -376,10 +478,13 @@
   {
     "company": "Allianz",
     "role": "data analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-05-05",
     "status": "Withdrawn",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -387,10 +492,13 @@
   {
     "company": "amazon",
     "role": "Graduate Brand Analyst,",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-05-05",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -398,10 +506,13 @@
   {
     "company": "bcg",
     "role": "consulting",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-03-04",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -409,10 +520,13 @@
   {
     "company": "bloomberg",
     "role": "analytics & sales",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-09-01",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -420,10 +534,13 @@
   {
     "company": "bmw",
     "role": "product",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-04-05",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -431,10 +548,13 @@
   {
     "company": "canva",
     "role": "Graduate Program",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-05-15",
     "status": "To Apply",
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -442,10 +562,13 @@
   {
     "company": "cisco",
     "role": "business analyst",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -453,10 +576,13 @@
   {
     "company": "city of gold coast",
     "role": "digital and data",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -464,10 +590,13 @@
   {
     "company": "commbank",
     "role": "tech ai engineering data science & ai",
+    "type": "Internship",
     "location": "VIC",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -475,10 +604,13 @@
   {
     "company": "digital graduate program gov",
     "role": "data analyst",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": null,
+    "deadline": "2026-09-13",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -486,10 +618,13 @@
   {
     "company": "eightcap",
     "role": "operations analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -497,10 +632,13 @@
   {
     "company": "EY",
     "role": "ai and data consulting",
+    "type": "Internship",
     "location": "QLD",
     "date_applied": null,
+    "deadline": "2026-08-16",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -508,10 +646,13 @@
   {
     "company": "farrer capital management",
     "role": "Trade Systems and Operations",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-07-16",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -519,10 +660,13 @@
   {
     "company": "fivecast",
     "role": "data science",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-05-27",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -530,10 +674,13 @@
   {
     "company": "FTI Consulting",
     "role": "Data Analytics",
+    "type": "Internship",
     "location": "NSW, WA",
     "date_applied": null,
+    "deadline": "2026-03-12",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -541,10 +688,13 @@
   {
     "company": "fujitsu",
     "role": "Business Analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "sep",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -552,10 +702,13 @@
   {
     "company": "general motors",
     "role": "Service Operations Business",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "oct",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -563,10 +716,13 @@
   {
     "company": "hatch",
     "role": "Analyst - Advisory",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -574,10 +730,13 @@
   {
     "company": "Heidi Health",
     "role": "Strategy & Data Intern",
+    "type": "Internship",
     "location": "VIC",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -585,10 +744,13 @@
   {
     "company": "IMC",
     "role": "quantitative research",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-06-30",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -596,10 +758,13 @@
   {
     "company": "jpmorganchase",
     "role": "coporate analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-03-27",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -607,10 +772,13 @@
   {
     "company": "KPMG",
     "role": "Forensic Risk - Consulting",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": null,
+    "deadline": "2026-03-10",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -618,10 +786,13 @@
   {
     "company": "loreal",
     "role": "Management Trainee Program \u2013 Data & Analytics Stream",
+    "type": "Graduate Program",
     "location": "VIC",
     "date_applied": null,
+    "deadline": "2026-03-12",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -629,10 +800,13 @@
   {
     "company": "McGrathNicol",
     "role": "Data Analytics",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": null,
+    "deadline": "2026-08-30",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -640,10 +814,13 @@
   {
     "company": "mckinsey & company",
     "role": "business analsyt",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-02-22",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -651,10 +828,13 @@
   {
     "company": "mercedes benz",
     "role": "performance & Insights",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "oct",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -662,10 +842,13 @@
   {
     "company": "moody's corporation",
     "role": "Predictive Analytics Intern",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-04-28",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -673,10 +856,13 @@
   {
     "company": "nab",
     "role": "digital data and ai",
+    "type": "Internship",
     "location": "VIC",
     "date_applied": null,
+    "deadline": "2026-08-09",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -684,10 +870,13 @@
   {
     "company": "NSW government",
     "role": "Data analytics",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -695,10 +884,13 @@
   {
     "company": "nti",
     "role": "Graduate Business Analyst - IT",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "jun",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -706,10 +898,13 @@
   {
     "company": "openmesh",
     "role": "data science or analyst",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "oct",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -717,10 +912,13 @@
   {
     "company": "optiver",
     "role": "quantitative research",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-04-10",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -728,10 +926,13 @@
   {
     "company": "QBE Insurance",
     "role": "data analytics",
+    "type": "Internship",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-08-19",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -739,10 +940,13 @@
   {
     "company": "queensland government digital",
     "role": "Data analytics",
+    "type": "Graduate School",
     "location": "QLD",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -750,10 +954,13 @@
   {
     "company": "shell",
     "role": "business analyst",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "sep",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -761,10 +968,13 @@
   {
     "company": "sportsbet",
     "role": "Graduate Data Scientist Risk & Pricing",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-08-30",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -772,10 +982,13 @@
   {
     "company": "Spotlight Retail Group (SRG)",
     "role": "CRM & Loyalty Analyst",
+    "type": "Full-time",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -783,10 +996,13 @@
   {
     "company": "streem",
     "role": "Junior Media Analyst - Remote",
+    "type": "Full-time",
     "location": "Remote",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -794,10 +1010,13 @@
   {
     "company": "ventia",
     "role": "data science & analysics graduate",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": null,
+    "deadline": "2026-08-16",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -805,10 +1024,13 @@
   {
     "company": "Visa",
     "role": "data science consulting",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -816,10 +1038,13 @@
   {
     "company": "visagio",
     "role": "data & analytics consultant",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-03-24",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -827,10 +1052,13 @@
   {
     "company": "Vistar Media",
     "role": "Analytics Associate",
+    "type": "Full-time",
     "location": "NSW",
     "date_applied": null,
+    "deadline": null,
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -838,10 +1066,13 @@
   {
     "company": "Westpac",
     "role": "Technology (Data)",
+    "type": "Graduate Program",
     "location": "NSW",
     "date_applied": null,
+    "deadline": "2026-08-14",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -849,10 +1080,13 @@
   {
     "company": "westpac",
     "role": "data digital ai",
+    "type": "Graduate Program",
     "location": "QLD",
     "date_applied": null,
+    "deadline": "2026-08-14",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []
@@ -860,10 +1094,13 @@
   {
     "company": "woolworths group",
     "role": "graduate product",
+    "type": "Graduate Program",
     "location": null,
     "date_applied": null,
+    "deadline": "sep",
     "status": null,
     "stage": null,
+    "priority": null,
     "reason": null,
     "next_action": null,
     "answers": []

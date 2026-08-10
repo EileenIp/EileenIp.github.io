@@ -29,12 +29,32 @@
 
   <div class="stats-grid" id="stats-grid" aria-label="Application summary"></div>
 
+  <div class="filters-panel" id="filters-panel" style="display:none;">
+    <div class="filters-row">
+      <input type="search" id="search-input" class="input filters-search" placeholder="Search company or role…" aria-label="Search company or role">
+      <select id="sort-select" class="input filters-sort" aria-label="Sort applications">
+        <option value="date_desc">Applied Date (Newest First)</option>
+        <option value="date_asc">Applied Date (Oldest First)</option>
+        <option value="deadline_asc">Deadline (Soonest First)</option>
+        <option value="status">Status</option>
+        <option value="priority_desc">Priority (High to Low)</option>
+      </select>
+    </div>
+
+    <div id="filter-groups"></div>
+
+    <div class="active-filters" id="active-filters" style="display:none;"></div>
+  </div>
+
   <div class="timeline" id="timeline" aria-label="Application history">
     <div class="timeline-rail"></div>
   </div>
 
   <p id="timeline-empty" class="text-muted" style="display:none; font-size: 13px;">
     No applications yet — add rows to job-applications.xlsx and regenerate the JSON.
+  </p>
+  <p id="filters-empty" class="text-muted" style="display:none; font-size: 13px;">
+    No applications match these filters.
   </p>
   <p id="timeline-error" class="text-muted" style="display:none; font-size: 13px;">
     Couldn't load application data. If you're viewing this file directly (file://), run it through a local server instead — see the README for the command.

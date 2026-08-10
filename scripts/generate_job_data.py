@@ -22,15 +22,17 @@ APPLICATIONS_SHEET = "Applications"
 ANSWERS_SHEET = "Answers"
 
 # Maps xlsx column headers to output JSON keys. Only these columns are used;
-# any other column in the sheet (Salary, Priority, Portal Link, etc.) is
-# ignored for now.
+# any other column in the sheet (Salary, Portal Link, etc.) is ignored for now.
 COLUMN_MAP = {
     "Company": "company",
     "Role / Position": "role",
+    "Type": "type",
     "Location": "location",
     "Applied Date": "date_applied",
+    "Deadline": "deadline",
     "Status": "status",
     "Assessment Stage": "stage",
+    "Priority": "priority",
     "Reason": "reason",
     "Next Action": "next_action",
 }

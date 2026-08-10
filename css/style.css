@@ -330,6 +330,63 @@ footer.site-footer {
 .card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
 .stat-value { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 28px; }
 
+/* — filters — */
+.input {
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--color-text);
+  caret-color: var(--color-accent);
+  background: var(--color-bg);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+}
+.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
+
+.filters-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.filters-row { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.filters-search { flex: 1 1 200px; }
+.filters-sort { flex: 0 1 220px; cursor: pointer; }
+
+.filter-group { display: flex; flex-direction: column; gap: 6px; }
+.filter-group-label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+.filter-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.filter-pill {
+  cursor: pointer;
+  border: 1px solid var(--color-divider);
+  background: transparent;
+  color: var(--color-text);
+  font-family: inherit;
+}
+.filter-pill:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+.filter-pill.selected {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.active-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: var(--space-2); border-top: 1px solid var(--color-divider); }
+.active-filter-count { font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-right: 2px; }
+.active-filter-chip { cursor: pointer; border: 1px solid transparent; }
+.active-filter-chip::after { content: " ×"; }
+
 .timeline { position: relative; }
 .timeline-rail {
   position: absolute;
@@ -378,6 +435,7 @@ footer.site-footer {
 .next-action .card-kicker { font-size: 9px; flex-shrink: 0; }
 .tag-interviewing { background: var(--color-accent-2-800); color: var(--color-accent-2-100); }
 .tag-to-apply { border: 1px dashed var(--color-neutral-400); color: var(--color-neutral-300); }
+.tag-ghosted { background: var(--color-neutral-900); color: var(--color-neutral-400); }
 
 .qa-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
 .qa-btn {
