@@ -1,4 +1,5 @@
 const STATUS_STYLE = {
+  'To Apply': { tagClass: 'tag-to-apply', dot: 'var(--color-neutral-400)' },
   Applied: { tagClass: 'tag-outline', dot: 'var(--color-accent)' },
   Interviewing: { tagClass: 'tag-interviewing', dot: 'var(--color-accent-2)' },
   Offer: { tagClass: 'tag-accent', dot: 'var(--color-accent-300)' },
@@ -8,6 +9,14 @@ const STATUS_STYLE = {
 const DEFAULT_STATUS_STYLE = { tagClass: 'tag-neutral', dot: 'var(--color-neutral-400)' };
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// A blank Status cell means the role hasn't been applied to yet, same as an
+// explicit "To Apply" — unless there's an Applied Date on the row, in which
+// case blank Status just means the field wasn't updated after applying.
+function effectiveStatus(entry) {
+  if (entry.status) return entry.status;
+  return entry.date_applied ? 'Applied' : 'To Apply';
+}
 
 function formatDate(isoDate) {
   if (!isoDate) return 'unknown date';
@@ -19,16 +28,18 @@ function formatDate(isoDate) {
 function computeStats(entries) {
   return {
     total: entries.length,
+    toApply: entries.filter((e) => effectiveStatus(e) === 'To Apply').length,
     interviewing: entries.filter((e) => e.status === 'Interviewing').length,
     rejected: entries.filter((e) => e.status === 'Rejected').length,
     withdrawn: entries.filter((e) => e.status === 'Withdrawn').length,
-    active: entries.filter((e) => e.status === 'Applied').length,
+    active: entries.filter((e) => effectiveStatus(e) === 'Applied').length,
   };
 }
 
 function renderStats(stats) {
   const grid = document.getElementById('stats-grid');
   const tiles = [
+    ['To Apply', stats.toApply],
     ['Applied', stats.total],
     ['Interviewing', stats.interviewing],
     ['Rejected', stats.rejected],
@@ -53,14 +64,17 @@ function renderStats(stats) {
 }
 
 function metaLine(parts) {
+  const text = parts.filter(Boolean).join(' · ');
+  if (!text) return null;
   const div = document.createElement('div');
   div.className = 'card-meta';
-  div.textContent = parts.filter(Boolean).join(' · ');
+  div.textContent = text;
   return div;
 }
 
 function renderEntry(entry) {
-  const style = STATUS_STYLE[entry.status] || DEFAULT_STATUS_STYLE;
+  const status = effectiveStatus(entry);
+  const style = STATUS_STYLE[status] || DEFAULT_STATUS_STYLE;
 
   const row = document.createElement('div');
   row.className = 'timeline-entry';
@@ -82,16 +96,25 @@ function renderEntry(entry) {
   const title = document.createElement('div');
   title.className = 'card-title';
   title.textContent = entry.role || 'Untitled role';
-  titleBlock.append(title, metaLine([entry.company, entry.location]));
+  titleBlock.append(title);
+  const companyMeta = metaLine([entry.company, entry.location]);
+  if (companyMeta) titleBlock.append(companyMeta);
 
   const tag = document.createElement('span');
   tag.className = `tag ${style.tagClass}`;
   tag.style.flex = 'none';
-  tag.textContent = entry.status || 'Unknown';
+  tag.textContent = status;
 
   head.append(titleBlock, tag);
   card.append(head);
-  card.append(metaLine([`Applied ${formatDate(entry.date_applied)}`, entry.stage ? `Stage: ${entry.stage}` : null]));
+
+  const dateFragment = entry.date_applied
+    ? `Applied ${formatDate(entry.date_applied)}`
+    : status === 'To Apply'
+      ? 'Not yet applied'
+      : null;
+  const dateMeta = metaLine([dateFragment, entry.stage ? `Stage: ${entry.stage}` : null]);
+  if (dateMeta) card.append(dateMeta);
 
   if (entry.reason) {
     const reason = document.createElement('p');

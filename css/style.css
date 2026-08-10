@@ -377,6 +377,7 @@ footer.site-footer {
 }
 .next-action .card-kicker { font-size: 9px; flex-shrink: 0; }
 .tag-interviewing { background: var(--color-accent-2-800); color: var(--color-accent-2-100); }
+.tag-to-apply { border: 1px dashed var(--color-neutral-400); color: var(--color-neutral-300); }
 
 .qa-row { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
 .qa-btn {

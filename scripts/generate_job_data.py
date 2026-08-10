@@ -50,8 +50,10 @@ def clean(value):
     if isinstance(value, str):
         value = value.strip()
         return value or None
-    if hasattr(value, "isoformat"):
-        return value.isoformat()
+    if hasattr(value, "strftime"):
+        # date/datetime cell (Excel stores dates as datetimes even with no
+        # time component) — keep it a plain YYYY-MM-DD, not a full timestamp.
+        return value.strftime("%Y-%m-%d")
     return value
 
 
