@@ -3,68 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Application Timeline — Job Search</title>
-<meta name="description" content="A running log of every job application, most recent first.">
+<title>Applications — Job Search</title>
+<meta name="description" content="Job application tracker — filterable card grid.">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <span class="nav-brand">Eileen Ip</span>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="job-tracker.html" aria-current="page">Job Tracker</a>
-      <a href="progress.html">Progress</a>
-    </div>
-  </nav>
-</header>
-
-<main class="tracker container-narrow">
-  <div class="tracker-header">
-    <span class="kicker">Job Search</span>
-    <h1>Application Timeline</h1>
-    <p class="text-muted">A running log of every role I've applied to, most recent first.</p>
-  </div>
-
-  <div class="stats-grid" id="stats-grid" aria-label="Application summary"></div>
-
-  <div class="filters-panel" id="filters-panel" style="display:none;">
-    <div class="filters-row">
-      <input type="search" id="search-input" class="input filters-search" placeholder="Search company or role…" aria-label="Search company or role">
-      <select id="sort-select" class="input filters-sort" aria-label="Sort applications">
-        <option value="date_desc">Applied Date (Newest First)</option>
-        <option value="date_asc">Applied Date (Oldest First)</option>
-        <option value="deadline_asc">Deadline (Soonest First)</option>
-        <option value="status">Status</option>
-        <option value="priority_desc">Priority (High to Low)</option>
-      </select>
+<header class="jt-header">
+  <div class="container-wide">
+    <div class="jt-title-row">
+      <div>
+        <span class="kicker">Job Search</span>
+        <h1>Applications</h1>
+      </div>
+      <div class="jt-summary" id="jt-summary" aria-live="polite"></div>
     </div>
 
-    <div id="filter-groups"></div>
+    <div class="jt-fields-row">
+      <div class="field">
+        <label for="f-company">Company</label>
+        <input type="text" id="f-company" class="input" placeholder="Search company">
+      </div>
+      <div class="field">
+        <label for="f-role">Job position</label>
+        <input type="text" id="f-role" class="input" placeholder="Search role">
+      </div>
+      <div class="field">
+        <label for="f-from">Applied from</label>
+        <input type="date" id="f-from" class="input">
+      </div>
+      <div class="field">
+        <label for="f-to">Applied to</label>
+        <input type="date" id="f-to" class="input">
+      </div>
+    </div>
+
+    <div class="jt-filter-groups" id="filter-groups"></div>
 
     <div class="active-filters" id="active-filters" style="display:none;"></div>
   </div>
+</header>
 
-  <div class="timeline" id="timeline" aria-label="Application history">
-    <div class="timeline-rail"></div>
+<main>
+  <div class="jt-body">
+    <div class="jt-grid" id="jt-grid"></div>
+
+    <div class="jt-empty" id="jt-empty" style="display:none;">
+      <p class="text-muted" style="font-size: 14px;">No applications match these filters.</p>
+      <button type="button" class="btn btn-secondary" id="jt-empty-clear">Clear all filters</button>
+    </div>
+
+    <p id="jt-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+      No applications yet — add rows to job-applications.xlsx and regenerate the JSON.
+    </p>
+    <p id="jt-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+      Couldn't load application data. If you're viewing this file directly (file://), run it through a local server instead — see the README for the command.
+    </p>
   </div>
-
-  <p id="timeline-empty" class="text-muted" style="display:none; font-size: 13px;">
-    No applications yet — add rows to job-applications.xlsx and regenerate the JSON.
-  </p>
-  <p id="filters-empty" class="text-muted" style="display:none; font-size: 13px;">
-    No applications match these filters.
-  </p>
-  <p id="timeline-error" class="text-muted" style="display:none; font-size: 13px;">
-    Couldn't load application data. If you're viewing this file directly (file://), run it through a local server instead — see the README for the command.
-  </p>
 </main>
 
 <div class="dialog-backdrop" id="qa-backdrop">
   <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="qa-title">
     <div class="dialog-head">
-      <div id="qa-title" class="dialog-title">Saved answers</div>
+      <div>
+        <div class="card-kicker">Saved answers</div>
+        <div id="qa-title" class="dialog-title">Company</div>
+        <div id="qa-subtitle" class="card-meta" style="margin-top: 2px;">Role</div>
+      </div>
       <button type="button" class="btn btn-secondary btn-icon" id="qa-close" aria-label="Close">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
       </button>

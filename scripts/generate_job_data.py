@@ -4,9 +4,10 @@ Usage:
     python scripts/generate_job_data.py
 
 Reads the "Applications" and "Answers" sheets of job-applications.xlsx (in the
-repo root) and writes data/job-applications.json, sorted by Applied Date
-descending. Each entry gets an "answers" array nested in from the Answers
-sheet, matched by Company + Role / Position.
+repo root) and writes data/job-applications.json, sorted alphabetically by
+company (the grid itself re-sorts client-side by most-recently-updated).
+Each entry gets an "answers" array nested in from the Answers sheet, matched
+by Company + Role / Position.
 """
 
 import json
@@ -28,10 +29,14 @@ COLUMN_MAP = {
     "Role / Position": "role",
     "Type": "type",
     "Location": "location",
+    "Open Date": "open_date",
     "Applied Date": "date_applied",
     "Deadline": "deadline",
+    "Interview Date": "interview_date",
     "Status": "status",
+    "Outcome Date": "outcome_date",
     "Assessment Stage": "stage",
+    "Start Date": "start_date",
     "Priority": "priority",
     "Reason": "reason",
     "Next Action": "next_action",
@@ -129,7 +134,7 @@ def main():
         matched_answer_keys.add(key)
         entries.append(entry)
 
-    entries.sort(key=lambda e: e["date_applied"] or "", reverse=True)
+    entries.sort(key=lambda e: (e["company"] or "").lower())
 
     orphaned = set(answers_by_key) - matched_answer_keys
     if orphaned:
