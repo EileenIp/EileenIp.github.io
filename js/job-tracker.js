@@ -46,7 +46,7 @@ function formatFlexibleDate(raw) {
 
 let allEntries = [];
 const activeFilters = { status: new Set(), type: new Set(), location: new Set() };
-const excludedStatus = new Set();
+const excludedFilters = { status: new Set(), type: new Set(), location: new Set() };
 let companyQuery = '';
 let roleQuery = '';
 let dateFrom = '';
@@ -82,13 +82,16 @@ function entryMatchesFilters(entry) {
     if (dateTo && entry.date_applied > dateTo) return false;
   }
 
-  if (excludedStatus.size && excludedStatus.has(effectiveStatus(entry))) return false;
-  if (activeFilters.status.size && !activeFilters.status.has(effectiveStatus(entry))) return false;
+  const status = effectiveStatus(entry);
+  if (excludedFilters.status.has(status)) return false;
+  if (activeFilters.status.size && !activeFilters.status.has(status)) return false;
+
+  if (excludedFilters.type.has(entry.type)) return false;
   if (activeFilters.type.size && !activeFilters.type.has(entry.type)) return false;
-  if (activeFilters.location.size) {
-    const locs = getEntryLocations(entry);
-    if (!locs.some((l) => activeFilters.location.has(l))) return false;
-  }
+
+  const locs = getEntryLocations(entry);
+  if (locs.some((l) => excludedFilters.location.has(l))) return false;
+  if (activeFilters.location.size && !locs.some((l) => activeFilters.location.has(l))) return false;
 
   return true;
 }
@@ -108,30 +111,21 @@ function syncFilterPillStates() {
     const key = pill.dataset.filterKey;
     const value = pill.dataset.filterValue;
     pill.classList.toggle('selected', activeFilters[key].has(value));
-    pill.classList.toggle('excluded', key === 'status' && excludedStatus.has(value));
+    pill.classList.toggle('excluded', excludedFilters[key].has(value));
   });
 }
 
-function toggleFilter(key, value) {
-  const set = activeFilters[key];
-  if (set.has(value)) {
-    set.delete(value);
+// Three-state cycle per pill: neutral -> include -> exclude -> neutral.
+function cycleFilter(key, value) {
+  const included = activeFilters[key];
+  const excluded = excludedFilters[key];
+  if (included.has(value)) {
+    included.delete(value);
+    excluded.add(value);
+  } else if (excluded.has(value)) {
+    excluded.delete(value);
   } else {
-    set.add(value);
-    if (key === 'status') excludedStatus.delete(value);
-  }
-  syncFilterPillStates();
-  renderGridView();
-}
-
-// Double click a status pill to exclude it (hide that status) instead of
-// including it. Excluding always wins over an include on the same value.
-function toggleStatusExclude(value) {
-  if (excludedStatus.has(value)) {
-    excludedStatus.delete(value);
-  } else {
-    excludedStatus.add(value);
-    activeFilters.status.delete(value);
+    included.add(value);
   }
   syncFilterPillStates();
   renderGridView();
@@ -142,17 +136,17 @@ function removeFilter(key, value) {
   else if (key === 'role') { roleQuery = ''; document.getElementById('f-role').value = ''; }
   else if (key === 'from') { dateFrom = ''; document.getElementById('f-from').value = ''; }
   else if (key === 'to') { dateTo = ''; document.getElementById('f-to').value = ''; }
-  else if (key === 'status-exclude') { excludedStatus.delete(value); }
+  else if (key.endsWith('-exclude')) { excludedFilters[key.slice(0, -'-exclude'.length)].delete(value); }
   else { activeFilters[key].delete(value); }
   syncFilterPillStates();
   renderGridView();
 }
 
 function clearAllFilters() {
-  activeFilters.status.clear();
-  activeFilters.type.clear();
-  activeFilters.location.clear();
-  excludedStatus.clear();
+  for (const key of ['status', 'type', 'location']) {
+    activeFilters[key].clear();
+    excludedFilters[key].clear();
+  }
   companyQuery = '';
   roleQuery = '';
   dateFrom = '';
@@ -192,25 +186,8 @@ function renderFilterGroups(options) {
       pill.textContent = value;
       pill.dataset.filterKey = key;
       pill.dataset.filterValue = value;
-      pill.title = key === 'status' ? 'Click to show only this status. Double-click to hide it.' : '';
-
-      if (key === 'status') {
-        // Delay the single-click action briefly so a second click (double-click,
-        // which fires two click events before dblclick) can cancel it instead of
-        // both toggles firing and flickering through include -> none -> exclude.
-        let clickTimer = null;
-        pill.addEventListener('click', () => {
-          clearTimeout(clickTimer);
-          clickTimer = setTimeout(() => toggleFilter(key, value), 220);
-        });
-        pill.addEventListener('dblclick', () => {
-          clearTimeout(clickTimer);
-          toggleStatusExclude(value);
-        });
-      } else {
-        pill.addEventListener('click', () => toggleFilter(key, value));
-      }
-
+      pill.title = 'Click to show only this. Click again to hide it. Click again to clear.';
+      pill.addEventListener('click', () => cycleFilter(key, value));
       pillsWrap.append(pill);
     }
     group.append(pillsWrap);
@@ -229,8 +206,8 @@ function renderActiveFilters() {
   if (dateTo) chips.push({ key: 'to', label: `To ${formatDate(dateTo)}` });
   for (const key of ['status', 'type', 'location']) {
     for (const value of activeFilters[key]) chips.push({ key, value, label: value });
+    for (const value of excludedFilters[key]) chips.push({ key: `${key}-exclude`, value, label: `Not ${value}` });
   }
-  for (const value of excludedStatus) chips.push({ key: 'status-exclude', value, label: `Not ${value}` });
 
   if (chips.length === 0) {
     wrap.style.display = 'none';
