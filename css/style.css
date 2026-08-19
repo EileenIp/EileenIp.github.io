@@ -356,6 +356,12 @@ footer.site-footer {
   color: var(--color-accent);
   background: color-mix(in srgb, var(--color-accent) 12%, transparent);
 }
+.filter-pill.excluded {
+  border-color: var(--color-neutral-600);
+  color: var(--color-neutral-500);
+  background: color-mix(in srgb, var(--color-text) 4%, transparent);
+  text-decoration: line-through;
+}
 
 .active-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: var(--space-3); border-top: 1px solid var(--color-divider); margin-top: var(--space-3); }
 .active-filter-count { font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-right: 2px; }
