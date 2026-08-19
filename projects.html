@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Case Studies</title>
+<meta name="description" content="Filterable case study grid — data analytics and machine learning projects.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <span class="nav-brand">Eileen Ip</span>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="progress.html">Progress</a>
+    </div>
+  </nav>
+</header>
+
+<div class="jt-header">
+  <div class="container-wide">
+    <div class="jt-title-row">
+      <div>
+        <span class="kicker">Case Studies</span>
+        <h1>Projects</h1>
+      </div>
+      <div class="jt-summary" id="proj-summary" aria-live="polite"></div>
+    </div>
+
+    <div class="jt-fields-row">
+      <div class="field">
+        <label for="f-year-from">Year from</label>
+        <input type="number" id="f-year-from" class="input" placeholder="2023">
+      </div>
+      <div class="field">
+        <label for="f-year-to">Year to</label>
+        <input type="number" id="f-year-to" class="input" placeholder="2026">
+      </div>
+    </div>
+
+    <div class="jt-filter-groups" id="filter-groups"></div>
+
+    <div class="active-filters" id="active-filters" style="display:none;"></div>
+  </div>
+</div>
+
+<main>
+  <div class="jt-body">
+    <div class="proj-grid" id="proj-grid"></div>
+
+    <div class="jt-empty" id="proj-empty" style="display:none;">
+      <p class="text-muted" style="font-size: 14px;">No projects match these filters.</p>
+      <button type="button" class="btn btn-secondary" id="proj-empty-clear">Clear all filters</button>
+    </div>
+
+    <p id="proj-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+      No projects yet — add entries to data/projects.json (the tools/project-entry-form.html tool can help build it).
+    </p>
+    <p id="proj-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+      Couldn't load project data. If you're viewing this file directly (file://), run it through a local server instead.
+    </p>
+  </div>
+</main>
+
+<div class="dialog-backdrop" id="proj-backdrop">
+  <div class="dialog" id="proj-dialog" role="dialog" aria-modal="true" aria-labelledby="proj-title">
+    <div class="dialog-head">
+      <div>
+        <div class="card-kicker" id="proj-role">Target industry / role</div>
+        <div id="proj-title" class="dialog-title">Project title</div>
+        <div id="proj-onesentence" class="card-meta" style="margin-top: 4px;">One-sentence description</div>
+      </div>
+      <button type="button" class="btn btn-secondary btn-icon" id="proj-close" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <div id="proj-body"></div>
+  </div>
+</div>
+
+<script src="js/projects.js"></script>
+</body>
+</html>
