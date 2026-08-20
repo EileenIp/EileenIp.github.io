@@ -1,14 +1,12 @@
 const ARROW_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>';
 const CHEVRON_PATH = 'M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z';
 
-// Long-text sections shown collapsed in the modal, in display order.
-const COLLAPSIBLE_SECTIONS = [
-  ['problemSpace', 'Problem Space'],
-  ['discovery', 'Discovery'],
-  ['execution', 'Execution'],
-  ['results', 'Results'],
-  ['recommendations', 'Recommendations'],
-];
+// Long-text sections shown collapsed in the modal, in display order. Each
+// entry optionally names a `visuals` section key whose charts render inside
+// that section's body. Every SPIDER section is now a standalone
+// always-visible section instead (see renderProjectBody) — this stays
+// empty but in place in case a future section wants the collapsed treatment.
+const COLLAPSIBLE_SECTIONS = [];
 
 // Footer links, in display order. caseStudyPage isn't in the original spec's
 // 4 named links, but rather than drop it silently if a project has one, it
@@ -310,7 +308,7 @@ function initFilterControls() {
 
 // — Case study modal —
 
-function appendCollapsible(container, label, text) {
+function appendCollapsible(container, label, text, extraNode) {
   if (!text) return;
   const details = document.createElement('details');
 
@@ -335,56 +333,386 @@ function appendCollapsible(container, label, text) {
   body.textContent = text;
 
   details.append(summary, body);
+  if (extraNode) details.append(extraNode);
   container.append(details);
 }
 
-function renderInputsList(inputs) {
-  const fields = [
-    ['primarySource', 'Primary source'],
-    ['size', 'Size'],
-    ['format', 'Format'],
-    ['collectionMethod', 'Collection method'],
-    ['targetVariable', 'Target variable'],
-    ['keyPredictors', 'Key predictors'],
-  ];
-  const present = fields.filter(([key]) => inputs[key]);
-  if (present.length === 0) return null;
+// `neutral` gives a muted gray border/label instead of the accent color —
+// used for lower-emphasis callouts like Dead Ends vs. Data Quality.
+function renderCallout(data, neutral) {
+  if (!data || !data.items || data.items.length === 0) return null;
 
-  const dl = document.createElement('dl');
-  dl.className = 'proj-dl';
-  for (const [key, label] of present) {
-    const dt = document.createElement('dt');
-    dt.textContent = label;
-    const dd = document.createElement('dd');
-    dd.textContent = inputs[key];
-    dl.append(dt, dd);
+  const box = document.createElement('div');
+  box.className = 'viz-callout' + (neutral ? ' neutral' : '');
+
+  if (data.label) {
+    const label = document.createElement('div');
+    label.className = 'viz-callout-label';
+    label.textContent = data.label;
+    box.append(label);
   }
-  return dl;
+
+  const ul = document.createElement('ul');
+  for (const item of data.items) {
+    const li = document.createElement('li');
+    appendRichText(li, item);
+    ul.append(li);
+  }
+  box.append(ul);
+  return box;
 }
 
-function renderVisualsGrid(visuals) {
-  if (!visuals || visuals.length === 0) return null;
+function renderInputsSection(inputs) {
+  if (!inputs) return null;
+  const wrap = document.createElement('div');
+
+  if (inputs.description) appendParagraphs(wrap, inputs.description);
+
+  const statsGrid = renderSummaryMetrics(inputs.stats);
+  if (statsGrid) wrap.append(statsGrid);
+
+  const callout = renderCallout(inputs.dataQuality, false);
+  if (callout) wrap.append(callout);
+
+  if (inputs.closingNote) appendParagraphs(wrap, inputs.closingNote);
+
+  return wrap;
+}
+
+function renderSummaryMetrics(metrics) {
+  if (!metrics || metrics.length === 0) return null;
+
+  const grid = document.createElement('div');
+  grid.className = 'viz-stats-grid';
+  for (const metric of metrics) {
+    const cell = document.createElement('div');
+    cell.className = 'viz-stat';
+
+    const value = document.createElement('div');
+    value.className = 'viz-stat-value' + (metric.highlight ? ' highlight' : '');
+    value.append(document.createTextNode(metric.value));
+    if (metric.unit) {
+      const unit = document.createElement('span');
+      unit.className = 'viz-stat-unit';
+      unit.textContent = metric.unit;
+      value.append(unit);
+    }
+
+    const label = document.createElement('div');
+    label.className = 'viz-stat-label';
+    label.textContent = metric.label;
+
+    cell.append(value, label);
+    grid.append(cell);
+  }
+  return grid;
+}
+
+function buildChartCard(visual) {
+  const card = document.createElement('div');
+  card.className = 'viz-card';
+
+  if (visual.label) {
+    const label = document.createElement('div');
+    label.className = 'viz-card-label';
+    label.textContent = visual.label;
+    card.append(label);
+  }
+
+  // SVG markup is authored data from this site's own projects.json, not
+  // third-party input — safe to insert directly, and far simpler than
+  // rebuilding each chart's shapes via createElementNS.
+  const svgWrap = document.createElement('div');
+  svgWrap.innerHTML = visual.svg || '';
+  card.append(svgWrap.firstElementChild || svgWrap);
+
+  if (visual.caption) {
+    const caption = document.createElement('div');
+    caption.className = 'viz-caption';
+    caption.textContent = visual.caption;
+    card.append(caption);
+  }
+
+  return card;
+}
+
+function renderVisualsGrid(visuals, section) {
+  const filtered = (visuals || []).filter((v) => v.section === section);
+  if (filtered.length === 0) return null;
 
   const grid = document.createElement('div');
   grid.className = 'viz-grid';
-  for (const visual of visuals) {
+  for (const visual of filtered) {
+    grid.append(buildChartCard(visual));
+  }
+  return grid;
+}
+
+function buildCategoryLeaderCard(data) {
+  if (!data) return null;
+  const card = document.createElement('div');
+  card.className = 'viz-card';
+
+  if (data.label) {
+    const label = document.createElement('div');
+    label.className = 'viz-card-label';
+    label.textContent = data.label;
+    card.append(label);
+  }
+
+  if (data.heading) {
+    const heading = document.createElement('div');
+    heading.className = 'viz-highlight-heading';
+    heading.textContent = data.heading;
+    card.append(heading);
+  }
+
+  if (data.stats && data.stats.length > 0) {
+    const row = document.createElement('div');
+    row.className = 'viz-stat-row';
+    for (const stat of data.stats) {
+      const cell = document.createElement('div');
+      const value = document.createElement('div');
+      value.className = 'viz-stat-row-value';
+      value.textContent = stat.value;
+      const label = document.createElement('div');
+      label.className = 'viz-stat-row-label';
+      label.textContent = stat.label;
+      cell.append(value, label);
+      row.append(cell);
+    }
+    card.append(row);
+  }
+
+  if (data.description) {
+    const desc = document.createElement('div');
+    desc.className = 'viz-caption';
+    desc.textContent = data.description;
+    card.append(desc);
+  }
+
+  return card;
+}
+
+function buildPriceBehaviourCard(data) {
+  if (!data) return null;
+  const card = document.createElement('div');
+  card.className = 'viz-card';
+
+  if (data.label) {
+    const label = document.createElement('div');
+    label.className = 'viz-card-label';
+    label.textContent = data.label;
+    card.append(label);
+  }
+
+  const row = document.createElement('div');
+  row.className = 'viz-price-row';
+
+  function pricePair(point, accent) {
+    const pair = document.createElement('div');
+    pair.className = 'viz-price-pair';
+    const value = document.createElement('div');
+    value.className = 'viz-price-value' + (accent ? ' accent' : '');
+    value.textContent = point.value;
+    const label = document.createElement('div');
+    label.className = 'viz-price-label';
+    label.textContent = point.label;
+    const stack = document.createElement('div');
+    stack.append(value, label);
+    pair.append(stack);
+    return pair;
+  }
+
+  if (data.from) row.append(pricePair(data.from, false));
+  if (data.from && data.to) {
+    const arrow = document.createElement('div');
+    arrow.className = 'viz-price-arrow';
+    arrow.textContent = '→';
+    row.append(arrow);
+  }
+  if (data.to) row.append(pricePair(data.to, true));
+  if (data.description) {
+    const desc = document.createElement('div');
+    desc.className = 'viz-price-desc';
+    desc.textContent = data.description;
+    row.append(desc);
+  }
+
+  card.append(row);
+  return card;
+}
+
+function renderMethodGrid(methodology) {
+  if (!methodology || methodology.length === 0) return null;
+
+  const grid = document.createElement('div');
+  grid.className = 'method-grid';
+  for (const item of methodology) {
     const card = document.createElement('div');
     card.className = 'viz-card';
 
-    // SVG markup is authored data from this site's own projects.json, not
-    // third-party input — safe to insert directly, and far simpler than
-    // rebuilding each chart's shapes via createElementNS.
-    const svgWrap = document.createElement('div');
-    svgWrap.innerHTML = visual.svg || '';
-    card.append(svgWrap.firstElementChild || svgWrap);
+    const title = document.createElement('div');
+    title.className = 'method-card-title';
+    title.textContent = item.heading;
+    card.append(title);
 
-    if (visual.caption) {
-      const caption = document.createElement('div');
-      caption.className = 'viz-caption';
-      caption.textContent = visual.caption;
-      card.append(caption);
+    const desc = document.createElement('div');
+    desc.className = 'method-card-desc';
+    appendRichText(desc, item.description);
+    card.append(desc);
+
+    grid.append(card);
+  }
+  return grid;
+}
+
+function buildShapCard(data) {
+  if (!data || !data.items || data.items.length === 0) return null;
+  const card = document.createElement('div');
+  card.className = 'viz-card';
+
+  if (data.label) {
+    const label = document.createElement('div');
+    label.className = 'viz-card-label';
+    label.textContent = data.label;
+    card.append(label);
+  }
+
+  const list = document.createElement('div');
+  list.className = 'shap-list';
+  for (const item of data.items) {
+    const row = document.createElement('div');
+    row.className = 'shap-row';
+
+    const icon = document.createElement('div');
+    icon.className = 'shap-icon' + (item.weak ? ' weak' : '');
+    icon.textContent = item.direction === 'down' ? '↓' : '↑';
+
+    const text = document.createElement('div');
+    text.className = 'shap-text';
+    appendRichText(text, item.text);
+
+    row.append(icon, text);
+    list.append(row);
+  }
+  card.append(list);
+  return card;
+}
+
+function renderRecommendations(data) {
+  if (!data) return null;
+  const wrap = document.createElement('div');
+
+  if (data.items && data.items.length > 0) {
+    for (const rec of data.items) {
+      const row = document.createElement('div');
+      row.className = 'recommendation-row';
+
+      const tag = document.createElement('div');
+      tag.className = 'recommendation-tag';
+      tag.textContent = rec.tag;
+
+      const text = document.createElement('div');
+      text.className = 'recommendation-text';
+      appendRichText(text, rec.text);
+
+      row.append(tag, text);
+      wrap.append(row);
     }
+  }
 
+  if (data.limitations || data.nextSteps) {
+    const grid = document.createElement('div');
+    grid.className = 'note-grid';
+    for (const [heading, text] of [['Limitations', data.limitations], ['Next steps', data.nextSteps]]) {
+      if (!text) continue;
+      const note = document.createElement('div');
+      const title = document.createElement('div');
+      title.className = 'note-title';
+      title.textContent = heading;
+      const body = document.createElement('div');
+      body.className = 'note-text';
+      appendRichText(body, text);
+      note.append(title, body);
+      grid.append(note);
+    }
+    wrap.append(grid);
+  }
+
+  return wrap;
+}
+
+// Minimal markdown support for narrative text fields — **bold** becomes
+// <strong>, `code` becomes <code>, everything else stays plain text (still
+// injection-safe: only textContent/createElement are used, never innerHTML,
+// so no other markup can sneak in through the JSON).
+function appendRichText(container, text) {
+  const regex = /\*\*(.+?)\*\*|`(.+?)`/g;
+  let lastIndex = 0;
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      container.append(document.createTextNode(text.slice(lastIndex, match.index)));
+    }
+    if (match[1] !== undefined) {
+      const strong = document.createElement('strong');
+      strong.textContent = match[1];
+      container.append(strong);
+    } else {
+      const code = document.createElement('code');
+      code.textContent = match[2];
+      container.append(code);
+    }
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < text.length) container.append(document.createTextNode(text.slice(lastIndex)));
+}
+
+// Appends one <p class="dialog-body-text"> per blank-line-separated
+// paragraph in `text`, each supporting the markup appendRichText handles.
+function appendParagraphs(container, text) {
+  for (const paragraph of text.split(/\n\s*\n/)) {
+    if (!paragraph.trim()) continue;
+    const p = document.createElement('p');
+    p.className = 'dialog-body-text';
+    appendRichText(p, paragraph.trim());
+    container.append(p);
+  }
+}
+
+function appendSectionHeading(container, text, headline) {
+  const heading = document.createElement('div');
+  heading.className = 'section-label dialog-section-heading';
+  heading.textContent = text;
+  container.append(heading);
+
+  if (headline) {
+    const headlineEl = document.createElement('div');
+    headlineEl.className = 'dialog-section-headline';
+    headlineEl.textContent = headline;
+    container.append(headlineEl);
+  }
+}
+
+function renderStakeholders(stakeholders) {
+  if (!stakeholders || stakeholders.length === 0) return null;
+
+  const grid = document.createElement('div');
+  grid.className = 'stakeholder-grid';
+  for (const s of stakeholders) {
+    const card = document.createElement('div');
+    card.className = 'stakeholder-card';
+
+    const role = document.createElement('div');
+    role.className = 'stakeholder-role';
+    role.textContent = s.role;
+
+    const desc = document.createElement('div');
+    desc.className = 'stakeholder-desc';
+    desc.textContent = s.description;
+
+    card.append(role, desc);
     grid.append(card);
   }
   return grid;
@@ -393,34 +721,97 @@ function renderVisualsGrid(visuals) {
 function renderProjectBody(project) {
   const body = document.getElementById('proj-body');
   body.replaceChildren();
+  const headlines = project.sectionHeadlines || {};
 
-  if (project.summaryImpact) {
-    const p = document.createElement('p');
-    p.className = 'dialog-body-text';
-    p.textContent = project.summaryImpact;
-    body.append(p);
+  // — Summary Impact —
+  appendSectionHeading(body, 'Summary Impact', headlines.summaryImpact);
+  if (project.summaryImpact) appendParagraphs(body, project.summaryImpact);
+
+  const metricsGrid = renderSummaryMetrics(project.summaryMetrics);
+  if (metricsGrid) body.append(metricsGrid);
+
+  const summaryVisuals = renderVisualsGrid(project.visuals, 'summary');
+  if (summaryVisuals) body.append(summaryVisuals);
+
+  // — Problem Space —
+  if (project.problemSpace) {
+    appendSectionHeading(body, 'Problem Space', headlines.problemSpace);
+    appendParagraphs(body, project.problemSpace);
+    const stakeholders = renderStakeholders(project.stakeholders);
+    if (stakeholders) body.append(stakeholders);
   }
 
-  const visualsGrid = renderVisualsGrid(project.visuals);
-  if (visualsGrid) body.append(visualsGrid);
-
+  // — Inputs (Data sources) —
   if (project.inputs) {
-    const inputsList = renderInputsList(project.inputs);
-    if (inputsList) {
-      const wrap = document.createElement('div');
-      wrap.style.margin = 'var(--space-3) 0';
-      const label = document.createElement('div');
-      label.className = 'label-xs';
-      label.style.marginBottom = '6px';
-      label.textContent = 'Inputs';
-      wrap.append(label, inputsList);
-      body.append(wrap);
+    const inputsSection = renderInputsSection(project.inputs);
+    if (inputsSection) {
+      appendSectionHeading(body, 'Inputs (Data sources)', headlines.inputs);
+      body.append(inputsSection);
     }
   }
 
+  // — Discovery —
+  const hourChart = (project.visuals || []).find((v) => v.section === 'discovery');
+  const categoryLeaderCard = buildCategoryLeaderCard(project.categoryLeader);
+  if (hourChart || categoryLeaderCard) {
+    appendSectionHeading(body, 'Discovery', headlines.discovery);
+    const topRow = document.createElement('div');
+    topRow.className = 'viz-grid';
+    if (hourChart) topRow.append(buildChartCard(hourChart));
+    if (categoryLeaderCard) topRow.append(categoryLeaderCard);
+    body.append(topRow);
+  }
+
+  const priceBehaviourCard = buildPriceBehaviourCard(project.priceBehaviour);
+  if (priceBehaviourCard) body.append(priceBehaviourCard);
+
+  const deadEndsCallout = renderCallout(project.deadEnds, true);
+  if (deadEndsCallout) body.append(deadEndsCallout);
+
+  // — Execution —
+  const methodGrid = renderMethodGrid(project.methodology);
+  const ablationChart = (project.visuals || []).find((v) => v.section === 'execution');
+  if (methodGrid || ablationChart) {
+    appendSectionHeading(body, 'Execution', headlines.execution);
+    if (methodGrid) body.append(methodGrid);
+    if (ablationChart) body.append(buildChartCard(ablationChart));
+  }
+
+  // — Results & Recommendations —
+  const shapCard = buildShapCard(project.shapDrivers);
+  const resultsCharts = (project.visuals || []).filter((v) => v.section === 'results');
+  const rocChart = resultsCharts.find((v) => v.id === 'roc-generalization');
+  const segmentsChart = resultsCharts.find((v) => v.id === 'segments');
+
+  if (shapCard || rocChart || segmentsChart || project.recommendations) {
+    appendSectionHeading(body, 'Results', headlines.results);
+
+    if (shapCard || rocChart) {
+      const topRow = document.createElement('div');
+      topRow.className = 'viz-grid';
+      if (shapCard) topRow.append(shapCard);
+      if (rocChart) topRow.append(buildChartCard(rocChart));
+      body.append(topRow);
+    }
+
+    if (segmentsChart) body.append(buildChartCard(segmentsChart));
+
+    if (project.recommendations) {
+      const recHeading = document.createElement('div');
+      recHeading.className = 'viz-highlight-heading';
+      recHeading.style.marginTop = 'var(--space-4)';
+      recHeading.textContent = 'Recommendations';
+      body.append(recHeading);
+      body.append(renderRecommendations(project.recommendations));
+    }
+  }
+
+  // — Remaining long-text sections, still collapsed, each carrying its own charts —
   const collapsibleWrap = document.createElement('div');
-  for (const [key, label] of COLLAPSIBLE_SECTIONS) {
-    appendCollapsible(collapsibleWrap, label, project[key]);
+  collapsibleWrap.style.marginTop = 'var(--space-4)';
+  for (const [key, label, visualsSection] of COLLAPSIBLE_SECTIONS) {
+    const extra = visualsSection ? renderVisualsGrid(project.visuals, visualsSection) : null;
+    appendCollapsible(collapsibleWrap, label, project[key], extra);
   }
   body.append(collapsibleWrap);
 
