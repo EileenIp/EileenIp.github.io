@@ -635,7 +635,8 @@ details[open] .collapsible-chevron { transform: rotate(90deg); }
 /* — limitations / next steps — */
 .note-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
 .note-title { font-family: var(--font-heading); font-weight: 600; font-size: 13px; margin-bottom: 6px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
-.note-text { font-size: 13px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); }
+.note-text { font-size: 13px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; padding-left: 16px; }
+.note-text li + li { margin-top: 4px; }
 
 .viz-fill-text { fill: var(--color-text); }
 .viz-fill-text-soft { fill: color-mix(in srgb, var(--color-text) 85%, transparent); }
@@ -780,4 +781,35 @@ details[open] .year-chevron { transform: rotate(90deg); }
   .jt-body { padding-left: 24px; padding-right: 24px; }
   .jt-grid { grid-template-columns: 1fr; }
   .proj-grid { grid-template-columns: 1fr; }
+}
+
+@media print {
+  body * { visibility: hidden; }
+  .dialog-backdrop.open, .dialog-backdrop.open * { visibility: visible; }
+  .dialog-backdrop.open {
+    position: absolute;
+    inset: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    background: none;
+    display: block;
+  }
+  .dialog-backdrop.open .dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    overflow: visible;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  #proj-download, #proj-close { display: none !important; }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  .viz-card, .viz-callout, .method-grid > *, .recommendation-row,
+  .stakeholder-card, .viz-stats-grid, .viz-grid { break-inside: avoid; }
 }

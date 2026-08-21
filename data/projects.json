@@ -25,7 +25,7 @@
       "oneSentenceDescription": "A full-funnel behavioural diagnosis showing that once an item is carted it's bought 82.67% of the time — so the real leak, and the real opportunity, is at view → cart.",
       "targetIndustryRole": "E-Commerce Product, CX & Marketing Analytics",
 
-      "summaryImpact": "Across 42.4M October + 67.4M November 2019 clickstream events from a real multi-category online store, I diagnosed why visitors leave without buying — and where product, CX, and marketing teams can intervene. The data says this is a **discovery problem, not a checkout problem:** once an item is carted, it's bought 82.67% of the time. The leak is almost entirely upstream, at view → cart.\n\nMethod: chunked pandas EDA on files too large for memory, session-level feature engineering across 9.2M October sessions, a LightGBM purchase-prediction model with SHAP, K-Means/decision-tree customer segmentation, and out-of-time validation on November.",
+      "summaryImpact": "Growing profit doesn't require more traffic — it's already there. The cheapest lever is converting shoppers who are already close to buying: the ones who've added something to cart. Across 42.4M October + 67.4M November 2019 clickstream events from a real multi-category online store — the full REES46 Marketing Platform dataset on Kaggle, not a sample — I diagnosed why visitors leave without buying, and where product, CX, and marketing teams can intervene.\n\nThe data says this is a **discovery problem, not a checkout problem:** at the event level, a cart converts to a purchase 82.67% of the time — yet 49.1% of October's cart-containing sessions still end with no purchase at all, since one session can cart repeatedly before converting once, or never. Either way, the leak is almost entirely upstream, at view → cart.\n\nThe core deliverable: a LightGBM model that scores which abandoned carts are closest to converting, so Marketing knows which sessions are worth a retargeting nudge — not just which customers converted historically.\n\nMethod: chunked pandas EDA on files too large for memory, session-level feature engineering across 9.2M October sessions, a LightGBM purchase-prediction model with SHAP, K-Means/decision-tree customer segmentation, and out-of-time validation on November.",
 
       "summaryMetrics": [
         { "value": "96.1", "unit": "%", "label": "events are views" },
@@ -36,16 +36,16 @@
         { "value": "45.5", "unit": "%", "label": "of purchases from phones (27% of traffic)", "highlight": true }
       ],
 
-      "problemSpace": "View volume is already enormous — 96% of all events are views. At this stage of the funnel, the business doesn't need more traffic; it needs more of the traffic it already has to convert. That reframes this from a marketing-acquisition problem into a full-funnel behavioural diagnosis.\n\nScope spans two full months — October and November — specifically so seasonal noise (Black Friday) can be separated from durable behaviour. Every finding below is tied to a named owner and a concrete action, not left as a standalone statistic.",
+      "problemSpace": "Re-acquiring a new visitor costs money — a shopper who's already added something to cart has done most of the work of becoming a customer. Instead of treating every abandoned cart equally, retargeting budget should go to the shoppers behaviourally closest to the store's actual purchasers. View volume is already enormous — **96% of all events are views** — so the business doesn't need more traffic at this stage of the funnel; **it needs more of the traffic it already has to convert.** That reframes this from a marketing-acquisition problem into a full-funnel behavioural diagnosis.\n\nScope: two full months of clickstream — October and November 2019, chosen so Black Friday's seasonal noise can be separated from durable behaviour — **tracked down to the individual event:** every view, cart add, and purchase, with its category, brand, price, and timestamp. Five questions structure the story: which dimension (category, brand, price, time-of-day, day-of-week) most separates cart events from purchase events; can a cart event be scored by how \"purchase-like\" its context is; is there a point where that score becomes statistically indistinguishable from an actual purchase; does the pattern hold across both months; and which specific combinations should Marketing and CX prioritize first?\n\nThe output is **a rankable purchase-likeness score for any cart event** — directly usable by a retargeting system — with an honest account of exactly how far context alone can go, and where it runs out. Every finding below is tied to a named owner and a concrete action, not left as a standalone statistic.",
 
       "stakeholders": [
-        { "role": "Product Manager", "description": "Owns the funnel and checkout experience — needs to know where to invest engineering effort." },
-        { "role": "Customer Experience", "description": "Owns on-site friction — needs to know which browsing behaviours signal a stuck shopper." },
-        { "role": "Marketing", "description": "Owns acquisition, segments and promotions — needs to know who to retarget and why." }
+        { "role": "Product Manager", "description": "Owns the cart/checkout experience — needs to know whether context alone is enough to act on, or whether richer session signals are required." },
+        { "role": "Customer Experience", "description": "Owns on-site friction — needs to know which browsing contexts signal a shopper who's almost there versus one who was never going to convert." },
+        { "role": "Marketing", "description": "Owns retargeting campaigns and remarketing spend — needs to know who to target and when." }
       ],
 
       "inputs": {
-        "description": "REES46-style multi-category e-commerce clickstream: **2019-Oct.csv** (5.6GB, 42.4M rows) and **2019-Nov.csv** (9GB, 67.4M rows), joined against product catalogue and session data.\n\nColumns used: `event_time, event_type, user_id, product_id, brand, price, category_code, user_session`.",
+        "description": "**eCommerce behavior data from multi-category store** — the REES46 Marketing Platform dataset on Kaggle. No secondary sources: every feature comes from two full CSV files, aggregated per `user_session` — **2019-Oct.csv** (5.6GB, 42.4M rows) and **2019-Nov.csv** (9GB, 67.4M rows).\n\nColumns used: `event_time, event_type, user_id, product_id, brand, price, category_code, user_session`.",
         "stats": [
           { "value": "3,022,234", "label": "distinct users" },
           { "value": "166,794", "label": "distinct products" },
@@ -57,10 +57,17 @@
           "items": [
             "0.07% exact duplicate events removed.",
             "`category_code` missing on 31.8% of rows, `brand` missing on 14.4% — both optional upstream catalog fields, not defects.",
-            "`product_id` is not a fully stable key: 0.11% of products showed more than one brand (SKU reuse), so brand-level joins can't assume 1:1."
+            "`product_id` is not a fully stable key: 0.11% of products showed more than one brand (SKU reuse), so brand-level joins can't assume 1:1.",
+            "Nulls are kept as null, never dropped or imputed — each category/brand-level aggregate excludes null rows for that specific field only, not the whole row, so a session's other fields aren't silently thrown away."
           ]
         },
-        "closingNote": "**Target:** `purchased` (session-level binary). **Top predictors:** cart count, session duration, view count, n_unique_brands."
+        "closingNote": {
+          "label": "Target & Key Predictors",
+          "items": [
+            "**Target:** `purchased` — session-level binary, derived from `event_type` (1 if any event in the session was a purchase, 0 otherwise), not a raw column.",
+            "**Top predictors:** cart count, session duration, view count, n_unique_brands — all engineered per session, not per raw row."
+          ]
+        }
       },
 
       "categoryLeader": {
@@ -78,10 +85,41 @@
         "label": "Price Behaviour",
         "from": { "value": "$187", "label": "average carted item" },
         "to": { "value": "$170", "label": "average purchased item" },
-        "description": "A mild but consistent price-sensitivity signal right before checkout."
+        "description": "A mild but consistent price-sensitivity signal right before checkout. Price is heavily right-skewed (electronics push the top end) — roughly 8-9% of sampled rows fall outside the IQR fence in both months. No negative prices; a small number of exact-$0 rows exist, likely free promotional items."
+      },
+
+      "surprisingPatterns": {
+        "label": "Surprising Patterns",
+        "items": [
+          "Average-priced items convert better than cheap or expensive ones — not the \"cheaper converts better\" pattern naive intuition would predict."
+        ]
+      },
+
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "Expected `category_code` to be the strongest signal, with price acting mostly as a secondary, category-specific modifier.",
+          "Instead: `category_code` is missing on ~32% of rows — too incomplete to rely on alone — and both price and timing carried meaningful independent signal. Timing mattered more than expected: a genuine update, not a confirmation."
+        ]
       },
 
       "deadEnds": {
+        "label": "Dead Ends",
+        "items": [
+          "Chunked **reading** that still crashed the kernel: the first loader re-concatenated every chunk into one full DataFrame, so by the end the entire file was in memory anyway — invisible on a small sample, but it exhausted memory on the real 42M/67M-row files. Fixed by computing every EDA statistic as a running accumulator during the streaming pass itself, so the full table is never materialized.",
+          "A random row sample can't validate session-level cart-vs-purchase comparisons — a session's cart and purchase events are unlikely to both survive the same random draw. Fixed with a full-population lookup of which sessions ever converted, built incrementally across every chunk, so a sampled cart event can still be checked against its own session's true outcome."
+        ]
+      },
+
+      "secondaryModel": {
+        "label": "A Second Model — And a Real Correction",
+        "items": [
+          "A separate binary model powers the cart-scoring output promised in Problem Space: `purchase` vs. `cart`, at the individual **event** level, using category, brand, price, and timing instead of session behaviour. Its segment-prioritization step (Q5) clusters with K-Prototypes rather than K-Means, since it needs to group on a mix of categorical (category, brand) and numeric (price, hour) features directly.",
+          "The first version also included `view` events, and `brand` came out as the #1 predictor. Removing `view` changed the answer entirely — `price` jumped to #1, `brand` dropped to #4. `view` is ~95% of the data, so that version was really learning \"what makes someone engage at all,\" not \"what makes an already-engaged shopper buy instead of just cart\" — the actual question. A correction to the framing, not just the model."
+        ]
+      },
+
+      "executionDeadEnds": {
         "label": "Dead Ends",
         "items": [
           "Tested per-session `n_unique_products` as a feature — dropped it: ~200k distinct values made it the most expensive feature to compute, for little added signal over view count and `n_unique_categories`.",
@@ -90,12 +128,12 @@
       },
 
       "methodology": [
-        { "heading": "Engineering constraint", "description": "42.4M/67.4M-row files processed in 2M-row chunks with incremental aggregation. Session-level grouping (9.2M sessions) took ~27 min/month — `user_session` has near-UUID cardinality, unlike low-cardinality hour/brand/category aggregates." },
-        { "heading": "Model choice", "description": "LightGBM binary classifier, `is_unbalance=True` for the 6.8% positive rate, early stopping on validation AUC. Chosen over logistic regression: features interact non-linearly and LightGBM handles day-of-week natively." },
+        { "heading": "Engineering constraint", "description": "42.4M/67.4M-row files processed in **2M-row chunks with incremental aggregation**. Session-level grouping (9.2M sessions) took ~27 min/month — `user_session` has near-UUID cardinality, unlike low-cardinality hour/brand/category aggregates." },
+        { "heading": "Model choice", "description": "**LightGBM binary classifier**, `is_unbalance=True` for the 6.8% positive rate, early stopping on validation AUC. Chosen over logistic regression, since features interact non-linearly and LightGBM handles day-of-week natively, and over Random Forest — LightGBM's leaf-wise, histogram-based growth trains faster at this row count, and boosting corrects earlier errors iteratively, where Random Forest's bagged trees can't." },
         { "heading": "Leakage discipline", "description": "Excluded `user_session`/`user_id`, the literal purchase count, and `n_events` (which encodes purchase count indirectly)." },
-        { "heading": "Evaluation trap avoided", "description": "`predict_proba ≥ 0.5` classifies everything as \"no purchase\" — 93%-accurate, useless. Picked an F1-optimal threshold from the precision-recall curve instead; report ROC-AUC/PR-AUC as the primary metrics." },
-        { "heading": "Segmentation", "description": "K-Means (k=6, chosen by silhouette among k=3–7) plus a shallow decision tree as a human-readable cross-check — both trained on behavioural features only, purchase outcome held out entirely." },
-        { "heading": "Validation", "description": "Scored the Oct-trained model on unseen Nov sessions with the exact same fixed threshold — a direct test of whether Oct alone was enough to build on, without retraining." }
+        { "heading": "Evaluation trap avoided", "description": "`predict_proba ≥ 0.5` classifies everything as \"no purchase\" — **93%-accurate, useless.** Picked an F1-optimal threshold from the precision-recall curve instead; report ROC-AUC/PR-AUC as the primary metrics." },
+        { "heading": "Segmentation", "description": "K-Means (k=6, chosen by silhouette among k=3–7) plus a shallow decision tree as a human-readable cross-check — both trained on behavioural features only, **purchase outcome held out entirely.**" },
+        { "heading": "Validation", "description": "Scored the Oct-trained model on unseen Nov sessions with the exact same fixed threshold — a direct test of whether Oct alone was enough to build on, without retraining. In production, the same approach extends to ongoing monitoring: score each week's fresh sessions against the same fixed threshold, track ROC-AUC and the purchase-rate base rate over time — the same comparison that surfaced the Oct→Nov swing — and **treat a sustained AUC drop or base-rate shift as the retrain trigger**, rather than retraining on a fixed schedule." }
       ],
 
       "shapDrivers": {
@@ -107,14 +145,35 @@
         ]
       },
 
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "Once a shopper carts, **50.9%** of October's cart-containing sessions went on to purchase — the flip side of the 49.1% that didn't.",
+          "Purchase rate dropped from **6.81% in October to 5.61% in November** — a swing worth planning around, not dismissing as noise."
+        ]
+      },
+
+      "businessInterpretation": "In plain terms: this model is good at spotting a shopper who's already engaged — long session, multiple items carted — but not yet good at explaining which specific thing (a category, a brand, a time of day) would have changed a browser's mind.\n\nThe segment and category findings above are a strong \"where to look first\" — not yet a proven \"what to change.\" Treat them as a prioritized shortlist for testing, not a finished playbook.\n\nThis held up under multiple checks, not just one run: removing key features (the ablation study), testing across a range of cluster counts, and re-scoring on an entirely unseen month.",
+
       "recommendations": {
         "items": [
           { "tag": "Product / CX", "text": "Reduce brand-comparison friction — clearer comparison tools, stronger recommendation ranking. Comparison-shoppers convert worse than focused browsers." },
           { "tag": "Marketing", "text": "Retarget the \"long single-visit browser\" segment — 946k users, ~57 min average session, only 13.2% convert. An already-warm audience that just doesn't return." },
-          { "tag": "Product", "text": "Invest in discovery/recommendation surfaces, not checkout UX. Cart→purchase is already 82.67% — checkout has a low ceiling. View→cart has the highest possible upside." }
+          { "tag": "Product", "text": "Invest in discovery/recommendation surfaces, not checkout UX. Cart→purchase is already 82.67% — checkout has a low ceiling. View→cart has the highest possible upside." },
+          { "tag": "Leadership", "text": "Treat the Oct→Nov purchase-rate swing (6.81% → 5.61%) as a recurring planning input — a promotional month converts differently than a typical one, so forecasts and targets should account for it, not treat it as one-off noise." }
         ],
-        "limitations": "`category_code`/`brand` are optional catalog fields with real missingness (31.8%/14.4%); `product_id` isn't a fully reliable brand key; no demographic or purchase-history features were available, only within-session behaviour.",
-        "nextSteps": "A/B test the brand-comparison-friction hypothesis; build the live monitoring dashboard as a separate deliverable; extend the model with a Nov-trained or combined Oct+Nov version if drift continues to widen."
+        "limitations": [
+          "`category_code`/`brand` missingness (31.8%/14.4%) and `product_id`'s unreliable brand key",
+          "No demographic or cross-session purchase-history data — everything is within-session only",
+          "Segment/category rankings are relative signals, not calibrated probabilities",
+          "Only two months tested (Oct–Nov) — seasonal patterns beyond that aren't covered"
+        ],
+        "nextSteps": [
+          "A/B test the brand-comparison-friction hypothesis",
+          "Build the live monitoring dashboard as a separate deliverable",
+          "Extend the model with a Nov-trained or combined Oct+Nov version if drift widens",
+          "Extend the feature set with cross-session purchase history, if it becomes available — the largest untested lever"
+        ]
       },
 
       "visuals": [
@@ -156,8 +215,7 @@
       ],
 
       "links": {
-        "caseStudyPage": "projects/ecommerce-behavior-conversion.html",
-        "notebookRepo": "https://github.com/EileenIp/ecommerce-behavior-conversion"
+        "notebookRepo": "https://github.com/EileenIp/Ecommerce-Behaviour-Conversion-Analysis"
       }
     }
   ]

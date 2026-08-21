@@ -73,9 +73,14 @@
         <div id="proj-title" class="dialog-title">Project title</div>
         <div id="proj-onesentence" class="card-meta" style="margin-top: 4px;">One-sentence description</div>
       </div>
-      <button type="button" class="btn btn-secondary btn-icon" id="proj-close" aria-label="Close">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
-      </button>
+      <div style="display:flex; gap:8px; flex-shrink:0;">
+        <button type="button" class="btn btn-secondary" id="proj-download" style="font-size:13px;">
+          Download
+        </button>
+        <button type="button" class="btn btn-secondary btn-icon" id="proj-close" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
+        </button>
+      </div>
     </div>
     <div id="proj-body"></div>
   </div>

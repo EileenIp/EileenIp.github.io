@@ -374,7 +374,8 @@ function renderInputsSection(inputs) {
   const callout = renderCallout(inputs.dataQuality, false);
   if (callout) wrap.append(callout);
 
-  if (inputs.closingNote) appendParagraphs(wrap, inputs.closingNote);
+  const closingCallout = renderCallout(inputs.closingNote, false);
+  if (closingCallout) wrap.append(closingCallout);
 
   return wrap;
 }
@@ -622,19 +623,23 @@ function renderRecommendations(data) {
     }
   }
 
-  if (data.limitations || data.nextSteps) {
+  if ((data.limitations && data.limitations.length) || (data.nextSteps && data.nextSteps.length)) {
     const grid = document.createElement('div');
     grid.className = 'note-grid';
-    for (const [heading, text] of [['Limitations', data.limitations], ['Next steps', data.nextSteps]]) {
-      if (!text) continue;
+    for (const [heading, items] of [['Limitations', data.limitations], ['Next steps', data.nextSteps]]) {
+      if (!items || items.length === 0) continue;
       const note = document.createElement('div');
       const title = document.createElement('div');
       title.className = 'note-title';
       title.textContent = heading;
-      const body = document.createElement('div');
-      body.className = 'note-text';
-      appendRichText(body, text);
-      note.append(title, body);
+      const list = document.createElement('ul');
+      list.className = 'note-text';
+      for (const item of items) {
+        const li = document.createElement('li');
+        appendRichText(li, item);
+        list.append(li);
+      }
+      note.append(title, list);
       grid.append(note);
     }
     wrap.append(grid);
@@ -754,7 +759,7 @@ function renderProjectBody(project) {
   const hourChart = (project.visuals || []).find((v) => v.section === 'discovery');
   const categoryLeaderCard = buildCategoryLeaderCard(project.categoryLeader);
   if (hourChart || categoryLeaderCard) {
-    appendSectionHeading(body, 'Discovery', headlines.discovery);
+    appendSectionHeading(body, 'Discovery (Exploratory Data Analysis)', headlines.discovery);
     const topRow = document.createElement('div');
     topRow.className = 'viz-grid';
     if (hourChart) topRow.append(buildChartCard(hourChart));
@@ -765,6 +770,12 @@ function renderProjectBody(project) {
   const priceBehaviourCard = buildPriceBehaviourCard(project.priceBehaviour);
   if (priceBehaviourCard) body.append(priceBehaviourCard);
 
+  const surprisingPatternsCallout = renderCallout(project.surprisingPatterns, false);
+  if (surprisingPatternsCallout) body.append(surprisingPatternsCallout);
+
+  const hypothesisCallout = renderCallout(project.hypothesisVsReality, true);
+  if (hypothesisCallout) body.append(hypothesisCallout);
+
   const deadEndsCallout = renderCallout(project.deadEnds, true);
   if (deadEndsCallout) body.append(deadEndsCallout);
 
@@ -772,9 +783,15 @@ function renderProjectBody(project) {
   const methodGrid = renderMethodGrid(project.methodology);
   const ablationChart = (project.visuals || []).find((v) => v.section === 'execution');
   if (methodGrid || ablationChart) {
-    appendSectionHeading(body, 'Execution', headlines.execution);
+    appendSectionHeading(body, 'Execution (Methodology)', headlines.execution);
     if (methodGrid) body.append(methodGrid);
     if (ablationChart) body.append(buildChartCard(ablationChart));
+
+    const secondaryModelCallout = renderCallout(project.secondaryModel, true);
+    if (secondaryModelCallout) body.append(secondaryModelCallout);
+
+    const executionDeadEndsCallout = renderCallout(project.executionDeadEnds, true);
+    if (executionDeadEndsCallout) body.append(executionDeadEndsCallout);
   }
 
   // — Results & Recommendations —
@@ -795,6 +812,18 @@ function renderProjectBody(project) {
     }
 
     if (segmentsChart) body.append(buildChartCard(segmentsChart));
+
+    const keyResultsCallout = renderCallout(project.keyResults, false);
+    if (keyResultsCallout) body.append(keyResultsCallout);
+
+    if (project.businessInterpretation) {
+      const biHeading = document.createElement('div');
+      biHeading.className = 'viz-highlight-heading';
+      biHeading.style.marginTop = 'var(--space-4)';
+      biHeading.textContent = 'What This Means';
+      body.append(biHeading);
+      appendParagraphs(body, project.businessInterpretation);
+    }
 
     if (project.recommendations) {
       const recHeading = document.createElement('div');
@@ -853,6 +882,7 @@ function closeProjectModal() {
 function initProjectModal() {
   const backdrop = document.getElementById('proj-backdrop');
   document.getElementById('proj-close').addEventListener('click', closeProjectModal);
+  document.getElementById('proj-download').addEventListener('click', () => window.print());
   backdrop.addEventListener('click', (e) => {
     if (e.target === backdrop) closeProjectModal();
   });
