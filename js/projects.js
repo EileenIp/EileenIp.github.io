@@ -882,7 +882,17 @@ function closeProjectModal() {
 function initProjectModal() {
   const backdrop = document.getElementById('proj-backdrop');
   document.getElementById('proj-close').addEventListener('click', closeProjectModal);
-  document.getElementById('proj-download').addEventListener('click', () => window.print());
+  document.getElementById('proj-download').addEventListener('click', () => {
+    const originalTitle = document.title;
+    const projectTitle = document.getElementById('proj-title').textContent || originalTitle;
+    document.title = projectTitle;
+    const restoreTitle = () => {
+      document.title = originalTitle;
+      window.removeEventListener('afterprint', restoreTitle);
+    };
+    window.addEventListener('afterprint', restoreTitle);
+    window.print();
+  });
   backdrop.addEventListener('click', (e) => {
     if (e.target === backdrop) closeProjectModal();
   });
