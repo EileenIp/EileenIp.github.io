@@ -675,6 +675,7 @@ details[open] .collapsible-chevron { transform: rotate(90deg); }
   background: var(--color-surface);
   box-shadow: var(--shadow-lg);
 }
+.dialog-wide { width: min(920px, 100%); }
 .dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
 .dialog-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px; }
 .dialog-body-text { font-size: 14px; opacity: 0.85; }
