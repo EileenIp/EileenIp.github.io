@@ -929,6 +929,16 @@ async function init() {
   initFilterControls();
   renderFilterGroups(buildFilterOptions(allProjects));
   renderGridView();
+  openProjectFromURL();
+}
+
+// Lets an external link (e.g. a resume) deep-link straight into a project's
+// modal via projects.html?project=<id>, instead of just landing on the grid.
+function openProjectFromURL() {
+  const id = new URLSearchParams(window.location.search).get('project');
+  if (!id) return;
+  const project = allProjects.find((p) => p.id === id);
+  if (project) openProjectModal(project);
 }
 
 init();
