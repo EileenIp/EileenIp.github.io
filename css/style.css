@@ -582,7 +582,7 @@ details[open] .collapsible-chevron { transform: rotate(90deg); }
 .viz-price-desc { font-size: 13px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 85%, transparent); max-width: 32ch; }
 
 /* — methodology note cards (Execution section) — */
-.method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-3); margin: var(--space-3) 0; }
+.method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin: var(--space-3) 0; }
 .method-card-title { font-family: var(--font-heading); font-weight: 600; font-size: 15px; margin-bottom: 6px; color: var(--color-text); }
 .method-card-desc { font-size: 13px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 80%, transparent); }
 
@@ -770,6 +770,7 @@ details[open] .year-chevron { transform: rotate(90deg); }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { grid-template-columns: 1fr; }
   .goal-grid { grid-template-columns: 1fr; }
+  .method-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -782,6 +783,7 @@ details[open] .year-chevron { transform: rotate(90deg); }
   .jt-body { padding-left: 24px; padding-right: 24px; }
   .jt-grid { grid-template-columns: 1fr; }
   .proj-grid { grid-template-columns: 1fr; }
+  .method-grid { grid-template-columns: 1fr; }
 }
 
 @media print {
