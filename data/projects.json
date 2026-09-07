@@ -217,6 +217,150 @@
       "links": {
         "notebookRepo": "https://github.com/EileenIp/Ecommerce-Behaviour-Conversion-Analysis"
       }
+    },
+    {
+      "id": "advertising-revenue-sales-efficiency-2026",
+      "title": "Advertising Revenue & Sales Efficiency Growth Diagnostic",
+      "year": 2026,
+      "industry": "Digital Advertising",
+      "projectType": "Business Intelligence",
+      "serviceType": "Dashboard + Decision System",
+      "tools": ["Power BI", "SQL Server", "DAX", "Power Query", "Python"],
+      "image": "images/projects/advertising-revenue-sales-efficiency-card.png",
+
+      "sectionHeadlines": {
+        "summaryImpact": "From a $3.60M revenue gap to the accounts that need action",
+        "problemSpace": "Revenue alone cannot explain why commercial performance changes",
+        "inputs": "One governed model connecting advertising and sales operations",
+        "execution": "Built as a traceable decision system, not a collection of charts",
+        "results": "Every portfolio signal ends in a specific commercial action"
+      },
+
+      "cardDescription": "Built a five-page Power BI decision system that connects advertising performance, advertiser lifecycle, sales activity, pipeline and targets to diagnose revenue and prioritise 720 accounts.",
+      "impactStat": "$10.50M revenue vs. $14.10M target, diagnosed through campaign, lifecycle and sales evidence",
+      "oneSentenceDescription": "An end-to-end commercial analytics system that explains why advertising revenue is below target and converts campaign, lifecycle and sales evidence into transparent account actions.",
+      "targetIndustryRole": "Advertising, Sales Operations & Business Intelligence",
+
+      "summaryImpact": "The executive view showed **$10.50M in advertising revenue against a $14.10M target** — a **$3.60M adverse variance, or 25.5% below target**. The challenge was not displaying that gap; it was making it diagnosable. Revenue could move because of campaign efficiency, advertiser acquisition and churn, account spending, sales coverage or pipeline conversion.\n\nI built a five-page Power BI decision system that moves from executive monitoring to campaign diagnosis, sales-team efficiency and a prioritised account worklist. An Advertiser 360 drill-through page exposes the campaign, opportunity and contact evidence behind each recommendation.\n\nThe portfolio contained **720 fictional advertisers** and used transparent Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain rules. This makes every recommendation explainable in an interview and auditable by a business user instead of hiding it inside a black-box score.",
+
+      "summaryMetrics": [
+        { "value": "$10.50", "unit": "M", "label": "selected-view advertising revenue" },
+        { "value": "$3.60", "unit": "M", "label": "adverse target variance", "highlight": true },
+        { "value": "720", "label": "advertisers prioritised", "highlight": true },
+        { "value": "1.17x", "label": "selected-view advertiser ROAS" },
+        { "value": "30K", "label": "source performance records" },
+        { "value": "5", "label": "decision-focused report pages" }
+      ],
+
+      "problemSpace": "A fictional global advertising platform had performance data but no unified view connecting advertising revenue, campaign outcomes, advertiser lifecycle, sales activities, opportunity pipeline and commercial targets. Leadership could see whether revenue moved, but not isolate the combination of campaign, portfolio and execution factors behind the movement.\n\nThe central question was: **Why is advertising revenue above or below target, which advertiser segments contain the strongest growth opportunities, and how should the sales team prioritise its effort?** The report therefore had to support three different decision levels without producing contradictory metrics: leadership monitoring, manager-level diagnosis and account-level action.\n\nThe design deliberately separates **platform advertising revenue** — advertiser spend paid to the fictional platform — from **attributed advertiser revenue**, the advertiser's sales outcome. Confusing these two concepts would make revenue and ROAS analysis commercially misleading.",
+
+      "stakeholders": [
+        { "role": "Commercial Leadership", "description": "Needs revenue, target and advertiser-growth diagnosis to set commercial priorities." },
+        { "role": "Sales Managers", "description": "Needs capacity, contact coverage and pipeline evidence to rebalance portfolios and improve execution." },
+        { "role": "Account Executives", "description": "Needs an ordered worklist explaining which advertiser to contact and why." },
+        { "role": "Marketing Analysts", "description": "Needs funnel and efficiency comparisons across platform, objective and market segments." }
+      ],
+
+      "inputs": {
+        "description": "A public synthetic digital-marketing dataset supplied **30,000 advertising-performance records and 35 source fields** covering 2023–2025. Because it did not contain the commercial entities required for sales-efficiency analysis, I generated a documented supplementary layer for advertisers, representatives, opportunities, activities, targets and calendar-month lifecycle status.\n\nThe governed model contains conformed Date, Advertiser, Sales Representative, Platform, Geography and Advertising Entity dimensions connected to advertising-performance, advertiser-month, opportunity, sales-activity and target facts.",
+        "stats": [
+          { "value": "30,000", "label": "advertising-performance records" },
+          { "value": "35", "label": "source fields" },
+          { "value": "720", "label": "fictional advertisers" },
+          { "value": "2,400", "label": "synthetic opportunities" }
+        ],
+        "dataQuality": {
+          "label": "Governance and reconciliation",
+          "items": [
+            "Preserved all 30,000 original performance records and documented the source grain and date-format mismatch.",
+            "Reconciled $12,636,409.06 platform advertising revenue, 1,701,763,447 impressions, 25,617,140 clicks and 322,798 conversions across source, SQL and Power BI.",
+            "Validated grains, foreign keys, lifecycle exclusivity, opportunity probabilities and impossible funnel relationships.",
+            "Used safe division for CTR, CVR, CPA, CPC, ROAS, retention, win rate and target attainment."
+          ]
+        },
+        "closingNote": {
+          "label": "Synthetic-data disclosure",
+          "items": [
+            "All advertisers, representatives, opportunities, activities and targets are fictional and generated reproducibly.",
+            "Findings demonstrate analytical method and must not be interpreted as evidence about TikTok or another real advertising platform."
+          ]
+        }
+      },
+
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "Expected weak revenue to be explained mainly by campaign efficiency. The completed model showed that the same revenue result can require different actions depending on lifecycle, ROAS, contact coverage, pipeline and unused account potential.",
+          "A simple sales leaderboard looked attractive initially, but it confounded portfolio size with performance. I replaced it with capacity, process and coverage exceptions so managers could diagnose systems rather than rank people simplistically."
+        ]
+      },
+
+      "deadEnds": {
+        "label": "Analytical boundaries",
+        "items": [
+          "Most source campaign and advertisement identifiers appear only once, so I rejected continuous campaign-level trend claims and kept time analysis at governed portfolio and advertiser grains.",
+          "The seven original account labels were broad archetypes, not a sufficient advertiser population. They were retained as archetypes while a separate fictional advertiser dimension was generated for account analysis."
+        ]
+      },
+
+      "methodology": [
+        { "heading": "SQL architecture", "description": "Built raw, staging, dimensional, fact and business-view layers in **Microsoft SQL Server**, using CTEs, window functions, constraints and reconciliation queries." },
+        { "heading": "Synthetic commercial layer", "description": "Used **Python** and documented configuration to generate 720 advertisers, 24 representatives, 2,400 opportunities, sales activities and monthly targets." },
+        { "heading": "Semantic model", "description": "Connected five fact tables through conformed dimensions with one-to-many relationships, controlled filter direction and explicit date-role handling." },
+        { "heading": "DAX governance", "description": "Created safe, context-aware measures for revenue, target variance, funnel conversion, lifecycle, pipeline, coverage, capacity and advertiser prioritisation." },
+        { "heading": "Action logic", "description": "Implemented interpretable **Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain** rules with a reason and priority order for every account." },
+        { "heading": "Report experience", "description": "Designed four diagnostic pages plus **Advertiser 360 drill-through**, connecting executive performance to the evidence behind an account action." }
+      ],
+
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "The selected executive view identified a **$3.60M revenue shortfall**, 25.5% below its $14.10M target.",
+          "The governed source reconciled to **1.70B impressions, 25.62M clicks and 322,798 conversions**.",
+          "The Action Centre translated portfolio evidence into an ordered worklist across **720 advertisers**, with account-level drill-through for validation.",
+          "The final report joins leadership, campaign, sales-manager and account-executive decisions without changing KPI definitions between pages."
+        ]
+      },
+
+      "businessInterpretation": "The main insight is that a revenue gap is not a single-metric problem. An advertiser with declining spend but healthy return needs a different response from an active advertiser below break-even ROAS, and both differ from a churned account or a healthy advertiser with unused potential.\n\nThe report makes those distinctions operational. Leadership sees the size and drivers of the gap; managers see campaign, capacity and pipeline exceptions; account executives receive a transparent next action and can inspect the underlying evidence before contacting an advertiser.",
+
+      "recommendations": {
+        "items": [
+          { "tag": "Commercial", "text": "Prioritise account interventions by lifecycle, revenue momentum, ROAS and unused potential rather than revenue size alone." },
+          { "tag": "Sales Ops", "text": "Use capacity and contact-coverage exceptions to rebalance portfolios without treating a simple representative ranking as performance diagnosis." },
+          { "tag": "Marketing", "text": "Investigate platform–objective combinations where strong exposure does not progress through click and conversion stages efficiently." },
+          { "tag": "Governance", "text": "Calibrate recommendation thresholds with commercial stakeholders and track accepted actions and realised outcomes before treating the rules as production policy." }
+        ],
+        "limitations": [
+          "The advertising source and supplementary commercial entities are synthetic",
+          "Associations between sales activity and performance are not causal evidence",
+          "Potential annual spend and targets are fictional planning estimates",
+          "Action rules are interpretable heuristics, not predictive-model outputs"
+        ],
+        "nextSteps": [
+          "Add row-level security for representatives and managers",
+          "Track recommendation acceptance and realised account outcomes",
+          "Validate rule thresholds with sales and finance stakeholders",
+          "Publish through a governed refresh and deployment process"
+        ]
+      },
+
+      "visuals": [
+        {
+          "id": "revenue-gap",
+          "section": "summary",
+          "label": "Selected Executive View — Revenue vs. Target",
+          "caption": "$10.50M advertising revenue against a $14.10M target leaves a $3.60M adverse variance, or 25.5% below target.",
+          "svg": "<svg viewBox=\"0 0 640 150\" role=\"img\" aria-label=\"Advertising revenue 10.50 million compared with a target of 14.10 million\"><text x=\"0\" y=\"25\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Advertising revenue</text><rect x=\"0\" y=\"38\" width=\"447\" height=\"30\" class=\"viz-fill-accent\"></rect><text x=\"457\" y=\"59\" font-family=\"IBM Plex Mono, monospace\" font-size=\"15\" font-weight=\"600\" class=\"viz-fill-text\">$10.50M</text><text x=\"0\" y=\"101\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Revenue target</text><rect x=\"0\" y=\"114\" width=\"600\" height=\"30\" class=\"viz-fill-muted\"></rect><text x=\"610\" y=\"135\" text-anchor=\"end\" font-family=\"IBM Plex Mono, monospace\" font-size=\"15\" font-weight=\"600\" class=\"viz-fill-text\">$14.10M</text></svg>"
+        }
+      ],
+
+      "links": {
+        "dashboard": "https://github.com/EileenIp/advertising-revenue-sales-efficiency/blob/main/power-bi/Advertising%20Revenue%20and%20Sales%20Efficiency.pbix",
+        "technicalFindings": "https://github.com/EileenIp/advertising-revenue-sales-efficiency/blob/main/docs/Business_Case_Study.md",
+        "notebookRepo": "https://github.com/EileenIp/advertising-revenue-sales-efficiency",
+        "caseStudyPage": "https://github.com/EileenIp/advertising-revenue-sales-efficiency#readme"
+      }
     }
   ]
 }
