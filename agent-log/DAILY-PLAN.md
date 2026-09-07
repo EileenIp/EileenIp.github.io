@@ -1,6 +1,6 @@
 # Daily plan
 
-Status: `AWAITING APPROVAL` <!-- NO PLAN | AWAITING APPROVAL | APPROVED | AWAITING FINAL APPROVAL | FINALISED -->
+Status: `AWAITING FINAL APPROVAL` <!-- NO PLAN | AWAITING APPROVAL | APPROVED | AWAITING FINAL APPROVAL | FINALISED -->
 Date: 2026-09-08
 Branch: agent/2026-09-08
 
@@ -103,21 +103,35 @@ the edited version.**
 
 ---
 
-### Completed work — YYYY-MM-DD
+### Completed work — 2026-09-08
 
 **Gate 2 · awaiting your final approval**
 
-Branch: `agent/YYYY-MM-DD`
+Branch: `agent/2026-09-08`
 
 | # | Task | What I actually changed | Deviated from plan? |
 |---|------|-------------------------|---------------------|
-| 1 |      |                         | no / yes — because… |
+| 1 | Check every GitHub link on the site resolves | New file `agent-log/link-check-2026-09-08.md`. Found 6 `github.com` URLs total (`index.html` + `data/projects.json` — nothing elsewhere). All 6 return HTTP 200. No fixes needed. | no |
+| 2 | Audit both project pages against the 8 hiring-manager criteria | New file `agent-log/audit-2026-09-08.md`. Verified against the actual rendered modal in a browser, not just the JSON. | no |
 
 **Things to look at closely:**
-_Where the agent made a judgement call, or is least confident._
+- The audit found the `ecommerce-behavior-conversion-2019` page meets all 8
+  criteria cleanly. The `advertising-revenue-sales-efficiency-2026` page
+  meets 6 of 8 fully and is **partial** on two: "thought process visible"
+  and "trade-offs" — its methodology section describes what was built more
+  than alternatives considered/rejected (contrast with the ecommerce page's
+  explicit "chosen over X because Y" for its model choice). Everything else
+  on that page — including the synthetic-data disclosure — is strong. I did
+  not edit the page; the full reasoning and a suggested (small, targeted)
+  fix are in `agent-log/audit-2026-09-08.md`. This is a judgement call on my
+  part about what counts as "thin" vs. "sufficient" — worth your own read.
+- I have not yet cleared the resolved `[CONFIRM]` line from `TODO.md`'s
+  "Needs Eileen" section, per the plan — that happens at Finalise, below.
 
 **New items added to TODO.md:**
-_Anything discovered mid-task that became a new backlog entry._
+_None yet — will add the advertising-page methodology gap as a new `Todo`
+item at Finalise if you agree it's worth doing, rather than adding it now
+ahead of your read of the audit._
 
 **Nothing has been merged to `main`.**
 
