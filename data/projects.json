@@ -7,9 +7,14 @@
       "industry": "E-Commerce",
       "projectType": "Classification + Segmentation",
       "serviceType": "Analysis + Model",
-      "tools": ["Python", "Pandas", "LightGBM", "SHAP", "K-Means"],
+      "tools": [
+        "Python",
+        "Pandas",
+        "LightGBM",
+        "SHAP",
+        "K-Means"
+      ],
       "image": "images/projects/ecommerce-behavior-card.png",
-
       "sectionHeadlines": {
         "summaryImpact": "Why do some shoppers buy — and most just look?",
         "problemSpace": "Conversion, not traffic, is the growth lever",
@@ -18,39 +23,78 @@
         "execution": "Built to survive files that don't fit in memory",
         "results": "Behaviour alone separates buyers 146x over"
       },
-
       "cardDescription": "Diagnosed why visitors leave without buying using 110M+ clickstream events from a real multi-category store — and found the leak is almost entirely upstream of checkout.",
       "impactStat": "0.92 ROC-AUC purchase model, holding at 0.946 a month later with no retraining",
-
       "oneSentenceDescription": "A full-funnel behavioural diagnosis showing that once an item is carted it's bought 82.67% of the time — so the real leak, and the real opportunity, is at view → cart.",
       "targetIndustryRole": "E-Commerce Product, CX & Marketing Analytics",
-
       "summaryImpact": "Growing profit doesn't require more traffic — it's already there. The cheapest lever is converting shoppers who are already close to buying: the ones who've added something to cart. Across 42.4M October + 67.4M November 2019 clickstream events from a real multi-category online store — the full REES46 Marketing Platform dataset on Kaggle, not a sample — I diagnosed why visitors leave without buying, and where product, CX, and marketing teams can intervene.\n\nThe data says this is a **discovery problem, not a checkout problem:** at the event level, a cart converts to a purchase 82.67% of the time — yet 49.1% of October's cart-containing sessions still end with no purchase at all, since one session can cart repeatedly before converting once, or never. Either way, the leak is almost entirely upstream, at view → cart.\n\nThe core deliverable: a LightGBM model that scores which abandoned carts are closest to converting, so Marketing knows which sessions are worth a retargeting nudge — not just which customers converted historically.\n\nMethod: chunked pandas EDA on files too large for memory, session-level feature engineering across 9.2M October sessions, a LightGBM purchase-prediction model with SHAP, K-Means/decision-tree customer segmentation, and out-of-time validation on November.",
-
       "summaryMetrics": [
-        { "value": "96.1", "unit": "%", "label": "events are views" },
-        { "value": "2.1", "unit": "%", "label": "events are carts" },
-        { "value": "1.8", "unit": "%", "label": "events are purchases" },
-        { "value": "0.92", "label": "ROC-AUC, purchase model", "highlight": true },
-        { "value": "146x", "label": "purchase-rate range, 6 segments", "highlight": true },
-        { "value": "45.5", "unit": "%", "label": "of purchases from phones (27% of traffic)", "highlight": true }
+        {
+          "value": "96.1",
+          "unit": "%",
+          "label": "events are views"
+        },
+        {
+          "value": "2.1",
+          "unit": "%",
+          "label": "events are carts"
+        },
+        {
+          "value": "1.8",
+          "unit": "%",
+          "label": "events are purchases"
+        },
+        {
+          "value": "0.92",
+          "label": "ROC-AUC, purchase model",
+          "highlight": true
+        },
+        {
+          "value": "146x",
+          "label": "purchase-rate range, 6 segments",
+          "highlight": true
+        },
+        {
+          "value": "45.5",
+          "unit": "%",
+          "label": "of purchases from phones (27% of traffic)",
+          "highlight": true
+        }
       ],
-
       "problemSpace": "Re-acquiring a new visitor costs money — a shopper who's already added something to cart has done most of the work of becoming a customer. Instead of treating every abandoned cart equally, retargeting budget should go to the shoppers behaviourally closest to the store's actual purchasers. View volume is already enormous — **96% of all events are views** — so the business doesn't need more traffic at this stage of the funnel; **it needs more of the traffic it already has to convert.** That reframes this from a marketing-acquisition problem into a full-funnel behavioural diagnosis.\n\nScope: two full months of clickstream — October and November 2019, chosen so Black Friday's seasonal noise can be separated from durable behaviour — **tracked down to the individual event:** every view, cart add, and purchase, with its category, brand, price, and timestamp. Five questions structure the story: which dimension (category, brand, price, time-of-day, day-of-week) most separates cart events from purchase events; can a cart event be scored by how \"purchase-like\" its context is; is there a point where that score becomes statistically indistinguishable from an actual purchase; does the pattern hold across both months; and which specific combinations should Marketing and CX prioritize first?\n\nThe output is **a rankable purchase-likeness score for any cart event** — directly usable by a retargeting system — with an honest account of exactly how far context alone can go, and where it runs out. Every finding below is tied to a named owner and a concrete action, not left as a standalone statistic.",
-
       "stakeholders": [
-        { "role": "Product Manager", "description": "Owns the cart/checkout experience — needs to know whether context alone is enough to act on, or whether richer session signals are required." },
-        { "role": "Customer Experience", "description": "Owns on-site friction — needs to know which browsing contexts signal a shopper who's almost there versus one who was never going to convert." },
-        { "role": "Marketing", "description": "Owns retargeting campaigns and remarketing spend — needs to know who to target and when." }
+        {
+          "role": "Product Manager",
+          "description": "Owns the cart/checkout experience — needs to know whether context alone is enough to act on, or whether richer session signals are required."
+        },
+        {
+          "role": "Customer Experience",
+          "description": "Owns on-site friction — needs to know which browsing contexts signal a shopper who's almost there versus one who was never going to convert."
+        },
+        {
+          "role": "Marketing",
+          "description": "Owns retargeting campaigns and remarketing spend — needs to know who to target and when."
+        }
       ],
-
       "inputs": {
         "description": "**eCommerce behavior data from multi-category store** — the REES46 Marketing Platform dataset on Kaggle. No secondary sources: every feature comes from two full CSV files, aggregated per `user_session` — **2019-Oct.csv** (5.6GB, 42.4M rows) and **2019-Nov.csv** (9GB, 67.4M rows).\n\nColumns used: `event_time, event_type, user_id, product_id, brand, price, category_code, user_session`.",
         "stats": [
-          { "value": "3,022,234", "label": "distinct users" },
-          { "value": "166,794", "label": "distinct products" },
-          { "value": "3,444", "label": "distinct brands" },
-          { "value": "126", "label": "category codes" }
+          {
+            "value": "3,022,234",
+            "label": "distinct users"
+          },
+          {
+            "value": "166,794",
+            "label": "distinct products"
+          },
+          {
+            "value": "3,444",
+            "label": "distinct brands"
+          },
+          {
+            "value": "126",
+            "label": "category codes"
+          }
         ],
         "dataQuality": {
           "label": "Data quality — reported transparently",
@@ -69,32 +113,43 @@
           ]
         }
       },
-
       "categoryLeader": {
         "label": "Category Leader",
         "heading": "electronics.smartphone",
         "stats": [
-          { "value": "27.1%", "label": "of traffic" },
-          { "value": "45.5%", "label": "of purchases" },
-          { "value": "2.94%", "label": "conversion (1.7x avg)" }
+          {
+            "value": "27.1%",
+            "label": "of traffic"
+          },
+          {
+            "value": "45.5%",
+            "label": "of purchases"
+          },
+          {
+            "value": "2.94%",
+            "label": "conversion (1.7x avg)"
+          }
         ],
         "description": "Samsung + Apple + Xiaomi make up ~50% of all purchases. Volume and efficiency leader at once."
       },
-
       "priceBehaviour": {
         "label": "Price Behaviour",
-        "from": { "value": "$187", "label": "average carted item" },
-        "to": { "value": "$170", "label": "average purchased item" },
+        "from": {
+          "value": "$187",
+          "label": "average carted item"
+        },
+        "to": {
+          "value": "$170",
+          "label": "average purchased item"
+        },
         "description": "A mild but consistent price-sensitivity signal right before checkout. Price is heavily right-skewed (electronics push the top end) — roughly 8-9% of sampled rows fall outside the IQR fence in both months. No negative prices; a small number of exact-$0 rows exist, likely free promotional items."
       },
-
       "surprisingPatterns": {
         "label": "Surprising Patterns",
         "items": [
           "Average-priced items convert better than cheap or expensive ones — not the \"cheaper converts better\" pattern naive intuition would predict."
         ]
       },
-
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",
         "items": [
@@ -102,7 +157,6 @@
           "Instead: `category_code` is missing on ~32% of rows — too incomplete to rely on alone — and both price and timing carried meaningful independent signal. Timing mattered more than expected: a genuine update, not a confirmation."
         ]
       },
-
       "deadEnds": {
         "label": "Dead Ends",
         "items": [
@@ -110,7 +164,6 @@
           "A random row sample can't validate session-level cart-vs-purchase comparisons — a session's cart and purchase events are unlikely to both survive the same random draw. Fixed with a full-population lookup of which sessions ever converted, built incrementally across every chunk, so a sampled cart event can still be checked against its own session's true outcome."
         ]
       },
-
       "secondaryModel": {
         "label": "A Second Model — And a Real Correction",
         "items": [
@@ -118,7 +171,6 @@
           "The first version also included `view` events, and `brand` came out as the #1 predictor. Removing `view` changed the answer entirely — `price` jumped to #1, `brand` dropped to #4. `view` is ~95% of the data, so that version was really learning \"what makes someone engage at all,\" not \"what makes an already-engaged shopper buy instead of just cart\" — the actual question. A correction to the framing, not just the model."
         ]
       },
-
       "executionDeadEnds": {
         "label": "Dead Ends",
         "items": [
@@ -126,25 +178,50 @@
           "Rejected the \"best\" clustering result (k=2, highest silhouette score) — it was just a trivial one-time-vs-repeat-visitor split with no business use."
         ]
       },
-
       "methodology": [
-        { "heading": "Engineering constraint", "description": "42.4M/67.4M-row files processed in **2M-row chunks with incremental aggregation**. Session-level grouping (9.2M sessions) took ~27 min/month — `user_session` has near-UUID cardinality, unlike low-cardinality hour/brand/category aggregates." },
-        { "heading": "Model choice", "description": "**LightGBM binary classifier**, `is_unbalance=True` for the 6.8% positive rate, early stopping on validation AUC. Chosen over logistic regression, since features interact non-linearly and LightGBM handles day-of-week natively, and over Random Forest — LightGBM's leaf-wise, histogram-based growth trains faster at this row count, and boosting corrects earlier errors iteratively, where Random Forest's bagged trees can't." },
-        { "heading": "Leakage discipline", "description": "Excluded `user_session`/`user_id`, the literal purchase count, and `n_events` (which encodes purchase count indirectly)." },
-        { "heading": "Evaluation trap avoided", "description": "`predict_proba ≥ 0.5` classifies everything as \"no purchase\" — **93%-accurate, useless.** Picked an F1-optimal threshold from the precision-recall curve instead; report ROC-AUC/PR-AUC as the primary metrics." },
-        { "heading": "Segmentation", "description": "K-Means (k=6, chosen by silhouette among k=3–7) plus a shallow decision tree as a human-readable cross-check — both trained on behavioural features only, **purchase outcome held out entirely.**" },
-        { "heading": "Validation", "description": "Scored the Oct-trained model on unseen Nov sessions with the exact same fixed threshold — a direct test of whether Oct alone was enough to build on, without retraining. In production, the same approach extends to ongoing monitoring: score each week's fresh sessions against the same fixed threshold, track ROC-AUC and the purchase-rate base rate over time — the same comparison that surfaced the Oct→Nov swing — and **treat a sustained AUC drop or base-rate shift as the retrain trigger**, rather than retraining on a fixed schedule." }
+        {
+          "heading": "Engineering constraint",
+          "description": "42.4M/67.4M-row files processed in **2M-row chunks with incremental aggregation**. Session-level grouping (9.2M sessions) took ~27 min/month — `user_session` has near-UUID cardinality, unlike low-cardinality hour/brand/category aggregates."
+        },
+        {
+          "heading": "Model choice",
+          "description": "**LightGBM binary classifier**, `is_unbalance=True` for the 6.8% positive rate, early stopping on validation AUC. Chosen over logistic regression, since features interact non-linearly and LightGBM handles day-of-week natively, and over Random Forest — LightGBM's leaf-wise, histogram-based growth trains faster at this row count, and boosting corrects earlier errors iteratively, where Random Forest's bagged trees can't."
+        },
+        {
+          "heading": "Leakage discipline",
+          "description": "Excluded `user_session`/`user_id`, the literal purchase count, and `n_events` (which encodes purchase count indirectly)."
+        },
+        {
+          "heading": "Evaluation trap avoided",
+          "description": "`predict_proba ≥ 0.5` classifies everything as \"no purchase\" — **93%-accurate, useless.** Picked an F1-optimal threshold from the precision-recall curve instead; report ROC-AUC/PR-AUC as the primary metrics."
+        },
+        {
+          "heading": "Segmentation",
+          "description": "K-Means (k=6, chosen by silhouette among k=3–7) plus a shallow decision tree as a human-readable cross-check — both trained on behavioural features only, **purchase outcome held out entirely.**"
+        },
+        {
+          "heading": "Validation",
+          "description": "Scored the Oct-trained model on unseen Nov sessions with the exact same fixed threshold — a direct test of whether Oct alone was enough to build on, without retraining. In production, the same approach extends to ongoing monitoring: score each week's fresh sessions against the same fixed threshold, track ROC-AUC and the purchase-rate base rate over time — the same comparison that surfaced the Oct→Nov swing — and **treat a sustained AUC drop or base-rate shift as the retrain trigger**, rather than retraining on a fixed schedule."
+        }
       ],
-
       "shapDrivers": {
         "label": "SHAP — What Pushes Toward Purchase",
         "items": [
-          { "direction": "up", "text": "**More page views** push toward purchase." },
-          { "direction": "down", "text": "**Browsing more distinct brands** pushes away from purchase — comparison shopping predicts against conversion." },
-          { "direction": "down", "weak": true, "text": "A **higher max price viewed** pushes slightly away from purchase." }
+          {
+            "direction": "up",
+            "text": "**More page views** push toward purchase."
+          },
+          {
+            "direction": "down",
+            "text": "**Browsing more distinct brands** pushes away from purchase — comparison shopping predicts against conversion."
+          },
+          {
+            "direction": "down",
+            "weak": true,
+            "text": "A **higher max price viewed** pushes slightly away from purchase."
+          }
         ]
       },
-
       "keyResults": {
         "label": "Key Results",
         "items": [
@@ -152,15 +229,25 @@
           "Purchase rate dropped from **6.81% in October to 5.61% in November** — a swing worth planning around, not dismissing as noise."
         ]
       },
-
       "businessInterpretation": "In plain terms: this model is good at spotting a shopper who's already engaged — long session, multiple items carted — but not yet good at explaining which specific thing (a category, a brand, a time of day) would have changed a browser's mind.\n\nThe segment and category findings above are a strong \"where to look first\" — not yet a proven \"what to change.\" Treat them as a prioritized shortlist for testing, not a finished playbook.\n\nThis held up under multiple checks, not just one run: removing key features (the ablation study), testing across a range of cluster counts, and re-scoring on an entirely unseen month.",
-
       "recommendations": {
         "items": [
-          { "tag": "Product / CX", "text": "Reduce brand-comparison friction — clearer comparison tools, stronger recommendation ranking. Comparison-shoppers convert worse than focused browsers." },
-          { "tag": "Marketing", "text": "Retarget the \"long single-visit browser\" segment — 946k users, ~57 min average session, only 13.2% convert. An already-warm audience that just doesn't return." },
-          { "tag": "Product", "text": "Invest in discovery/recommendation surfaces, not checkout UX. Cart→purchase is already 82.67% — checkout has a low ceiling. View→cart has the highest possible upside." },
-          { "tag": "Leadership", "text": "Treat the Oct→Nov purchase-rate swing (6.81% → 5.61%) as a recurring planning input — a promotional month converts differently than a typical one, so forecasts and targets should account for it, not treat it as one-off noise." }
+          {
+            "tag": "Product / CX",
+            "text": "Reduce brand-comparison friction — clearer comparison tools, stronger recommendation ranking. Comparison-shoppers convert worse than focused browsers."
+          },
+          {
+            "tag": "Marketing",
+            "text": "Retarget the \"long single-visit browser\" segment — 946k users, ~57 min average session, only 13.2% convert. An already-warm audience that just doesn't return."
+          },
+          {
+            "tag": "Product",
+            "text": "Invest in discovery/recommendation surfaces, not checkout UX. Cart→purchase is already 82.67% — checkout has a low ceiling. View→cart has the highest possible upside."
+          },
+          {
+            "tag": "Leadership",
+            "text": "Treat the Oct→Nov purchase-rate swing (6.81% → 5.61%) as a recurring planning input — a promotional month converts differently than a typical one, so forecasts and targets should account for it, not treat it as one-off noise."
+          }
         ],
         "limitations": [
           "`category_code`/`brand` missingness (31.8%/14.4%) and `product_id`'s unreliable brand key",
@@ -175,7 +262,6 @@
           "Extend the feature set with cross-session purchase history, if it becomes available — the largest untested lever"
         ]
       },
-
       "visuals": [
         {
           "id": "event-funnel",
@@ -213,7 +299,6 @@
           "svg": "<svg viewBox=\"0 0 640 250\" role=\"img\" aria-label=\"Six customer segments ranging from 32.2 percent to 0.2 percent purchase rate\"><line x1=\"0\" y1=\"190\" x2=\"640\" y2=\"190\" class=\"viz-stroke-border\"></line><rect x=\"10\" y=\"10\" width=\"80\" height=\"180\" class=\"viz-fill-accent\"></rect><text x=\"50\" y=\"0\" text-anchor=\"middle\" dy=\"8\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">32.2%</text><rect x=\"110\" y=\"116\" width=\"80\" height=\"74\" class=\"viz-fill-accent-85\"></rect><text x=\"150\" y=\"106\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">13.2%</text><rect x=\"210\" y=\"150\" width=\"80\" height=\"40\" class=\"viz-fill-accent-65\"></rect><text x=\"250\" y=\"140\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">7.1%</text><rect x=\"310\" y=\"156\" width=\"80\" height=\"34\" class=\"viz-fill-accent-55\"></rect><text x=\"350\" y=\"146\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">6.0%</text><rect x=\"410\" y=\"173\" width=\"80\" height=\"17\" class=\"viz-fill-accent-40\"></rect><text x=\"450\" y=\"163\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">3.0%</text><rect x=\"510\" y=\"189\" width=\"80\" height=\"1\" class=\"viz-fill-accent-25\"></rect><text x=\"550\" y=\"179\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">0.2%</text><text x=\"50\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Repeat</text><text x=\"50\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">shoppers</text><text x=\"150\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Long single</text><text x=\"150\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">visit</text><text x=\"250\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Comparison</text><text x=\"250\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">shoppers</text><text x=\"350\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">High-ticket</text><text x=\"350\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">browsers</text><text x=\"450\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Low-engagement</text><text x=\"450\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">visitors</text><text x=\"550\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Bounce</text><text x=\"550\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">visitors</text></svg>"
         }
       ],
-
       "links": {
         "notebookRepo": "https://github.com/EileenIp/Ecommerce-Behaviour-Conversion-Analysis"
       }
@@ -225,9 +310,14 @@
       "industry": "Digital Advertising",
       "projectType": "Business Intelligence",
       "serviceType": "Dashboard + Decision System",
-      "tools": ["Power BI", "SQL Server", "DAX", "Power Query", "Python"],
+      "tools": [
+        "Power BI",
+        "SQL Server",
+        "DAX",
+        "Power Query",
+        "Python"
+      ],
       "image": "images/projects/advertising-revenue-sales-efficiency-card.png",
-
       "sectionHeadlines": {
         "summaryImpact": "From a $3.60M revenue gap to the accounts that need action",
         "problemSpace": "Revenue alone cannot explain why commercial performance changes",
@@ -235,39 +325,79 @@
         "execution": "Built as a traceable decision system, not a collection of charts",
         "results": "Every portfolio signal ends in a specific commercial action"
       },
-
       "cardDescription": "Built a five-page Power BI decision system that connects advertising performance, advertiser lifecycle, sales activity, pipeline and targets to diagnose revenue and prioritise 720 accounts.",
       "impactStat": "$10.50M revenue vs. $14.10M target, diagnosed through campaign, lifecycle and sales evidence",
       "oneSentenceDescription": "An end-to-end commercial analytics system that explains why advertising revenue is below target and converts campaign, lifecycle and sales evidence into transparent account actions.",
       "targetIndustryRole": "Advertising, Sales Operations & Business Intelligence",
-
       "summaryImpact": "The executive view showed **$10.50M in advertising revenue against a $14.10M target** — a **$3.60M adverse variance, or 25.5% below target**. The challenge was not displaying that gap; it was making it diagnosable. Revenue could move because of campaign efficiency, advertiser acquisition and churn, account spending, sales coverage or pipeline conversion.\n\nI built a five-page Power BI decision system that moves from executive monitoring to campaign diagnosis, sales-team efficiency and a prioritised account worklist. An Advertiser 360 drill-through page exposes the campaign, opportunity and contact evidence behind each recommendation.\n\nThe portfolio contained **720 fictional advertisers** and used transparent Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain rules. This makes every recommendation explainable in an interview and auditable by a business user instead of hiding it inside a black-box score.",
-
       "summaryMetrics": [
-        { "value": "$10.50", "unit": "M", "label": "selected-view advertising revenue" },
-        { "value": "$3.60", "unit": "M", "label": "adverse target variance", "highlight": true },
-        { "value": "720", "label": "advertisers prioritised", "highlight": true },
-        { "value": "1.17x", "label": "selected-view advertiser ROAS" },
-        { "value": "30K", "label": "source performance records" },
-        { "value": "5", "label": "decision-focused report pages" }
+        {
+          "value": "$10.50",
+          "unit": "M",
+          "label": "selected-view advertising revenue"
+        },
+        {
+          "value": "$3.60",
+          "unit": "M",
+          "label": "adverse target variance",
+          "highlight": true
+        },
+        {
+          "value": "720",
+          "label": "advertisers prioritised",
+          "highlight": true
+        },
+        {
+          "value": "1.17x",
+          "label": "selected-view advertiser ROAS"
+        },
+        {
+          "value": "30K",
+          "label": "source performance records"
+        },
+        {
+          "value": "5",
+          "label": "decision-focused report pages"
+        }
       ],
-
       "problemSpace": "A fictional global advertising platform had performance data but no unified view connecting advertising revenue, campaign outcomes, advertiser lifecycle, sales activities, opportunity pipeline and commercial targets. Leadership could see whether revenue moved, but not isolate the combination of campaign, portfolio and execution factors behind the movement.\n\nThe central question was: **Why is advertising revenue above or below target, which advertiser segments contain the strongest growth opportunities, and how should the sales team prioritise its effort?** The report therefore had to support three different decision levels without producing contradictory metrics: leadership monitoring, manager-level diagnosis and account-level action.\n\nThe design deliberately separates **platform advertising revenue** — advertiser spend paid to the fictional platform — from **attributed advertiser revenue**, the advertiser's sales outcome. Confusing these two concepts would make revenue and ROAS analysis commercially misleading.",
-
       "stakeholders": [
-        { "role": "Commercial Leadership", "description": "Needs revenue, target and advertiser-growth diagnosis to set commercial priorities." },
-        { "role": "Sales Managers", "description": "Needs capacity, contact coverage and pipeline evidence to rebalance portfolios and improve execution." },
-        { "role": "Account Executives", "description": "Needs an ordered worklist explaining which advertiser to contact and why." },
-        { "role": "Marketing Analysts", "description": "Needs funnel and efficiency comparisons across platform, objective and market segments." }
+        {
+          "role": "Commercial Leadership",
+          "description": "Needs revenue, target and advertiser-growth diagnosis to set commercial priorities."
+        },
+        {
+          "role": "Sales Managers",
+          "description": "Needs capacity, contact coverage and pipeline evidence to rebalance portfolios and improve execution."
+        },
+        {
+          "role": "Account Executives",
+          "description": "Needs an ordered worklist explaining which advertiser to contact and why."
+        },
+        {
+          "role": "Marketing Analysts",
+          "description": "Needs funnel and efficiency comparisons across platform, objective and market segments."
+        }
       ],
-
       "inputs": {
         "description": "A public synthetic digital-marketing dataset supplied **30,000 advertising-performance records and 35 source fields** covering 2023–2025. Because it did not contain the commercial entities required for sales-efficiency analysis, I generated a documented supplementary layer for advertisers, representatives, opportunities, activities, targets and calendar-month lifecycle status.\n\nThe governed model contains conformed Date, Advertiser, Sales Representative, Platform, Geography and Advertising Entity dimensions connected to advertising-performance, advertiser-month, opportunity, sales-activity and target facts.",
         "stats": [
-          { "value": "30,000", "label": "advertising-performance records" },
-          { "value": "35", "label": "source fields" },
-          { "value": "720", "label": "fictional advertisers" },
-          { "value": "2,400", "label": "synthetic opportunities" }
+          {
+            "value": "30,000",
+            "label": "advertising-performance records"
+          },
+          {
+            "value": "35",
+            "label": "source fields"
+          },
+          {
+            "value": "720",
+            "label": "fictional advertisers"
+          },
+          {
+            "value": "2,400",
+            "label": "synthetic opportunities"
+          }
         ],
         "dataQuality": {
           "label": "Governance and reconciliation",
@@ -286,7 +416,6 @@
           ]
         }
       },
-
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",
         "items": [
@@ -294,7 +423,6 @@
           "A simple sales leaderboard looked attractive initially, but it confounded portfolio size with performance. I replaced it with capacity, process and coverage exceptions so managers could diagnose systems rather than rank people simplistically."
         ]
       },
-
       "deadEnds": {
         "label": "Analytical boundaries",
         "items": [
@@ -302,16 +430,32 @@
           "The seven original account labels were broad archetypes, not a sufficient advertiser population. They were retained as archetypes while a separate fictional advertiser dimension was generated for account analysis."
         ]
       },
-
       "methodology": [
-        { "heading": "SQL architecture", "description": "Built raw, staging, dimensional, fact and business-view layers in **Microsoft SQL Server**, using CTEs, window functions, constraints and reconciliation queries." },
-        { "heading": "Synthetic commercial layer", "description": "Used **Python** and documented configuration to generate 720 advertisers, 24 representatives, 2,400 opportunities, sales activities and monthly targets." },
-        { "heading": "Semantic model", "description": "Connected five fact tables through conformed dimensions with one-to-many relationships, controlled filter direction and explicit date-role handling." },
-        { "heading": "DAX governance", "description": "Created safe, context-aware measures for revenue, target variance, funnel conversion, lifecycle, pipeline, coverage, capacity and advertiser prioritisation." },
-        { "heading": "Action logic", "description": "Implemented interpretable **Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain** rules with a reason and priority order for every account." },
-        { "heading": "Report experience", "description": "Designed four diagnostic pages plus **Advertiser 360 drill-through**, connecting executive performance to the evidence behind an account action." }
+        {
+          "heading": "SQL architecture",
+          "description": "Built raw, staging, dimensional, fact and business-view layers in **Microsoft SQL Server**, using CTEs, window functions, constraints and reconciliation queries."
+        },
+        {
+          "heading": "Synthetic commercial layer",
+          "description": "Used **Python** and documented configuration to generate 720 advertisers, 24 representatives, 2,400 opportunities, sales activities and monthly targets."
+        },
+        {
+          "heading": "Semantic model",
+          "description": "Connected five fact tables through conformed dimensions with one-to-many relationships, controlled filter direction and explicit date-role handling."
+        },
+        {
+          "heading": "DAX governance",
+          "description": "Created safe, context-aware measures for revenue, target variance, funnel conversion, lifecycle, pipeline, coverage, capacity and advertiser prioritisation."
+        },
+        {
+          "heading": "Action logic",
+          "description": "Implemented interpretable **Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain** rules with a reason and priority order for every account."
+        },
+        {
+          "heading": "Report experience",
+          "description": "Designed four diagnostic pages plus **Advertiser 360 drill-through**, connecting executive performance to the evidence behind an account action."
+        }
       ],
-
       "keyResults": {
         "label": "Key Results",
         "items": [
@@ -321,15 +465,25 @@
           "The final report joins leadership, campaign, sales-manager and account-executive decisions without changing KPI definitions between pages."
         ]
       },
-
       "businessInterpretation": "The main insight is that a revenue gap is not a single-metric problem. An advertiser with declining spend but healthy return needs a different response from an active advertiser below break-even ROAS, and both differ from a churned account or a healthy advertiser with unused potential.\n\nThe report makes those distinctions operational. Leadership sees the size and drivers of the gap; managers see campaign, capacity and pipeline exceptions; account executives receive a transparent next action and can inspect the underlying evidence before contacting an advertiser.",
-
       "recommendations": {
         "items": [
-          { "tag": "Commercial", "text": "Prioritise account interventions by lifecycle, revenue momentum, ROAS and unused potential rather than revenue size alone." },
-          { "tag": "Sales Ops", "text": "Use capacity and contact-coverage exceptions to rebalance portfolios without treating a simple representative ranking as performance diagnosis." },
-          { "tag": "Marketing", "text": "Investigate platform–objective combinations where strong exposure does not progress through click and conversion stages efficiently." },
-          { "tag": "Governance", "text": "Calibrate recommendation thresholds with commercial stakeholders and track accepted actions and realised outcomes before treating the rules as production policy." }
+          {
+            "tag": "Commercial",
+            "text": "Prioritise account interventions by lifecycle, revenue momentum, ROAS and unused potential rather than revenue size alone."
+          },
+          {
+            "tag": "Sales Ops",
+            "text": "Use capacity and contact-coverage exceptions to rebalance portfolios without treating a simple representative ranking as performance diagnosis."
+          },
+          {
+            "tag": "Marketing",
+            "text": "Investigate platform–objective combinations where strong exposure does not progress through click and conversion stages efficiently."
+          },
+          {
+            "tag": "Governance",
+            "text": "Calibrate recommendation thresholds with commercial stakeholders and track accepted actions and realised outcomes before treating the rules as production policy."
+          }
         ],
         "limitations": [
           "The advertising source and supplementary commercial entities are synthetic",
@@ -344,7 +498,6 @@
           "Publish through a governed refresh and deployment process"
         ]
       },
-
       "visuals": [
         {
           "id": "revenue-gap",
@@ -354,12 +507,130 @@
           "svg": "<svg viewBox=\"0 0 640 150\" role=\"img\" aria-label=\"Advertising revenue 10.50 million compared with a target of 14.10 million\"><text x=\"0\" y=\"25\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Advertising revenue</text><rect x=\"0\" y=\"38\" width=\"447\" height=\"30\" class=\"viz-fill-accent\"></rect><text x=\"457\" y=\"59\" font-family=\"IBM Plex Mono, monospace\" font-size=\"15\" font-weight=\"600\" class=\"viz-fill-text\">$10.50M</text><text x=\"0\" y=\"101\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Revenue target</text><rect x=\"0\" y=\"114\" width=\"600\" height=\"30\" class=\"viz-fill-muted\"></rect><text x=\"610\" y=\"135\" text-anchor=\"end\" font-family=\"IBM Plex Mono, monospace\" font-size=\"15\" font-weight=\"600\" class=\"viz-fill-text\">$14.10M</text></svg>"
         }
       ],
-
       "links": {
         "dashboard": "https://github.com/EileenIp/advertising-revenue-sales-efficiency/blob/main/power-bi/Advertising%20Revenue%20and%20Sales%20Efficiency.pbix",
         "technicalFindings": "https://github.com/EileenIp/advertising-revenue-sales-efficiency/blob/main/docs/Business_Case_Study.md",
         "notebookRepo": "https://github.com/EileenIp/advertising-revenue-sales-efficiency",
         "caseStudyPage": "https://github.com/EileenIp/advertising-revenue-sales-efficiency#readme"
+      }
+    },
+    {
+      "id": "creator-content-decision-dashboard-2026",
+      "title": "Creator Content Decision Dashboard",
+      "year": 2026,
+      "industry": "Media & Entertainment",
+      "projectType": "Business Intelligence",
+      "serviceType": "Dashboard",
+      "tools": [
+        "Tableau",
+        "Excel"
+      ],
+      "image": "https://raw.githubusercontent.com/EileenIp/creator-content-decision-dashboard/main/dashboard.png",
+      "cardDescription": "A Tableau content decision console connecting reach, retention, momentum and audience loyalty to the next production decision. Built with synthetic demonstration data.",
+      "oneSentenceDescription": "Which content should a creator scale, promote or improve next?",
+      "targetIndustryRole": "Creator, Content Strategy & Marketing Analytics",
+      "summaryImpact": "I built a Tableau dashboard to help a creator move from performance reporting to the next content decision. It combines five KPI cards with audience trends, an opportunity matrix, video momentum and topic-specific recommendations.\n\n**This is a synthetic-data portfolio project, not an export of my personal YouTube channel.** Its figures demonstrate analytical design rather than measured business impact.",
+      "summaryMetrics": [
+        {
+          "value": "36",
+          "label": "synthetic videos"
+        },
+        {
+          "value": "6,857",
+          "label": "daily performance records"
+        },
+        {
+          "value": "5",
+          "label": "KPI cards"
+        },
+        {
+          "value": "12",
+          "label": "months of activity"
+        }
+      ],
+      "problemSpace": "Views alone do not explain what to produce next. A video can attract attention but lose viewers, while another retains its audience but struggles to reach new people. The dashboard brings discovery, retention and loyalty together so a creator can choose a focused next experiment.",
+      "stakeholders": [
+        {
+          "role": "Content Creator",
+          "description": "Chooses which topics and formats to produce next."
+        },
+        {
+          "role": "Content Strategist",
+          "description": "Balances audience growth, retention and repeat viewing."
+        }
+      ],
+      "inputs": {
+        "description": "The supplied synthetic Excel workbook includes 36 video records and 6,857 daily performance records from 1 September 2025 to 30 August 2026. The Tableau model relates Videos and Daily Performance through Video ID.",
+        "dataQuality": {
+          "label": "Data context",
+          "items": [
+            "Synthetic demonstration data; not real channel or client performance.",
+            "Daily and video-level unique-viewer counts are not deduplicated people across the entire period."
+          ]
+        }
+      },
+      "methodology": [
+        {
+          "heading": "Data model",
+          "description": "Related video metadata to daily performance through Video ID."
+        },
+        {
+          "heading": "Metric definitions",
+          "description": "Used views-weighted average percentage viewed, returning-viewer share and subscribers gained per 1,000 views."
+        },
+        {
+          "heading": "Decision logic",
+          "description": "Compared views and retention with window medians to identify Scale, Improve Discovery, Fix Retention and Review opportunities."
+        },
+        {
+          "heading": "Momentum",
+          "description": "Compared the latest 28 days with the preceding 28 days, anchored to the maximum data date."
+        },
+        {
+          "heading": "Interaction",
+          "description": "Added period, content type, topic and video filters, with topic-specific next-experiment guidance."
+        }
+      ],
+      "keyResults": {
+        "label": "Delivered capabilities",
+        "items": [
+          "Five KPI cards connect reach, viewing depth, content quality, growth and loyalty.",
+          "An opportunity matrix separates discovery problems from retention problems.",
+          "A decision queue and topic recommendations translate reporting into candidate next actions."
+        ]
+      },
+      "businessInterpretation": "High-retention content with limited reach suggests a discovery experiment, such as a different title or thumbnail. Strong reach with weaker retention suggests reviewing the opening and pacing. These are testable hypotheses, not proven causal effects.",
+      "recommendations": {
+        "items": [
+          {
+            "tag": "Discovery",
+            "text": "Test packaging for content that retains viewers but receives fewer views."
+          },
+          {
+            "tag": "Retention",
+            "text": "Review the opening and pacing of content with stronger reach but weaker viewing depth."
+          },
+          {
+            "tag": "Learning",
+            "text": "Record the experiment and compare its outcome before making a broader production decision."
+          }
+        ],
+        "limitations": [
+          "All source data is synthetic.",
+          "Audience ratios aggregate daily/video counts rather than deduplicated people.",
+          "Median-based categories depend on table-calculation context.",
+          "The screenshot says Review while the supplied workbook calculation uses Reconsider.",
+          "Topic suggestions are rule-based; the screenshot’s full-period insight is static."
+        ],
+        "nextSteps": [
+          "Verify the portable workbook in Tableau and reconcile it with the supplied screenshot.",
+          "Validate recommendations through measured content experiments."
+        ]
+      },
+      "links": {
+        "dashboard": "https://github.com/EileenIp/creator-content-decision-dashboard/blob/main/Creator%20Content%20Decision%20Dashboard.twb",
+        "notebookRepo": "https://github.com/EileenIp/creator-content-decision-dashboard",
+        "caseStudyPage": "https://github.com/EileenIp/creator-content-decision-dashboard#readme"
       }
     },
     {
