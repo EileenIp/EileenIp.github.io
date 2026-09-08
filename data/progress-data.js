@@ -1,51 +1,54 @@
-// Progress page content. Edit this file to update the page — no HTML editing needed.
-// See README-progress.md for exactly what to change each month.
+// Personal progress notes. Keep plans separate from completed milestones.
 const PROGRESS_DATA = {
-  // One card per goal. status must be exactly "Done", "In progress", or "Not started"
-  // (these three strings control the tag color — see js/progress.js STATUS_STYLE).
-  goals: [
+  "goals": [
     {
-      title: "Ship a personal project every quarter",
-      description: "Four small, finished things instead of one big unfinished one. Two down so far.",
-      status: "In progress",
+      "title": "Find my next internship",
+      "description": "I’m studying Computer Science and Commerce at UQ and looking for an internship where I can use both. Right now, I’m preparing applications and working on how I explain my experience and projects.",
+      "status": "In progress"
     },
     {
-      title: "Read 24 books",
-      description: "Split evenly between fiction and non-fiction. Tracking on Storygraph.",
-      status: "In progress",
+      "title": "Complete my BSAN4201 presentation",
+      "description": "I’m exploring how a traditional product could become a useful AI-enabled service. My individual presentation is due on 12 October. I’m still choosing the idea, then I’ll work through the customer problem, analysis and business model.",
+      "status": "In progress"
     },
     {
-      title: "Learn watercolor painting",
-      description: "Bought the supplies in January. Haven't opened them yet.",
-      status: "Not started",
+      "title": "Make my portfolio reflect my work",
+      "description": "I want someone visiting my website to understand what I built, why I built it and what I learned. I’m improving the case studies and dashboards I already have, while making the site easier to explore.",
+      "status": "In progress"
     },
     {
-      title: "Run a half marathon",
-      description: "Finished the city half in March, under my goal time.",
-      status: "Done",
+      "title": "Build toward media, marketing and gaming",
+      "description": "These are the areas I want to work in. I’m exploring projects around player retention, launch sentiment, advertising and streaming, with a focus on questions a team could actually use the answers to.",
+      "status": "In progress"
     },
+    {
+      "title": "Finish my internship course",
+      "description": "An internship is part of my path to completing university. Securing an offer is the next milestone; completing the placement and course comes after that.",
+      "status": "Not started"
+    }
   ],
-
-  // Newest entry first. Add a new entry at the top of this array each month.
-  monthlyLog: [
-    { month: "August", year: 2026, entry: "Started the freelance illustration project. Portfolio site redesign is finally live." },
-    { month: "July", year: 2026, entry: "Finished book #14. Took two weeks off for a trip to Lisbon — no side projects touched." },
-    { month: "June", year: 2026, entry: "Shipped the Q2 project: a small Chrome extension for tab management. Started training for the half." },
-    { month: "May", year: 2026, entry: "Slow month — mostly client work. Read two books, both non-fiction." },
-    { month: "April", year: 2026, entry: "Ran the city half marathon. Beat my goal time by six minutes." },
-  ],
-
-  // Newest year first. "details" is the text shown when a year is expanded.
-  pastYears: [
+  "monthlyLog": [
     {
-      year: 2025,
-      summary: "Shipped 3 projects, read 19 books, missed the marathon goal.",
-      details: "Started the year strong with a redesign of an old side project, then two more smaller tools over the summer. Reading pace slowed in Q4. Signed up for a marathon in the fall but a knee injury in October ended that plan — deferred to 2026 as a half instead.",
+      "month": "September",
+      "year": 2026,
+      "entry": "I’ve been refining my advertising and sales dashboard, including advertiser views, sales activity and follow-up indicators. I’m also looking for suitable data for a player churn and LTV project. That project is paused at the dataset stage: I want to be clear about what the data can support before I build a model.\n\nI’ve organised my internship applications, BSAN4201 work and portfolio ideas into a shared goal list. The immediate focus is applications and the October presentation, with website improvements alongside them."
     },
     {
-      year: 2024,
-      summary: "First full year of consistent side projects. Learned the basics of Blender.",
-      details: "The year this whole tracking habit started. Spent the first few months just experimenting with Blender tutorials, then applied it to a couple of small 3D pieces for the portfolio. No formal goals set — this list started as a retroactive summary.",
+      "month": "August",
+      "year": 2026,
+      "entry": "I worked on explaining my e-commerce purchase-prediction project for interviews and presenting it through my portfolio. I also spent time on application and interview preparation, and on making dashboard filters, tooltips and labels easier to understand.\n\nFor BSAN4201, I started brainstorming traditional products that could become AI-enabled services. I’m interested in finding an idea where the AI has a clear purpose in the customer’s experience."
     },
+    {
+      "month": "June",
+      "year": 2026,
+      "entry": "I was reaching out to recruiters and exploring student and early-career opportunities across data, analytics, AI and business strategy. I worked on making my messages clearer about my background and the opportunities I’m looking for."
+    }
   ],
+  "pastYears": [
+    {
+      "year": 2025,
+      "summary": "Started shaping a portfolio direction around media and entertainment.",
+      "details": "By December, I was exploring the kinds of data projects that could help me move toward media and entertainment roles in Australia and Hong Kong. That interest still shapes the projects I want to build, from audience behaviour to marketing performance and retention."
+    }
+  ]
 };
