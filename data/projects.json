@@ -361,6 +361,366 @@
         "notebookRepo": "https://github.com/EileenIp/advertising-revenue-sales-efficiency",
         "caseStudyPage": "https://github.com/EileenIp/advertising-revenue-sales-efficiency#readme"
       }
+    },
+    {
+      "id": "churn-early-warning-model",
+      "title": "Churn Early-Warning Model",
+      "year": 2025,
+      "industry": "Gaming",
+      "projectType": "Predictive Model",
+      "serviceType": "ML Model",
+      "tools": [
+        "Python",
+        "XGBoost"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "Placeholder — not yet built",
+        "problemSpace": "Problem space — TBD",
+        "inputs": "Data inputs — TBD",
+        "discovery": "Discovery — TBD",
+        "execution": "Method — TBD",
+        "results": "Results — TBD"
+      },
+      "cardDescription": "[Placeholder] Build a weekly churn-risk score from session and spend signals to flag at-risk players before they lapse. Full case study not yet built.",
+      "impactStat": "Placeholder — project not yet built",
+      "oneSentenceDescription": "Build a weekly churn-risk score from session and spend signals to flag at-risk players before they lapse.",
+      "targetIndustryRole": "Gaming (placeholder — to be confirmed)",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Build a weekly churn-risk score from session and spend signals to flag at-risk players before they lapse.",
+      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why gaming teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "inputs": {
+        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Method — TBD",
+          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "[Placeholder] No results yet — analysis hasn't been run."
+        ]
+      },
+      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "recommendations": {
+        "items": [],
+        "limitations": [
+          "This is a placeholder page — no analysis has been performed yet."
+        ],
+        "nextSteps": [
+          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
+          "Define the specific business question and stakeholder",
+          "Build and validate the model / dashboard / pipeline",
+          "Replace this placeholder with the full SPIDER write-up"
+        ]
+      }
+    },
+    {
+      "id": "streaming-engagement-dashboard",
+      "title": "Streaming Engagement Dashboard",
+      "year": 2024,
+      "industry": "Media & Entertainment",
+      "projectType": "Dashboard",
+      "serviceType": "BI Dashboard",
+      "tools": [
+        "Tableau",
+        "SQL"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "Placeholder — not yet built",
+        "problemSpace": "Problem space — TBD",
+        "inputs": "Data inputs — TBD",
+        "discovery": "Discovery — TBD",
+        "execution": "Method — TBD",
+        "results": "Results — TBD"
+      },
+      "cardDescription": "[Placeholder] Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams. Full case study not yet built.",
+      "impactStat": "Placeholder — project not yet built",
+      "oneSentenceDescription": "Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams.",
+      "targetIndustryRole": "Media & Entertainment (placeholder — to be confirmed)",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams.",
+      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why media & entertainment teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "inputs": {
+        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Method — TBD",
+          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "[Placeholder] No results yet — analysis hasn't been run."
+        ]
+      },
+      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "recommendations": {
+        "items": [],
+        "limitations": [
+          "This is a placeholder page — no analysis has been performed yet."
+        ],
+        "nextSteps": [
+          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
+          "Define the specific business question and stakeholder",
+          "Build and validate the model / dashboard / pipeline",
+          "Replace this placeholder with the full SPIDER write-up"
+        ]
+      }
+    },
+    {
+      "id": "ad-creative-performance-pipeline",
+      "title": "Ad Creative Performance Pipeline",
+      "year": 2025,
+      "industry": "Marketing",
+      "projectType": "Data Pipeline",
+      "serviceType": "Automated Pipeline",
+      "tools": [
+        "dbt",
+        "BigQuery"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "Placeholder — not yet built",
+        "problemSpace": "Problem space — TBD",
+        "inputs": "Data inputs — TBD",
+        "discovery": "Discovery — TBD",
+        "execution": "Method — TBD",
+        "results": "Results — TBD"
+      },
+      "cardDescription": "[Placeholder] Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly. Full case study not yet built.",
+      "impactStat": "Placeholder — project not yet built",
+      "oneSentenceDescription": "Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly.",
+      "targetIndustryRole": "Marketing (placeholder — to be confirmed)",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly.",
+      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why marketing teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "inputs": {
+        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Method — TBD",
+          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "[Placeholder] No results yet — analysis hasn't been run."
+        ]
+      },
+      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "recommendations": {
+        "items": [],
+        "limitations": [
+          "This is a placeholder page — no analysis has been performed yet."
+        ],
+        "nextSteps": [
+          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
+          "Define the specific business question and stakeholder",
+          "Build and validate the model / dashboard / pipeline",
+          "Replace this placeholder with the full SPIDER write-up"
+        ]
+      }
+    },
+    {
+      "id": "player-segmentation-ltv-model",
+      "title": "Player Segmentation & LTV Model",
+      "year": 2024,
+      "industry": "Gaming",
+      "projectType": "Segmentation",
+      "serviceType": "Analysis + Model",
+      "tools": [
+        "Python",
+        "scikit-learn"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "Placeholder — not yet built",
+        "problemSpace": "Problem space — TBD",
+        "inputs": "Data inputs — TBD",
+        "discovery": "Discovery — TBD",
+        "execution": "Method — TBD",
+        "results": "Results — TBD"
+      },
+      "cardDescription": "[Placeholder] Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average. Full case study not yet built.",
+      "impactStat": "Placeholder — project not yet built",
+      "oneSentenceDescription": "Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average.",
+      "targetIndustryRole": "Gaming (placeholder — to be confirmed)",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average.",
+      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why gaming teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "inputs": {
+        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Method — TBD",
+          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "[Placeholder] No results yet — analysis hasn't been run."
+        ]
+      },
+      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "recommendations": {
+        "items": [],
+        "limitations": [
+          "This is a placeholder page — no analysis has been performed yet."
+        ],
+        "nextSteps": [
+          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
+          "Define the specific business question and stakeholder",
+          "Build and validate the model / dashboard / pipeline",
+          "Replace this placeholder with the full SPIDER write-up"
+        ]
+      }
+    },
+    {
+      "id": "support-ticket-sentiment-tracker",
+      "title": "Support Ticket Sentiment Tracker",
+      "year": 2023,
+      "industry": "Customer Experience",
+      "projectType": "NLP Analysis",
+      "serviceType": "Interactive Report",
+      "tools": [
+        "Python",
+        "BERT"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "Placeholder — not yet built",
+        "problemSpace": "Problem space — TBD",
+        "inputs": "Data inputs — TBD",
+        "discovery": "Discovery — TBD",
+        "execution": "Method — TBD",
+        "results": "Results — TBD"
+      },
+      "cardDescription": "[Placeholder] Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound. Full case study not yet built.",
+      "impactStat": "Placeholder — project not yet built",
+      "oneSentenceDescription": "Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound.",
+      "targetIndustryRole": "Customer Experience (placeholder — to be confirmed)",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound.",
+      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why customer experience teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "inputs": {
+        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Method — TBD",
+          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "[Placeholder] No results yet — analysis hasn't been run."
+        ]
+      },
+      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "recommendations": {
+        "items": [],
+        "limitations": [
+          "This is a placeholder page — no analysis has been performed yet."
+        ],
+        "nextSteps": [
+          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
+          "Define the specific business question and stakeholder",
+          "Build and validate the model / dashboard / pipeline",
+          "Replace this placeholder with the full SPIDER write-up"
+        ]
+      }
+    },
+    {
+      "id": "social-feed-ranking-experiment",
+      "title": "Social Feed Ranking Experiment",
+      "year": 2025,
+      "industry": "Social Media",
+      "projectType": "A/B Test",
+      "serviceType": "Experiment Write-up",
+      "tools": [
+        "SQL",
+        "Python"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "Placeholder — not yet built",
+        "problemSpace": "Problem space — TBD",
+        "inputs": "Data inputs — TBD",
+        "discovery": "Discovery — TBD",
+        "execution": "Method — TBD",
+        "results": "Results — TBD"
+      },
+      "cardDescription": "[Placeholder] Design and analyse a feed-ranking test balancing session length against user-reported content quality. Full case study not yet built.",
+      "impactStat": "Placeholder — project not yet built",
+      "oneSentenceDescription": "Design and analyse a feed-ranking test balancing session length against user-reported content quality.",
+      "targetIndustryRole": "Social Media (placeholder — to be confirmed)",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Design and analyse a feed-ranking test balancing session length against user-reported content quality.",
+      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why social media teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "inputs": {
+        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Method — TBD",
+          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "[Placeholder] No results yet — analysis hasn't been run."
+        ]
+      },
+      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "recommendations": {
+        "items": [],
+        "limitations": [
+          "This is a placeholder page — no analysis has been performed yet."
+        ],
+        "nextSteps": [
+          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
+          "Define the specific business question and stakeholder",
+          "Build and validate the model / dashboard / pipeline",
+          "Replace this placeholder with the full SPIDER write-up"
+        ]
+      }
     }
   ]
 }
