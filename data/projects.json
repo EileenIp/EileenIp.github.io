@@ -14,7 +14,6 @@
         "SHAP",
         "K-Means"
       ],
-      "image": "images/projects/ecommerce-behavior-card.png",
       "sectionHeadlines": {
         "summaryImpact": "Why do some shoppers buy — and most just look?",
         "problemSpace": "Conversion, not traffic, is the growth lever",
@@ -891,8 +890,8 @@
       "projectType": "Dashboard",
       "serviceType": "BI Dashboard",
       "tools": [
-        "Tableau",
-        "SQL"
+        "Python",
+        "DuckDB"
       ],
       "sectionHeadlines": {
         "summaryImpact": "Placeholder — not yet built",
@@ -946,62 +945,225 @@
     {
       "id": "ad-creative-performance-pipeline",
       "title": "Ad Creative Performance Pipeline",
-      "year": 2025,
+      "year": 2026,
       "industry": "Marketing",
       "projectType": "Data Pipeline",
       "serviceType": "Automated Pipeline",
       "tools": [
         "dbt",
-        "BigQuery"
+        "DuckDB",
+        "Python",
+        "GitHub Actions"
       ],
       "sectionHeadlines": {
-        "summaryImpact": "Placeholder — not yet built",
-        "problemSpace": "Problem space — TBD",
-        "inputs": "Data inputs — TBD",
-        "discovery": "Discovery — TBD",
-        "execution": "Method — TBD",
-        "results": "Results — TBD"
+        "summaryImpact": "The deliverable is the pipeline, not the analysis",
+        "problemSpace": "Same-day numbers are useless if they're wrong",
+        "inputs": "8 named defect types, every instance logged",
+        "discovery": "A missing day costs more than the missing day",
+        "execution": "Three real bugs, caught before they shipped",
+        "results": "10 dbt tests, one designed to warn every run"
       },
-      "cardDescription": "[Placeholder] Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly. Full case study not yet built.",
-      "impactStat": "Placeholder — project not yet built",
-      "oneSentenceDescription": "Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly.",
-      "targetIndustryRole": "Marketing (placeholder — to be confirmed)",
-      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly.",
-      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why marketing teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "cardDescription": "A dbt-core + DuckDB pipeline built to survive a deliberately hostile synthetic upstream — late arrivals, restatements, duplicates, a schema change, nulls, a clicks-exceed-impressions bug, and a missing day — with 10 dbt tests, hosted lineage docs, and a live dashboard, not a local-only demo.",
+      "impactStat": "Reconciles to ground truth exactly across 25,892 rows — except the 3 defect types the pipeline is never supposed to silently fix",
+      "oneSentenceDescription": "A dbt-core + DuckDB pipeline that ingests openly synthetic, deliberately corrupted ad-creative performance data and proves it can still deliver reliable same-day numbers — the deliverable is the pipeline, not an advertising finding.",
+      "targetIndustryRole": "BI Developer, Data Engineer, Analytics Engineer (marketing-adjacent)",
+      "summaryImpact": "Media buyers usually find out which creatives are winning a week after the numbers mattered. **The deliverable here is the pipeline, not the analysis** — real creative-level ad performance data isn't published anywhere (even the Facebook Ad Library exposes creative content, not performance), so this project uses openly synthetic data with deliberately realistic failure modes instead of pretending a scraped dataset is something it isn't.\n\nBuilt with dbt-core and DuckDB: a generator injects **8 named defect types** into 96 daily drop files — late arrivals, restated numbers, exact and near duplicates, a schema change mid-stream, nulled fields, a clicks-exceed-impressions platform bug, and one day the platform never delivers at all — logged to a ground-truth manifest so every defect's handling can be checked against a known answer, not eyeballed.\n\nThe pipeline reconciles to that ground truth exactly, with one real distinction worth explaining rather than hiding: **three of the eight defect types are never corrected by the upstream platform**, so a pipeline that \"fixed\" them would be inventing numbers. The other five — including a missing day that turned out to also swallow nearby late-arriving rows — resolve correctly through a 7-day lookback window and a stated latest-delivery-wins dedup rule.\n\nCI runs the full daily cycle end to end (generate → load → `dbt build` + 10 tests → publish), with a public lineage graph and a thin dashboard, both hosted and live, not local-only.",
+      "summaryMetrics": [
+        {
+          "value": "484",
+          "label": "creatives across 25 campaigns"
+        },
+        {
+          "value": "25,892",
+          "label": "ground-truth (creative, day) rows"
+        },
+        {
+          "value": "8",
+          "label": "named defect types, every instance logged",
+          "highlight": true
+        },
+        {
+          "value": "10",
+          "label": "dbt tests, all green (1 by-design warn)",
+          "highlight": true
+        },
+        {
+          "value": "7",
+          "unit": "-day",
+          "label": "lookback window, reasoned not assumed"
+        },
+        {
+          "value": "3",
+          "label": "real engineering bugs caught before shipping",
+          "highlight": true
+        }
+      ],
+      "problemSpace": "Same-day creative performance is a genuine pain point in paid social — buying teams typically wait a week for platform reporting to stabilise, by which point a losing creative has already burned budget. The honest version of that pitch: what's actually being demonstrated here is **pipeline engineering** — transforms, tests, incremental loading, graceful failure — the skills a BI Developer or Data Engineer interview actually probes, not an advertising insight. A pipeline's quality is proven by how it handles hostile input, and generating that hostile input on purpose is standard practice in how real data teams test their own pipelines.\n\nScope: a **dbt-core + DuckDB** pipeline (swapped in for an originally-scoped dbt + BigQuery stack for zero cloud cost with no loss of demonstrated skill — dbt models are close to portable, and knowing why is itself interview material), orchestrated by GitHub Actions, with a hostile-input generator standing in for the ad platform. What's **not** claimed: any advertising finding. No \"lifting CTR 18%.\" The CTR/CPC/CPA numbers in this pipeline are plumbing-test water.",
+      "stakeholders": [
+        {
+          "role": "BI / Analytics Engineering",
+          "description": "Consumes the pipeline's output — needs to know which numbers are final and which are still provisional, without having to ask."
+        },
+        {
+          "role": "Data Engineering",
+          "description": "Owns the lookback window, dedup rule, and test suite — needs each one stated and reasoned, not defaulted."
+        },
+        {
+          "role": "Media Buying (hypothetical end user)",
+          "description": "Would consume the top-decile flagging in a real deployment — needs to trust that a flagged creative actually cleared a meaningful volume floor, not a lucky handful of impressions."
+        }
+      ],
       "inputs": {
-        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+        "description": "Openly synthetic, generated by a seeded Python script (`src/generator.py`), not scraped or sampled from any real platform — stated plainly because real creative-level ad performance data is proprietary and isn't published anywhere. 484 creatives across 25 campaigns over a 95-day window, with realistic daily performance (log-normal impressions, Beta-distributed CTR/CVR per creative, day-of-week seasonality) as the ground truth, then corrupted on delivery.",
+        "stats": [
+          {
+            "value": "484",
+            "label": "creatives across 25 campaigns"
+          },
+          {
+            "value": "25,892",
+            "label": "ground-truth (creative, day) rows"
+          },
+          {
+            "value": "96",
+            "label": "daily drop files, each independently corrupted"
+          },
+          {
+            "value": "4,492",
+            "label": "individual defect events logged to the manifest"
+          }
+        ],
+        "dataQuality": {
+          "label": "Defect types — reported transparently, not smoothed over",
+          "items": [
+            "2,656 late-arriving rows, delivered 1–3 days after their event date.",
+            "1,260 restated rows — an initial wrong value followed by a corrected one 1–2 days later.",
+            "109 exact duplicates and 111 near-duplicates (same key, a jittered impressions value) delivered within a single file.",
+            "276 nulled fields and 78 rows where clicks exceed impressions — a real platform bug pattern — both left uncorrected on purpose, since the generator never issues a fix for either.",
+            "1 schema-drift event (`spend` renamed to `cost`, a new `video_completion_rate` column added) and 1 day the platform never delivers at all."
+          ]
+        },
+        "closingNote": {
+          "label": "Dedup rule & lookback window",
+          "items": [
+            "**Dedup rule:** latest delivery wins, tie-broken deterministically by position within a file when two rows share a key inside the same drop — a stated, defendable choice, not an unexamined assumption.",
+            "**Lookback window: 7 days** — covers the generator's worst case (a 3-day late arrival, plus a restatement correction up to 2 more days on top of that = 5 days) with a 2-day margin."
+          ]
+        }
+      },
+      "surprisingPatterns": {
+        "label": "Surprising Pattern",
+        "items": [
+          "A platform outage doesn't just cost the missing day. Of the 281 rows the pipeline couldn't reconcile back to ground truth, 253 were on the missing day itself — but 28 more were late-arriving rows from the three days *before* it that happened to be scheduled for delivery on that exact date, and vanished with it."
+        ]
       },
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",
         "items": [
-          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+          "Expected the reconciliation test to simply confirm the pipeline matches ground truth once dedup and the lookback window were in place.",
+          "Instead: the first version failed for a real reason, not a bug in the test — it expected three defect types (nulled fields, the clicks-exceed-impressions bug, and same-file near-duplicates) to match ground truth, which isn't possible without inventing numbers, since the generator never issues a correction for any of the three. Fixed by scoping the comparison to defects that genuinely do resolve, and by adding a `had_same_drop_duplicate` column so the near-duplicate ambiguity is visible in the data rather than silently resolved."
+        ]
+      },
+      "deadEnds": {
+        "label": "Dead Ends",
+        "items": [
+          "Considered adding a ninth defect type — a partial or paginated API pull returning fewer campaigns than expected — but rejected it as a row-level variant of the missing-day defect rather than a genuinely new failure mode, to avoid scope creep beyond the spec's own defect list."
+        ]
+      },
+      "executionDeadEnds": {
+        "label": "Three Real Bugs — Caught Before Shipping",
+        "items": [
+          "**An untracked empty directory silently broke the first real CI run.** `dbt/seeds/` only ever contained a gitignored CSV, and git doesn't track empty directories — so a fresh checkout had no `dbt/seeds/` at all, and the workflow's plain `cp` step into it failed outright, skipping `dbt seed` and `dbt build` entirely. Local testing never caught it, because the directory already existed locally from earlier manual runs. Fixed with a tracked `.gitkeep` placeholder plus a defensive `mkdir -p`.",
+          "**A settings-page click that looked like it worked, didn't.** Enabling GitHub Pages (Settings → Pages → Source: GitHub Actions) is a repo-settings change outside the build agent's permission scope, so it had to be done by hand — and the first attempt silently didn't save, with no indication from the GitHub web UI that anything was wrong. Caught by querying the GitHub API directly instead of trusting the settings page, twice, before the second attempt was confirmed to have actually taken.",
+          "**The results table broke on an actual mobile viewport, not in theory.** The thin dashboard's top-decile table overflowed the page instead of scrolling within itself at 375px width — caught by checking a real mobile viewport before shipping, not assumed fine because it looked fine on desktop. Fixed with a scoped `overflow-x: auto` wrapper."
         ]
       },
       "methodology": [
         {
-          "heading": "Method — TBD",
-          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+          "heading": "Stack",
+          "description": "dbt-core + DuckDB, orchestrated by GitHub Actions — chosen over the originally-scoped dbt + BigQuery for zero cloud cost with no loss of demonstrated skill; dbt models are close to portable across warehouses, and knowing why is itself interview material."
+        },
+        {
+          "heading": "Raw layer contract",
+          "description": "The loader lands every delivered row verbatim — duplicates and superseded restatements included — rather than cleaning on ingest. The raw layer's job is to preserve exactly what the platform delivered, which is what makes the ground-truth manifest checkable against it later; dedup is the staging layer's job, not the loader's."
+        },
+        {
+          "heading": "Dedup rule",
+          "description": "Latest delivery wins. Within the same drop file, a deterministic tiebreak (row position) resolves duplicate/near-duplicate collisions — an arbitrary but reproducible choice, not a claim about which of two same-key rows is \"truer,\" since the data itself doesn't say."
+        },
+        {
+          "heading": "Incremental strategy",
+          "description": "`stg_creative_performance` reprocesses a 7-day lookback window on every run via `delete+insert`, rather than only ever appending — long enough to absorb the generator's worst-case corruption lag (5 days) with margin, short enough that reprocessing cost stays negligible on local DuckDB."
+        },
+        {
+          "heading": "Ranking metric",
+          "description": "Top-decile flagging by CTR alone, chosen for simplicity over CPA or a blended score, restricted to creatives clearing a 1,000-daily-impression floor grounded in the data's own 10th percentile — so a handful of impressions can't \"win\" the ranking by accident."
+        },
+        {
+          "heading": "Test design",
+          "description": "10 dbt tests, one of them (`assert_clicks_lte_impressions`) configured `severity=warn` on purpose — it's supposed to find rows every run, since that defect is never corrected upstream, and treating an expected finding as a red CI failure would just train everyone to ignore it."
         }
       ],
       "keyResults": {
         "label": "Key Results",
         "items": [
-          "[Placeholder] No results yet — analysis hasn't been run."
+          "Reconciles to the ground truth exactly across the pipeline's lookback window, for every defect type the platform is actually capable of correcting (late arrival, restatement, cross-file duplicates).",
+          "All 10 dbt tests green except the one designed to warn — roughly 76–78 rows caught by `assert_clicks_lte_impressions` every run, exactly the defect it exists to surface.",
+          "CI runs the full daily cycle (generate → load → `dbt build` → publish) on push, PR, a daily schedule, and manual dispatch — not a one-off local demo."
         ]
       },
-      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "businessInterpretation": "In plain terms: this pipeline proves it can tell the difference between data that will get better on its own and data that won't. Late-arriving and restated numbers self-heal within a week without anyone doing anything; a clicks-exceed-impressions bug or a day the platform loses entirely does not, and the pipeline says so out loud — a defect log and a freshness indicator, not a silently-wrong dashboard.\n\nThat distinction is the actual deliverable. A BI lead reading this pipeline's output can trust the \"latest finalized day\" number completely, and knows exactly why the \"latest available day\" number might still move. The CTR/CPC/CPA figures themselves are not a finding about advertising — they're synthetic, and the README says so in its first paragraph.",
       "recommendations": {
-        "items": [],
+        "items": [
+          {
+            "tag": "BI / Analytics",
+            "text": "Trust the \"latest finalized day\" number without caveats; treat anything inside the 7-day lookback window as provisional, and read the defect log before treating a day-over-day swing as a real signal rather than a still-resolving restatement."
+          },
+          {
+            "tag": "Data Engineering",
+            "text": "The lookback window (7 days) and dedup rule (latest-delivery-wins) are both stated, reasoned choices, not defaults — see the repo's spec session log for the exact trade-off math before changing either."
+          },
+          {
+            "tag": "Hiring manager",
+            "text": "The engineering depth is in what the pipeline refuses to paper over — three defect types stay visible on purpose, and the reconciliation test's own build history (a real failure, fixed for a real reason) is in the commit log, not smoothed over in this write-up."
+          }
+        ],
         "limitations": [
-          "This is a placeholder page — no analysis has been performed yet."
+          "Openly synthetic upstream by design — no real advertising platform's performance data is used or claimed; the CTR/CPC/CPA numbers are plumbing-test water, not an advertising finding.",
+          "Single-platform schema, invented for this project — a real Meta or Google Ads export uses a different column set, a different auth flow (OAuth token refresh, not a filesystem drop), and its own rate limits. [EILEEN TO ADD: the specific column-mapping and auth changes worth naming from your own reading of the Marketing API docs.]",
+          "[EILEEN TO ADD: the honest DuckDB-to-BigQuery scaling answer — where DuckDB stops being the right choice and why, with approximate numbers you can defend in an interview.]",
+          "Top-decile ranking rounds coarsely on small same-day campaign groups (fewer than ~10 creatives) — `percent_rank`'s granularity means the flagged share runs closer to 12–18% than an exact 10% for those groups."
         ],
         "nextSteps": [
-          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
-          "Define the specific business question and stakeholder",
-          "Build and validate the model / dashboard / pipeline",
-          "Replace this placeholder with the full SPIDER write-up"
+          "Build the deck and written report (pitched at a BI-lead audience: how the pipeline guarantees same-day numbers and what it does when upstream breaks)",
+          "Write the \"what didn't work\" section in your own words — the three real bugs above are true and yours to draw on, but the reflection needs to be something you can defend live, not agent prose",
+          "Decide the DuckDB-to-BigQuery scaling answer and the real Meta/Google export delta, both flagged above",
+          "Optional: extend CI to persist run-over-run metrics (e.g. defect counts, reconciliation pass/fail) so the dashboard can show a trend, not just a snapshot"
         ]
-      }
+      },
+      "visuals": [
+        {
+          "id": "defect-counts",
+          "section": "summary",
+          "label": "Row-Level Defects Injected (96 Drop Files)",
+          "caption": "File-level events (the 1 missing day, 1 schema drift) are counted separately — they're categorically different from a per-row defect rate.",
+          "svg": "<svg viewBox=\"0 0 560 260\" role=\"img\" aria-label=\"Defect counts: late arrival 2656, restatement 1260, null value 276, duplicate near 111, duplicate exact 109, clicks exceed impressions 78\"><text x=\"0\" y=\"8\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12\" class=\"viz-fill-text-soft\">Late arrival</text><rect x=\"0\" y=\"14\" width=\"400\" height=\"22\" class=\"viz-fill-accent\"></rect><text x=\"410\" y=\"30\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">2,656</text><text x=\"0\" y=\"58\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12\" class=\"viz-fill-text-soft\">Restatement</text><rect x=\"0\" y=\"64\" width=\"190\" height=\"22\" class=\"viz-fill-accent-85\"></rect><text x=\"200\" y=\"80\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">1,260</text><text x=\"0\" y=\"108\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12\" class=\"viz-fill-text-soft\">Null value</text><rect x=\"0\" y=\"114\" width=\"42\" height=\"22\" class=\"viz-fill-accent-65\"></rect><text x=\"52\" y=\"130\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">276</text><text x=\"0\" y=\"158\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12\" class=\"viz-fill-text-soft\">Duplicate (near)</text><rect x=\"0\" y=\"164\" width=\"17\" height=\"22\" class=\"viz-fill-accent-55\"></rect><text x=\"27\" y=\"180\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">111</text><text x=\"0\" y=\"208\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12\" class=\"viz-fill-text-soft\">Duplicate (exact)</text><rect x=\"0\" y=\"214\" width=\"16\" height=\"22\" class=\"viz-fill-accent-55\"></rect><text x=\"26\" y=\"230\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">109</text><text x=\"270\" y=\"108\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12\" class=\"viz-fill-text-soft\">Clicks &gt; impressions</text><rect x=\"270\" y=\"114\" width=\"12\" height=\"22\" class=\"viz-fill-accent-40\"></rect><text x=\"288\" y=\"130\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">78</text></svg>"
+        },
+        {
+          "id": "missing-day-damage",
+          "section": "discovery",
+          "label": "The Missing Day's Real Cost — 281 Rows, Not 253",
+          "caption": "28 of the 281 unrecoverable rows weren't even on the missing day — they were late arrivals from the three days before it, scheduled to land on a date the platform never delivered.",
+          "svg": "<svg viewBox=\"0 0 500 120\" role=\"img\" aria-label=\"281 unrecoverable rows: 253 on the missing day itself, 28 from late arrivals swallowed by it\"><text x=\"0\" y=\"14\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"12.5\" class=\"viz-fill-text-soft\">Missing day itself (253) + swallowed late arrivals (28) = 281</text><rect x=\"0\" y=\"24\" width=\"357\" height=\"32\" class=\"viz-fill-accent\"></rect><rect x=\"357\" y=\"24\" width=\"39\" height=\"32\" class=\"viz-fill-accent-40\"></rect><text x=\"178\" y=\"45\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">253</text><text x=\"420\" y=\"45\" font-family=\"IBM Plex Mono, monospace\" font-size=\"13\" font-weight=\"600\" class=\"viz-fill-text\">+28</text><text x=\"0\" y=\"78\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">On the missing day</text><text x=\"357\" y=\"78\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">3 days before it</text></svg>"
+        },
+        {
+          "id": "reconciliation-fix",
+          "section": "execution",
+          "label": "Reconciliation Test — Before and After the Fix",
+          "caption": "The first version wrongly expected every defect to self-heal. Scoping it to the defects that actually do — and adding a real column for the ones that don't — fixed it for the right reason.",
+          "svg": "<svg viewBox=\"0 0 500 110\" role=\"img\" aria-label=\"Reconciliation test: 7 failing rows before the fix, 0 after\"><text x=\"0\" y=\"18\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Before fix (expected all defects to self-heal)</text><rect x=\"0\" y=\"26\" width=\"180\" height=\"24\" class=\"viz-fill-accent-55\"></rect><text x=\"190\" y=\"43\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">7 failing</text><text x=\"0\" y=\"72\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">After fix (scoped to defects that actually resolve)</text><rect x=\"0\" y=\"80\" width=\"14\" height=\"24\" class=\"viz-fill-accent\"></rect><text x=\"24\" y=\"97\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">0 failing</text></svg>"
+        }
+      ]
     },
     {
       "id": "player-segmentation-ltv-model",
@@ -1065,7 +1227,7 @@
     },
     {
       "id": "support-ticket-sentiment-tracker",
-      "title": "Support Ticket Sentiment Tracker",
+      "title": "Support Triage: Which Conversations Are About to Go Bad",
       "year": 2023,
       "industry": "Customer Experience",
       "projectType": "NLP Analysis",
@@ -1082,14 +1244,14 @@
         "execution": "Method — TBD",
         "results": "Results — TBD"
       },
-      "cardDescription": "[Placeholder] Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound. Full case study not yet built.",
+      "cardDescription": "[Placeholder] Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end. Full case study not yet built.",
       "impactStat": "Placeholder — project not yet built",
-      "oneSentenceDescription": "Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound.",
+      "oneSentenceDescription": "Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end.",
       "targetIndustryRole": "Customer Experience (placeholder — to be confirmed)",
-      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound.",
+      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end.",
       "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why customer experience teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
       "inputs": {
-        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+        "description": "[Placeholder] Planned source: the Customer Support on Twitter dataset (Kaggle) — real inbound customer messages and brand-agent replies, reconstructed into conversation threads. Not yet pulled or validated — per this site's data-honesty rule, this project will not go live without confirming that label against the real download."
       },
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",
