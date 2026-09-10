@@ -146,6 +146,8 @@ img, svg { display: block; }
 .nav-links { display: flex; align-items: center; gap: 28px; }
 .nav-links a { color: var(--color-text); font-size: 14px; }
 .nav-links a:hover { color: var(--color-accent); }
+.nav-toggle-input { display: none; }
+.nav-toggle-btn { display: none; }
 
 /* — hero — */
 .hero-band {
@@ -776,6 +778,32 @@ details[open] .year-chevron { transform: rotate(90deg); }
 @media (max-width: 640px) {
   .nav, .hero, .about, .projects, .contact, footer.site-footer, .container-narrow { padding-left: 24px; padding-right: 24px; }
   .nav-links { gap: 16px; }
+  .nav-collapsible { position: relative; }
+  .nav-collapsible .nav-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-collapsible .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 8px;
+    padding: 20px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    z-index: 20;
+  }
+  .nav-collapsible .nav-toggle-input:checked ~ .nav-links { display: flex; }
   .hero h1 { font-size: 38px; }
   .hero .lede { font-size: 17px; }
   .project-grid { grid-template-columns: 1fr; }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Calendar — Eileen Ip</title><meta name="description" content="Month calendar of tasks due, plus what's on today, drawn from the shared to-do list."><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/calendar.css"></head>
+<body><header><nav class="nav"><span class="nav-brand">Eileen Ip</span><div class="nav-links"><a href="todo.html">To-do</a><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="progress.html">Progress</a><a href="calendar.html" aria-current="page">Calendar</a></div></nav></header>
+
+<main class="calendar-page">
+<span class="kicker">Tasks by day</span>
+<h1>Calendar</h1>
+<p>Tasks with a due date from <a href="todo.html">the shared to-do list</a>, laid out by day. This page always shows today's real date — reload it on any day and it re-centres itself. Add or change due dates on the <a href="todo.html">To-do page</a>.</p>
+
+<section class="today-panel" aria-label="Today">
+  <h2 id="today-heading"></h2>
+  <div id="overdue-list"></div>
+  <div id="today-list"></div>
+</section>
+
+<section class="calendar-section" aria-label="Month view">
+  <div class="calendar-toolbar">
+    <button class="btn btn-secondary" id="cal-prev" aria-label="Previous month">&larr;</button>
+    <h2 id="cal-month-label"></h2>
+    <button class="btn btn-secondary" id="cal-next" aria-label="Next month">&rarr;</button>
+    <button class="btn btn-secondary" id="cal-today">Today</button>
+  </div>
+  <div class="calendar-grid" id="calendar-grid" role="grid" aria-label="Month grid"></div>
+  <p id="cal-notice" role="status" aria-live="polite"></p>
+</section>
+</main>
+<script src="js/calendar.js"></script>
+</body></html>
