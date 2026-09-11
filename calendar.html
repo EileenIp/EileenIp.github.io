@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Calendar — Eileen Ip</title><meta name="description" content="Month calendar of tasks due, plus what's on today, drawn from the shared to-do list."><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/calendar.css"></head>
-<body><header><nav class="nav"><span class="nav-brand">Eileen Ip</span><div class="nav-links"><a href="todo.html">To-do</a><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="progress.html">Progress</a><a href="calendar.html" aria-current="page">Calendar</a></div></nav></header>
+<body><header><nav class="nav nav-collapsible" aria-label="Main navigation">
+      <span class="nav-brand">Eileen Ip</span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </label>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="progress.html">Progress</a>
+        <a href="todo.html">To-do</a>
+        <a href="calendar.html" aria-current="page">Calendar</a>
+        <a href="job-tracker.html">Job Tracker</a>
+      </div>
+    </nav></header>
 
 <main class="calendar-page">
 <span class="kicker">Tasks by day</span>

@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>To-do — Eileen Ip</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/todo.css"></head>
-<body><header><nav class="nav"><span class="nav-brand">Eileen Ip</span><div class="nav-links"><a href="index.html">Home</a><a href="projects.html">Projects</a><a href="progress.html">Progress</a><a href="todo.html" aria-current="page">To-do</a><a href="calendar.html">Calendar</a></div></nav></header>
+<body><header><nav class="nav nav-collapsible" aria-label="Main navigation">
+      <span class="nav-brand">Eileen Ip</span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </label>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="progress.html">Progress</a>
+        <a href="todo.html" aria-current="page">To-do</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="job-tracker.html">Job Tracker</a>
+      </div>
+    </nav></header>
 <main class="todo-page"><span class="kicker">A shared place to get things done</span><h1>My goals</h1><p>See the big picture. Open a goal to view its tasks, assign work and leave handoff notes.</p>
 <details class="todo-help"><summary>How to work together</summary><p>Codex and Claude can read and update <code>data/tasks.json</code> in the project folder. Assigning a task does not start an assistant: ask the chosen assistant to pick it up.</p><p>Edits here are browser drafts. Use <strong>Connect shared file</strong> to select the project’s tasks.json, then <strong>Save shared file</strong> to share your changes. Reload the shared file before editing to see assistant updates. Other browsers can download JSON and replace data/tasks.json manually.</p><p>This page has no sign-in. Tasks committed to a public repository or published with the site are public.</p></details>
 <div class="todo-toolbar"><button class="btn btn-secondary" id="connect">Connect shared file</button><button class="btn btn-secondary" id="save" disabled>Save shared file</button><button class="btn btn-secondary" id="reload">Reload shared file</button><button class="btn btn-secondary" id="download">Download JSON</button><label class="btn btn-secondary">Import JSON<input type="file" id="import" accept="application/json,.json"></label></div>

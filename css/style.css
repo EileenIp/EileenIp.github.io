@@ -778,32 +778,6 @@ details[open] .year-chevron { transform: rotate(90deg); }
 @media (max-width: 640px) {
   .nav, .hero, .about, .projects, .contact, footer.site-footer, .container-narrow { padding-left: 24px; padding-right: 24px; }
   .nav-links { gap: 16px; }
-  .nav-collapsible { position: relative; }
-  .nav-collapsible .nav-toggle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text);
-    cursor: pointer;
-    padding: 4px;
-  }
-  .nav-collapsible .nav-links {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    left: 0;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    margin-top: 8px;
-    padding: 20px;
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    z-index: 20;
-  }
-  .nav-collapsible .nav-toggle-input:checked ~ .nav-links { display: flex; }
   .hero h1 { font-size: 38px; }
   .hero .lede { font-size: 17px; }
   .project-grid { grid-template-columns: 1fr; }
@@ -843,4 +817,36 @@ details[open] .year-chevron { transform: rotate(90deg); }
   }
   .viz-card, .viz-callout, .method-grid > *, .recommendation-row,
   .stakeholder-card, .viz-stats-grid, .viz-grid { break-inside: avoid; }
+}
+
+/* Keep the shared navigation usable on phones and tablets. */
+@media (max-width: 1100px) {
+  .nav-collapsible { position: relative; }
+  .nav-collapsible .nav-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-collapsible .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 8px;
+    padding: 20px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    z-index: 20;
+  }
+  .nav-collapsible .nav-toggle-input:checked ~ .nav-links { display: flex; }
+  .nav-collapsible .nav-toggle-input { display: block; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .nav-collapsible .nav-toggle-input:focus-visible + .nav-toggle-btn { outline: 2px solid var(--color-accent); outline-offset: 4px; }
 }

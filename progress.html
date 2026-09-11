@@ -14,16 +14,21 @@
 <body>
 
 <header>
-  <nav class="nav">
-    <span class="nav-brand">Eileen Ip</span>
-    <div class="nav-links">
-      <a href="todo.html">To-do</a>
-      <a href="calendar.html">Calendar</a>
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="progress.html" aria-current="page">Progress</a>
-    </div>
-  </nav>
+  <nav class="nav nav-collapsible" aria-label="Main navigation">
+      <span class="nav-brand">Eileen Ip</span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </label>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="progress.html" aria-current="page">Progress</a>
+        <a href="todo.html">To-do</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="job-tracker.html">Job Tracker</a>
+      </div>
+    </nav>
 </header>
 
 <main class="progress-page container-narrow">
