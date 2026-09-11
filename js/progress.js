@@ -50,6 +50,19 @@ function renderMonthlyLog(entries) {
     entry.textContent = item.entry;
 
     group.append(label, entry);
+    if (item.links && item.links.length) {
+      const links = document.createElement("ul");
+      links.className = "progress-project-links";
+      for (const project of item.links) {
+        const listItem = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = project.href;
+        link.textContent = project.label;
+        listItem.append(link);
+        links.append(listItem);
+      }
+      group.append(links);
+    }
     container.append(group);
   }
 }
