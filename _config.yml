@@ -4,7 +4,7 @@ description: Bookmark this to keep an eye on my project updates!
 
 # agent-log/ and TASKS.md are internal agent-workflow docs, never meant to
 # be rendered as site pages. Jekyll processes every .md file it finds
-# through Liquid by default, and agent-log/CLAUDE.md's own prose (describing
+# through Liquid by default, and agent-log/CONTRIBUTING.md's own prose (describing
 # this repo's "no Liquid tags" convention) contains the literal text
 # "{% %}" as an example -- which Jekyll then tries to parse as a real tag
 # and fails on. Excluding these directories avoids that landmine entirely,

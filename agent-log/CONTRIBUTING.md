@@ -1,4 +1,4 @@
-# CLAUDE.md — EileenIp.github.io
+# Contributing — EileenIp.github.io
 
 Standing context for any work in this repo. Read this first.
 

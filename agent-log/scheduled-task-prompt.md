@@ -20,7 +20,7 @@ run on wake.
 ## Instructions (paste this into the Instructions field)
 
 ```
-You are doing daily maintenance on Eileen's portfolio site. Read CLAUDE.md
+You are doing daily maintenance on Eileen's portfolio site. Read CONTRIBUTING.md
 first — it contains the hard rules. Follow them exactly.
 
 This run has TWO GATES. You stop and wait at each one. Do not proceed past a
@@ -28,7 +28,7 @@ gate without an explicit reply from Eileen in this session.
 
 ═══ GATE 1 — PROPOSE ═══
 
-1. Read CLAUDE.md, TODO.md, and the last 10 commits (git log --oneline -10).
+1. Read CONTRIBUTING.md, TODO.md, and the last 10 commits (git log --oneline -10).
 2. Read the most recent file in agent-log/ if one exists, so you know what
    happened yesterday and what was left unfinished.
 3. Choose AT MOST 2 items to do today. Prefer items in "In progress", then
@@ -58,7 +58,7 @@ Only after approval:
    than a full task done wrong.
 9. Check your work renders. Open the changed HTML and look for obvious
    breakage. Never leave a page broken.
-10. Commit each task separately, using the message format in CLAUDE.md.
+10. Commit each task separately, using the message format in CONTRIBUTING.md.
 11. Push the branch. NEVER push to main. NEVER open a pull request.
 12. Update DAILY-PLAN.md with the "Completed work" section, status
     AWAITING FINAL APPROVAL. Be specific about what you actually changed and
