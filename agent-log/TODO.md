@@ -31,12 +31,58 @@ then `Todo` top-down.
       one.
       — *blocking: judgement call, and it depends on the item above
       landing first — propose, don't execute*
+- [ ] **Roadmap project 3's headline engagement metric has no data behind it.**
+      SteamSpy still serves `median_forever`, `average_forever`,
+      `median_2weeks` and `average_2weeks`, but all four are zero — for all
+      1,000 apps on the first `all` page, and for both spot-checked apps
+      (Dota 2, ELDEN RING). Verified live 2026-09-13; `ccu` is non-zero for
+      965 of the 1,000. So every playtime option Checkpoint 1b chose between
+      is unavailable on this source. Three ways forward:
+      1. **Lead with CCU per owner** — the metric already agreed as the
+         robustness check. Free: the data is in hand, no new pull. Weakness:
+         it's a concurrency snapshot, structurally harsh on single-player paid
+         games that have no reason to hold concurrent players — which is close
+         to the F2P-vs-paid axis itself, so it risks baking the answer into
+         the measurement.
+      2. **Take playtime from Steam review payloads instead.** Verified
+         present and populated: `author.playtime_forever` on the appreviews
+         endpoint, 99 of 99 ELDEN RING reviewers, median 6,041 minutes. Real
+         per-player playtime and a defensible median. Costs: a review pull per
+         game, so the cohort drops from thousands to a stratified sample of a
+         few hundred, and it adds a reviewer-selection bias (people who review
+         play more) on top of the public-profile one already noted.
+      3. **Reframe around ownership and concurrency** and drop playtime from
+         the question.
+      — *blocking: this is the project's core measurement, and Checkpoint 1b
+      was decided against a menu that no longer exists. Agent's read: option 2
+      is the better portfolio story — a metric dying mid-build and what was
+      done about it is a real "what didn't work" section — but option 1 is far
+      cheaper. Eileen's call, not the agent's.*
 ---
 
 ## In progress
 <!-- Max 1–2 items. Agent moves things here when a plan is approved. -->
 
-*(none — Roadmap project 1 finished; see Done)*
+### Roadmap project 3 — F2P vs Paid: Pricing & Engagement on Steam (gaming)
+Started 2026-09-13. Repo: `portfolio-projects/steam-pricing-engagement` — its
+own git repo on `master`, two commits, nothing pushed anywhere.
+(Roadmap project 2 is also being built, in a parallel session; that session
+hasn't recorded itself here yet.)
+
+Checkpoints 0 and 1 cleared by Eileen 2026-09-13 — all three spec defaults:
+owner ranges as interval midpoint with every owner-dependent result re-run at
+both bounds; inclusion at released 2015+ and an owner-midpoint floor of 20,000
+(band-aligned — it drops SteamSpy's `0 .. 20,000` band exactly, and the
+survivorship bias gets stated on the page); median playtime forever as the
+headline metric with CCU per owner as the robustness check.
+
+- [x] Phase 0 — SteamSpy catalogue puller (`all` pages) + storefront
+      enrichment, disk cache, resume file, live-verified against both APIs
+- [x] Phase 1 — inclusion rule, owner-interval handling, sensitivity bounds,
+      cohort report broken down F2P vs paid; 40 pytest tests green
+- [ ] Phase 2 — **blocked before it started**, see `Needs Eileen`: the headline
+      metric has no data behind it. Nothing downstream of the metric was built,
+      because all of it computes on the metric.
 
 ---
 
@@ -59,27 +105,6 @@ data (Steam reviews + Reddit).
       or gets down-weighted
 - [ ] Eileen hand-labels a 200-review validation set (Phase 2, scorer choice)
       and reviews the theme taxonomy's seed keywords (Phase 3)
-
-### Roadmap project 3 — F2P vs Paid: Pricing & Engagement on Steam (gaming)
-Status: **not started — starts from zero.** Confirmed by Eileen 2026-09-12:
-no sample-data build exists anywhere, on this machine or off it. The earlier
-"dashboard built on sample data, real SteamSpy pull pending" note was wrong
-and has been retired; there is no sample-vs-real gap to write about, because
-there was never a sample build. Full spec:
-`portfolio-projects/steam-pricing-engagement/spec-steam-pricing-engagement.md`.
-The only gaming-themed project in the portfolio — and since the two Gaming
-placeholder cards were removed on 2026-09-12, the portfolio currently has no
-gaming coverage at all until this one is built.
-- [ ] Checkpoint 0 (Eileen): how to represent SteamSpy's owner-count ranges —
-      the spec's suggested default is interval midpoint with a sensitivity
-      check at both bounds
-- [ ] Checkpoint 1 (Eileen): which games count (the inclusion rule, and its
-      survivorship bias) and the headline engagement metric (median playtime
-      vs. CCU per owner)
-- [ ] Once those land: run the real SteamSpy pull, then write the project
-      page (SPIDER structure, a "what didn't work" section drawn from what
-      the real pull actually throws up, business question in the first two
-      lines)
 
 ### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
 Status: spec written, not built. Full spec:
