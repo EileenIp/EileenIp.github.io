@@ -101,11 +101,25 @@ headline metric with CCU per owner as the robustness check.
       the full pull should populate many of them, but the within-genre
       correction has nothing to stand on until it runs. Cached and resumable —
       `python -m src.steamspy_fetch enrich` — so it can run across sittings.
-- [ ] Phase 2b — the analysis itself: naive F2P-vs-paid comparison, then the
-      within-genre correction that is the point of the project, price bands,
-      release-year cohorts. Blocked on the full enrichment above.
+- [x] Phase 2b machinery built and validated on the audit sample (2026-09-13):
+      naive comparison, within-genre correction pooled by pairwise weight,
+      price bands, release-year cohorts, all at three owner bounds. Mann-Whitney
+      with tie and continuity corrections plus Cliff's delta, hand-written to
+      keep the dependency list at three. Includes a Simpson's-paradox test so
+      the correction is shown to reverse a naive result, not just adjust it.
+      The sample run produced no conclusion, for a recorded reason: more than
+      half the cohort has ccu 0 (56% f2p, 51% paid), so the CCU metric is mostly
+      ties and the one usable genre cell is 86% tied at zero. Tie share is now
+      printed beside every result. This is a second, independent argument for
+      not having made CCU the headline metric.
+- [ ] Phase 2b results — re-run the analysis on the full cohort once enrichment
+      finishes, then run the stratified playtime pull and re-run on the real
+      headline metric. The playtime pull must wait for the enrichment: both use
+      store.steampowered.com, and running them together would halve the
+      effective request spacing (the pacer key is now shared so this is
+      enforced, not just remembered).
 - [ ] Checkpoint 2 (Eileen): the interpretation, once the within-genre numbers
-      exist. If the genre correction kills the naive result, that is the finding.
+      exist on real playtime.
 
 ---
 
