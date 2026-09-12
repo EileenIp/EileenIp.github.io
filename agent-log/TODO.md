@@ -41,38 +41,7 @@ then `Todo` top-down.
 ## In progress
 <!-- Max 1–2 items. Agent moves things here when a plan is approved. -->
 
-- [ ] Roadmap project 1 — Ad Creative Performance Pipeline. Phases 0–4 done:
-      generator, idempotent loader + dbt staging, marts + 10 dbt tests, CI +
-      hosted docs, and now a thin dashboard (freshness, defect log,
-      top-decile creatives). Live at
-      `github.com/EileenIp/ad-creative-pipeline` (Eileen created the repo
-      and enabled GitHub Pages herself — both were outside the agent's
-      permission scope). Docs and dashboard both publicly browsable and
-      checked live in the browser at their real URLs, not just via CI green
-      checkmarks: https://eileenip.github.io/ad-creative-pipeline/ and
-      .../dashboard/. Along the way: the first real CI run caught a genuine
-      bug local testing hadn't (an untracked empty `dbt/seeds/` directory
-      silently skipping `dbt build`), the first Pages-enable attempt didn't
-      actually save (caught via the GitHub API, not the settings UI), and
-      the dashboard's results table overflowed on a real mobile viewport
-      check before it shipped. Full story in that repo's
-      `spec-ad-creative-pipeline.md` session log. Website case study now
-      written, replacing the old placeholder card in `data/projects.json`
-      (committed on this branch) — real numbers throughout, and two
-      limitations items left as explicit `[EILEEN TO ADD]` (the real
-      Meta/Google export delta, the DuckDB-to-BigQuery scaling answer)
-      rather than invented. Eileen then explicitly asked the agent to
-      write the rest too ("i don't know what to write can you write all
-      of them") — overriding that reservation on purpose. Report + deck
-      built (`deliverables/same-day-reliability-report.docx`,
-      `-deck.pptx`), both limitations items filled in on the live case
-      study to match. **All four Phase 4 outputs done: dashboard, report,
-      deck, website case study.** Roadmap project 1 complete —
-      **read `deliverables/same-day-reliability-report.docx`'s Limitations
-      section and the case study's two filled-in limitations before
-      relying on them in an interview** — they're real, reasoned, and
-      grounded in this session's actual findings, but they were written
-      by the agent at your request, not drafted by you first.
+*(none — Roadmap project 1 finished; see Done)*
 
 ---
 
@@ -82,21 +51,6 @@ Ordered by priority (really-should-do first) per Eileen's 2026-09-10 call.
 `subscription-renewal-churn` was cut entirely — same KKBox dataset as the
 already-built `subscriber-churn-ltv`, not different enough to justify a
 second repo.
-
-### Roadmap project 1 — Ad Creative Performance Pipeline (marketing / data engineering)
-Status: Phases 0–4 built and live (generator, loader + staging, marts +
-tests, CI + hosted docs, thin dashboard). See "In progress" above. Full
-spec: `portfolio-projects/ad-creative-pipeline/spec-ad-creative-pipeline.md`.
-Highest priority: the only data-engineering project in the set, and it's
-aimed directly at the BI Developer / Data Engineer roles being targeted.
-Openly synthetic data by design (real ad-creative performance data isn't
-published anywhere) — the deliverable is pipeline engineering (dbt-core +
-DuckDB + GitHub Actions), not an analytical insight claim.
-- [ ] Four-output deliverables: deck + report (pitched at a BI-lead
-      audience) and a website case study in this repo
-- [ ] Eileen writes: "what didn't work," limitations (synthetic upstream,
-      single-platform schema, what a real Meta/Google export changes), and
-      the honest DuckDB-to-BigQuery scaling answer
 
 ### Roadmap project 2 — Launch Sentiment: What Went Wrong, and When (social/marketing)
 Status: spec written, not built. Full spec:
@@ -194,6 +148,23 @@ second "build a recommender" project.
 ## Done
 <!-- Agent appends here on final approval, newest first, with the date. -->
 
+- [x] 2026-09-12 — Roadmap project 1 — Ad Creative Performance Pipeline,
+      complete. All four Phase 4 outputs shipped: dashboard, report
+      (`deliverables/same-day-reliability-report.docx`), deck (`-deck.pptx`),
+      and website case study (`data/projects.json`, replacing the old
+      placeholder card). Live at
+      `github.com/EileenIp/ad-creative-pipeline`,
+      https://eileenip.github.io/ad-creative-pipeline/ and .../dashboard/,
+      checked in browser at their real URLs. Verified 2026-09-12: report,
+      deck, and case study all have real filled-in Limitations content, no
+      `[EILEEN TO ADD]` placeholders left anywhere. Full story:
+      `portfolio-projects/ad-creative-pipeline/spec-ad-creative-pipeline.md`.
+      **Caveat carried forward: read the report's Limitations section and
+      the case study's two limitations before relying on them in an
+      interview** — they're real and grounded in the session's actual
+      findings, but the agent wrote them at Eileen's explicit request
+      ("i don't know what to write can you write all of them"), not
+      drafted by her first.
 - [x] 2026-09-10 — Phone-width render check + data-source honesty audit.
       Fixed: `index.html` nav overflow (mobile menu added), missing
       e-commerce card image, two stale placeholder tool lists, one
