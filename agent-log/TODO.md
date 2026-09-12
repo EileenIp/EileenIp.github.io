@@ -67,6 +67,21 @@ headline metric with CCU per owner as the robustness check.
 - [ ] Catalogue pull running as of 2026-09-13 — 60s per `all` page, cached and
       resumable, so it can be stopped and restarted freely. Re-run
       `python -m src.steamspy_fetch catalogue` to continue it.
+- [x] Phase 2a — genre stratification moved onto SteamSpy tags rather than Steam
+      storefront genres (Eileen, 2026-09-13). The storefront genres are three
+      broad buckets — ELDEN RING is "Action, RPG" — and the confound the project
+      corrects for lives at MOBA vs Souls-like. Two guards were needed before
+      tags were usable: business-model tags are excluded by name (Dota 2's top
+      tag is "Free to Play" at 60,040 votes, three times the next, so a top-tag
+      rule would have made the strata a restatement of the pricing model and
+      left no cell containing both), and the vocabulary is an explicit allowlist
+      because most high-voted tags are descriptors, not genres. Ships with a
+      coverage audit (`python -m src.cohort coverage`) that reports the
+      classified share split by pricing model and names the tags worth adding.
+      Live-verified: ELDEN RING strata as Souls-like. 58 tests green.
+- [ ] Extend the genre vocabulary once the catalogue lands, using the coverage
+      audit's ranked list of missing tags. It is currently 94 tags written
+      before the data arrived, so some of it is guesswork until checked.
 - [ ] Phase 2b — the analysis itself: naive F2P-vs-paid comparison, then the
       within-genre correction that is the point of the project, price bands,
       release-year cohorts. Needs the catalogue pull and the storefront
