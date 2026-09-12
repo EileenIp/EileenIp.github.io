@@ -1,0 +1,38 @@
+# Local tooling — configuration for whoever is working on the site, not part
+# of the site itself. Nothing here belongs in a public portfolio repo.
+.claude/
+CLAUDE.md
+.vscode/
+.idea/
+*.swp
+*~
+
+# Jekyll build output. GitHub Pages builds from source itself, so a committed
+# build would shadow the real one and go stale without anyone noticing.
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Excel lock files. job-applications.xlsx is tracked, and simply opening it
+# creates a ~$ sibling alongside — easy to commit by accident with `git add -A`,
+# and it carries the editing user's name.
+~$*.xlsx
+~$*.xls
+
+# Python — scripts/generate_job_data.py and the local preview server.
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Credentials. Nothing in this repo needs any today; this is a guard against a
+# future one landing by accident, not a record that one exists.
+.env
+.env.*
+*.pem
+*.key
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
