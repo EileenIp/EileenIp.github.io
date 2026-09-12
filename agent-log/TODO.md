@@ -79,13 +79,31 @@ headline metric with CCU per owner as the robustness check.
       coverage audit (`python -m src.cohort coverage`) that reports the
       classified share split by pricing model and names the tags worth adding.
       Live-verified: ELDEN RING strata as Souls-like. 58 tests green.
-- [ ] Extend the genre vocabulary once the catalogue lands, using the coverage
-      audit's ranked list of missing tags. It is currently 94 tags written
-      before the data arrived, so some of it is guesswork until checked.
+- [x] Genre vocabulary audited against a seeded 1,000-game sample (2026-09-13).
+      It did not need extending — coverage was 99.3%, and the misses were not
+      missing genres but software (Utilities, Design & Illustration, VR), now
+      excluded on the storefront's own labels: 13 of 1,000 sampled apps. What
+      it did need was tiering. Ranking eligible tags by votes put 65% of the
+      cohort in a broad bucket (Action/Adventure/Casual alone 40%), because
+      Steam's umbrella tags out-vote the informative ones — no better than the
+      storefront genres tags replaced. Specific tags now beat umbrellas
+      regardless of votes; broad-bucket share fell to 18%.
+- [x] Catalogue pull complete: 27,021 apps, 26,017 above the owner floor. Two
+      bugs fixed on the way — the owner floor used `>=`, which readmitted the
+      `0 .. 20,000` band at the upper sensitivity bound (the band the floor
+      exists to drop), and the pull had no early stop despite `all` being
+      sorted by owners descending, so it was fetching pages of excluded apps at
+      60s each.
+- [ ] **Full enrichment — 26,017 apps at ~2.5s each, about 18 hours.** The
+      audit settled that this is not optional: F2P is ~16% of the cohort, so
+      spread across 84 strata only one genre has 8+ games of each pricing model
+      at sample scale. 45 genres hold at least one of each in a 3.8% sample, so
+      the full pull should populate many of them, but the within-genre
+      correction has nothing to stand on until it runs. Cached and resumable —
+      `python -m src.steamspy_fetch enrich` — so it can run across sittings.
 - [ ] Phase 2b — the analysis itself: naive F2P-vs-paid comparison, then the
       within-genre correction that is the point of the project, price bands,
-      release-year cohorts. Needs the catalogue pull and the storefront
-      enrichment to finish first.
+      release-year cohorts. Blocked on the full enrichment above.
 - [ ] Checkpoint 2 (Eileen): the interpretation, once the within-genre numbers
       exist. If the genre correction kills the naive result, that is the finding.
 
