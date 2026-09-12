@@ -12,22 +12,25 @@ then `Todo` top-down.
 <!-- Agent: move blocked items here with a one-line note on what you need.
      Never attempt these. -->
 
-- [ ] The homepage's four featured cards are out of sync with
-      `data/projects.json`, and the mismatch works against you:
-      `ad-creative-performance-pipeline` still shows "Placeholder — project
-      not yet built" and tools "dbt · BigQuery" on the homepage, when it is
-      in fact finished and built on dbt-core + **DuckDB** (see Done,
-      2026-09-12); and `support-ticket-sentiment-tracker` still carries its
-      pre-split title/description, already resynced in `projects.json` on
-      2026-09-10. Separately, the three strongest *real* case studies
-      (ecommerce, advertising-revenue, creator-content-dashboard) aren't
-      featured on the homepage at all — it currently shows three
-      placeholders and one real project.
-      — *blocking: the factual corrections (built status, DuckDB not
-      BigQuery, retitled support card) are mechanical and the agent can do
-      them on request; but which projects get featured, and the impact line
-      each card shows, is the curation judgement already logged under
-      "CV / content gaps" below — propose, don't execute*
+- [ ] `creator-content-decision-dashboard-2026` has no impact stat. It is
+      now featured on the homepage (card 5 of 5), where its
+      `.project-impact` block is deliberately omitted rather than rendered
+      blank — see the `EILEEN TO ADD` comment in `index.html`. It is the
+      only featured card without a number, and it shows.
+      — *blocking: needs Eileen to supply a real figure from that Tableau
+      dashboard, in her own words. Once it exists, set `impactStat` in
+      `data/projects.json` and restore the commented-out block in
+      `index.html`. The agent won't invent a number.*
+- [ ] Once the Creator dashboard has an impact stat, consider dropping
+      `ecommerce-behavior-conversion-2019` from the featured five. It
+      duplicates `subscriber-churn-retention-2026`'s method exactly (same
+      `projectType`, same Python/Pandas/LightGBM/SHAP/K-Means toolchain),
+      it's the only 2019 entry among four 2026 ones, and E-Commerce isn't
+      one of the five target domains while Media & Entertainment is. Kept
+      for now only because a card with a real number beats a card without
+      one.
+      — *blocking: judgement call, and it depends on the item above
+      landing first — propose, don't execute*
 ---
 
 ## In progress
@@ -134,15 +137,36 @@ second "build a recommender" project.
       or note why it's private.
 - [ ] `Creator Content Decision Dashboard` has no GitHub link, and its bullet
       list contains two near-duplicate entries. Deduplicate.
-- [ ] The CV lists 25+ projects. Consider a curated "featured" set of 4–6 on
-      the site homepage, ordered by relevance to gaming/media/marketing/CX,
-      with the rest in a full archive list.
-      — *this is a judgement call; propose, don't execute*
+- [x] 2026-09-13 — Curated "featured" set built: the homepage now shows the
+      five built projects only, ordered by role relevance, with both
+      unbuilt placeholders dropped to `projects.html`. Standing rule going
+      forward: **the homepage features built work only** — a placeholder on
+      the front page reads as an unfinished portfolio, whereas in the full
+      grid it reads as a roadmap. The CV's 25+ projects are still not
+      archived anywhere on the site; that half of this item is untouched.
 
 ---
 
 ## Done
 <!-- Agent appends here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-13 — Homepage featured set rebuilt to the five built projects,
+      in this order: ad-creative pipeline (only DE project, aimed at the
+      BI Developer / Data Engineer roles), subscriber churn (strongest DS
+      piece — 21.5M real transactions), advertising revenue (BI Developer
+      on a different stack from card 1, so the two don't read as one
+      skill), e-commerce (best single number: 0.92 ROC-AUC holding at
+      0.946 a month later), creator dashboard (adds Media & Entertainment,
+      a target domain, and Tableau as a third BI tool). Both unbuilt
+      placeholders — `streaming-engagement-dashboard` and
+      `support-ticket-sentiment-tracker` — were dropped from the homepage
+      and remain on `projects.html`, untouched. Intro line updated to
+      "Five projects across marketing, advertising, media and e-commerce."
+      Verified at desktop and 375px: 5 cards, correct deep links, no
+      horizontal overflow. Note what the honest intro line now reveals —
+      the featured set covers **none** of gaming, social media or customer
+      experience, three of the five stated target domains. That gap is the
+      argument for roadmap projects 2, 3 and 4.
 
 - [x] 2026-09-12 — Cleared all three `Needs Eileen` blockers in one pass.
       (1) Roadmap project 3 confirmed as starting from zero — no sample-data
