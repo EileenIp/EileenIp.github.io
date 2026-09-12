@@ -31,33 +31,6 @@ then `Todo` top-down.
       one.
       — *blocking: judgement call, and it depends on the item above
       landing first — propose, don't execute*
-- [ ] **Roadmap project 3's headline engagement metric has no data behind it.**
-      SteamSpy still serves `median_forever`, `average_forever`,
-      `median_2weeks` and `average_2weeks`, but all four are zero — for all
-      1,000 apps on the first `all` page, and for both spot-checked apps
-      (Dota 2, ELDEN RING). Verified live 2026-09-13; `ccu` is non-zero for
-      965 of the 1,000. So every playtime option Checkpoint 1b chose between
-      is unavailable on this source. Three ways forward:
-      1. **Lead with CCU per owner** — the metric already agreed as the
-         robustness check. Free: the data is in hand, no new pull. Weakness:
-         it's a concurrency snapshot, structurally harsh on single-player paid
-         games that have no reason to hold concurrent players — which is close
-         to the F2P-vs-paid axis itself, so it risks baking the answer into
-         the measurement.
-      2. **Take playtime from Steam review payloads instead.** Verified
-         present and populated: `author.playtime_forever` on the appreviews
-         endpoint, 99 of 99 ELDEN RING reviewers, median 6,041 minutes. Real
-         per-player playtime and a defensible median. Costs: a review pull per
-         game, so the cohort drops from thousands to a stratified sample of a
-         few hundred, and it adds a reviewer-selection bias (people who review
-         play more) on top of the public-profile one already noted.
-      3. **Reframe around ownership and concurrency** and drop playtime from
-         the question.
-      — *blocking: this is the project's core measurement, and Checkpoint 1b
-      was decided against a menu that no longer exists. Agent's read: option 2
-      is the better portfolio story — a metric dying mid-build and what was
-      done about it is a real "what didn't work" section — but option 1 is far
-      cheaper. Eileen's call, not the agent's.*
 ---
 
 ## In progress
@@ -80,9 +53,26 @@ headline metric with CCU per owner as the robustness check.
       enrichment, disk cache, resume file, live-verified against both APIs
 - [x] Phase 1 — inclusion rule, owner-interval handling, sensitivity bounds,
       cohort report broken down F2P vs paid; 40 pytest tests green
-- [ ] Phase 2 — **blocked before it started**, see `Needs Eileen`: the headline
-      metric has no data behind it. Nothing downstream of the metric was built,
-      because all of it computes on the metric.
+- [x] Phase 2a — engagement metric rebuilt on Steam review payloads. SteamSpy
+      serves `median_forever` / `average_forever` / `median_2weeks` /
+      `average_2weeks` but all four are zero, for all 1,000 apps on the first
+      `all` page and for both spot-checked apps (verified live 2026-09-13), so
+      every playtime option Checkpoint 1b chose between was gone. Escalated to
+      Eileen, who delegated the call; the agent took playtime from
+      `author.playtime_forever` on the appreviews endpoint (populated — 200
+      reviewers, median 5,761.5 minutes for ELDEN RING) over the cheaper option
+      of promoting CCU per owner to headline. Reasoning, and the two new biases
+      it buys, are in the project README's "What didn't work" section. CCU per
+      owner is kept as a second metric on the full cohort. 50 tests green.
+- [ ] Catalogue pull running as of 2026-09-13 — 60s per `all` page, cached and
+      resumable, so it can be stopped and restarted freely. Re-run
+      `python -m src.steamspy_fetch catalogue` to continue it.
+- [ ] Phase 2b — the analysis itself: naive F2P-vs-paid comparison, then the
+      within-genre correction that is the point of the project, price bands,
+      release-year cohorts. Needs the catalogue pull and the storefront
+      enrichment to finish first.
+- [ ] Checkpoint 2 (Eileen): the interpretation, once the within-genre numbers
+      exist. If the genre correction kills the naive result, that is the finding.
 
 ---
 
