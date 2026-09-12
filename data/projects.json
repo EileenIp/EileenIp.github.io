@@ -1135,9 +1135,6 @@
           "Top-decile ranking rounds coarsely on small same-day campaign groups (fewer than ~10 creatives) — `percent_rank`'s granularity means the flagged share runs closer to 12–18% than an exact 10% for those groups."
         ],
         "nextSteps": [
-          "Build the deck and written report (pitched at a BI-lead audience: how the pipeline guarantees same-day numbers and what it does when upstream breaks)",
-          "Write the \"what didn't work\" section in your own words — the three real bugs above are true and yours to draw on, but the reflection needs to be something you can defend live, not agent prose",
-          "Decide the DuckDB-to-BigQuery scaling answer and the real Meta/Google export delta, both flagged above",
           "Optional: extend CI to persist run-over-run metrics (e.g. defect counts, reconciliation pass/fail) so the dashboard can show a trend, not just a snapshot"
         ]
       },
