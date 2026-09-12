@@ -12,30 +12,22 @@ then `Todo` top-down.
 <!-- Agent: move blocked items here with a one-line note on what you need.
      Never attempt these. -->
 
-- [ ] The gaming dashboard's "already built on sample data" status doesn't
-      check out — a full-machine search (2026-09-10) found no card in
-      `data/projects.json`, no HTML page, no image, and no code anywhere
-      under `portfolio-projects/steam-pricing-engagement` (just the spec).
-      See `agent-log/mobile-and-data-audit-2026-09-10.md`.
-      — *blocking: needs Eileen to confirm whether a sample-data build
-      exists somewhere off this machine, or whether Roadmap project 3
-      actually starts from zero — changes both the status line above and
-      how the page eventually gets written*
-- [ ] `advertising-revenue-sales-efficiency-2026`'s methodology reads as
-      descriptive rather than comparative (contrast the ecommerce page's
-      "Model choice," which names and rejects two specific alternatives).
-      See `agent-log/audit-2026-09-08.md` for full reasoning.
-      — *blocking: needs Eileen to name the actual alternative that was
-      considered for the SQL/BI stack or lifecycle-rule design — the agent
-      can't invent one without violating the "never invent" rule*
-- [ ] Two placeholder project cards on the live site don't match anything in
-      the current roadmap or any spec: `player-segmentation-ltv-model`
-      (Gaming) and `social-feed-ranking-experiment` (Social Media). See
-      `agent-log/mobile-and-data-audit-2026-09-10.md`.
-      — *blocking: needs Eileen to say whether these are future backlog
-      worth a readiness brief, or dead ideas to remove — the agent can't
-      correct them to match a real plan because no such plan exists, and
-      won't delete site content without being told to*
+- [ ] The homepage's four featured cards are out of sync with
+      `data/projects.json`, and the mismatch works against you:
+      `ad-creative-performance-pipeline` still shows "Placeholder — project
+      not yet built" and tools "dbt · BigQuery" on the homepage, when it is
+      in fact finished and built on dbt-core + **DuckDB** (see Done,
+      2026-09-12); and `support-ticket-sentiment-tracker` still carries its
+      pre-split title/description, already resynced in `projects.json` on
+      2026-09-10. Separately, the three strongest *real* case studies
+      (ecommerce, advertising-revenue, creator-content-dashboard) aren't
+      featured on the homepage at all — it currently shows three
+      placeholders and one real project.
+      — *blocking: the factual corrections (built status, DuckDB not
+      BigQuery, retitled support card) are mechanical and the agent can do
+      them on request; but which projects get featured, and the impact line
+      each card shows, is the curation judgement already logged under
+      "CV / content gaps" below — propose, don't execute*
 ---
 
 ## In progress
@@ -66,12 +58,15 @@ data (Steam reviews + Reddit).
       and reviews the theme taxonomy's seed keywords (Phase 3)
 
 ### Roadmap project 3 — F2P vs Paid: Pricing & Engagement on Steam (gaming)
-Status: unclear — see `Needs Eileen`. Previously logged as "dashboard built
-on sample data, real SteamSpy pull pending," but a 2026-09-10 audit found no
-trace of that build anywhere on this machine. Treat as not-yet-started
-until Eileen confirms otherwise. Full spec:
+Status: **not started — starts from zero.** Confirmed by Eileen 2026-09-12:
+no sample-data build exists anywhere, on this machine or off it. The earlier
+"dashboard built on sample data, real SteamSpy pull pending" note was wrong
+and has been retired; there is no sample-vs-real gap to write about, because
+there was never a sample build. Full spec:
 `portfolio-projects/steam-pricing-engagement/spec-steam-pricing-engagement.md`.
-The only gaming-themed project in the portfolio.
+The only gaming-themed project in the portfolio — and since the two Gaming
+placeholder cards were removed on 2026-09-12, the portfolio currently has no
+gaming coverage at all until this one is built.
 - [ ] Checkpoint 0 (Eileen): how to represent SteamSpy's owner-count ranges —
       the spec's suggested default is interval midpoint with a sensitivity
       check at both bounds
@@ -79,8 +74,9 @@ The only gaming-themed project in the portfolio.
       survivorship bias) and the headline engagement metric (median playtime
       vs. CCU per owner)
 - [ ] Once those land: run the real SteamSpy pull, then write the project
-      page (SPIDER structure, a "what didn't work" section covering the
-      sample-vs-real gap, business question in the first two lines)
+      page (SPIDER structure, a "what didn't work" section drawn from what
+      the real pull actually throws up, business question in the first two
+      lines)
 
 ### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
 Status: spec written, not built. Full spec:
@@ -147,6 +143,32 @@ second "build a recommender" project.
 
 ## Done
 <!-- Agent appends here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-12 — Cleared all three `Needs Eileen` blockers in one pass.
+      (1) Roadmap project 3 confirmed as starting from zero — no sample-data
+      build exists; status line corrected above. (2) Both orphaned
+      placeholder cards removed on Eileen's explicit instruction:
+      `player-segmentation-ltv-model` and `social-feed-ranking-experiment`,
+      deleted from `data/projects.json` (9 entries → 7) and their homepage
+      cards from `index.html`. Neither had an image or any other asset, so
+      nothing was orphaned. The homepage's "Six projects across gaming,
+      media, marketing, and customer experience" line was corrected to
+      "Four projects across media, marketing, and customer experience" —
+      gaming coverage is now zero until project 3 is built.
+      (3) `advertising-revenue-sales-efficiency-2026`'s methodology made
+      comparative: "SQL architecture" now names and rejects PostgreSQL and
+      a cloud warehouse (BigQuery/Snowflake); "Action logic" now names and
+      rejects a trained propensity model, and states the trade-off fixed
+      rules make. Verified in the browser at desktop and 375px.
+      **Caveat, same shape as the project-1 limitations:** Eileen asked the
+      agent to decide the alternatives and the rejection reasons
+      ("you decide on the specific reason and why is rejected"). What's
+      written is technically true and grounded in the project's real stack
+      (SQL Server / Power BI / DAX, synthetic commercial layer) and reads
+      as a reasoned trade-off, *not* as a claim about what was literally
+      evaluated at build time — **read both passages before an interview
+      and make sure you'd defend them as your own reasoning**, since an
+      interviewer may well ask "so what made you rule Postgres out?"
 
 - [x] 2026-09-12 — Roadmap project 1 — Ad Creative Performance Pipeline,
       complete. All four Phase 4 outputs shipped: dashboard, report

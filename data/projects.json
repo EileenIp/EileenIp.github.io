@@ -432,7 +432,7 @@
       "methodology": [
         {
           "heading": "SQL architecture",
-          "description": "Built raw, staging, dimensional, fact and business-view layers in **Microsoft SQL Server**, using CTEs, window functions, constraints and reconciliation queries."
+          "description": "Built raw, staging, dimensional, fact and business-view layers in **Microsoft SQL Server**, using CTEs, window functions, constraints and reconciliation queries. Chosen over **PostgreSQL**, which would do the same modelling job at no licence cost, because the deliverable here is an end-to-end Microsoft BI chain (SQL Server → Power Query → semantic model → DAX) — the stack the BI Developer roles this targets actually run — and routing Power BI to Postgres over ODBC would add a hop without demonstrating anything extra. Chosen over a cloud warehouse (**BigQuery** or **Snowflake**) because at this volume there is nothing to distribute: 720 advertisers and 2,400 opportunities sit comfortably in a single instance, so distributed compute would add cost and query latency in exchange for headroom the project never uses."
         },
         {
           "heading": "Synthetic commercial layer",
@@ -448,7 +448,7 @@
         },
         {
           "heading": "Action logic",
-          "description": "Implemented interpretable **Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain** rules with a reason and priority order for every account."
+          "description": "Implemented interpretable **Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain** rules with a reason and priority order for every account. Chosen over a **trained propensity model** (churn or upsell likelihood scored per account) for two reasons. First, the commercial layer is synthetic: a classifier fitted to it would be recovering the generator's own rules, which is circular and would prove nothing about real advertiser behaviour. Second, the consumer is a sales manager who has to defend the call to the rep working the account — \"flagged Rescue because spend fell quarter-on-quarter while rep activity fell with it\" is auditable and arguable; \"0.78 propensity\" is neither. The trade-off is real: fixed rules don't adapt, their thresholds need manual tuning, and they will miss edge cases a model trained on genuine outcome labels would catch."
         },
         {
           "heading": "Report experience",
@@ -1163,66 +1163,6 @@
       ]
     },
     {
-      "id": "player-segmentation-ltv-model",
-      "title": "Player Segmentation & LTV Model",
-      "year": 2024,
-      "industry": "Gaming",
-      "projectType": "Segmentation",
-      "serviceType": "Analysis + Model",
-      "tools": [
-        "Python",
-        "scikit-learn"
-      ],
-      "sectionHeadlines": {
-        "summaryImpact": "Placeholder — not yet built",
-        "problemSpace": "Problem space — TBD",
-        "inputs": "Data inputs — TBD",
-        "discovery": "Discovery — TBD",
-        "execution": "Method — TBD",
-        "results": "Results — TBD"
-      },
-      "cardDescription": "[Placeholder] Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average. Full case study not yet built.",
-      "impactStat": "Placeholder — project not yet built",
-      "oneSentenceDescription": "Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average.",
-      "targetIndustryRole": "Gaming (placeholder — to be confirmed)",
-      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average.",
-      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why gaming teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
-      "inputs": {
-        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
-      },
-      "hypothesisVsReality": {
-        "label": "Hypothesis vs. Reality",
-        "items": [
-          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
-        ]
-      },
-      "methodology": [
-        {
-          "heading": "Method — TBD",
-          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
-        }
-      ],
-      "keyResults": {
-        "label": "Key Results",
-        "items": [
-          "[Placeholder] No results yet — analysis hasn't been run."
-        ]
-      },
-      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
-      "recommendations": {
-        "items": [],
-        "limitations": [
-          "This is a placeholder page — no analysis has been performed yet."
-        ],
-        "nextSteps": [
-          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
-          "Define the specific business question and stakeholder",
-          "Build and validate the model / dashboard / pipeline",
-          "Replace this placeholder with the full SPIDER write-up"
-        ]
-      }
-    },
-    {
       "id": "support-ticket-sentiment-tracker",
       "title": "Support Triage: Which Conversations Are About to Go Bad",
       "year": 2023,
@@ -1249,66 +1189,6 @@
       "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why customer experience teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
       "inputs": {
         "description": "[Placeholder] Planned source: the Customer Support on Twitter dataset (Kaggle) — real inbound customer messages and brand-agent replies, reconstructed into conversation threads. Not yet pulled or validated — per this site's data-honesty rule, this project will not go live without confirming that label against the real download."
-      },
-      "hypothesisVsReality": {
-        "label": "Hypothesis vs. Reality",
-        "items": [
-          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
-        ]
-      },
-      "methodology": [
-        {
-          "heading": "Method — TBD",
-          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
-        }
-      ],
-      "keyResults": {
-        "label": "Key Results",
-        "items": [
-          "[Placeholder] No results yet — analysis hasn't been run."
-        ]
-      },
-      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
-      "recommendations": {
-        "items": [],
-        "limitations": [
-          "This is a placeholder page — no analysis has been performed yet."
-        ],
-        "nextSteps": [
-          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
-          "Define the specific business question and stakeholder",
-          "Build and validate the model / dashboard / pipeline",
-          "Replace this placeholder with the full SPIDER write-up"
-        ]
-      }
-    },
-    {
-      "id": "social-feed-ranking-experiment",
-      "title": "Social Feed Ranking Experiment",
-      "year": 2025,
-      "industry": "Social Media",
-      "projectType": "A/B Test",
-      "serviceType": "Experiment Write-up",
-      "tools": [
-        "SQL",
-        "Python"
-      ],
-      "sectionHeadlines": {
-        "summaryImpact": "Placeholder — not yet built",
-        "problemSpace": "Problem space — TBD",
-        "inputs": "Data inputs — TBD",
-        "discovery": "Discovery — TBD",
-        "execution": "Method — TBD",
-        "results": "Results — TBD"
-      },
-      "cardDescription": "[Placeholder] Design and analyse a feed-ranking test balancing session length against user-reported content quality. Full case study not yet built.",
-      "impactStat": "Placeholder — project not yet built",
-      "oneSentenceDescription": "Design and analyse a feed-ranking test balancing session length against user-reported content quality.",
-      "targetIndustryRole": "Social Media (placeholder — to be confirmed)",
-      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Design and analyse a feed-ranking test balancing session length against user-reported content quality.",
-      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why social media teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
-      "inputs": {
-        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
       },
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",

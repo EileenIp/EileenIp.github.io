@@ -121,7 +121,7 @@
   <section id="projects" class="projects container">
     <span class="kicker">Selected work</span>
     <h2>Case studies</h2>
-    <p class="intro">Six projects across gaming, media, marketing, and customer experience. Each card opens into a full write-up covering approach, trade-offs, and what changes at scale.</p>
+    <p class="intro">Four projects across media, marketing, and customer experience. Each card opens into a full write-up covering approach, trade-offs, and what changes at scale.</p>
 
     <div class="project-grid">
 
@@ -160,7 +160,7 @@
           <ul class="project-tags">
             <li class="tag tag-accent">Dashboard</li>
             <li class="tag tag-accent-2">Media &amp; Entertainment</li>
-            <li class="tag tag-neutral">Tableau · SQL</li>
+            <li class="tag tag-neutral">Python · DuckDB</li>
             <li class="tag tag-outline">BI Dashboard</li>
           </ul>
           <p class="project-desc">Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams.</p>
@@ -180,43 +180,18 @@
         <div class="project-body">
           <div class="project-head">
             <h3>Ad Creative Performance Pipeline</h3>
-            <span class="project-year">2025</span>
+            <span class="project-year">2026</span>
           </div>
           <ul class="project-tags">
             <li class="tag tag-accent">Data Pipeline</li>
             <li class="tag tag-accent-2">Marketing</li>
-            <li class="tag tag-neutral">dbt · BigQuery</li>
+            <li class="tag tag-neutral">dbt · DuckDB</li>
             <li class="tag tag-outline">Automated Pipeline</li>
           </ul>
-          <p class="project-desc">Automate creative-level performance tagging so media buyers can see top performers same-day, not weekly.</p>
+          <p class="project-desc">A dbt-core + DuckDB pipeline that ingests openly synthetic, deliberately corrupted ad-creative performance data and proves it can still deliver reliable same-day numbers — the deliverable is the pipeline, not an advertising finding.</p>
           <div class="project-impact">
             <span class="label-xs">Impact</span>
-            <span>Placeholder — project not yet built.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <a href="projects.html?project=player-segmentation-ltv-model" class="card project-card">
-        <div class="project-thumb" role="img" aria-label="Player segmentation chart crop"></div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>Player Segmentation &amp; LTV Model</h3>
-            <span class="project-year">2024</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-accent">Segmentation</li>
-            <li class="tag tag-accent-2">Gaming</li>
-            <li class="tag tag-neutral">Python · scikit-learn</li>
-            <li class="tag tag-outline">Analysis + Model</li>
-          </ul>
-          <p class="project-desc">Cluster players by behaviour and predict LTV to guide acquisition spend by segment, not by channel average.</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>Placeholder — project not yet built.</span>
+            <span>Reconciles to ground truth exactly across 25,892 rows — except the 3 defect types the pipeline is never supposed to silently fix.</span>
           </div>
           <div class="project-cta">
             <span>View case study</span>
@@ -226,10 +201,10 @@
       </a>
 
       <a href="projects.html?project=support-ticket-sentiment-tracker" class="card project-card">
-        <div class="project-thumb" role="img" aria-label="Sentiment tracker chart crop"></div>
+        <div class="project-thumb" role="img" aria-label="Support triage chart crop"></div>
         <div class="project-body">
           <div class="project-head">
-            <h3>Support Ticket Sentiment Tracker</h3>
+            <h3>Support Triage: Which Conversations Are About to Go Bad</h3>
             <span class="project-year">2023</span>
           </div>
           <ul class="project-tags">
@@ -238,32 +213,7 @@
             <li class="tag tag-neutral">Python · BERT</li>
             <li class="tag tag-outline">Interactive Report</li>
           </ul>
-          <p class="project-desc">Score incoming tickets for sentiment and urgency in near real time to route escalations before they compound.</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>Placeholder — project not yet built.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <a href="projects.html?project=social-feed-ranking-experiment" class="card project-card">
-        <div class="project-thumb" role="img" aria-label="Ranking experiment chart crop"></div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>Social Feed Ranking Experiment</h3>
-            <span class="project-year">2025</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-accent">A/B Test</li>
-            <li class="tag tag-accent-2">Social Media</li>
-            <li class="tag tag-neutral">SQL · Python</li>
-            <li class="tag tag-outline">Experiment Write-up</li>
-          </ul>
-          <p class="project-desc">Design and analyse a feed-ranking test balancing session length against user-reported content quality.</p>
+          <p class="project-desc">Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end.</p>
           <div class="project-impact">
             <span class="label-xs">Impact</span>
             <span>Placeholder — project not yet built.</span>
