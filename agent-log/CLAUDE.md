@@ -1,6 +1,6 @@
 # CLAUDE.md — EileenIp.github.io
 
-Standing context for every Claude Code session in this repo. Read this first.
+Standing context for any work in this repo. Read this first.
 
 ---
 
@@ -57,7 +57,7 @@ A page missing 3–4 of these is a page worth flagging in `TODO.md`.
 - **Never push to `main`.** All work goes on a branch named
   `agent/YYYY-MM-DD`. Eileen merges.
 - **Never delete a project page or a project's assets.** Archiving or
-  de-listing is a decision for Eileen, not the agent.
+  de-listing is Eileen's decision, not something to action unasked.
 - **Never overstate.** If something was small-scale, exploratory, or built on
   synthetic/sample data, say so plainly on the page. Honest framing beats
   inflated framing — it survives an interview, inflation doesn't.
@@ -143,6 +143,7 @@ there and findable in under 90 seconds.
 
 ## Where things live
 
-- `TODO.md` — the backlog. The agent works from this and updates it.
+- `TODO.md` — the backlog. Work is taken from here, and it gets updated as
+  it goes.
 - `DAILY-PLAN.md` — today's proposed work, awaiting Eileen's approval.
 - `agent-log/` — archived daily plans, one per run date.
