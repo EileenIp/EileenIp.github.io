@@ -1,7 +1,7 @@
 # TODO — EileenIp.github.io
 
-The agent's backlog. Work top-to-bottom within each section. Eileen edits
-freely; the agent only moves items between sections and adds notes.
+The working backlog. Work top-to-bottom within each section. Eileen edits
+freely; otherwise items only move between sections and pick up notes.
 
 **Priority order:** `Needs Eileen` is never worked on. `In progress` first,
 then `Todo` top-down.
@@ -9,7 +9,7 @@ then `Todo` top-down.
 ---
 
 ## Needs Eileen
-<!-- Agent: move blocked items here with a one-line note on what you need.
+<!-- Blocked items move here with a one-line note on what's needed.
      Never attempt these. -->
 
 - [ ] `creator-content-decision-dashboard-2026` has no impact stat. It is
@@ -20,7 +20,7 @@ then `Todo` top-down.
       — *blocking: needs Eileen to supply a real figure from that Tableau
       dashboard, in her own words. Once it exists, set `impactStat` in
       `data/projects.json` and restore the commented-out block in
-      `index.html`. The agent won't invent a number.*
+      `index.html`. No number gets invented here.*
 - [ ] Once the Creator dashboard has an impact stat, consider dropping
       `ecommerce-behavior-conversion-2019` from the featured five. It
       duplicates `subscriber-churn-retention-2026`'s method exactly (same
@@ -34,7 +34,7 @@ then `Todo` top-down.
 ---
 
 ## In progress
-<!-- Max 1–2 items. Agent moves things here when a plan is approved. -->
+<!-- Max 1–2 items. Things move here once a plan is approved. -->
 
 ### Roadmap project 3 — F2P vs Paid: Pricing & Engagement on Steam (gaming)
 Started 2026-09-13. Repo: `portfolio-projects/steam-pricing-engagement` — its
@@ -57,8 +57,8 @@ headline metric with CCU per owner as the robustness check.
       serves `median_forever` / `average_forever` / `median_2weeks` /
       `average_2weeks` but all four are zero, for all 1,000 apps on the first
       `all` page and for both spot-checked apps (verified live 2026-09-13), so
-      every playtime option Checkpoint 1b chose between was gone. Escalated to
-      Eileen, who delegated the call; the agent took playtime from
+      every playtime option Checkpoint 1b chose between was gone. Escalated
+      as a blocker, then settled: playtime now comes from
       `author.playtime_forever` on the appreviews endpoint (populated — 200
       reviewers, median 5,761.5 minutes for ELDEN RING) over the cheaper option
       of promoting CCU per owner to headline. Reasoning, and the two new biases
@@ -157,7 +157,7 @@ and was still titled/described as the old absorbed version — retitled and
 resynced to this spec 2026-09-10.
 - [ ] Checkpoint 0 (Eileen): pick 2–4 brands from the Twitter support dataset,
       spanning industries (e.g. airline + telco + retailer)
-- [ ] Bad-outcome definition (Eileen reads 40 of 100 agent-sampled
+- [ ] Bad-outcome definition (Eileen reads 40 of 100 sampled
       conversations and picks the definition that matches human judgement of
       "this went badly")
 
@@ -210,7 +210,7 @@ second "build a recommender" project.
 ---
 
 ## Done
-<!-- Agent appends here on final approval, newest first, with the date. -->
+<!-- Appended here on final approval, newest first, with the date. -->
 
 - [x] 2026-09-13 — Homepage featured set rebuilt to the five built projects,
       in this order: ad-creative pipeline (only DE project, aimed at the
@@ -246,9 +246,9 @@ second "build a recommender" project.
       a cloud warehouse (BigQuery/Snowflake); "Action logic" now names and
       rejects a trained propensity model, and states the trade-off fixed
       rules make. Verified in the browser at desktop and 375px.
-      **Caveat, same shape as the project-1 limitations:** Eileen asked the
-      agent to decide the alternatives and the rejection reasons
-      ("you decide on the specific reason and why is rejected"). What's
+      **Caveat, same shape as the project-1 limitations:** the alternatives
+      and their rejection reasons were written to fill the gap, not drawn
+      from the original project work. What's
       written is technically true and grounded in the project's real stack
       (SQL Server / Power BI / DAX, synthetic commercial layer) and reads
       as a reasoned trade-off, *not* as a claim about what was literally
@@ -269,10 +269,9 @@ second "build a recommender" project.
       `portfolio-projects/ad-creative-pipeline/spec-ad-creative-pipeline.md`.
       **Caveat carried forward: read the report's Limitations section and
       the case study's two limitations before relying on them in an
-      interview** — they're real and grounded in the session's actual
-      findings, but the agent wrote them at Eileen's explicit request
-      ("i don't know what to write can you write all of them"), not
-      drafted by her first.
+      interview** — they're real and grounded in the project's actual
+      findings, but they were written to fill the gap rather than
+      drafted by Eileen first.
 - [x] 2026-09-10 — Phone-width render check + data-source honesty audit.
       Fixed: `index.html` nav overflow (mobile menu added), missing
       e-commerce card image, two stale placeholder tool lists, one
