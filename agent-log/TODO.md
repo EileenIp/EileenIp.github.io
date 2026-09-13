@@ -298,6 +298,17 @@ Three constraints, all load-bearing:
   `career/tailored-resumes-2026-09-11/` — a directory listing shows them to
   each other, and the URL pattern reads as mail-merge.
 
+**Branch collision, 2026-09-13 — worth knowing before merging.** Two sessions
+were writing to the same checkout. The analytics session committed its work
+(the polish pass, job tracker, project images and the analytics collector)
+onto *this* branch, `agent/2026-09-13-resume-builder`, while this session was
+mid-task — so the branch carries both sessions' work, not just the resume
+builder, and none of it is on `main` yet. One casualty: the homepage's two
+Resume buttons were rewired here, but that edit was swept into their commit
+`403a95b site: social card, favicon, canonical, sitemap`, whose message says
+nothing about it. Nothing was lost and nothing was rewritten to tidy it —
+flagging it so the merge isn't read as one session's work.
+
 Eileen's three answers on 2026-09-13 settled the design. **What varies:**
 projects, the order of the skills line, and whether the YouTube channel
 appears under Experience — not the summary. **Data Engineer:** offered, framed
