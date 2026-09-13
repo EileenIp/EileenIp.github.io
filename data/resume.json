@@ -1,0 +1,1183 @@
+{
+  "generated": "2026-09-13",
+  "source": "career/cv/CV 2026 working.docx",
+  "tagsAreDrafted": true,
+  "profile": {
+    "name": "Eileen Ip",
+    "contactLine": "Australian/Hong Kong Citizen | eileenip01@gmail.com | (Mobile) +61 492 880 564 | LinkedIn | GitHub",
+    "email": "eileenip01@gmail.com",
+    "phone": "+61 492 880 564",
+    "citizenship": "Australian/Hong Kong Citizen",
+    "linkedin": "https://www.linkedin.com/in/eileen-ip",
+    "github": "https://github.com/EileenIp"
+  },
+  "summary": null,
+  "length": "condensed",
+  "education": {
+    "institution": "University of Queensland",
+    "location": "Brisbane, QLD, Australia",
+    "degree": "Bachelor of Computer Science and Commerce",
+    "graduation": "Dec 2026",
+    "detail": [
+      "Concentrations: Data Science / Machine Learning and Business Analytics",
+      "Related Coursework: Business Data Analytics/Visualisation, Machine Learning, Relational Database Systems, Computer Systems, Information Systems, Data Algorithms, Advanced Statistics & Mathematical Applications"
+    ]
+  },
+  "experience": [
+    {
+      "organisation": "NDIS Quality and Safeguards Commission",
+      "location": "Hybrid/Brisbane, Australia",
+      "role": "Data Analyst Intern",
+      "dates": "June 2025 - July 2025",
+      "bullets": [
+        "Reduced provider registration approval delays by a projected 15–20% as measured by adopted workflow-improvement recommendations, by identifying the top 5 drivers of operational delay.",
+        "Improved delay-prediction accuracy by 22% as measured by model performance, by building and evaluating 5 classification models (Decision Tree, Random Forest) on engineered features.",
+        "Enabled end-to-end analysis as measured by integration of 100K+ structured and unstructured records, by extracting and cleaning provider registration data in R and SQL.",
+        "Surfaced registration process bottlenecks as measured by 10+ visualisations and calculated measures, by conducting exploratory data analysis on approval and audit stages.",
+        "Informed managers' and SMEs' decision-making as measured by translation into an internal insights paper and presentation, by validating findings collaboratively."
+      ],
+      "id": "ndis-quality-and-safegua",
+      "optional": false,
+      "bulletsCondensed": [
+        "Analysed 100K+ structured and unstructured provider-registration records using R and SQL, identifying five key drivers of approval delays.",
+        "Built and evaluated five classification models and created 10+ visualisations to investigate bottlenecks and communicate operational patterns.",
+        "Validated findings with managers and subject matter experts, translating analysis into an internal insights paper, presentations and workflow-improvement recommendations."
+      ]
+    },
+    {
+      "organisation": "YouTube",
+      "location": "Remote, Australia",
+      "role": "Independent Content Creator",
+      "dates": "Aug 2023 - Present",
+      "bullets": [
+        "Built and grew an AI-generated explainer video channel to 10,000 subscribers, publishing weekly content using AI tools across ideation, scriptwriting, voice synthesis, and video production",
+        "Analysed YouTube Analytics (views, audience retention, watch time) on a regular basis to identify high-performing topics and formats, using insights to guide content strategy",
+        "Sustained monetized output ($30–50/video) for 2+ years by iterating content based on performance data, demonstrating consistency in a self-directed, metrics-driven workflow"
+      ],
+      "id": "youtube",
+      "optional": true,
+      "bulletsCondensed": [
+        "Grew an AI-generated explainer channel to 10,000 subscribers, publishing weekly videos using AI tools for ideation, scripting, voice synthesis and production.",
+        "Analysed views, audience retention and watch time in YouTube Analytics to guide topics and formats; maintained monetised production for more than two years."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "home-price-predictor",
+      "title": "Home Price Predictor",
+      "tools": [
+        "Python"
+      ],
+      "date": "Jan 2024",
+      "year": 2024,
+      "url": "https://github.com/EileenIp/House-Price-Predictor",
+      "keywords": [
+        "Machine Learning",
+        "Time series",
+        "Pattern Recognition",
+        "Linear Regression",
+        "K-Fold Cross Model Validation",
+        "Feature Engineering"
+      ],
+      "bullets": [
+        "Improved home price prediction accuracy to 74% (a 15% lift) as measured by K-Fold cross-validated model performance, by engineering and selecting features (imputing missing data, retaining predictors with >40% correlation) across 10,000+ property records.",
+        "Increased pricing model interpretability for stakeholders as measured by identification of the top 5 price-driving factors, by analysing feature importance within the linear regression model."
+      ],
+      "roles": [
+        "data-scientist"
+      ],
+      "industries": [
+        "Real Estate"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "email-spam-classifier",
+      "title": "Email Spam Classifier",
+      "tools": [
+        "Python"
+      ],
+      "date": "Jan 2024",
+      "year": 2024,
+      "url": "https://github.com/EileenIp/Email-Spam-Filter",
+      "keywords": [
+        "Natural Language Processing (NLP)",
+        "Naïve Bayes Classifier",
+        "Machine Learning",
+        "Feature Engineering",
+        "Data Cleaning"
+      ],
+      "bullets": [
+        "Achieved 97% spam classification accuracy (a 10% lift) as measured by model performance on 5,000+ labelled SMS records, by engineering text features (tokenisation, stop-word removal, TF-IDF weighting) for a multinomial Naïve Bayes classifier.",
+        "Cut model runtime by 30% as measured by inference speed, by applying dimensionality reduction while preserving precision and recall."
+      ],
+      "roles": [
+        "data-scientist"
+      ],
+      "industries": [
+        "Technology"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "stock-prices-forecasting",
+      "title": "Stock Prices Forecasting",
+      "tools": [
+        "Python"
+      ],
+      "date": "Feb 2024",
+      "year": 2024,
+      "url": "https://github.com/EileenIp/Stock-Market-Predictor",
+      "keywords": [
+        "Machine Learning",
+        "Time series",
+        "Pattern Recognition",
+        "Data Visualisation",
+        "Feature Engineering",
+        "Model Prediction Evaluation"
+      ],
+      "bullets": [
+        "Halved forecasting error (MAE from 0.87% to 0.47%) as measured by model accuracy on 3 years of daily trading data (1,000+ records), by engineering predictive features such as trading volume indicators into a linear regression time-series model.",
+        "Sped up backtesting deployment by 25% as measured by model runtime, by streamlining data preprocessing and feature scaling."
+      ],
+      "roles": [
+        "data-scientist"
+      ],
+      "industries": [
+        "Banking & Finance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "dynamic-ai-chatbot",
+      "title": "Dynamic AI Chatbot",
+      "tools": [
+        "Python"
+      ],
+      "date": "Feb 2024",
+      "year": 2024,
+      "url": null,
+      "keywords": [
+        "OpenAI API",
+        "Natural Language Processing (NLP)",
+        "Prompt Engineering",
+        "Advanced Conversation Management",
+        "Deep Learning"
+      ],
+      "bullets": [
+        "Delivered a multilingual (Japanese/English) AI chatbot capable of sustaining 100+ messages of context per session, by building dynamic persona-switching and memory management on the OpenAI API.",
+        "Reduced response latency by 30% as measured by real-time text/voice response times, by optimising input handling across integrated YouTube live-chat and voice pipelines.",
+        "Improved response coherence and contextual relevance by 20% versus baseline transformer models, by designing advanced prompt-engineering strategies."
+      ],
+      "roles": [
+        "data-scientist"
+      ],
+      "industries": [
+        "Technology",
+        "Media & Entertainment"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "bitcoin-s-impact-on-a-portfolio-analysis-report",
+      "title": "Bitcoin’s Impact on a Portfolio Analysis Report",
+      "tools": [
+        "Python"
+      ],
+      "date": "Jan 2025",
+      "year": 2025,
+      "url": "https://github.com/EileenIp/Visualisation-of-Bitcoin-s-impact-on-a-basic-Portfolio",
+      "keywords": [
+        "Data Visualisation",
+        "Time series",
+        "Pattern Recognition",
+        "Portfolio Allocation/Optimisation",
+        "Monto Carlo Simulation",
+        "EDA"
+      ],
+      "bullets": [
+        "Quantified risk-return trade-offs across 10+ years and 3,500+ trading days of Bitcoin, S&P 500, and gold data, by running efficient frontier simulations with inflation-adjusted returns.",
+        "Improved portfolio risk-adjusted return by 15% (Sharpe ratio 0.72) as measured against a traditional portfolio, by identifying an optimal 5% Bitcoin allocation despite Bitcoin's 3x higher return and 2.5x higher volatility."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst"
+      ],
+      "industries": [
+        "Banking & Finance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "credit-fraud-detection-classifier-analysis",
+      "title": "Credit Fraud Detection Classifier Analysis",
+      "tools": [
+        "Python"
+      ],
+      "date": "Jan 2025",
+      "year": 2025,
+      "url": "https://github.com/EileenIp/Credit-Card-Fraud-Classifier",
+      "keywords": [
+        "Machine Learning",
+        "Segmentation",
+        "Feature Engineering",
+        "Tuning",
+        "EDA",
+        "Manipulation/Cleaning",
+        "Model Evaluation",
+        "ROC score"
+      ],
+      "bullets": [
+        "Improved fraud detection ROC-AUC from 82% to 94% (recall +28%) as measured against baseline logistic regression, by applying SMOTE resampling and hyperparameter tuning to address <2% class imbalance across 284K+ transactions.",
+        "Benchmarked 5 classification models (logistic regression, decision trees, random forest, XGBoost) as measured by ROC-AUC and recall, by testing under/over-sampling, SMOTE, and ADASYN strategies for minority-class detection.",
+        "Enabled targeted fraud monitoring with bank stakeholders as measured by identification of the top 5 risk factors, by analysing feature importance from the tuned model."
+      ],
+      "roles": [
+        "data-scientist"
+      ],
+      "industries": [
+        "Banking & Finance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "customer-segmentation-in-bank-campaigns-presentation",
+      "title": "Customer Segmentation in Bank Campaigns Presentation",
+      "tools": [
+        "R"
+      ],
+      "date": "Nov 2024",
+      "year": 2024,
+      "url": "https://github.com/EileenIp/Bank-Marketing-Campaign-Dashboard",
+      "keywords": [
+        "Machine Learning",
+        "Binary Classification",
+        "Logistic Regression",
+        "Decision Trees",
+        "Data Visualisation",
+        "Feature Engineering"
+      ],
+      "bullets": [
+        "Improved customer segmentation model accuracy from 72% to 82% as measured by classification performance on 1,200+ customer profiles, by tuning logistic regression and decision tree models.",
+        "Informed personalised marketing and upsell campaigns as measured by identification of high-value vs. low-engagement segments and the top 5 conversion drivers, by visualising decision-tree splits and feature correlations."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst"
+      ],
+      "industries": [
+        "Banking & Finance",
+        "Marketing"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "customer-churn-forecasting-analysis-in-telecom-services",
+      "title": "Customer Churn Forecasting Analysis in Telecom Services",
+      "tools": [
+        "Python"
+      ],
+      "date": "Nov 2024",
+      "year": 2024,
+      "url": "https://github.com/EileenIp/Churn-Prediction",
+      "keywords": [
+        "Machine Learning",
+        "Logistic Regression",
+        "Feature Engineering",
+        "EDA",
+        "Visualisation",
+        "Pattern Recognition",
+        "Cross Validation",
+        "Tuning"
+      ],
+      "bullets": [
+        "Improved churn prediction accuracy by 10% (from 68%) and recall by 22% as measured by confusion matrix and odds-ratio significance testing, by feature-engineering and grid-search tuning a logistic regression model on 7,000+ customer records.",
+        "Informed targeted retention strategies as measured by identification of key churn drivers (contract type, tenure, dependents), by analysing model coefficients and odds ratios."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst"
+      ],
+      "industries": [
+        "Telecom",
+        "Customer Experience"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "amazon-prime-movies-and-tv-shows-clustering",
+      "title": "Amazon Prime Movies and TV Shows Clustering",
+      "tools": [
+        "Python"
+      ],
+      "date": "Jan 2025",
+      "year": 2025,
+      "url": "https://github.com/EileenIp/Amazon_Prime_Movies_And_TV_Shows_Clustering",
+      "keywords": [
+        "Unsupervised Machine Learning",
+        "K-Means Clustering",
+        "Silhouette Score",
+        "Feature Engineering",
+        "Visualisation",
+        "EDA",
+        "Data Cleaning"
+      ],
+      "bullets": [
+        "Improved clustering quality (silhouette score +18%) as measured against baseline K-Means, by cleaning and scaling 9,000+ titles into TF-IDF features and reducing dimensionality to 2,500 via PCA.",
+        "Reduced user search time by 35% as measured by content discovery speed, by building a content-based recommender that surfaces the top 10 similar titles per user.",
+        "Surfaced the top 5 attributes driving recommendation patterns, by analysing cluster composition."
+      ],
+      "roles": [
+        "data-scientist"
+      ],
+      "industries": [
+        "Media & Entertainment"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "pizza-sales-dashboard",
+      "title": "Pizza Sales Dashboard",
+      "tools": [
+        "SQL",
+        "Power BI"
+      ],
+      "date": "Dec 2024",
+      "year": 2024,
+      "url": "https://github.com/EileenIp/Pizza-Sales-Dashboard",
+      "keywords": [
+        "Interactive Dashboard",
+        "Data Visualisation",
+        "Database Manipulation/Cleaning",
+        "Table Joins",
+        "Optimisation",
+        "Summary Statistics"
+      ],
+      "bullets": [
+        "Answered 13 key business questions on a year of sales (5,000+ transactions) as measured by stakeholder-ready insights, by building an interactive SQL + Power BI dashboard.",
+        "Informed a menu optimisation strategy as measured by identifying the top 3 pizzas (42% of annual revenue) and lowest-performing SKUs (2% of revenue), by analysing SQL-aggregated sales data.",
+        "Cut data pipeline runtime by 25% as measured by query execution time, by optimising joins and query structure."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Retail & Hospitality"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "artist-selection-presentation",
+      "title": "Artist Selection Presentation",
+      "tools": [
+        "R"
+      ],
+      "date": "May 2025",
+      "year": 2025,
+      "url": "https://github.com/EileenIp/Artist-Selection-Insights-Visualisation-Presentation",
+      "keywords": [
+        "Data Visualisations",
+        "Interactive Dashboard",
+        "Presentation Design",
+        "Data Cleaning",
+        "Data Manipulation",
+        "Recommendations"
+      ],
+      "bullets": [
+        "Delivered a data-driven artist shortlist as measured by a multi-criteria filtering framework, by cleaning and imputing the Million Song Dataset (2005–2010) end-to-end.",
+        "Supported artist selection and playlist design as measured by 10+ interactive visualisations of familiarity, song hotness, tempo, and duration trends, by building an exploratory analytics dashboard.",
+        "Optimised setlists for audience engagement as measured by an artist ranking/shortlisting framework, by translating findings into actionable, presentation-ready recommendations."
+      ],
+      "roles": [
+        "data-analyst"
+      ],
+      "industries": [
+        "Media & Entertainment"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "insurance-risk-and-claims-analytics-dashboard",
+      "title": "Insurance Risk & Claims Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Insurance-Risk-Claims-Analysis-Dashboard",
+      "keywords": [
+        "Data Visualisation",
+        "Interactive Dashboard",
+        "Risk Analytics",
+        "Data Cleaning",
+        "Data Manipulation",
+        "Insurance and Claims Analysis"
+      ],
+      "bullets": [
+        "Supported underwriting decisions as measured by real-time monitoring of 38K+ policies and claims, by integrating demographic, vehicle, and geographic data into an interactive Power BI dashboard.",
+        "Identified high-risk customer and vehicle segments as measured by 10+ visualisations across car use, coverage zone, age group, and driving behaviour, by segmenting claims data.",
+        "Informed pricing strategy and risk mitigation as measured by identification of top claim-generating drivers and highest-exposure segments, by analysing claims by vehicle usage type."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Insurance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "sales-performance-analytics-dashboard",
+      "title": "Sales Performance Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Finance-Performance-Dashboard",
+      "keywords": [
+        "Interactive Dashboard",
+        "Financial KPI Analysis",
+        "Data Visualisation",
+        "Cleaning",
+        "Business Intelligence",
+        "Performance Monitoring"
+      ],
+      "bullets": [
+        "Enabled real-time revenue monitoring as measured by actual-vs-target variance across 14 months of sales data, by building an interactive Power BI dashboard.",
+        "Surfaced salesperson performance rankings and variance trends as measured by 10+ financial KPI visualisations, by designing monthly comparison views.",
+        "Prioritised corrective sales strategies as measured by identification of consistent underperformance patterns, by analysing variance indicators across the period."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Banking & Finance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "bank-loan-application-tracking-dashboard",
+      "title": "Bank Loan Application Tracking Dashboard",
+      "tools": [
+        "Excel"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Bank-Loan-Application-Tracking-Dashboard",
+      "keywords": [
+        "Interactive Dashboard",
+        "Financial Analytics",
+        "Risk Analysis",
+        "Data Visualisation",
+        "Data Cleaning",
+        "Exploratory Data Analysis"
+      ],
+      "bullets": [
+        "Monitored loan portfolio performance as measured by funded loans, repayments, and average interest rate across 14.4K applications, by building an interactive Excel dashboard.",
+        "Distinguished good loans from high-risk/defaulted loans as measured by 10+ visualisations of approval quality, employment length, and purpose segmentation, by analysing borrower and loan-level data.",
+        "Informed credit risk assessment and lending strategy as measured by identification of the largest loan category and highest application volume, by segmenting applications geographically and by purpose."
+      ],
+      "roles": [
+        "data-analyst",
+        "bi-developer"
+      ],
+      "industries": [
+        "Banking & Finance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "bank-fraud-transaction-monitoring-dashboard",
+      "title": "Bank Fraud Transaction Monitoring Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Bank-Fraud-Transaction-Monitoring-Dashboard",
+      "keywords": [
+        "Fraud Analytics",
+        "Financial Monitoring",
+        "Interactive Dashboard",
+        "Data Visualisation",
+        "Data Cleaning",
+        "Exploratory Data Analysis"
+      ],
+      "bullets": [
+        "Supported real-time fraud monitoring as measured by tracking of 1,000+ transactions across status, device, and network-slice data, by building an integrated Power BI dashboard.",
+        "Isolated high-risk activity as measured by a multi-page dashboard (overview, detection, transaction-level detail) with dynamic filters, by designing geographic and behavioural visualisations.",
+        "Strengthened fraud detection rules as measured by identification of the most common fraud patterns, by analysing transactions across type, bandwidth group, and network slice."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Banking & Finance"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "bank-marketing-term-deposit-campaign-dashboard",
+      "title": "Bank Marketing Term Deposit Campaign Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Bank-Marketing-Campaign-Dashboard",
+      "keywords": [
+        "Marketing Analytics",
+        "Customer Segmentation",
+        "Interactive Dashboard",
+        "Data Visualisation",
+        "Data Cleaning",
+        "EDA"
+      ],
+      "bullets": [
+        "Monitored term deposit campaign performance as measured by outcomes across 45K+ customer records, by building an interactive marketing analytics dashboard.",
+        "Revealed the highest- and lowest-converting customer segments as measured by 10+ visualisations across demographics and contact channels, by segmenting subscription behaviour.",
+        "Informed targeted marketing strategy as measured by the correlation between call duration and subscription rate, by analysing conversion patterns across the campaign."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Banking & Finance",
+        "Marketing"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "bank-customer-churn-analysis-dashboard",
+      "title": "Bank Customer Churn Analysis Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Bank-Customer-Churn-Dashboard",
+      "keywords": [
+        "Interactive Dashboard",
+        "Data Visualisation",
+        "Database Manipulation/Cleaning",
+        "Table Joins",
+        "Optimisation",
+        "Summary Statistics"
+      ],
+      "bullets": [
+        "Monitored churn patterns across 10,000 customer records as measured by demographic, financial, and behavioural variables, by building an interactive Power BI dashboard.",
+        "Revealed that mid-aged, higher-balance customers churned most as measured by 10+ segmented visualisations, by analysing churn across geography, gender, and product usage.",
+        "Informed targeted retention strategy as measured by identification of inactive members and low product-usage customers as highest-risk, by analysing churn likelihood drivers."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Banking & Finance",
+        "Customer Experience"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "spotify-listening-analytics-dashboard",
+      "title": "Spotify Listening Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Spotify-Listening-Analytics-Dashboard",
+      "keywords": [
+        "Music Data Analytics",
+        "Interactive Dashboard",
+        "Data Visualisation",
+        "EDA",
+        "Data Cleaning",
+        "Behavioural Analytics"
+      ],
+      "bullets": [
+        "Visualised listening behaviour across 150K+ track, artist, and album records as measured by trends over time, platform, and engagement, by building an interactive Power BI dashboard.",
+        "Surfaced top artist/track rankings and weekday-vs-weekend patterns as measured by 10+ dynamic visualisations, by segmenting listening data.",
+        "Identified long-term popularity trends as measured by the most-played artist and top tracks, by conducting music preference and engagement analysis."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Media & Entertainment"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "meta-ad-performance-and-revenue-analytics-dashboard",
+      "title": "Meta Ad Performance & Revenue Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Meta-Ad-Performance-Revenue-Analytics-Dashboard",
+      "keywords": [
+        "Marketing Analytics",
+        "Digital Advertising Analytics",
+        "Data Visualisation",
+        "Funnel Analysis",
+        "Campaign Performance Optimisation"
+      ],
+      "bullets": [
+        "Tracked end-to-end marketing performance as measured by 400K+ ad impressions, clicks, and engagements across Facebook/Instagram campaigns, by building an integrated Power BI dashboard.",
+        "Exposed lower-funnel inefficiencies as measured by 10+ KPI visualisations (CTR, engagement rate, conversion rate, budget utilisation), by tracking the full campaign funnel.",
+        "Informed a budget-reallocation recommendation to improve ROI as measured by identification of the highest-engagement segment and top-performing ad formats, by analysing campaign and demographic data."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Digital Advertising",
+        "Marketing",
+        "Social Media"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "social-media-marketing-performance-dashboard",
+      "title": "Social Media Marketing Performance Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Social-Media-Marketing-Performance-Dashboard",
+      "keywords": [
+        "Marketing Analytics",
+        "Campaign Performance Analysis",
+        "Interactive Dashboard",
+        "Data Visualisation",
+        "Data Cleaning",
+        "ROI Analysis"
+      ],
+      "bullets": [
+        "Evaluated marketing ROI across 50K records as measured by impressions, clicks, and revenue across multiple channels, by building an interactive Power BI dashboard.",
+        "Identified the strongest revenue-driving channels as measured by 10+ KPI visualisations (CPC, CTR, regional performance), by tracking cross-channel campaign metrics.",
+        "Optimised marketing spend allocation as measured by identification of the highest-revenue and highest-converting channels, by analysing campaign performance."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Marketing",
+        "Social Media"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "hotel-customer-feedback-analytics-dashboard",
+      "title": "Hotel Customer Feedback Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Hotel-Customer-Feedback-Analytics-Dashboard",
+      "keywords": [
+        "Customer Experience Analytics",
+        "Sentiment & NPS Analysis",
+        "Interactive Dashboard Design",
+        "Data Visualisation"
+      ],
+      "bullets": [
+        "Evaluated guest satisfaction and NPS across 2,000+ survey responses as measured by service performance by department, by building an interactive analytics dashboard.",
+        "Enabled cross-department performance comparison as measured by 10+ KPI visualisations of ratings, NPS, and visit purpose, by segmenting feedback by service area.",
+        "Prioritised service improvements as measured by identification of promoter/passive/detractor segments and top visit-purpose drivers, by analysing feedback distribution."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Customer Experience",
+        "Retail & Hospitality"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "superstore-sales-and-profit-analytics-dashboard",
+      "title": "Superstore Sales & Profit Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Superstore-Analytics-Dashboard",
+      "keywords": [
+        "Sales Analytics",
+        "Business Performance Analysis",
+        "Interactive Dashboard Design",
+        "Data Visualisation"
+      ],
+      "bullets": [
+        "Identified key profit drivers as measured by revenue and profit across products, states, and customer segments, by building an interactive Power BI dashboard.",
+        "Revealed year-over-year sales growth and profit increase as measured by 10+ visualisations of margins, return rates, and geographic performance, by tracking retail KPIs over time.",
+        "Prioritised high-margin products and segments as measured by identification of the most profitable category and largest revenue share, by conducting profitability analysis."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Retail & Hospitality"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "vendor-performance-and-procurement-analytics-dashboard",
+      "title": "Vendor Performance & Procurement Analytics Dashboard",
+      "tools": [
+        "SQL",
+        "Python",
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Vendor-Performance-Analytics-Dashboard",
+      "keywords": [
+        "Supply Chain Analytics",
+        "Vendor Performance Analysis",
+        "Procurement Analytics",
+        "Interactive Dashboard Design"
+      ],
+      "bullets": [
+        "Evaluated procurement efficiency and profitability across 1M+ sales and purchase-cost records, by building an interactive SQL + Power BI vendor performance dashboard.",
+        "Identified high-performing suppliers and inventory inefficiencies as measured by 12+ visualisations of gross profit, margin, and unsold capital, by tracking vendor and brand contribution.",
+        "Supported supplier optimisation decisions as measured by identification of the top vendor and highest-selling brand ($8M), by analysing vendor/brand performance data."
+      ],
+      "roles": [
+        "data-engineer",
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Supply Chain"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "shopify-sales-and-customer-funnel-analytics-dashboard",
+      "title": "Shopify Sales & Customer Funnel Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Shopify-Sales-Customer-Funnel-Analytics-Dashboard",
+      "keywords": [
+        "E-commerce Analytics",
+        "Customer Funnel Analysis",
+        "Revenue Analytics",
+        "Interactive Dashboard Design",
+        "Data Visualisation"
+      ],
+      "bullets": [
+        "Tracked sales and customer KPIs (AOV, regional performance) across 7K+ transactions as measured by an interactive Power BI dashboard, by building a Shopify sales-funnel analytics tool.",
+        "Distinguished repeat from single-purchase customers as measured by 12+ visualisations of retention metrics and purchase frequency, by analysing transaction-level customer behaviour.",
+        "Informed retention and merchandising strategy as measured by average customer lifetime value, dominant payment gateway, and top product category, by conducting LTV and payment-channel analysis."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "E-Commerce"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "e-commerce-marketing-performance-analytics-dashboard",
+      "title": "E-commerce Marketing Performance Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Ecommerce-Marketing-Performance-Dashboard",
+      "keywords": [
+        "Marketing Analytics",
+        "Campaign Performance Analysis",
+        "Revenue Analytics",
+        "Interactive Dashboard Design",
+        "Data Visualisation"
+      ],
+      "bullets": [
+        "Monitored marketing ROI and conversion performance across 2,000 records of revenue, cost, and profit, by building an interactive multi-channel Power BI dashboard.",
+        "Identified the primary revenue driver as measured by 12+ KPI visualisations of monthly trends, conversion rate, and channel performance, by tracking campaign metrics over time.",
+        "Optimised marketing spend allocation as measured by identification of the highest-revenue product and top-performing campaign, by conducting lead-source and campaign-effectiveness analysis."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "E-Commerce",
+        "Marketing"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "amazon-product-sales-analytics-dashboard",
+      "title": "Amazon Product Sales Analytics Dashboard",
+      "tools": [
+        "Power BI"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/Amazon-Products-Sales-Analysis-Dashboard",
+      "keywords": [
+        "E-commerce Analytics",
+        "Product Performance Analysis",
+        "Sales Forecasting",
+        "Interactive Dashboard Design",
+        "Data Visualisation"
+      ],
+      "bullets": [
+        "Monitored product performance and sales trends across 90K records as measured by YTD revenue and QTD sales, by building an interactive Power BI dashboard.",
+        "Surfaced demand and feedback patterns as measured by 10+ visualisations of sales trends and product reviews, by analysing category-level engagement metrics.",
+        "Optimised inventory planning as measured by identification of the highest-revenue category and top-selling products, by conducting category and product performance analysis."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "E-Commerce"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+      "title": "E-commerce Purchase-Prediction & Conversion Funnel Analysis Report",
+      "tools": [
+        "Python"
+      ],
+      "date": "Aug 2026",
+      "year": 2026,
+      "url": "https://eileenip.github.io/projects.html?project=ecommerce-behavior-conversion-2019",
+      "keywords": [
+        "E-commerce Analytics",
+        "Product Performance Analysis",
+        "Interactive Dashboard Design",
+        "Data Visualisation",
+        "SHAP",
+        "LightGBM"
+      ],
+      "bullets": [
+        "Diagnosed the purchase-conversion funnel across 109M+ e-commerce clickstream events (full REES46 Kaggle dataset, Oct–Nov 2019), engineering session-level features via chunked processing to handle files exceeding memory limits.",
+        "Built a LightGBM purchase-prediction model (0.92 ROC-AUC) with SHAP-based interpretability and K-Means behavioural segmentation, identifying a 146x purchase-rate spread across 6 shopper segments.",
+        "Validated the model out-of-time on an unseen month (0.946 AUC on November data) and delivered category-specific recommendations to Product, CX, and Marketing stakeholders."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-engineer",
+        "data-analyst"
+      ],
+      "industries": [
+        "E-Commerce"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "advertising-revenue-and-sales-efficiency-growth-diagnostic",
+      "title": "Advertising Revenue & Sales Efficiency Growth Diagnostic",
+      "tools": [
+        "Power BI",
+        "SQL Server",
+        "DAX",
+        "Power Query",
+        "Python"
+      ],
+      "date": "Aug 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/advertising-revenue-sales-efficiency",
+      "keywords": [],
+      "bullets": [
+        "Built a five-page Power BI commercial decision system that diagnosed a $3.60M advertising-revenue shortfall and prioritised 720 advertiser accounts by connecting campaign performance, lifecycle, sales activity, pipeline and target data.",
+        "Designed a Microsoft SQL Server star schema with six conformed dimensions and five fact tables, using T-SQL window functions, Power Query, Python-generated commercial data and DAX measures to govern revenue, funnel, retention, capacity and pipeline analysis.",
+        "Validated an analytics pipeline spanning 30,000 source records, 1.70B impressions, 25.62M clicks and 322,798 conversions through SQL reconciliation and quality tests, then implemented six explainable account-action rules with Advertiser 360 drill-through."
+      ],
+      "recovered": true,
+      "roles": [
+        "data-engineer",
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Digital Advertising"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "creator-content-decision-dashboard",
+      "title": "Creator Content Decision Dashboard",
+      "tools": [
+        "Tableau",
+        "Excel"
+      ],
+      "date": "Jan 2026",
+      "year": 2026,
+      "url": null,
+      "keywords": [
+        "Performance Analytics",
+        "Interactive Dashboard Design",
+        "Data Visualisation",
+        "Adaptable Targeted Recommendations"
+      ],
+      "bullets": [
+        "Built an interactive creator-performance decision dashboard across 6,857 daily records, 36 synthetic videos and 12 months of activity, translating reach, retention, momentum and audience-loyalty trends into production decisions.",
+        "Engineered a relational data model linking video metadata with daily performance data, using weighted KPI calculations, level-of-detail and table calculations, dual-axis trends, segmentation and cross-dashboard filter actions.",
+        "Designed 5 KPI scorecards, 4 interactive filters and 4 analytical views that classify videos into Scale, Improve Discovery, Fix Retention or Review actions and surface targeted next-experiment recommendations."
+      ],
+      "droppedDuplicateBullets": [
+        "Built an interactive creator-performance decision dashboard across 6,857 daily records, 36 synthetic videos and 12 months of activity, using relational modelling, weighted KPIs, level-of-detail calculations and cross-dashboard filters.",
+        "Translated reach, retention, momentum and audience-loyalty patterns into Scale, Improve Discovery, Fix Retention or Review actions through 5 KPI scorecards, 4 filters and 4 decision-focused analytical views."
+      ],
+      "roles": [
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Media & Entertainment",
+        "Social Media"
+      ],
+      "tagsDrafted": true
+    }
+  ],
+  "skills": {
+    "languages": [
+      "Python",
+      "SQL",
+      "R"
+    ],
+    "tools": [
+      "Excel",
+      "Power BI",
+      "Tableau",
+      "Claude AI",
+      "OpenAI",
+      "DeepSeek",
+      "Kimi",
+      "Snowflake",
+      "GitHub",
+      "GCP",
+      "Azure",
+      "Vertex AI",
+      "Jupyter Notebooks",
+      "Google Sheets",
+      "Qlik"
+    ]
+  },
+  "certifications": [
+    {
+      "title": "Deloitte Australia Data Analytics Job Simulation on Forage - February 2026",
+      "date": "",
+      "bullets": [
+        "Completed a Deloitte job simulation involving data analysis and forensic technology",
+        "Created a data dashboard using Tableau",
+        "Used Excel to classify data and draw business conclusions"
+      ]
+    },
+    {
+      "title": "Quantium Data Analytics Job Simulation on Forage - March 2026",
+      "date": "",
+      "bullets": [
+        "Completed a job simulation focused on Data Analytics and Commercial Insights for the data science team.",
+        "Developed expertise in data preparation and customer analytics, utilizing transaction datasets to extract valuable insights and deliver data-driven commercial recommendations.",
+        "Extended analytical capabilities to identify benchmark stores for conducting uplift testing on trial store layouts, enabling evidence-based decision-making.",
+        "Leveraged acquired data analytics and insights from previous tasks to create comprehensive reports for the Category Manager, facilitating informed strategic decisions and enhancing commercial applications."
+      ]
+    },
+    {
+      "title": "Data Scientist in Python (DataQuest) | Certificate",
+      "date": "Jan 2024",
+      "bullets": [
+        "Gained proficiency in machine learning algorithms, optimisation techniques, and advanced feature engineering.",
+        "Conducted in-depth exploratory data analysis (EDA) and built visualisations using Matplotlib and Seaborn to derive actionable insights."
+      ]
+    },
+    {
+      "title": "Data Analyst in SQL (DataQuest) | Certificate",
+      "date": "Jan 2024",
+      "bullets": [
+        "Mastered database querying (OLAP, nested, correlated queries), table joins, and aggregate functions for robust data manipulation and cleaning.",
+        "Designed and optimised database schemas, applied data imputation techniques, and ensured data integrity by identifying and removing duplicates."
+      ]
+    },
+    {
+      "title": "Quantitative Analyst in R (DataCamp) | Certificate",
+      "date": "June 2024",
+      "bullets": [
+        "Developed quantitative analytical skills including bond valuation, credit risk modelling, and risk management.",
+        "Applied statistical/financial modelling techniques to support investment decision making and trading strategies."
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "data-analyst",
+      "label": "Data Analyst",
+      "featured": [
+        "advertising-revenue-and-sales-efficiency-growth-diagnostic",
+        "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+        "creator-content-decision-dashboard",
+        "hotel-customer-feedback-analytics-dashboard",
+        "meta-ad-performance-and-revenue-analytics-dashboard",
+        "vendor-performance-and-procurement-analytics-dashboard"
+      ],
+      "languages": [
+        "SQL",
+        "Python",
+        "R"
+      ],
+      "tools": [
+        "Excel",
+        "Power BI",
+        "Tableau",
+        "Google Sheets",
+        "Qlik",
+        "Jupyter Notebooks",
+        "Snowflake",
+        "GitHub",
+        "GCP",
+        "Azure",
+        "Vertex AI",
+        "Claude AI",
+        "OpenAI",
+        "DeepSeek",
+        "Kimi"
+      ]
+    },
+    {
+      "id": "data-scientist",
+      "label": "Data Scientist",
+      "featured": [
+        "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+        "credit-fraud-detection-classifier-analysis",
+        "amazon-prime-movies-and-tv-shows-clustering",
+        "customer-churn-forecasting-analysis-in-telecom-services",
+        "customer-segmentation-in-bank-campaigns-presentation",
+        "dynamic-ai-chatbot"
+      ],
+      "languages": [
+        "Python",
+        "R",
+        "SQL"
+      ],
+      "tools": [
+        "Jupyter Notebooks",
+        "Vertex AI",
+        "OpenAI",
+        "Claude AI",
+        "DeepSeek",
+        "Kimi",
+        "GCP",
+        "Azure",
+        "Snowflake",
+        "GitHub",
+        "Power BI",
+        "Tableau",
+        "Excel",
+        "Google Sheets",
+        "Qlik"
+      ]
+    },
+    {
+      "id": "bi-developer",
+      "label": "BI Developer",
+      "featured": [
+        "advertising-revenue-and-sales-efficiency-growth-diagnostic",
+        "vendor-performance-and-procurement-analytics-dashboard",
+        "creator-content-decision-dashboard",
+        "meta-ad-performance-and-revenue-analytics-dashboard",
+        "insurance-risk-and-claims-analytics-dashboard",
+        "spotify-listening-analytics-dashboard"
+      ],
+      "languages": [
+        "SQL",
+        "Python",
+        "R"
+      ],
+      "tools": [
+        "Power BI",
+        "Tableau",
+        "Qlik",
+        "Excel",
+        "Google Sheets",
+        "Snowflake",
+        "GitHub",
+        "Jupyter Notebooks",
+        "GCP",
+        "Azure",
+        "Vertex AI",
+        "Claude AI",
+        "OpenAI",
+        "DeepSeek",
+        "Kimi"
+      ]
+    },
+    {
+      "id": "data-engineer",
+      "label": "Data Engineer",
+      "featured": [
+        "advertising-revenue-and-sales-efficiency-growth-diagnostic",
+        "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+        "vendor-performance-and-procurement-analytics-dashboard"
+      ],
+      "languages": [
+        "SQL",
+        "Python",
+        "R"
+      ],
+      "tools": [
+        "Snowflake",
+        "GCP",
+        "Azure",
+        "GitHub",
+        "Jupyter Notebooks",
+        "Vertex AI",
+        "Power BI",
+        "Tableau",
+        "Excel",
+        "Google Sheets",
+        "Qlik",
+        "Claude AI",
+        "OpenAI",
+        "DeepSeek",
+        "Kimi"
+      ]
+    }
+  ],
+  "industries": [
+    "Banking & Finance",
+    "Customer Experience",
+    "Digital Advertising",
+    "E-Commerce",
+    "Insurance",
+    "Marketing",
+    "Media & Entertainment",
+    "Real Estate",
+    "Retail & Hospitality",
+    "Social Media",
+    "Supply Chain",
+    "Technology",
+    "Telecom"
+  ]
+}
