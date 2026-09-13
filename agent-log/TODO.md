@@ -130,19 +130,6 @@ Ordered by priority (really-should-do first) per Eileen's 2026-09-10 call.
 already-built `subscriber-churn-ltv`, not different enough to justify a
 second repo.
 
-### Roadmap project 2 — Launch Sentiment: What Went Wrong, and When (social/marketing)
-Status: spec written, not built. Full spec:
-`portfolio-projects/launch-sentiment/spec-launch-sentiment.md`.
-Fills a domain the portfolio has zero coverage of otherwise; real, accessible
-data (Steam reviews + Reddit).
-- [ ] Checkpoint 0 (Eileen): pick the launch — shipped 6–24 months ago, had a
-      visible sentiment event, enough Steam-review volume, and something
-      Eileen actually knows well enough to be asked about as a person
-- [ ] Checkpoint 1 (Eileen): whether review-bomb copypasta counts as sentiment
-      or gets down-weighted
-- [ ] Eileen hand-labels a 200-review validation set (Phase 2, scorer choice)
-      and reviews the theme taxonomy's seed keywords (Phase 3)
-
 ### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
 Status: spec written, not built. Full spec:
 `portfolio-projects/support-triage/spec-support-triage.md`.
@@ -211,6 +198,60 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-13 — **Roadmap project 2 — Launch Sentiment, complete.** Built in
+      a parallel session to project 3; this entry is that session recording
+      itself. Repo: `github.com/EileenIp/launch-sentiment` (public, `main`),
+      dashboard live at `eileenip.github.io/launch-sentiment/dashboard/`, case
+      study live on the site with all four footer links verified 200 before
+      committing. Restores the gaming coverage that went to zero when the two
+      orphaned placeholder cards were removed earlier the same day.
+
+      **The launch (Checkpoint 0):** HELLDIVERS 2, chosen over Cyberpunk 2077 on
+      recon numbers. It launched well and soured later, which leaves a positive
+      baseline for the leading-indicator question to be asked against; Cyberpunk
+      collapsed on day one, leaving nothing to lead. Accepted deviation: 31
+      months old against the spec's 6–24, Eileen's call.
+
+      **Corpus:** 886,850 reviews, 2024-02-08 to 2024-11-04, 100% of what Steam
+      reports. Window extended from the spec's 183 days to 271 after the first
+      lag analysis, because the six-month window closed three days into the
+      August nerf event — the one event that could plausibly have built
+      gradually, so a null measured on it would have been an artefact of the
+      window rather than a result.
+
+      **The headline is a null, and it is the strongest thing in the project.**
+      No complaint theme leads the review score. Both collapses were triggered
+      by dated developer actions — the PSN account-linking announcement and a
+      balance patch — so themes and score moved the same day. Raw correlation
+      suggested leads in seven of eight themes, up to 12 days; a rotation test,
+      a correction for testing eight themes, and a sensitivity sweep on thin
+      days each removed them independently. Only psn_access survives, at lag 0.
+
+      **What the data does support:** same-day diagnosis. psn_access 21%→57% on
+      3 May while balance fell; balance 0%→46% on 6 August while psn stayed at
+      3%. Derived alert rule: a 12-point single-day drop in positive share fired
+      3 times in 9 months with zero false alarms, against 35 fires and 29 false
+      alarms for the obvious "below 72%" level rule.
+
+      **Checkpoint 2 reversed the spec.** Both sentiment scorers were rejected
+      on Eileen's 200 hand labels — VADER 61.5%, RoBERTa 64.0%, against a 72.0%
+      majority-class baseline. Both lose to guessing "positive". Steam's own
+      thumbs-up matched her labels 95.0%, so the index uses that and the models
+      stay in the repo as the evidence for the decision. The failure is specific
+      to this game: players express enthusiasm through violence and
+      self-deprecation, which general-purpose models read as negative.
+
+      **Caveat, same shape as project 1's:** Eileen asked the agent to draft the
+      Limitations, "What didn't work" and Recommendation sections. Those are the
+      agent's words, recorded as such in `src/deliverables.py`. **Read and
+      rewrite them before an interview** — they are the sections that get probed
+      hardest, and the threshold recommendation in particular is a judgement
+      about what a team should *do*.
+
+      Still open: `NOTES.md` has never been written by the agent and holds none
+      of this project's decisions. The repo is not pinned on the GitHub profile
+      — pinning is UI-only, there is no API for it.
 
 - [x] 2026-09-13 — Homepage featured set rebuilt to the five built projects,
       in this order: ad-creative pipeline (only DE project, aimed at the
