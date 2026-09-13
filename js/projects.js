@@ -799,8 +799,12 @@ function renderProjectBody(project) {
   const resultsCharts = (project.visuals || []).filter((v) => v.section === 'results');
   const rocChart = resultsCharts.find((v) => v.id === 'roc-generalization');
   const segmentsChart = resultsCharts.find((v) => v.id === 'segments');
+  // Any other results chart renders generically. Without this, a visual placed in
+  // the results section with an id this function does not name is silently dropped —
+  // it validates, it loads, and it simply never appears on the page.
+  const otherResultsCharts = resultsCharts.filter((v) => v !== rocChart && v !== segmentsChart);
 
-  if (shapCard || rocChart || segmentsChart || project.recommendations) {
+  if (shapCard || rocChart || segmentsChart || otherResultsCharts.length || project.recommendations) {
     appendSectionHeading(body, 'Results', headlines.results);
 
     if (shapCard || rocChart) {
@@ -812,6 +816,13 @@ function renderProjectBody(project) {
     }
 
     if (segmentsChart) body.append(buildChartCard(segmentsChart));
+
+    if (otherResultsCharts.length) {
+      const grid = document.createElement('div');
+      grid.className = 'viz-grid';
+      for (const visual of otherResultsCharts) grid.append(buildChartCard(visual));
+      body.append(grid);
+    }
 
     const keyResultsCallout = renderCallout(project.keyResults, false);
     if (keyResultsCallout) body.append(keyResultsCallout);
