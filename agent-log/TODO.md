@@ -64,9 +64,10 @@ headline metric with CCU per owner as the robustness check.
       of promoting CCU per owner to headline. Reasoning, and the two new biases
       it buys, are in the project README's "What didn't work" section. CCU per
       owner is kept as a second metric on the full cohort. 50 tests green.
-- [ ] Catalogue pull running as of 2026-09-13 — 60s per `all` page, cached and
-      resumable, so it can be stopped and restarted freely. Re-run
-      `python -m src.steamspy_fetch catalogue` to continue it.
+- [x] Catalogue pull — 60s per `all` page, cached and resumable. This was the
+      in-flight status line; the same pull is recorded complete three items
+      below, with the two bugs it turned up. Kept rather than deleted so the
+      order the work actually happened in still reads straight.
 - [x] Phase 2a — genre stratification moved onto SteamSpy tags rather than Steam
       storefront genres (Eileen, 2026-09-13). The storefront genres are three
       broad buckets — ELDEN RING is "Action, RPG" — and the confound the project
@@ -94,13 +95,14 @@ headline metric with CCU per owner as the robustness check.
       exists to drop), and the pull had no early stop despite `all` being
       sorted by owners descending, so it was fetching pages of excluded apps at
       60s each.
-- [ ] **Full enrichment — 26,017 apps at ~2.5s each, about 18 hours.** The
-      audit settled that this is not optional: F2P is ~16% of the cohort, so
-      spread across 84 strata only one genre has 8+ games of each pricing model
-      at sample scale. 45 genres hold at least one of each in a 3.8% sample, so
-      the full pull should populate many of them, but the within-genre
-      correction has nothing to stand on until it runs. Cached and resumable —
-      `python -m src.steamspy_fetch enrich` — so it can run across sittings.
+- [x] **Full enrichment complete — all 26,017 apps, 2026-09-13.** The audit had
+      settled that this was not optional: F2P is ~16% of the cohort, so spread
+      across 84 strata only one genre had 8+ games of each pricing model at
+      sample scale, and the within-genre correction had nothing to stand on
+      until the full pull ran. Verified rather than assumed: `resume.json`
+      records 26,017 enriched against 26,017 candidates, with 26,017 cached
+      `store_app` payloads and 26,018 `steamspy_app`, and a seeded random sample
+      of 200 storefront payloads came back with zero failures and zero empties.
 - [x] Phase 2b machinery built and validated on the audit sample (2026-09-13):
       naive comparison, within-genre correction pooled by pairwise weight,
       price bands, release-year cohorts, all at three owner bounds. Mann-Whitney
@@ -112,12 +114,15 @@ headline metric with CCU per owner as the robustness check.
       ties and the one usable genre cell is 86% tied at zero. Tie share is now
       printed beside every result. This is a second, independent argument for
       not having made CCU the headline metric.
-- [ ] Phase 2b results — re-run the analysis on the full cohort once enrichment
-      finishes, then run the stratified playtime pull and re-run on the real
-      headline metric. The playtime pull must wait for the enrichment: both use
-      store.steampowered.com, and running them together would halve the
-      effective request spacing (the pacer key is now shared so this is
-      enforced, not just remembered).
+- [ ] Phase 2b results — re-run the analysis on the full cohort, then re-run on
+      the real headline metric once the playtime pull lands. The ordering
+      constraint that governed this item is now satisfied: the playtime pull had
+      to wait for the enrichment, because both use store.steampowered.com and
+      running them together would halve the effective request spacing (the pacer
+      key is shared, so this is enforced rather than just remembered).
+      Enrichment finished first; `python -m src.playtime sample` started
+      2026-09-13 16:02 and was still running when this was written. Nothing else
+      should touch that host until it finishes.
 - [ ] Checkpoint 2 (Eileen): the interpretation, once the within-genre numbers
       exist on real playtime.
 
