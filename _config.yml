@@ -13,3 +13,6 @@ description: Bookmark this to keep an eye on my project updates!
 exclude:
   - agent-log/
   - TASKS.md
+  # Worker source: deployed to Cloudflare by wrangler, never served
+  # from Pages.
+  - analytics/

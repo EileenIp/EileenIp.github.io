@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site Analytics — Eileen Ip</title>
+<meta name="description" content="Traffic dashboard for eileenip.github.io.">
+<!-- Deliberately not in the site nav and not in sitemap.xml: this is a
+     personal tool on a public host. The numbers themselves sit behind a
+     token, so the page is harmless if someone finds the URL, but there is
+     no reason to advertise it to a recruiter reading the portfolio. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/analytics.css">
+</head>
+<body>
+
+<header>
+  <nav class="nav" aria-label="Main navigation">
+    <span class="nav-brand">Eileen Ip</span>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="job-tracker.html">Job Tracker</a>
+      <a href="resume.html">Resume</a>
+    </div>
+  </nav>
+</header>
+
+<main class="an-body">
+
+  <!-- Token gate. Shown until a key is stored; the key lives in this
+       browser's localStorage and is sent only to the collector origin. -->
+  <section class="an-gate" id="an-gate" hidden>
+    <span class="kicker">Site Analytics</span>
+    <h1>Enter your stats key</h1>
+    <p class="text-muted">The key is the <code>STATS_TOKEN</code> secret set on the
+      Worker. It is stored in this browser only.</p>
+    <form id="an-gate-form" class="an-gate-form">
+      <label class="field">
+        <span>Stats key</span>
+        <input type="password" id="an-token" class="input" autocomplete="off" required>
+      </label>
+      <button type="submit" class="btn btn-primary">Unlock</button>
+    </form>
+    <p class="an-error" id="an-gate-error" hidden></p>
+  </section>
+
+  <section id="an-main" hidden>
+    <div class="an-head">
+      <div>
+        <span class="kicker">Site Analytics</span>
+        <h1>Traffic</h1>
+      </div>
+      <div class="an-head-right">
+        <div class="an-ranges" id="an-ranges" role="group" aria-label="Time range"></div>
+        <button type="button" class="btn btn-ghost" id="an-signout">Forget key</button>
+      </div>
+    </div>
+
+    <p class="an-status" id="an-status" aria-live="polite"></p>
+
+    <div class="an-tiles" id="an-tiles"></div>
+
+    <section class="an-panel">
+      <div class="an-panel-head">
+        <h2>Daily traffic</h2>
+        <div class="an-legend" id="an-legend"></div>
+      </div>
+      <div class="an-chart-wrap">
+        <svg id="an-chart" class="an-chart" role="img"
+             aria-label="Daily page views and unique visitors"></svg>
+        <div class="an-tip" id="an-tip" hidden></div>
+      </div>
+      <details class="an-table-toggle">
+        <summary>View as table</summary>
+        <div class="an-scroll"><table class="an-table" id="an-daily-table"></table></div>
+      </details>
+    </section>
+
+    <div class="an-grid">
+      <section class="an-panel">
+        <h2>Pages</h2>
+        <div class="an-scroll"><table class="an-table" id="an-paths"></table></div>
+      </section>
+      <section class="an-panel">
+        <h2>Referrers</h2>
+        <div class="an-scroll"><table class="an-table" id="an-referrers"></table></div>
+      </section>
+      <section class="an-panel">
+        <h2>Countries</h2>
+        <div class="an-scroll"><table class="an-table" id="an-countries"></table></div>
+      </section>
+      <section class="an-panel">
+        <h2>Events</h2>
+        <div class="an-scroll"><table class="an-table" id="an-events"></table></div>
+        <p class="text-muted an-note" id="an-roles-note" hidden></p>
+        <div class="an-scroll"><table class="an-table" id="an-roles"></table></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<script src="js/analytics-config.js"></script>
+<script src="js/analytics-dashboard.js"></script>
+</body>
+</html>
