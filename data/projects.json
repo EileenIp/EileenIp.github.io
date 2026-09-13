@@ -1221,6 +1221,225 @@
           "Replace this placeholder with the full SPIDER write-up"
         ]
       }
+    },
+    {
+      "id": "launch-sentiment-helldivers-2024",
+      "title": "Launch Sentiment: What Turned, and How Early It Showed",
+      "year": 2026,
+      "industry": "Gaming",
+      "projectType": "NLP Analysis",
+      "serviceType": "Analysis + Dashboard",
+      "tools": [
+        "Python",
+        "Steam Web API",
+        "VADER",
+        "RoBERTa",
+        "pytest"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "The early-warning claim failed, and that is the result",
+        "problemSpace": "A score collapse tells you nothing about why",
+        "inputs": "886,850 reviews — every one Steam has for the window",
+        "discovery": "The first pull returned 7.6% and looked perfect",
+        "execution": "Two standard sentiment tools, both rejected on evidence",
+        "results": "Watch the change, not the level"
+      },
+      "cardDescription": "Tested whether complaint themes inside Steam reviews rise before a game's review score collapses. They don't — both events were triggered by dated developer announcements, so themes and score moved the same day. The useful finding is same-day diagnosis: the theme mix names the cause within hours.",
+      "impactStat": "A 12-point single-day drop rule fires 3 times in 9 months with zero false alarms; the obvious level rule fires 35 times, 29 of them nothing",
+      "oneSentenceDescription": "886,850 Steam reviews across a launch, a review-bomb and a balance controversy, testing whether complaint themes give early warning of a score collapse — and finding they don't.",
+      "targetIndustryRole": "Gaming / community and live-ops teams monitoring launch sentiment",
+      "summaryImpact": "**The question was whether complaint themes lead the review score.** If crash complaints spike three days before the score moves, a community team has a usable early-warning signal. I tested it on HELLDIVERS 2 — 886,850 Steam reviews across 271 days covering the launch, the PSN account-linking review-bomb, and the August balance controversy.\n\n**They don't lead.** Both sentiment collapses were triggered by dated developer actions, so complaints and the score moved on the same day. On 2024-05-02 the game sat at 86.7% positive on 968 reviews; the next day Sony announced PSN account linking and the day carried 36,055 reviews at 62.8%, with Sony/PSN complaints going from 21% to 57%. You cannot get early warning of an announcement from reactions to it.\n\n**What the data does support is same-day diagnosis.** The theme mix names the cause within hours, in both directions — Sony/PSN up in May while balance complaints fell; balance 0% to 46% in August while Sony/PSN stayed flat. That is a real operational tool, just not the one I set out to build.",
+      "summaryMetrics": [
+        {
+          "value": "886,850",
+          "label": "Steam reviews, 100% of the window"
+        },
+        {
+          "value": "0 days",
+          "label": "best lead found, across 9 themes",
+          "highlight": true
+        },
+        {
+          "value": "3",
+          "label": "alerts in 9 months, zero false",
+          "highlight": true
+        },
+        {
+          "value": "200",
+          "label": "reviews hand-labelled for validation"
+        },
+        {
+          "value": "61.5% / 64.0%",
+          "label": "sentiment scorers, vs a 72.0% baseline"
+        },
+        {
+          "value": "69.6%",
+          "label": "of complaints matched a theme"
+        }
+      ],
+      "problemSpace": "When a live game's review score falls, the community team's first two questions are what is this about and did we miss a warning sign. The second question is the valuable one: a theme that reliably spikes before the aggregate moves would let a team get ahead of a story instead of reacting to it.\n\nHELLDIVERS 2 is a good test case because it launched well and soured later, which leaves a genuine positive baseline to measure a change against. A game that launched badly gives you nothing to compare to. It also contains two structurally different events: a policy announcement that triggered one of the largest review-bombs in Steam's history, and a balance patch that produced a deeper sentiment trough at a fiftieth of the volume.",
+      "stakeholders": [
+        {
+          "role": "Community management",
+          "description": "Needs to know what a spike is about before writing a response, and whether it is still getting worse."
+        },
+        {
+          "role": "Live-ops / production",
+          "description": "Needs to separate a policy problem from a balance problem from a stability problem, because the fixes sit with different teams."
+        },
+        {
+          "role": "Leadership",
+          "description": "Wants an early-warning metric. The honest answer here is that review text cannot provide one."
+        }
+      ],
+      "inputs": {
+        "description": "Every public Steam review for HELLDIVERS 2 between 2024-02-08 and 2024-11-04 — 886,850 of them, pulled from Valve's public appreviews endpoint. No API key, no sampling. Sentiment is Steam's own thumbs-up flag rather than a text model, for reasons in Execution.",
+        "stats": [
+          {
+            "value": "886,850",
+            "label": "reviews, 100% of Steam's reported total"
+          },
+          {
+            "value": "650,201",
+            "label": "English, used for theme analysis"
+          },
+          {
+            "value": "127,507",
+            "label": "negative English reviews classified"
+          },
+          {
+            "value": "48",
+            "label": "official patches, from the developer's own announcements"
+          }
+        ],
+        "dataQuality": {
+          "label": "What the corpus is and isn't",
+          "items": [
+            "**Self-selected.** Steam reviewers are people moved enough to write, not players. Both events here were the kind that motivate writing.",
+            "**The thumbs-up is binary.** Of 200 hand-labelled reviews, 19 were genuinely mixed — 'great game, terrible servers' counts identically to 'perfect'. Ambivalence is understated throughout.",
+            "**Theme analysis is English-only**, dropping roughly a quarter of the corpus. The largest excluded group is Simplified Chinese, whose complaints may differ on exactly the regional-access issue one event was about.",
+            "**Reddit was never pulled** — a scope decision, not a coverage finding. It also removes the likeliest place a lead could have appeared, since complaints usually surface in discussion before they surface as reviews."
+          ]
+        },
+        "closingNote": {
+          "label": "Coverage was verified, not assumed",
+          "items": [
+            "Every chunk of the pull is checked against Steam's own count for that date range and retried if short. Final coverage 100.0%, zero duplicate IDs, zero out-of-window items.",
+            "This check exists because the first version did not have it — see Discovery."
+          ]
+        }
+      },
+      "surprisingPatterns": {
+        "label": "Surprising Pattern",
+        "items": [
+          "**The review-bomb week was the least duplicated week in the corpus** — 20.7% repeated text against a 28-30% baseline. I expected mass-pasted copypasta to inflate it. Instead the most-repeated texts were positive community memes ('for democracy', 11,851 times), and the only clearly coordinated negative repeats were 'sony' and 'psn' at 0.8% of the week. The collapse was overwhelmingly people writing their own words.",
+          "**The famous event was not the deepest one.** The PSN review-bomb produced 76,741 reviews in a day. The August balance patch produced a lower positive share (53.7% on 2024-08-07) at roughly a fiftieth of the volume. Loudest and worst are different measurements."
+        ]
+      },
+      "hypothesisVsReality": {
+        "label": "Hypothesis vs. Reality",
+        "items": [
+          "**Expected:** complaint themes rise days before the aggregate score moves. **Found:** nothing leads. Raw cross-correlation suggested leads in seven of eight themes, up to 12 days — all of it dissolved under three robustness checks.",
+          "**Expected:** a sentiment model would be needed to read the reviews. **Found:** two standard models both scored worse than guessing the majority class, and Steam's own thumbs-up flag matched my hand labels far better than either.",
+          "**Expected:** review-bomb copypasta would distort the picture and need down-weighting. **Found:** collapsing every repeated text to a single vote changes the headline gap by 0.7 percentage points. The decision did not matter."
+        ]
+      },
+      "deadEnds": {
+        "label": "What didn't work",
+        "items": [
+          "**The first full pull returned 65,496 of 858,566 reviews — 7.6% — with no error.** Steam's cursor pagination stops serving at around 650 pages on a wide date range and simply ends. February through April were missing entirely. Fixed by bisecting the window on Steam's own review counts until every chunk paginates shallowly.",
+          "**My integrity check passed that truncated pull.** Duplicate IDs, window bounds, empty text, timestamp gaps — all clean, because every review collected *was* genuine. There were just 92% too few. A validation that only inspects the rows present cannot detect the rows absent, and comparing against an independent total is now the first check rather than an afterthought.",
+          "**The cache faithfully preserved the bug.** A bad response was written to disk like any other, so re-running replayed the truncation exactly. Retries had to be made to bypass the cache before they did anything.",
+          "**The six-month window truncated the one event worth testing.** The August controversy began three days before the window closed. I extended to 271 days, because a null measured on a truncated event is an artefact of the window rather than a result."
+        ]
+      },
+      "executionDeadEnds": {
+        "label": "The result I nearly published",
+        "items": [
+          "Raw cross-correlation produced a clean-looking table showing a 12-day lead for developer-conduct complaints. It was noise. Reporting the best of 29 lags means taking the extreme of 29 attempts, and chance alone produces a median best-of-29-lags correlation of about −0.15 — most of what the table showed.",
+          "A rotation test, a correction for testing eight themes, and a sensitivity check on how thin a day is allowed to be each removed it independently. The apparent leads moved from +3 to +12 to −8 days as measurement improved, which is what noise does and a real signal does not."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "Pull, verified against an independent count",
+          "description": "Cursor-paginated pull of Valve's public appreviews endpoint, chunked by bisecting on Steam's own review counts so no single query paginates deep enough to truncate. Every page cached by (appid, cursor, date range); every chunk checked against the expected count and retried with the cache bypassed if short."
+        },
+        {
+          "heading": "Sentiment: Steam's flag, after rejecting two models",
+          "description": "I hand-labelled 200 reviews blind and tested both scorers against them. **VADER agreed 61.5%, a RoBERTa sentiment model 64.0% — against a 72.0% majority-class baseline.** Both did worse than always guessing 'positive'. The failure is specific: this game's players express enthusiasm through violence and self-deprecation ('I got hit by an explosion, shot into the air, then stomped by a robot 10/10'), which general-purpose models read as negative. Steam's own thumbs-up matched my labels 95.0%, so the index uses that and the models stay in the repo as the evidence for the decision."
+        },
+        {
+          "heading": "Themes: a keyword taxonomy, seeded from the data",
+          "description": "Nine themes, 182 seed phrases, mined by measuring which terms are distinctive of thumbs-down reviews rather than guessed. Matching is word-boundary substring — transparent and explainable line by line, which a learned classifier would not be. Multi-label, because 'nerfed into the ground and it crashes' is genuinely two complaints. Coverage 69.6%; the remainder is partly missing vocabulary and partly complaint with no complaint words in it."
+        },
+        {
+          "heading": "The lag test, and why composition not volume",
+          "description": "Themes are measured as a share of each day's negatives, not as raw counts. Volume and the aggregate score are both functions of how many people were angry that day, so correlating them recovers a relationship that exists by construction. Both series are differenced before correlating, because levels are dominated by one enormous event."
+        },
+        {
+          "heading": "Three checks before believing the result",
+          "description": "A rotation-based permutation test built for the statistic actually reported (best of 29 lags); a Bonferroni correction for testing eight themes; and a sensitivity sweep on minimum day size. A test in the suite plants a three-day lead in synthetic data and asserts the method recovers it — reporting a null is only honest if the method could have found a signal."
+        },
+        {
+          "heading": "The threshold, derived rather than asserted",
+          "description": "Candidate alert rules were tested against the data. A level rule ('below 72% positive') fires on 35 of 271 days, 29 of them nothing. A 12-point single-day drop fires three times in nine months — 3 May, 6 and 7 August — with no false alarms. At 10 points it adds four non-events; at 20 it misses August entirely."
+        }
+      ],
+      "keyResults": {
+        "label": "Key Results",
+        "items": [
+          "**No theme leads the score.** Only Sony/PSN complaints correlate with it at all (r = −0.30), and the best lag is zero. Every apparent lead failed at least one of three robustness checks.",
+          "**Same-day diagnosis works.** On 2024-05-03 Sony/PSN complaints went 21% to 57% while balance complaints fell; on 2024-08-06 balance went 0% to 46% while Sony/PSN stayed at 3%.",
+          "**A change-based alert beats a level-based one decisively.** 3 alerts with zero false positives, against 35 alerts with 29 false positives for the obvious threshold.",
+          "**Recovery is as visible as collapse.** 2024-05-06 — the day Sony reversed — was the busiest day in the corpus at 78,185 reviews and 88.3% positive, up from 67.9% the day before."
+        ]
+      },
+      "businessInterpretation": "For a community team, this is an instrumentation tool rather than a forecast. It will not tell you a storm is coming, because in both of these cases the storm was the studio's own announcement on a date it chose. What it will do is answer 'what is this about' within hours of a score moving, without anyone reading a review — and it distinguishes a policy problem from a balance problem from a stability problem, which matters because those fixes sit with three different teams.\n\nThe alerting recommendation is the practical output: watch the day-over-day change, not the level. A level threshold fires on a quarter of the calendar and a team learns to ignore it inside a fortnight. If genuine early warning is the goal, it needs data that moves before the announcement — crash telemetry, refund rates, or discussion-thread volume — none of which lives in review text.",
+      "recommendations": {
+        "items": [
+          {
+            "tag": "Community management",
+            "text": "Alert on a 12-point single-day fall in positive share, not on the level. When it trips, read the theme mix before reading reviews — it named the cause correctly in both events here, within hours."
+          },
+          {
+            "tag": "Live-ops",
+            "text": "Expect no warning from review text for announcement-driven events. The gap between a decision landing and sentiment moving was under 24 hours both times."
+          },
+          {
+            "tag": "Hiring manager",
+            "text": "The headline here is a null, and the interesting work is in what it took to trust it: a truncated pull that looked clean, an integrity check that passed it, and a 12-day 'lead' that three independent checks dissolved."
+          }
+        ],
+        "limitations": [
+          "Steam reviewers self-select — this measures people moved enough to write, not players.",
+          "Sentiment is Steam's binary thumbs-up. 19 of 200 hand-labelled reviews were genuinely mixed and the flag cannot represent them, so ambivalence is understated throughout.",
+          "Theme matching is keyword-based at 69.6% coverage. Some of the remainder is unreachable by any keyword list — 'Arrowhead struck gold but are determined to find copper' is a complaint with no complaint vocabulary in it.",
+          "Theme analysis is English-only, excluding roughly a quarter of the corpus — most notably Simplified Chinese reviews, on a project where one of the two events was about regional access.",
+          "Two events in one game. The mechanism (announcement-driven events cannot be predicted from reactions) should generalise; the specific thresholds should not be assumed to."
+        ],
+        "nextSteps": [
+          "Test the same method on a launch whose sentiment decayed gradually rather than breaking on an announcement — that is where a lead could plausibly exist.",
+          "Add discussion-forum or Reddit volume as a second source, since complaints usually surface there before they surface as reviews.",
+          "Topic modelling as a cross-check on the ~30% of complaints no keyword reaches."
+        ]
+      },
+      "visuals": [
+        {
+          "id": "sentiment-timeline",
+          "section": "summary",
+          "label": "Daily positive review share, Feb–Nov 2024",
+          "caption": "Both collapses land on a dated developer action. The score recovers within days of the PSN reversal; the August trough is deeper but far smaller in volume.",
+          "svg": "<svg viewBox=\"0 0 560 200\" role=\"img\" aria-label=\"Daily positive review share, Feb to Nov 2024, showing two sharp drops on the PSN announcement and the balance patch\"><line x1=\"34\" y1=\"159.45454545454547\" x2=\"552\" y2=\"159.45454545454547\" class=\"viz-stroke-grid\"/><text x=\"2\" y=\"163.45454545454547\" font-size=\"9\" class=\"viz-fill-text-soft\">50%</text><line x1=\"34\" y1=\"101.2727272727273\" x2=\"552\" y2=\"101.2727272727273\" class=\"viz-stroke-grid\"/><text x=\"2\" y=\"105.2727272727273\" font-size=\"9\" class=\"viz-fill-text-soft\">70%</text><line x1=\"34\" y1=\"43.09090909090909\" x2=\"552\" y2=\"43.09090909090909\" class=\"viz-stroke-grid\"/><text x=\"2\" y=\"47.09090909090909\" font-size=\"9\" class=\"viz-fill-text-soft\">90%</text><path d=\"M34.0 78.1L35.9 55.9L37.8 55.8L39.8 61.3L41.7 59.0L43.6 54.6L45.5 52.1L47.4 58.8L49.3 52.4L51.3 74.5L53.2 87.9L55.1 79.4L57.0 78.8L58.9 69.1L60.9 55.6L62.8 42.2L64.7 43.6L66.6 42.9L68.5 44.8L70.5 43.2L72.4 42.3L74.3 44.1L76.2 47.5L78.1 42.3L80.0 46.3L82.0 45.7L83.9 45.1L85.8 54.7L87.7 66.8L89.6 61.0L91.6 57.6L93.5 53.7L95.4 52.1L97.3 52.2L99.2 51.4L101.1 49.1L103.1 51.7L105.0 50.5L106.9 50.5L108.8 50.6L110.7 48.1L112.7 46.6L114.6 53.7L116.5 51.0L118.4 49.6L120.3 53.9L122.3 54.0L124.2 43.8L126.1 44.4L128.0 48.9L129.9 51.2L131.8 50.2L133.8 49.1L135.7 49.3L137.6 40.4L139.5 41.1L141.4 47.3L143.4 47.6L145.3 51.6L147.2 49.2L149.1 51.2L151.0 45.6L152.9 45.5L154.9 44.2L156.8 52.0L158.7 51.4L160.6 49.7L162.5 46.7L164.5 47.0L166.4 47.1L168.3 49.7L170.2 50.3L172.1 46.8L174.1 50.8L176.0 50.2L177.9 45.1L179.8 47.1L181.7 46.0L183.6 44.1L185.6 52.5L187.5 48.9L189.4 72.6L191.3 68.9L193.2 63.3L195.2 52.8L197.1 122.3L199.0 111.7L200.9 107.5L202.8 48.1L204.7 31.4L206.7 38.6L208.6 47.1L210.5 75.3L212.4 109.6L214.3 92.1L216.3 96.3L218.2 94.6L220.1 104.9L222.0 98.6L223.9 88.3L225.9 75.1L227.8 70.6L229.7 58.1L231.6 71.2L233.5 82.4L235.4 88.3L237.4 82.6L239.3 66.7L241.2 60.2L243.1 71.1L245.0 56.6L247.0 56.5L248.9 64.3L250.8 73.8L252.7 66.3L254.6 65.1L256.5 64.2L258.5 49.1L260.4 64.8L262.3 53.6L264.2 67.8L266.1 58.4L268.1 59.3L270.0 53.6L271.9 59.6L273.8 70.6L275.7 57.3L277.7 53.3L279.6 57.0L281.5 50.8L283.4 52.0L285.3 55.1L287.2 50.6L289.2 44.0L291.1 60.4L293.0 55.3L294.9 59.0L296.8 56.0L298.8 41.0L300.7 61.3L302.6 66.6L304.5 58.9L306.4 54.3L308.3 56.0L310.3 61.7L312.2 48.9L314.1 55.0L316.0 56.4L317.9 53.0L319.9 62.2L321.8 40.4L323.7 53.4L325.6 60.8L327.5 45.3L329.5 66.7L331.4 48.4L333.3 63.4L335.2 53.4L337.1 47.7L339.0 74.2L341.0 59.3L342.9 50.9L344.8 52.0L346.7 63.2L348.6 73.7L350.6 46.8L352.5 60.0L354.4 57.1L356.3 55.3L358.2 44.4L360.1 50.6L362.1 56.3L364.0 51.8L365.9 52.4L367.8 62.8L369.7 71.2L371.7 42.4L373.6 54.6L375.5 47.8L377.4 45.8L379.3 97.8L381.3 148.8L383.2 143.5L385.1 138.4L387.0 136.5L388.9 142.5L390.8 125.9L392.8 119.8L394.7 140.9L396.6 120.6L398.5 115.7L400.4 102.8L402.4 109.1L404.3 98.6L406.2 113.1L408.1 107.7L410.0 116.3L411.9 103.2L413.9 119.5L415.8 87.5L417.7 83.3L419.6 79.2L421.5 85.8L423.5 93.1L425.4 124.1L427.3 94.1L429.2 111.4L431.1 115.4L433.1 112.9L435.0 111.0L436.9 98.2L438.8 116.9L440.7 89.1L442.6 98.0L444.6 81.0L446.5 76.2L448.4 86.0L450.3 103.2L452.2 84.5L454.2 93.7L456.1 81.6L458.0 95.5L459.9 46.8L461.8 56.7L463.7 51.4L465.7 54.7L467.6 55.0L469.5 46.0L471.4 47.2L473.3 54.6L475.3 55.4L477.2 49.3L479.1 39.2L481.0 44.7L482.9 43.0L484.9 41.8L486.8 53.5L488.7 44.4L490.6 38.2L492.5 69.9L494.4 50.7L496.4 42.2L498.3 40.4L500.2 44.4L502.1 49.1L504.0 42.9L506.0 47.6L507.9 44.8L509.8 44.0L511.7 34.0L513.6 43.9L515.5 44.8L517.5 40.8L519.4 41.8L521.3 41.8L523.2 35.5L525.1 43.8L527.1 44.4L529.0 39.2L530.9 28.1L532.8 39.7L534.7 28.8L536.7 43.9L538.6 50.8L540.5 41.8L542.4 36.6L544.3 52.6L546.2 52.2L548.2 42.4L550.1 45.0L552.0 43.5\" fill=\"none\" class=\"viz-stroke-accent\" stroke-width=\"1.6\"/><line x1=\"197.1\" y1=\"14\" x2=\"197.1\" y2=\"174\" class=\"viz-stroke-accent\" stroke-dasharray=\"3 3\"/><text x=\"201.1\" y=\"24\" font-size=\"9\" text-anchor=\"start\" class=\"viz-fill-accent\">PSN linking announced</text><line x1=\"379.3\" y1=\"14\" x2=\"379.3\" y2=\"174\" class=\"viz-stroke-accent\" stroke-dasharray=\"3 3\"/><text x=\"375.3\" y=\"24\" font-size=\"9\" text-anchor=\"end\" class=\"viz-fill-accent\">balance patch</text><text x=\"34\" y=\"194\" font-size=\"9\" class=\"viz-fill-text-soft\">2024-02-08</text><text x=\"552\" y=\"194\" font-size=\"9\" text-anchor=\"end\" class=\"viz-fill-text-soft\">2024-11-04</text></svg>"
+        },
+        {
+          "id": "alert-threshold",
+          "section": "results",
+          "label": "Why a change rule beats a level rule",
+          "caption": "Across 271 days. A 'below 72% positive' rule fires on a quarter of the calendar; a 12-point single-day drop fires three times and every one was a real event.",
+          "svg": "<svg viewBox=\"0 0 560 150\" role=\"img\" aria-label=\"A level threshold fires on 35 of 271 days with 29 false alarms; a 12-point single-day drop fires 3 times with none\"><text x=\"0\" y=\"24\" font-size=\"11\" class=\"viz-fill-text\">Level rule: below 72% positive</text><rect x=\"0\" y=\"30\" width=\"300\" height=\"18\" fill=\"#e0645a\" opacity=\"0.35\"/><rect x=\"0\" y=\"30\" width=\"249\" height=\"18\" fill=\"#e0645a\"/><text x=\"308\" y=\"43\" font-size=\"10\" class=\"viz-fill-text\">35 days fired &#183; 29 false alarms</text><text x=\"0\" y=\"84\" font-size=\"11\" class=\"viz-fill-text\">Change rule: 12pt single-day drop</text><rect x=\"0\" y=\"90\" width=\"26\" height=\"18\" fill=\"#4fbf8b\" opacity=\"0.35\"/><rect x=\"0\" y=\"90\" width=\"0\" height=\"18\" fill=\"#4fbf8b\"/><text x=\"34\" y=\"103\" font-size=\"10\" class=\"viz-fill-text\">3 days fired &#183; 0 false alarms</text><text x=\"0\" y=\"144\" font-size=\"9\" class=\"viz-fill-text-soft\">Solid = false alarms. Across 271 days.</text></svg>"
+        }
+      ]
     }
   ]
 }
