@@ -405,12 +405,17 @@ second "build a recommender" project.
       alt text describing a crop that was never there; they now point at real
       files with real alt text.
 
-      Still open, and deliberately: 10 companies show an initials tile instead
-      of a logo. ASIO, BMW, Fujitsu, McKinsey and Spotlight Retail Group 404'd
-      on fetch; ADN, FMD, "GOVERNMENT", Farrer Capital Management and Openmesh
-      have no domain in the registry because guessing one puts the wrong
-      company's logo on the row. Fill them into
-      `scripts/build_company_registry.py` and re-run.
+      Resolved same day by Eileen: ADN is Australian Disability Network and the
+      bare "GOVERNMENT" is Queensland Government, both now in the registry with
+      logos; FMD, Farrer Capital Management and Openmesh were removed outright
+      -- not companies she is applying to. The removal went into
+      `job-applications.xlsx`, the source of truth, so regenerating the JSON
+      won't resurrect them. 91 entries -> 88.
+
+      Still open: five logos 404'd on fetch (ASIO, BMW, Fujitsu, McKinsey,
+      Spotlight Retail Group) and show an initials tile. Google's favicon
+      service simply has nothing for those domains; a different source, or a
+      hand-saved file in `images/logos/`, is the fix if it ever matters.
 
       **Eileen's standing decision, recorded:** the job tracker, to-do,
       calendar and progress pages stay public and linked from the main nav for
