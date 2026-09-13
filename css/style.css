@@ -396,42 +396,65 @@ footer.site-footer {
 .jt-filter-groups { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-4); }
 
 .jt-body { max-width: 1360px; margin: 0 auto; padding: var(--space-4) var(--space-8) 96px; }
-.jt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: var(--space-4); }
+.jt-grid { display: flex; flex-direction: column; gap: var(--space-8); }
 
-.jt-card {
-  position: relative;
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  transition: box-shadow 160ms ease, transform 160ms ease;
+/* Stage strip. Counts are the point, so they lead; the coloured rule under
+   each segment reuses the status tag palette so strip and rows agree. */
+.jt-pipeline { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
+.jt-pipe {
+  display: flex; flex-direction: column; gap: 3px; align-items: flex-start;
+  min-width: 96px; padding: var(--space-3) var(--space-4) 0;
+  background: none; border: 0; border-radius: var(--radius-sm);
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
 }
-.jt-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.jt-card-qa-btn {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-2);
-  width: 26px;
-  height: 26px;
-  border-radius: var(--radius-sm);
-  font-size: 17px;
-  line-height: 1;
-  color: var(--color-accent-400);
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
+.jt-pipe:hover { background: color-mix(in srgb, var(--color-text) 5%, transparent); }
+.jt-pipe.selected { background: color-mix(in srgb, var(--color-accent) 14%, transparent); }
+.jt-pipe-count { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 23px; line-height: 1; }
+.jt-pipe-label { font-size: 11px; color: color-mix(in srgb, var(--color-text) 58%, transparent); }
+.jt-pipe .jt-pipe-bar { align-self: stretch; height: 3px; border-radius: 2px; margin-top: var(--space-2); background: currentColor; border: 0; padding: 0; }
+
+.jt-group-head {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin: 0 0 var(--space-3); font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
 }
-.jt-card-qa-btn:hover { background: color-mix(in srgb, var(--color-accent) 14%, transparent); }
-.jt-card-head { padding-right: 26px; }
-.jt-card-company { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 20px; line-height: 1.15; letter-spacing: -0.015em; }
-.jt-card-role { font-size: 14px; margin-top: 3px; color: color-mix(in srgb, var(--color-text) 78%, transparent); }
-.jt-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.jt-card-dates { display: flex; flex-direction: column; gap: 2px; margin-top: auto; padding-top: var(--space-2); border-top: 1px solid var(--color-divider); }
-.jt-card-interview { color: var(--color-accent-300); }
+.jt-group-head .jt-group-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; border: 0; padding: 0; flex: none; }
+.jt-group-count { font-size: 12px; letter-spacing: 0; color: color-mix(in srgb, var(--color-text) 45%, transparent); }
+
+.jt-list { display: flex; flex-direction: column; }
+.jt-row {
+  display: grid; align-items: center; gap: var(--space-4);
+  grid-template-columns: 34px minmax(0, 2.4fr) minmax(0, 1.1fr) minmax(0, 1fr) auto;
+  width: 100%; padding: var(--space-3) var(--space-4);
+  background: none; border: 0; border-bottom: 1px solid var(--color-divider);
+  color: inherit; font: inherit; text-align: left; border-radius: var(--radius-sm);
+}
+.jt-row-interactive { cursor: pointer; }
+.jt-row-interactive:hover { background: color-mix(in srgb, var(--color-text) 5%, transparent); }
+
+.jt-logo {
+  position: relative; width: 34px; height: 34px; flex: none;
+  display: grid; place-items: center; overflow: hidden;
+  border-radius: var(--radius-sm); background: var(--color-neutral-900);
+  box-shadow: inset 0 0 0 1px var(--color-neutral-800);
+}
+.jt-logo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+.jt-logo-initials { font-size: 12px; font-weight: 600; color: var(--color-neutral-500); }
+
+.jt-row-main { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.jt-row-company { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 15px; line-height: 1.2; }
+.jt-row-role {
+  font-size: 13px; color: color-mix(in srgb, var(--color-text) 66%, transparent);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.jt-row-meta { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; min-width: 0; }
+.jt-row-loc { font-size: 12px; color: color-mix(in srgb, var(--color-text) 52%, transparent); }
+.jt-row-dates { display: flex; flex-direction: column; gap: 1px; font-size: 12px; color: color-mix(in srgb, var(--color-text) 52%, transparent); }
+.jt-row-interview { color: var(--color-accent-300); }
+.jt-row-right { display: flex; align-items: center; gap: var(--space-3); justify-self: end; }
+.jt-row-answers { font-size: 11px; color: color-mix(in srgb, var(--color-text) 45%, transparent); white-space: nowrap; }
+
 
 .jt-empty { padding: 72px var(--space-4); text-align: center; }
 
@@ -783,7 +806,19 @@ details[open] .year-chevron { transform: rotate(90deg); }
   .project-grid { grid-template-columns: 1fr; }
   .jt-header { padding-left: 24px; padding-right: 24px; }
   .jt-body { padding-left: 24px; padding-right: 24px; }
-  .jt-grid { grid-template-columns: 1fr; }
+  .jt-grid { gap: var(--space-6); }
+  .jt-row {
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    grid-template-areas: 'logo main right' '. meta meta' '. dates dates';
+    row-gap: 3px; padding: var(--space-4) var(--space-3);
+  }
+  .jt-row > .jt-logo { grid-area: logo; align-self: start; }
+  .jt-row-main { grid-area: main; }
+  .jt-row-role { white-space: normal; }
+  .jt-row-meta { grid-area: meta; }
+  .jt-row-dates { grid-area: dates; flex-direction: row; gap: var(--space-4); flex-wrap: wrap; }
+  .jt-row-right { grid-area: right; align-self: start; }
+  .jt-pipe { min-width: 78px; flex: 1 1 78px; }
   .proj-grid { grid-template-columns: 1fr; }
   .method-grid { grid-template-columns: 1fr; }
 }

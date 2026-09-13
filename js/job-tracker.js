@@ -16,6 +16,54 @@ const DEFAULT_STATUS_TAG_CLASS = 'tag-neutral';
 // so nothing is ever silently unselectable.
 const STATUS_FILTER_CANONICAL = ['To Apply', 'Applied', 'Interview', 'Finished Assessment', 'Rejected', 'Withdrawn'];
 
+// — Companies —
+
+// data/companies.json maps the raw spreadsheet spelling ('nab', 'Nab',
+// 'commbank') onto one canonical display name and a domain whose logo has
+// been cached into images/logos/. Missing or unresolved companies fall back
+// to an initials tile, so a gap in the registry costs a logo, not a row.
+let companyRegistry = {};
+
+function companyKey(raw) {
+  return (raw || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function companyInfo(entry) {
+  const key = companyKey(entry.company);
+  const hit = companyRegistry[key];
+  const name = (hit && hit.name) || entry.company || 'Unknown company';
+  return { name, logo: (hit && hit.logo) || null, initials: initialsFor(name) };
+}
+
+function initialsFor(name) {
+  const words = name.replace(/[^A-Za-z0-9 ]/g, ' ').split(/\s+/).filter(Boolean);
+  if (words.length === 0) return '?';
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[1][0]).toUpperCase();
+}
+
+function renderLogo(info) {
+  const wrap = document.createElement('div');
+  wrap.className = 'jt-logo';
+
+  const fallback = document.createElement('span');
+  fallback.className = 'jt-logo-initials';
+  fallback.textContent = info.initials;
+  wrap.append(fallback);
+
+  if (info.logo) {
+    const img = document.createElement('img');
+    img.src = info.logo;
+    img.alt = '';
+    img.loading = 'lazy';
+    // A cached logo that 404s (or a company added to the data before its
+    // logo was fetched) leaves the initials tile showing underneath.
+    img.addEventListener('error', () => img.remove());
+    wrap.append(img);
+  }
+  return wrap;
+}
+
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // A blank Status cell means the role hasn't been applied to yet ("To Apply")
@@ -73,7 +121,10 @@ function buildFilterOptions(entries) {
 }
 
 function entryMatchesFilters(entry) {
-  if (companyQuery && !(entry.company || '').toLowerCase().includes(companyQuery)) return false;
+  if (companyQuery) {
+    const haystack = `${entry.company || ''} ${companyInfo(entry).name}`.toLowerCase();
+    if (!haystack.includes(companyQuery)) return false;
+  }
   if (roleQuery && !(entry.role || '').toLowerCase().includes(roleQuery)) return false;
 
   if (dateFrom || dateTo) {
@@ -257,65 +308,110 @@ function entryDateLines(entry) {
   return lines;
 }
 
-function renderCard(entry) {
-  const card = document.createElement('div');
-  card.className = 'card jt-card';
-
-  const qaBtn = document.createElement('button');
-  qaBtn.type = 'button';
-  qaBtn.className = 'jt-card-qa-btn';
-  qaBtn.textContent = '+';
-  qaBtn.title = 'Saved Q&A';
-  qaBtn.setAttribute('aria-label', `View saved answers for ${entry.role || 'this role'} at ${entry.company || 'this company'}`);
-  qaBtn.addEventListener('click', () => openQAModal(entry));
-  card.append(qaBtn);
-
-  const head = document.createElement('div');
-  head.className = 'jt-card-head';
-  const company = document.createElement('div');
-  company.className = 'jt-card-company';
-  company.textContent = entry.company || 'Unknown company';
-  const role = document.createElement('div');
-  role.className = 'jt-card-role';
-  role.textContent = entry.role || 'Untitled role';
-  head.append(company, role);
-  card.append(head);
-
-  const tags = document.createElement('div');
-  tags.className = 'jt-card-tags';
+function renderRow(entry) {
+  const info = companyInfo(entry);
   const status = effectiveStatus(entry);
-  const statusTag = document.createElement('span');
-  statusTag.className = `tag ${STATUS_STYLE[status] || DEFAULT_STATUS_TAG_CLASS}`;
-  statusTag.textContent = status;
-  tags.append(statusTag);
-  if (entry.location) {
-    const locTag = document.createElement('span');
-    locTag.className = 'tag tag-neutral';
-    locTag.textContent = entry.location;
-    tags.append(locTag);
+  const answers = entry.answers || [];
+
+  const row = document.createElement(answers.length > 0 ? 'button' : 'div');
+  row.className = 'jt-row';
+  if (answers.length > 0) {
+    row.type = 'button';
+    row.classList.add('jt-row-interactive');
+    row.setAttribute('aria-label',
+      `View ${answers.length} saved answer${answers.length === 1 ? '' : 's'} for ${entry.role || 'this role'} at ${info.name}`);
+    row.addEventListener('click', () => openQAModal(entry));
   }
+
+  row.append(renderLogo(info));
+
+  const main = document.createElement('div');
+  main.className = 'jt-row-main';
+  const company = document.createElement('span');
+  company.className = 'jt-row-company';
+  company.textContent = info.name;
+  const role = document.createElement('span');
+  role.className = 'jt-row-role';
+  role.textContent = entry.role || 'Untitled role';
+  main.append(company, role);
+  row.append(main);
+
+  const meta = document.createElement('div');
+  meta.className = 'jt-row-meta';
   if (entry.type) {
     const typeTag = document.createElement('span');
     typeTag.className = 'tag tag-outline';
     typeTag.textContent = entry.type;
-    tags.append(typeTag);
+    meta.append(typeTag);
   }
-  card.append(tags);
+  if (entry.location) {
+    const loc = document.createElement('span');
+    loc.className = 'jt-row-loc';
+    loc.textContent = entry.location;
+    meta.append(loc);
+  }
+  row.append(meta);
 
-  const dateLines = entryDateLines(entry);
-  if (dateLines.length > 0) {
-    const datesWrap = document.createElement('div');
-    datesWrap.className = 'jt-card-dates';
-    for (const line of dateLines) {
-      const lineEl = document.createElement('div');
-      lineEl.className = line.accent ? 'card-meta jt-card-interview' : 'card-meta';
-      lineEl.textContent = line.text;
-      datesWrap.append(lineEl);
-    }
-    card.append(datesWrap);
+  const dates = document.createElement('div');
+  dates.className = 'jt-row-dates';
+  for (const line of entryDateLines(entry)) {
+    const el = document.createElement('span');
+    el.className = line.accent ? 'jt-row-interview' : '';
+    el.textContent = line.text;
+    dates.append(el);
+  }
+  row.append(dates);
+
+  const right = document.createElement('div');
+  right.className = 'jt-row-right';
+  const statusTag = document.createElement('span');
+  statusTag.className = `tag ${STATUS_STYLE[status] || DEFAULT_STATUS_TAG_CLASS}`;
+  statusTag.textContent = status;
+  right.append(statusTag);
+  if (answers.length > 0) {
+    const badge = document.createElement('span');
+    badge.className = 'jt-row-answers';
+    badge.textContent = `${answers.length} Q&A`;
+    right.append(badge);
+  }
+  row.append(right);
+
+  return row;
+}
+
+// The pipeline strip: every stage, with its count, always in the same order
+// so the shape of the search is readable at a glance rather than inferred
+// by counting cards. Clicking a segment filters to that stage.
+function renderPipeline(entries) {
+  const wrap = document.getElementById('jt-pipeline');
+  wrap.replaceChildren();
+
+  const counts = new Map(STATUS_FILTER_CANONICAL.map((s) => [s, 0]));
+  for (const entry of entries) {
+    const s = effectiveStatus(entry);
+    counts.set(s, (counts.get(s) || 0) + 1);
   }
 
-  return card;
+  for (const [status, count] of counts) {
+    if (count === 0) continue;
+    const seg = document.createElement('button');
+    seg.type = 'button';
+    seg.className = 'jt-pipe';
+    seg.classList.toggle('selected', activeFilters.status.has(status));
+    seg.addEventListener('click', () => cycleFilter('status', status));
+
+    const n = document.createElement('span');
+    n.className = 'jt-pipe-count';
+    n.textContent = count;
+    const label = document.createElement('span');
+    label.className = 'jt-pipe-label';
+    label.textContent = status;
+    const bar = document.createElement('span');
+    bar.className = `jt-pipe-bar ${STATUS_STYLE[status] || DEFAULT_STATUS_TAG_CLASS}`;
+
+    seg.append(n, label, bar);
+    wrap.append(seg);
+  }
 }
 
 function renderGridView() {
@@ -329,9 +425,43 @@ function renderGridView() {
 
   emptyMsg.style.display = sorted.length === 0 ? '' : 'none';
 
+  // Grouped by stage rather than one flat list: "which roles am I actually
+  // in" is the question the page is asked most, and a date-sorted flat list
+  // answers it only by reading every row.
+  const groups = new Map(STATUS_FILTER_CANONICAL.map((s) => [s, []]));
   for (const entry of sorted) {
-    grid.append(renderCard(entry));
+    const s = effectiveStatus(entry);
+    if (!groups.has(s)) groups.set(s, []);
+    groups.get(s).push(entry);
   }
+
+  for (const [status, rows] of groups) {
+    if (rows.length === 0) continue;
+
+    const section = document.createElement('section');
+    section.className = 'jt-group';
+
+    const head = document.createElement('h2');
+    head.className = 'jt-group-head';
+    const dot = document.createElement('span');
+    dot.className = `jt-group-dot ${STATUS_STYLE[status] || DEFAULT_STATUS_TAG_CLASS}`;
+    const label = document.createElement('span');
+    label.textContent = status;
+    const count = document.createElement('span');
+    count.className = 'jt-group-count';
+    count.textContent = rows.length;
+    head.append(dot, label, count);
+    section.append(head);
+
+    const list = document.createElement('div');
+    list.className = 'jt-list';
+    for (const entry of rows) list.append(renderRow(entry));
+    section.append(list);
+
+    grid.append(section);
+  }
+
+  renderPipeline(allEntries);
 
   const activeCount = allEntries.filter((e) => {
     const s = effectiveStatus(e);
@@ -501,6 +631,15 @@ async function init() {
   if (entries.length === 0) {
     loadEmptyMsg.style.display = '';
     return;
+  }
+
+  // Non-fatal: the page renders with initials tiles if the registry is
+  // missing, rather than failing to load at all.
+  try {
+    const regRes = await fetch('data/companies.json');
+    if (regRes.ok) companyRegistry = (await regRes.json()).companies || {};
+  } catch (err) {
+    companyRegistry = {};
   }
 
   allEntries = entries;
