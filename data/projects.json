@@ -1248,6 +1248,12 @@
       "impactStat": "A 12-point single-day drop rule fires 3 times in 9 months with zero false alarms; the obvious level rule fires 35 times, 29 of them nothing",
       "oneSentenceDescription": "886,850 Steam reviews across a launch, a review-bomb and a balance controversy, testing whether complaint themes give early warning of a score collapse — and finding they don't.",
       "targetIndustryRole": "Gaming / community and live-ops teams monitoring launch sentiment",
+      "links": {
+        "dashboard": "https://eileenip.github.io/launch-sentiment/dashboard/",
+        "technicalFindings": "https://github.com/EileenIp/launch-sentiment/blob/main/deliverables/launch-sentiment-report.md",
+        "notebookRepo": "https://github.com/EileenIp/launch-sentiment",
+        "caseStudyPage": "https://github.com/EileenIp/launch-sentiment#readme"
+      },
       "summaryImpact": "**The question was whether complaint themes lead the review score.** If crash complaints spike three days before the score moves, a community team has a usable early-warning signal. I tested it on HELLDIVERS 2 — 886,850 Steam reviews across 271 days covering the launch, the PSN account-linking review-bomb, and the August balance controversy.\n\n**They don't lead.** Both sentiment collapses were triggered by dated developer actions, so complaints and the score moved on the same day. On 2024-05-02 the game sat at 86.7% positive on 968 reviews; the next day Sony announced PSN account linking and the day carried 36,055 reviews at 62.8%, with Sony/PSN complaints going from 21% to 57%. You cannot get early warning of an announcement from reactions to it.\n\n**What the data does support is same-day diagnosis.** The theme mix names the cause within hours, in both directions — Sony/PSN up in May while balance complaints fell; balance 0% to 46% in August while Sony/PSN stayed flat. That is a real operational tool, just not the one I set out to build.",
       "summaryMetrics": [
         {
