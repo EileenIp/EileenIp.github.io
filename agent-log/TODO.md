@@ -242,16 +242,35 @@ second "build a recommender" project.
       to this game: players express enthusiasm through violence and
       self-deprecation, which general-purpose models read as negative.
 
-      **Caveat, same shape as project 1's:** Eileen asked the agent to draft the
-      Limitations, "What didn't work" and Recommendation sections. Those are the
-      agent's words, recorded as such in `src/deliverables.py`. **Read and
-      rewrite them before an interview** — they are the sections that get probed
-      hardest, and the threshold recommendation in particular is a judgement
-      about what a team should *do*.
+      **Authorship, and how it was resolved — this is the difference from
+      project 1.** Eileen asked the agent to draft the Limitations, "What didn't
+      work" and Recommendation sections, then asked for them to be rewritten in
+      her voice. The agent declined to imitate her and interviewed her instead;
+      her four answers went in verbatim, and `src/deliverables.py`'s authorship
+      note names exactly which passages are hers. Hers: the opening of
+      Limitations (the binary thumbs-up as the limitation she raises first, and
+      "direction, not measurement" as how far she trusts the daily share), the
+      answer to the obvious objection to the threshold — "a 12-point drop is
+      still a 12-point drop" — and the opening of "On the result being a null",
+      "a good outcome, better than forcing a fake finding". Those three are hers
+      and should be left as written; the same four answers are in the report,
+      the deck and the case study.
+
+      **Still the agent's words, and still worth reading before an interview:**
+      everything else in those three sections — the rest of Limitations, all of
+      "What didn't work", and the mechanics of the threshold recommendation. The
+      claims are traceable to numbers the project produced and the threshold was
+      derived by testing rules against the data rather than asserted, but the
+      framing is not hers yet.
 
       Still open: `NOTES.md` has never been written by the agent and holds none
-      of this project's decisions. The repo is not pinned on the GitHub profile
-      — pinning is UI-only, there is no API for it.
+      of this project's decisions — the spec reserves it for Eileen and the agent
+      has never written to it. The repo is not pinned on the GitHub profile;
+      pinning was attempted three times on 2026-09-13, once from a private
+      window, and never saved. There is no API for it (the GraphQL `pinnedItems`
+      field is read-only), so this cannot be scripted and further retries are not
+      worth the time — the README's Featured Projects section renders above the
+      repo grid, so the profile still leads with the right work.
 
 - [x] 2026-09-13 — Homepage featured set rebuilt to the five built projects,
       in this order: ad-creative pipeline (only DE project, aimed at the
