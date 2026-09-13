@@ -114,17 +114,31 @@ headline metric with CCU per owner as the robustness check.
       ties and the one usable genre cell is 86% tied at zero. Tie share is now
       printed beside every result. This is a second, independent argument for
       not having made CCU the headline metric.
-- [ ] Phase 2b results — re-run the analysis on the full cohort, then re-run on
-      the real headline metric once the playtime pull lands. The ordering
-      constraint that governed this item is now satisfied: the playtime pull had
-      to wait for the enrichment, because both use store.steampowered.com and
-      running them together would halve the effective request spacing (the pacer
-      key is shared, so this is enforced rather than just remembered).
-      Enrichment finished first; `python -m src.playtime sample` started
-      2026-09-13 16:02 and was still running when this was written. Nothing else
-      should touch that host until it finishes.
-- [ ] Checkpoint 2 (Eileen): the interpretation, once the within-genre numbers
-      exist on real playtime.
+- [x] Phase 2b complete (2026-09-13). Full enrichment landed (26,017 apps, 7
+      failures in 52,034 fetches); cohort 20,761 games. Playtime pull complete:
+      3,497 games, 0 failures, 2,797 usable after dropping 700 with fewer than
+      30 reviewers. **Result: F2P median 124 minutes against paid 530.** Cliff's
+      delta -0.457 naive, -0.482 genre-adjusted over 58 genres, identical at all
+      three owner bounds. The spec expected the naive gap to prove mostly a
+      genre effect; it is wrong twice over — there is no F2P advantage to
+      explain, and the genre correction makes paid's lead slightly larger. F2P
+      wins only in Clicker, ties in Idler, loses everywhere else including
+      MMORPG. Price beats pricing model as a signal (233 min in the 0-10 AUD
+      band rising to 2,484 in 60+). Attrition is uneven (22.5% of paid dropped
+      vs 16.5% of f2p), biasing toward overstating the gap — written into the
+      project README, not buried.
+- [ ] **Checkpoint 2 (Eileen): the interpretation.** The numbers are in; what
+      gets claimed from them has to be defensible in Eileen's own words. Gates
+      the write-ups, not the dashboard.
+- [ ] Phase 3 — dashboard. Hero is the naive-vs-genre-adjusted comparison side
+      by side. One spec assumption to revisit: it asks for an uncertainty ribbon
+      from the owner-range bounds, but the bounds move results by 0.001, so that
+      ribbon would be invisible. The real uncertainty is the 20% reviewer
+      attrition and the thin cells — worth showing that instead, and saying why.
+- [ ] Phase 4 — deck, 3-4 page report, website case study, plus Eileen's "what
+      didn't work" / limitations / recommendation.
+- [ ] `NOTES.md` decision log, written by hand — in the spec's definition of
+      done, still outstanding.
 
 ### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
 Started 2026-09-13 on Eileen's ask. Repo: `portfolio-projects/support-triage` —
