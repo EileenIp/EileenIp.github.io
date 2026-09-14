@@ -114,17 +114,322 @@ headline metric with CCU per owner as the robustness check.
       ties and the one usable genre cell is 86% tied at zero. Tie share is now
       printed beside every result. This is a second, independent argument for
       not having made CCU the headline metric.
-- [ ] Phase 2b results — re-run the analysis on the full cohort, then re-run on
-      the real headline metric once the playtime pull lands. The ordering
-      constraint that governed this item is now satisfied: the playtime pull had
-      to wait for the enrichment, because both use store.steampowered.com and
-      running them together would halve the effective request spacing (the pacer
-      key is shared, so this is enforced rather than just remembered).
-      Enrichment finished first; `python -m src.playtime sample` started
-      2026-09-13 16:02 and was still running when this was written. Nothing else
-      should touch that host until it finishes.
-- [ ] Checkpoint 2 (Eileen): the interpretation, once the within-genre numbers
-      exist on real playtime.
+- [x] Phase 2b complete (2026-09-13). Full enrichment landed (26,017 apps, 7
+      failures in 52,034 fetches); cohort 20,761 games. Playtime pull complete:
+      3,497 games, 0 failures, 2,797 usable after dropping 700 with fewer than
+      30 reviewers. **Result: F2P median 124 minutes against paid 530.** Cliff's
+      delta -0.457 naive, -0.482 genre-adjusted over 58 genres, identical at all
+      three owner bounds. The spec expected the naive gap to prove mostly a
+      genre effect; it is wrong twice over — there is no F2P advantage to
+      explain, and the genre correction makes paid's lead slightly larger. F2P
+      wins only in Clicker, ties in Idler, loses everywhere else including
+      MMORPG. Price beats pricing model as a signal (233 min in the 0-10 AUD
+      band rising to 2,484 in 60+). Attrition is uneven (22.5% of paid dropped
+      vs 16.5% of f2p), biasing toward overstating the gap — written into the
+      project README, not buried.
+- [ ] **Checkpoint 2 (Eileen): the interpretation.** The numbers are in; what
+      gets claimed from them has to be defensible in Eileen's own words. Gates
+      the write-ups, not the dashboard.
+- [ ] Phase 3 — dashboard. Hero is the naive-vs-genre-adjusted comparison side
+      by side. One spec assumption to revisit: it asks for an uncertainty ribbon
+      from the owner-range bounds, but the bounds move results by 0.001, so that
+      ribbon would be invisible. The real uncertainty is the 20% reviewer
+      attrition and the thin cells — worth showing that instead, and saying why.
+- [ ] Phase 4 — deck, 3-4 page report, website case study, plus Eileen's "what
+      didn't work" / limitations / recommendation.
+- [ ] `NOTES.md` decision log, written by hand — in the spec's definition of
+      done, still outstanding.
+
+### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
+Started 2026-09-13 on Eileen's ask. Repo: `portfolio-projects/support-triage` —
+its own git repo on `master`, nothing pushed anywhere. Full spec:
+`portfolio-projects/support-triage/spec-support-triage.md`.
+
+Note against this section's "max 1–2 items" rule: this makes three roadmap
+projects open at once (2, 3 and 4). Flagging rather than deciding — if that is
+too many in flight, this is the one that just started.
+
+The sequencing note from the backlog still holds and is now satisfied: build
+after Launch Sentiment, not back-to-back, so the two don't read as "two NLP
+projects in a row" — Launch Sentiment reached its deliverables on 2026-09-13.
+Distinctness from it was confirmed when the spec was written: aggregate
+public-sentiment monitoring over review text there, per-conversation urgency
+triage plus a reply-speed analysis on Twitter support threads here.
+
+- [x] Phase 0 — dataset pulled (Kaggle `thoughtvector/customer-support-on-twitter`,
+      516 MB, 2,811,774 tweets) and conversations rebuilt from the reply graph.
+      798,197 conversations recovered, 789,448 qualifying for modelling
+      (customer-opened, brand-answered, under 100 tweets). 54.5% are a single
+      exchange — one customer message, one brand reply. Data quality came back
+      cleaner than the spec expected: no duplicate tweet ids, no unparseable
+      timestamps, and zero replies stamped before the tweet they answer
+      (verified independently of the pipeline across 2,013,577 edges). What did
+      need forgiving: 172,500 replies naming a tweet that isn't in the file,
+      3,862 the other way, 193 broadcast-sized components, 54,642 threads with
+      more than one customer in them. 34 tests green, including the spec's
+      hand-built 15-thread fixture.
+- [!] Phase 0 finding that shapes Phase 3: the corpus is two months, not the
+      nine years its date range suggests. It runs 2008-05-08 to 2017-12-03, but
+      only 687 conversations predate 2017 — 94.4% open in October–November 2017
+      and 99.2% in October–December. So nothing seasonal can be claimed, there
+      is no before/after to compare, and every brand's reply speed is measured
+      over the same few weeks (good for comparability, bad for generality).
+      Belongs in the limitations section either way.
+- [x] Checkpoint 0 (Eileen, 2026-09-13): **AmazonHelp, Delta, TMobileHelp,
+      Tesco** — retail, airline, telco, grocery. The first three are fast
+      repliers and so comparable; Tesco is in it because at a 101-minute median
+      it is ~30x slower than T-Mobile and a third of its conversations run to
+      five messages, which is what gives the Phase 3 speed analysis something to
+      bite on. 146,506 conversations, 594,288 tweets, all text present.
+      Reasoning recorded in `src/config.py`. Caveat carried forward: AmazonHelp
+      is 56% of the subset, so pooled figures are mostly Amazon figures.
+- [x] Phase 1 build — four candidate bad-outcome definitions (customer keeps
+      coming back / sentiment worsens / thread dies on an unanswered negative
+      message / escalation language), firing on 11.9%, 3.4%, 3.9% and 2.0% of
+      the subset and overlapping little. Leakage boundary enforced by
+      perturbation tests in both directions: rewrite the thread after the
+      opening message and the features must not move, rewrite the opener and the
+      labels must not move. 74 tests green.
+- [x] Checkpoint 1 (Eileen, 2026-09-15): she read all 100, not the 40 asked for —
+      67 bad, 15 not, 18 can't tell. Three findings, full evidence in
+      `data/validation/checkpoint1-findings.md`:
+      (a) all four of the spec's candidates are high-precision, low-recall — they
+      agree when they fire and miss most of what she calls bad. The rule she was
+      actually using was not among them, and is now implemented as
+      **`left_unanswered`**: the thread ends on a customer message that doesn't
+      say it got sorted. 91% precision against her reading, 13.4% of the subset.
+      (b) all 18 of her can't-tells are the ghosting case, which is 83% of the
+      corpus, 45% of it ending on a push to DM or a link — for most conversations
+      the outcome happens where this data cannot see it. Her difficulty was the
+      dataset answering, not indecision.
+      (c) reweighting her sample to the population puts P(went badly) near 0.56,
+      range 0.34–0.78. Bad outcomes are probably **not** the minority class the
+      spec assumes; the label carried forward is a strict observable subset of a
+      problem a human reads as much larger.
+      Also decided: ghosted-after-handoff conversations (37.6%) are **censored**,
+      excluded rather than counted as negatives, since calling them "not bad"
+      asserts something nobody observed.
+- [x] Phase 2 — modelling set 91,449 after censoring, 21% positive, split by time
+      at 2017-11-16. Keyword baseline PR-AUC 0.251 against a 23% base rate;
+      TF-IDF + logistic regression 0.368, catching 19% of bad outcomes in the
+      worst 10% of the queue. Two defects the first run exposed and fixed: the
+      model's strongest feature was a customer's account number (raw @mentions in
+      TF-IDF — memorising individuals, worth only 0.011 PR-AUC), and calibration
+      failed exactly where triage uses it (predicted 0.74, actual 0.40). Isotonic
+      on a time-held-out slice now tracks, and compresses the range so nothing
+      scores above 0.6 — the model admitting it cannot call anyone more than
+      coin-flip risky. 108 tests green.
+- [x] Checkpoint 2 (Eileen, 2026-09-15): fast-track the worst **10%** of the
+      queue, score over 0.40. Her defence in staffing terms: one handler's shift
+      is ~160 conversations and the lane is 159 a day, seeing 44% bad outcomes
+      against 23% in the queue at large. Tightening to 5% barely moves precision
+      and gives up half the bad outcomes; widening to 25% is close to not
+      prioritising. It leaves 295 bad conversations a day unprioritised, and that
+      number goes in the write-up next to the first.
+- [x] Phase 3 — **the counterintuitive result, and it survives the controls.**
+      Faster first replies go with *worse* outcomes: -5.9pp per tenfold increase
+      in reply time, -4.8pp within brand, -3.2pp within predicted-difficulty
+      band. Reversing the censoring decision halves it (-2.1pp) but does not
+      change its sign, so the exclusion amplifies the finding rather than
+      creating it. Stated as association throughout — nobody randomised who got
+      a fast reply. Also threw out the first summary statistic, which was being
+      set by buckets holding as few as 8 conversations.
+- [x] Phase 4 — all four deliverables built from the pipeline's own artifacts:
+      self-contained dashboard (hero is a real day's queue, ranked, with per-
+      message drivers in plain words and a reveal-the-outcome toggle), 4-page
+      report (.md + .docx), 9-slide deck (.pptx), and the website case study,
+      which **replaced the `support-ticket-sentiment-tracker` placeholder in
+      `data/projects.json`** and kept its id so the deep link still resolves.
+      128 tests green, 9 commits, nothing pushed anywhere.
+- [ ] **Eileen: rewrite the three reserved sections.** Limitations, "What didn't
+      work" and the Recommendation are drafted in
+      `deliverables/support-triage-report.md`, each marked
+      `[DRAFT — EILEEN TO REPLACE]` (a test enforces the marker). They are the
+      sections an interviewer probes hardest and they should be in her words.
+- [ ] **Eileen: review the site diff before committing it.** `data/projects.json`
+      and the card image are modified in the working tree, not committed —
+      166 insertions confined to the one entry.
+- [ ] Repo has no git remote, so the case study ships without links by design
+      (dead links are worse than none). Create `EileenIp/support-triage`, push,
+      then re-run `python -m src.case_study --write` and the dashboard/report
+      links appear automatically.
+- [ ] Transformer variant still encoding (16,000 of 91,449 when Phase 4 landed).
+      Resumable, so it survives a kill. If it finishes it gets added to the model
+      comparison; if it does not, cutting a model variant is the trim this
+      project's spec nominates, and the reply-speed half it protects is done.
+- [x] The 40-conversation audit — done 2026-09-15, all 100 read. Her own account of
+      the judgement, which is the interview answer and is quoted in the findings
+      file: customers usually ghost after receiving a reply; ghosting after asking
+      for assistance reads as bad, ghosting after a plain question reads as
+      undecidable; staff not replying is bad; staff asking for a response and
+      getting none is bad; a customer coming back to say it's solved is fine.
+
+### Site — self-hosted analytics (Cloudflare Workers + D1)
+Started 2026-09-13 on Eileen's ask. This session owns it; the resume builder
+below is a parallel session.
+
+Note against this section's "max 1-2 items" rule, extending the flag project 4
+already raised: these two make four items in flight (roadmap 3 and 4, plus
+these). Both of these are site work rather than roadmap projects, and both
+were Eileen's explicit ask with a session assigned to each — flagging the
+count, not disputing it.
+
+The site has never had any analytics, so there is no answer to "does anyone
+reach the case studies" or "does anyone download the CV". Chosen over a
+hosted counter (GoatCounter, Cloudflare Web Analytics, Plausible) because
+Eileen asked for our own: a Workers collector, D1 for storage, and a
+dashboard page on this site, at $0 on the free tier — and because
+ingest -> store -> query -> dashboard on real traffic is the second
+data-engineering project the Todo section has been arguing about, except the
+data is hers.
+
+Standing constraint: no cookies and no third-party beacon, so the page needs
+no consent banner. That is a design input, not a nicety — the alternative is
+a banner on a portfolio site.
+
+Built 2026-09-13, not deployed. Full deploy guide and the privacy reasoning
+are in `analytics/README.md`.
+
+- [ ] **Checkpoint 0 (Eileen): free Cloudflare account.** The only step that
+      needs her, and everything below is written and waiting on it. No card
+      and no domain required for Workers + D1 on the free plan.
+- [x] Collector Worker — `analytics/worker/src/worker.js`. POST /collect and
+      a token-gated GET /stats. Stores day, kind, path, referrer *host*,
+      two-letter country and a daily-rotating visitor hash; stores no IP, no
+      user agent, no full referrer, no query string and no cookie. The hash
+      is `SHA-256(secret + UTC-day + IP + UA)` truncated, so a visitor is
+      countable within a day and an unrelated hash the next — the same
+      construction GoatCounter and Plausible use, and the reason the site
+      needs no consent banner. Event kinds are allowlisted, so a stray script
+      cannot invent event types. D1 schema in `analytics/worker/schema.sql`,
+      raw rows rather than rollups so an unanticipated question can still be
+      asked of old traffic.
+- [x] Site snippet — `js/analytics.js`, wired into all six pages. Honours Do
+      Not Track, inert when no endpoint is set, `sendBeacon` so an outbound
+      click survives the page closing. The endpoint lives in exactly one
+      place, `js/analytics-config.js`, so deploying means editing one line.
+- [x] Dashboard — `analytics.html` + `js/analytics-dashboard.js` +
+      `css/analytics.css`. Token gate, 7/30/90/365 ranges, three stat tiles,
+      a two-series daily chart with crosshair and tooltip, and tables for
+      pages, referrers, countries and events. `noindex`, absent from the nav
+      and from `sitemap.xml`: the numbers are behind the token anyway, but a
+      recruiter reading the portfolio has no reason to be shown the door.
+      The two series colours were run through the palette validator against
+      this site's dark surface rather than picked by eye — all six checks
+      pass. Verified end to end against a mock `/stats`: tiles, chart,
+      tooltip, all five tables, 375px with no overflow.
+- [ ] Resume-download event — the mechanism is built (`data-track="download"`,
+      optional `data-track-meta` JSON, `window.track()`), and the dashboard
+      already has the tile and a roles table reading
+      `json_extract(meta,'$.role')`. Both read zero until the resume builder
+      ships and fires the event. **Not wired to the current Resume buttons on
+      purpose: they do nothing, and counting clicks on a dead button is worse
+      than no number.** Contract for the builder session is in
+      `analytics/README.md`.
+- [ ] Interim hosted counter — still open, still Eileen's call. Every day
+      without one is traffic that cannot be recovered later, and the Worker
+      cannot go live until Checkpoint 0.
+
+### Site — recruiter-personalised resume builder
+Started 2026-09-13 on Eileen's ask. **Built 2026-09-13** in this session, not
+the parallel one that first claimed it — that session left no files, so this
+one took it over on Eileen's ask. Live at `resume.html`, on branch
+`agent/2026-09-13-resume-builder`, not merged.
+
+Reframed by Eileen 2026-09-13, and the reframing is the whole design: the
+recruiters who download the CV from the site are cold — she has not sent
+them anything — so the tailoring cannot happen in advance the way
+`career/build_tailored_resumes.py` does it. It has to happen at download
+time, chosen by the recruiter.
+
+Shape: a picker above the download button. The visitor names the role they
+are hiring for (Data Analyst / Data Scientist / BI Developer / Data
+Engineer), optionally an industry, and the page assembles a PDF in their
+browser from the ~28 projects in `CV 2026.docx`. Client-side, because
+GitHub Pages runs no server code.
+
+Three constraints, all load-bearing:
+- **Selection varies, claims never do.** Bullets stay exactly as written in
+  the docx. Choosing which real projects to show is tailoring; rewriting
+  achievements per audience is a story that has to be defended in an
+  interview.
+- **The default is one click.** A visitor who ignores the picker gets a solid
+  all-rounder immediately. Nobody should have to configure anything to get a
+  CV.
+- Every variant is public. Do not publish the per-company PDFs in
+  `career/tailored-resumes-2026-09-11/` — a directory listing shows them to
+  each other, and the URL pattern reads as mail-merge.
+
+**Branch collision, 2026-09-13 — worth knowing before merging.** Two sessions
+were writing to the same checkout. The analytics session committed its work
+(the polish pass, job tracker, project images and the analytics collector)
+onto *this* branch, `agent/2026-09-13-resume-builder`, while this session was
+mid-task — so the branch carries both sessions' work, not just the resume
+builder, and none of it is on `main` yet. One casualty: the homepage's two
+Resume buttons were rewired here, but that edit was swept into their commit
+`403a95b site: social card, favicon, canonical, sitemap`, whose message says
+nothing about it. Nothing was lost and nothing was rewritten to tidy it —
+flagging it so the merge isn't read as one session's work.
+
+Eileen's three answers on 2026-09-13 settled the design. **What varies:**
+projects, the order of the skills line, and whether the YouTube channel
+appears under Experience — not the summary. **Data Engineer:** offered, framed
+honestly. **Tag review:** a browser tool, like `label.html`.
+
+- [x] `data/resume.json` — the CV as structured data, generated by
+      `scripts/build_resume_json.py` rather than hand-maintained, so a CV edit
+      is a re-run. 29 projects, not the ~28 estimated.
+- [x] Client-side PDF generation + the picker UI. `resume.html`, jsPDF 3.0.1
+      vendored into `js/vendor/` (not a CDN — same reasoning as the cached
+      logos). Layout matches `career/build_tailored_resumes.py` exactly: A4,
+      37/29pt margins, Helvetica, one page. Verified across all 112
+      role × industry × YouTube combinations — zero run to two pages.
+- [x] Feeds the analytics: the collector already had the hook waiting
+      (`data-track="download"` plus `data-track-meta`, with a comment naming
+      the resume builder). Verified end-to-end against a stubbed endpoint —
+      the event carries role, industry and the YouTube flag. It records
+      nothing until the Worker endpoint is set in `js/analytics-config.js`.
+- [x] The two "Resume" buttons on the homepage were `<button>` elements with
+      no handler and had never done anything. They now go to `resume.html`,
+      which also joins the nav on every page.
+- [ ] **Eileen: correct the drafted tags in `tools/resume-tagger.html`**
+      (~20 minutes). Serve the site locally, open it, fix any project tagged
+      for a role it doesn't really support, then Export and replace
+      `data/resume.json`. Edits autosave. It also sets what each role leads
+      with, which is what actually decides the three projects a recruiter
+      sees. Nothing is blocked on this — the drafted tags work — but they are
+      drafted, and a wrong one puts the wrong project in front of someone.
+
+Three things found on the way that are Eileen's calls, not blockers:
+
+- **The CV docx has three defects.** The E-commerce Purchase-Prediction entry
+  appears twice verbatim; the Advertising Revenue project's three bullets have
+  no title line at all and sit stranded under that duplicate; the Creator
+  dashboard carries five bullets where the last two restate the first three
+  (already logged under CV / content gaps below). `build_resume_json.py` works
+  around all three and prints them on every run, but they want fixing at
+  source. The Advertising Revenue title, tools and repo URL were recovered
+  from `data/projects.json`, not invented.
+- **One page does not hold the full CV.** The fixed sections — education, five
+  NDIS bullets, three YouTube bullets, skills, five certification lines —
+  measure 652pt of the 784pt an A4 page has, which leaves room for exactly one
+  project. `build_tailored_resumes.py` had already solved this and the fix is
+  reused: `resume.json` carries a `length` setting, defaulting to
+  `"condensed"`, which uses the shorter NDIS and YouTube bullets from the nine
+  resumes Eileen actually sent out in September, and runs the certifications
+  into one paragraph rather than dropping any. That gets 82 of 112
+  combinations to three projects; the other 30 show two and say so on the
+  page. Setting `length` to `"full"` uses the docx's own wording and drops
+  every variant to one project. It is one setting for every variant — never
+  per role or per visitor, which would be varying claims by audience.
+- **The docx misspells two tool names** — `Power Bi` and `Qilk`. Normalised to
+  `Power BI` (matching the tailored-resume script) and `Qlik` on the generated
+  PDFs; still wrong in the docx.
+
+`resume.json` has a `summary` field sitting at `null`. The docx has no summary
+section, so nothing was invented for it. If Eileen wants one it is a single
+fixed line shared by every variant — per her own call, the summary does not
+vary by role.
 
 ---
 
@@ -134,24 +439,6 @@ Ordered by priority (really-should-do first) per Eileen's 2026-09-10 call.
 `subscription-renewal-churn` was cut entirely — same KKBox dataset as the
 already-built `subscriber-churn-ltv`, not different enough to justify a
 second repo.
-
-### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
-Status: spec written, not built. Full spec:
-`portfolio-projects/support-triage/spec-support-triage.md`.
-Checked against `launch-sentiment` for a technique repeat: confirmed distinct
-— aggregate public-sentiment monitoring over Steam/Reddit review text
-(launch-sentiment) vs. per-conversation urgency triage plus a reply-speed
-analysis on Twitter support threads (this one), different model families and
-evaluation approaches. Build after Launch Sentiment rather than back-to-back
-so the two don't read as "two NLP projects in a row." The site's placeholder
-card for this idea (`support-ticket-sentiment-tracker`) predated the split
-and was still titled/described as the old absorbed version — retitled and
-resynced to this spec 2026-09-10.
-- [ ] Checkpoint 0 (Eileen): pick 2–4 brands from the Twitter support dataset,
-      spanning industries (e.g. airline + telco + retailer)
-- [ ] Bad-outcome definition (Eileen reads 40 of 100 sampled
-      conversations and picks the definition that matches human judgement of
-      "this went badly")
 
 ### Roadmap project 5 — Streaming Engagement: Four Sources, One Model (media, data-engineering-led)
 Status: spec written, not built. Full spec:
@@ -203,6 +490,68 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-13 — **Site polish pass: social card, job tracker, project
+      images.** Three items off one ask ("I have credit, what should I spend
+      it on"). Not committed at time of writing — left dirty for Eileen to
+      review.
+
+      **Social metadata and favicon.** The site had no `og:`/`twitter:` tags,
+      no favicon and no canonical, so every LinkedIn or Slack share rendered
+      as a bare grey link. Added across all six pages, plus `sitemap.xml` and
+      `robots.txt`. The card and icon are generated by
+      `scripts/generate_brand_assets.py` from the site's own palette, so a
+      palette change is a re-run rather than a hand-edit. Not yet validated
+      in LinkedIn's Post Inspector — that needs Eileen's login, and it only
+      works once the change is deployed.
+
+      **Job tracker rebuilt for scanning.** Eileen's complaint was that the
+      card grid made it impossible to see which roles she is actually in.
+      Now a pipeline strip (36 To Apply · 15 Applied · 1 Finished Assessment ·
+      30 Rejected · 9 Withdrawn, each clickable as a filter) over rows grouped
+      by stage. `data/companies.json` collapses the spreadsheet's spellings
+      onto 85 canonical companies — `nab`/`Nab` and `commbank`/`Commonwealth
+      Bank` were separate before — and company search now matches the
+      canonical name, so "commonwealth" finds rows spelled "commbank".
+      74 logos cached into `images/logos/` rather than hot-linked: a hotlink
+      breaks when the provider changes and leaks every visitor's request to a
+      third party on a page that is already public. Verified at 1280px and
+      375px, 91 rows, no horizontal overflow. Dead `.jt-card*` rules removed —
+      note that the first attempt deleted the selector lines and left two
+      multi-line rule bodies orphaned, which unbalanced the stylesheet by two
+      braces; caught by a brace count before anything was committed.
+
+      **Project card images.** Only two of eight projects had an image and one
+      of those hot-linked `raw.githubusercontent.com`. Now generated by
+      `scripts/generate_project_cards.py` at the 16:10 the grid expects:
+      real dashboard screenshots for Ad Creative Pipeline, Launch Sentiment
+      and Subscriber Churn, the Creator dashboard PNG downloaded locally,
+      Advertising Revenue kept as-is, and typographic tiles for the three with
+      no dashboard. **The rule the script enforces: no generated chart
+      imagery, ever.** A card that merely looks like a dashboard is a claim
+      about work that does not exist and is the first thing an interviewer
+      would ask about. The five homepage cards were `role="img"` divs with
+      alt text describing a crop that was never there; they now point at real
+      files with real alt text.
+
+      Resolved same day by Eileen: ADN is Australian Disability Network and the
+      bare "GOVERNMENT" is Queensland Government, both now in the registry with
+      logos; FMD, Farrer Capital Management and Openmesh were removed outright
+      -- not companies she is applying to. The removal went into
+      `job-applications.xlsx`, the source of truth, so regenerating the JSON
+      won't resurrect them. 91 entries -> 88.
+
+      Still open: five logos 404'd on fetch (ASIO, BMW, Fujitsu, McKinsey,
+      Spotlight Retail Group) and show an initials tile. Google's favicon
+      service simply has nothing for those domains; a different source, or a
+      hand-saved file in `images/logos/`, is the fix if it ever matters.
+
+      **Eileen's standing decision, recorded:** the job tracker, to-do,
+      calendar and progress pages stay public and linked from the main nav for
+      now, `data/job-applications.json` included — which publishes 30
+      rejections by company to anyone who opens the site, recruiters among
+      them. Raised 2026-09-13, and she chose to keep it while she works on the
+      page. Worth revisiting, not worth re-arguing.
 
 - [x] 2026-09-13 — **Roadmap project 2 — Launch Sentiment, complete.** Built in
       a parallel session to project 3; this entry is that session recording

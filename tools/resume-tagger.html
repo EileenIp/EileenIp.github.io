@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume tagger — correct the drafted tags</title>
+<style>
+  :root {
+    --bg: #161826; --surface: #232532; --text: #e9e9ed; --accent: #9184d9;
+    --muted: #9397ab; --line: #3f424d; --ok: #7fb069; --warn: #d9a05b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.55 "Inter", system-ui, sans-serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 5; background: var(--bg);
+    border-bottom: 1px solid var(--line); padding: 16px 24px;
+  }
+  .bar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 17px; margin: 0; font-weight: 600; }
+  .grow { flex: 1; }
+  button {
+    font: inherit; padding: 7px 14px; border-radius: 6px; cursor: pointer;
+    background: transparent; color: var(--text); border: 1px solid var(--line);
+  }
+  button:hover { border-color: var(--muted); }
+  button.primary { color: var(--accent); border-color: var(--accent); }
+  button.primary:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+  button.tiny { padding: 2px 7px; font-size: 12px; line-height: 1.4; }
+  .status { font-size: 13px; color: var(--muted); }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px; }
+  .intro { color: var(--muted); font-size: 14px; max-width: 76ch; }
+  .intro strong { color: var(--text); }
+  section { margin-top: 32px; }
+  h2 { font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+       color: var(--muted); font-weight: 600; margin: 0 0 12px; }
+  .proj {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 14px;
+  }
+  .proj.touched { border-color: color-mix(in srgb, var(--ok) 55%, var(--line)); }
+  .proj-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .proj-title { font-weight: 600; }
+  .proj-meta { font-size: 12.5px; color: var(--muted); }
+  .flag { font-size: 11px; color: var(--warn); border: 1px solid var(--warn);
+          border-radius: 4px; padding: 0 5px; }
+  details { margin: 10px 0 0; }
+  summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+  .bullets { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; color: #cfd3e5; }
+  .bullets li { margin-bottom: 4px; }
+  .rows { display: grid; gap: 10px; margin-top: 14px; }
+  .row { display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
+  .row-label { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+               color: var(--muted); width: 76px; flex: none; padding-top: 5px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px;
+    font-size: 13px; user-select: none;
+  }
+  .chip:has(input:checked) {
+    border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .chip input { accent-color: var(--accent); margin: 0; }
+  .featured { background: var(--surface); border: 1px solid var(--line);
+              border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .featured ol { margin: 10px 0 0; padding-left: 22px; }
+  .featured li { margin-bottom: 6px; font-size: 13.5px; }
+  .featured .controls { display: inline-flex; gap: 4px; margin-left: 8px; }
+  .add { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  select { font: inherit; font-size: 13px; background: var(--bg); color: var(--text);
+           border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; max-width: 460px; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <h1>Resume tagger</h1>
+    <span class="status" id="progress"></span>
+    <span class="grow"></span>
+    <button type="button" id="reset">Discard my edits</button>
+    <button type="button" class="primary" id="export">Export resume.json</button>
+  </div>
+</header>
+
+<main>
+  <p class="intro">
+    Every role and industry tag below was <strong>drafted, not supplied by you</strong> — correct anything
+    that reads wrong. The tags decide which projects a recruiter's PDF shows, so a project tagged for a
+    role it doesn't really support will end up in front of someone hiring for it.
+    Your edits save as you go and survive a refresh. When you're done, hit
+    <strong>Export</strong> and replace <code>data/resume.json</code> with the file it downloads.
+  </p>
+  <p class="intro">
+    Re-running <code>scripts/build_resume_json.py</code> regenerates the draft tags from the CV and would
+    overwrite this, so export first if you've made changes.
+  </p>
+
+  <section>
+    <h2>What each role leads with</h2>
+    <p class="intro">
+      A PDF shows the top three that fit. These lists set the order; anything tagged for the role but not
+      listed here is a fallback, used newest-first once the list runs out.
+    </p>
+    <div id="featured"></div>
+  </section>
+
+  <section>
+    <h2>Project tags</h2>
+    <div id="projects"></div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE = "resume-tagger-edits-v1";
+  var base = null;   // resume.json as generated
+  var edits = {};    // { projects: {id: {roles, industries}}, featured: {role: [ids]} }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORAGE);
+      edits = raw ? JSON.parse(raw) : {};
+    } catch (err) { edits = {}; }
+    if (!edits.projects) edits.projects = {};
+    if (!edits.featured) edits.featured = {};
+  }
+
+  function save() {
+    try { localStorage.setItem(STORAGE, JSON.stringify(edits)); }
+    catch (err) { /* a private window just loses the autosave */ }
+    renderProgress();
+  }
+
+  function rolesOf(p) {
+    var e = edits.projects[p.id];
+    return e && e.roles ? e.roles : p.roles;
+  }
+  function industriesOf(p) {
+    var e = edits.projects[p.id];
+    return e && e.industries ? e.industries : p.industries;
+  }
+  function featuredOf(roleId) {
+    return edits.featured[roleId] ||
+           base.roles.filter(function (r) { return r.id === roleId; })[0].featured;
+  }
+  function setProject(id, key, values) {
+    if (!edits.projects[id]) edits.projects[id] = {};
+    edits.projects[id][key] = values;
+    save();
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function chip(label, checked, onToggle) {
+    var l = el("label", "chip");
+    var i = document.createElement("input");
+    i.type = "checkbox";
+    i.checked = checked;
+    i.addEventListener("change", function () { onToggle(i.checked); });
+    l.appendChild(i);
+    l.appendChild(el("span", null, label));
+    return l;
+  }
+
+  function renderProgress() {
+    var n = Object.keys(edits.projects).length;
+    var f = Object.keys(edits.featured).length;
+    document.getElementById("progress").textContent =
+      n + " of " + base.projects.length + " projects edited" +
+      (f ? ", " + f + " role order" + (f > 1 ? "s" : "") + " changed" : "");
+  }
+
+  function renderProjects() {
+    var host = document.getElementById("projects");
+    host.innerHTML = "";
+    base.projects.forEach(function (p) {
+      var card = el("div", "proj" + (edits.projects[p.id] ? " touched" : ""));
+
+      var head = el("div", "proj-head");
+      head.appendChild(el("span", "proj-title", p.title));
+      head.appendChild(el("span", "proj-meta",
+        p.tools.join(", ") + " · " + p.date));
+      if (!p.url) head.appendChild(el("span", "flag", "no GitHub link on the CV"));
+      if (p.recovered) head.appendChild(el("span", "flag", "recovered from a CV defect"));
+      card.appendChild(head);
+
+      var det = el("details");
+      det.appendChild(el("summary", null, "Bullets as they'll appear on the PDF"));
+      var ul = el("ul", "bullets");
+      p.bullets.forEach(function (b) { ul.appendChild(el("li", null, b)); });
+      det.appendChild(ul);
+      card.appendChild(det);
+
+      var rows = el("div", "rows");
+
+      var roleRow = el("div", "row");
+      roleRow.appendChild(el("span", "row-label", "Roles"));
+      var roleChips = el("div", "chips");
+      base.roles.forEach(function (r) {
+        roleChips.appendChild(chip(r.label, rolesOf(p).indexOf(r.id) !== -1, function (on) {
+          var next = rolesOf(p).filter(function (x) { return x !== r.id; });
+          if (on) next = next.concat([r.id]);
+          setProject(p.id, "roles", next);
+          render();
+        }));
+      });
+      roleRow.appendChild(roleChips);
+      rows.appendChild(roleRow);
+
+      var indRow = el("div", "row");
+      indRow.appendChild(el("span", "row-label", "Industries"));
+      var indChips = el("div", "chips");
+      base.industries.forEach(function (name) {
+        indChips.appendChild(chip(name, industriesOf(p).indexOf(name) !== -1, function (on) {
+          var next = industriesOf(p).filter(function (x) { return x !== name; });
+          if (on) next = next.concat([name]);
+          setProject(p.id, "industries", next);
+          render();
+        }));
+      });
+      indRow.appendChild(indChips);
+      rows.appendChild(indRow);
+
+      card.appendChild(rows);
+      host.appendChild(card);
+    });
+  }
+
+  function renderFeatured() {
+    var host = document.getElementById("featured");
+    host.innerHTML = "";
+    var byId = {};
+    base.projects.forEach(function (p) { byId[p.id] = p; });
+
+    base.roles.forEach(function (r) {
+      var box = el("div", "featured");
+      box.appendChild(el("strong", null, r.label));
+
+      var ids = featuredOf(r.id).filter(function (id) {
+        // A project you untagged for this role should not keep leading it.
+        return byId[id] && rolesOf(byId[id]).indexOf(r.id) !== -1;
+      });
+
+      var ol = el("ol");
+      ids.forEach(function (id, i) {
+        var li = el("li");
+        li.appendChild(el("span", null, byId[id].title));
+        var controls = el("span", "controls");
+        [["↑", i - 1], ["↓", i + 1]].forEach(function (pair) {
+          var b = el("button", "tiny", pair[0]);
+          b.disabled = pair[1] < 0 || pair[1] >= ids.length;
+          b.addEventListener("click", function () {
+            var next = ids.slice();
+            next.splice(pair[1], 0, next.splice(i, 1)[0]);
+            edits.featured[r.id] = next;
+            save();
+            render();
+          });
+          controls.appendChild(b);
+        });
+        var rm = el("button", "tiny", "remove");
+        rm.addEventListener("click", function () {
+          edits.featured[r.id] = ids.filter(function (x) { return x !== id; });
+          save();
+          render();
+        });
+        controls.appendChild(rm);
+        li.appendChild(controls);
+        ol.appendChild(li);
+      });
+      box.appendChild(ol);
+
+      var candidates = base.projects.filter(function (p) {
+        return rolesOf(p).indexOf(r.id) !== -1 && ids.indexOf(p.id) === -1;
+      });
+      if (candidates.length) {
+        var add = el("div", "add");
+        var sel = document.createElement("select");
+        sel.appendChild(new Option("Add a project to this list…", ""));
+        candidates.forEach(function (p) { sel.appendChild(new Option(p.title, p.id)); });
+        sel.addEventListener("change", function () {
+          if (!sel.value) return;
+          edits.featured[r.id] = ids.concat([sel.value]);
+          save();
+          render();
+        });
+        add.appendChild(sel);
+        box.appendChild(add);
+      }
+
+      if (!ids.length) {
+        box.appendChild(el("p", "note",
+          "Nothing leads this role. A PDF for it would fall back to whatever is " +
+          "tagged, newest first."));
+      }
+      host.appendChild(box);
+    });
+  }
+
+  function render() {
+    renderFeatured();
+    renderProjects();
+    renderProgress();
+  }
+
+  function exportJson() {
+    var out = JSON.parse(JSON.stringify(base));
+    out.tagsAreDrafted = false;
+    out.tagsCorrectedOn = new Date().toISOString().slice(0, 10);
+    out.projects.forEach(function (p) {
+      p.roles = rolesOf(p);
+      p.industries = industriesOf(p);
+      p.tagsDrafted = !edits.projects[p.id];
+    });
+    out.roles.forEach(function (r) {
+      r.featured = featuredOf(r.id).filter(function (id) {
+        var p = out.projects.filter(function (x) { return x.id === id; })[0];
+        return p && p.roles.indexOf(r.id) !== -1;
+      });
+    });
+    out.industries = Object.keys(out.projects.reduce(function (acc, p) {
+      p.industries.forEach(function (i) { acc[i] = true; });
+      return acc;
+    }, {})).sort();
+
+    var blob = new Blob([JSON.stringify(out, null, 2) + "\n"], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "resume.json";
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  fetch("../data/resume.json")
+    .then(function (r) { return r.json(); })
+    .then(function (json) {
+      base = json;
+      load();
+      render();
+      document.getElementById("export").addEventListener("click", exportJson);
+      document.getElementById("reset").addEventListener("click", function () {
+        if (!confirm("Discard every tag edit you've made here and go back to the drafted tags?")) return;
+        edits = { projects: {}, featured: {} };
+        save();
+        render();
+      });
+    })
+    .catch(function (err) {
+      document.querySelector("main").innerHTML =
+        "<p>Could not load ../data/resume.json (" + err.message + "). " +
+        "Serve the site locally rather than opening this file directly: " +
+        "<code>python -m http.server 5500</code>, then open " +
+        "<code>http://localhost:5500/tools/resume-tagger.html</code>.</p>";
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+name = "eileenip-analytics"
+main = "src/worker.js"
+compatibility_date = "2026-09-13"
+
+# Created by: wrangler d1 create eileenip-analytics
+# Paste the database_id wrangler prints into the line below.
+[[d1_databases]]
+binding = "DB"
+database_name = "eileenip-analytics"
+database_id = "PASTE_DATABASE_ID_HERE"
+
+# SALT_SECRET and STATS_TOKEN are secrets, not vars -- set them with
+# `wrangler secret put`, never in this file. See README.md.

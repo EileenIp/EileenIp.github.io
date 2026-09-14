@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resume — Eileen Ip</title>
+<meta name="description" content="Download Eileen Ip's CV, assembled for the role you're hiring for — Data Analyst, Data Scientist, BI Developer or Data Engineer.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://eileenip.github.io/resume.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Eileen Ip">
+<meta property="og:url" content="https://eileenip.github.io/resume.html">
+<meta property="og:title" content="Resume — Eileen Ip">
+<meta property="og:description" content="Download Eileen Ip's CV, assembled for the role you're hiring for — Data Analyst, Data Scientist, BI Developer or Data Engineer.">
+<meta property="og:image" content="https://eileenip.github.io/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Eileen Ip — Data Analyst, Data Scientist, Data Engineer. Brisbane, Australia.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Resume — Eileen Ip">
+<meta name="twitter:description" content="Download Eileen Ip's CV, assembled for the role you're hiring for.">
+<meta name="twitter:image" content="https://eileenip.github.io/images/og-card.png">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/resume.css">
+</head>
+<body>
+
+<div class="hero-band">
+  <header>
+    <nav class="nav nav-collapsible" aria-label="Main navigation">
+      <span class="nav-brand">Eileen Ip</span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </label>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="progress.html">Progress</a>
+        <a href="todo.html">To-do</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="job-tracker.html">Job Tracker</a>
+        <a href="resume.html" aria-current="page">Resume</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero container rb-hero">
+    <span class="kicker">Resume</span>
+    <h1>Download my CV</h1>
+    <p class="lede">Tell me what you're hiring for and the PDF is assembled for it — the projects that fit the role, in the order that matters. Or just hit download; the default is a solid all-rounder.</p>
+  </section>
+</div>
+
+<main>
+  <section class="container rb-section">
+
+    <p id="rb-loading" class="rb-loading">Loading…</p>
+
+    <div id="rb-panel" class="rb-panel" hidden>
+      <div class="card rb-controls">
+        <fieldset class="rb-field">
+          <legend class="label-sm">Role you're hiring for</legend>
+          <div id="role-options" class="rb-choices"></div>
+        </fieldset>
+
+        <div class="rb-field">
+          <label class="label-sm" for="industry">Your industry <span class="rb-optional">optional</span></label>
+          <select id="industry" class="rb-select"></select>
+          <p class="rb-help">Re-ranks the projects toward your sector. It never swaps in work that isn't relevant to the role.</p>
+        </div>
+
+        <div class="rb-field">
+          <label class="rb-checkbox">
+            <input type="checkbox" id="include-youtube">
+            <span>Include the YouTube channel under Experience</span>
+          </label>
+          <p class="rb-help">A 10,000-subscriber explainer channel, run for two years on audience analytics. Relevant to some teams, noise to others — your call.</p>
+        </div>
+      </div>
+
+      <div class="card rb-preview">
+        <div class="label-sm accent">What's on it</div>
+
+        <div class="rb-preview-block">
+          <div class="label-xs">Selected projects</div>
+          <ol id="preview-projects" class="rb-preview-list"></ol>
+        </div>
+
+        <div class="rb-preview-block">
+          <div class="label-xs">Experience</div>
+          <p id="preview-experience" class="rb-preview-line"></p>
+        </div>
+
+        <div class="rb-preview-block">
+          <div class="label-xs">Skills</div>
+          <p id="preview-skills" class="rb-preview-line"></p>
+        </div>
+
+        <p id="rb-fit" class="rb-fit" hidden></p>
+
+        <div class="rb-actions">
+          <button type="button" id="download" class="btn btn-primary rb-download" data-track="download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M6.5 11l5.5 5.5L17.5 11"/><path d="M4 19.5h16"/></svg>
+            Download PDF
+          </button>
+          <p id="rb-status" class="rb-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+
+    <p class="rb-note">
+      Every version is built from the same CV, in your browser — nothing is uploaded and no file is stored.
+      The wording of each project is identical across all of them; only which projects appear changes.
+      If you'd rather have the full list of 29, it's on the <a href="projects.html">projects page</a>.
+    </p>
+
+  </section>
+</main>
+
+<footer class="site-footer container">
+  <p>&copy; 2026 Eileen Ip.</p>
+</footer>
+
+<script src="js/analytics-config.js"></script>
+<script src="js/analytics.js"></script>
+<script defer id="jspdf" src="js/vendor/jspdf.umd.min.js"></script>
+<script src="js/resume-pdf.js"></script>
+<script defer src="js/resume-builder.js"></script>
+</body>
+</html>

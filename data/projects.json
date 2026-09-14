@@ -300,7 +300,8 @@
       ],
       "links": {
         "notebookRepo": "https://github.com/EileenIp/Ecommerce-Behaviour-Conversion-Analysis"
-      }
+      },
+      "image": "images/projects/ecommerce-behavior-conversion-2019-card.png"
     },
     {
       "id": "advertising-revenue-sales-efficiency-2026",
@@ -524,7 +525,7 @@
         "Tableau",
         "Excel"
       ],
-      "image": "https://raw.githubusercontent.com/EileenIp/creator-content-decision-dashboard/main/dashboard.png",
+      "image": "images/projects/creator-content-decision-dashboard-2026-card.png",
       "cardDescription": "A Tableau content decision console connecting reach, retention, momentum and audience loyalty to the next production decision. Built with synthetic demonstration data.",
       "oneSentenceDescription": "Which content should a creator scale, promote or improve next?",
       "targetIndustryRole": "Creator, Content Strategy & Marketing Analytics",
@@ -880,7 +881,8 @@
           "caption": "Deliberately not called \"safe\" — Quiet Value subscribers sit at 39.6% churn despite being low-risk by the deployed threshold, since the threshold is tuned to maximize net benefit, not to cleanly separate safe from at-risk.",
           "svg": "<svg viewBox=\"0 0 640 250\" role=\"img\" aria-label=\"Churn rate by risk-value quadrant: Priority Save 47.6 percent, Low-Cost Nudge 43.1 percent, Quiet Value Monitor 39.6 percent, Stable No Action 9.5 percent\"><line x1=\"0\" y1=\"190\" x2=\"640\" y2=\"190\" class=\"viz-stroke-border\"></line><rect x=\"20\" y=\"20\" width=\"110\" height=\"170\" class=\"viz-fill-accent\"></rect><text x=\"75\" y=\"12\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">47.6%</text><rect x=\"190\" y=\"36\" width=\"110\" height=\"154\" class=\"viz-fill-accent-85\"></rect><text x=\"245\" y=\"28\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">43.1%</text><rect x=\"360\" y=\"49\" width=\"110\" height=\"141\" class=\"viz-fill-accent-65\"></rect><text x=\"415\" y=\"41\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">39.6%</text><rect x=\"530\" y=\"156\" width=\"110\" height=\"34\" class=\"viz-fill-muted\"></rect><text x=\"585\" y=\"148\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">9.5%</text><text x=\"75\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Priority</text><text x=\"75\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Save</text><text x=\"245\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Low-Cost</text><text x=\"245\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Nudge</text><text x=\"415\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Quiet Value</text><text x=\"415\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">— Monitor</text><text x=\"585\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Stable,</text><text x=\"585\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">No Action</text></svg>"
         }
-      ]
+      ],
+      "image": "images/projects/subscriber-churn-retention-2026-card.png"
     },
     {
       "id": "streaming-engagement-dashboard",
@@ -940,7 +942,8 @@
           "Build and validate the model / dashboard / pipeline",
           "Replace this placeholder with the full SPIDER write-up"
         ]
-      }
+      },
+      "image": "images/projects/streaming-engagement-dashboard-card.png"
     },
     {
       "id": "ad-creative-performance-pipeline",
@@ -1160,66 +1163,212 @@
           "caption": "The first version wrongly expected every defect to self-heal. Scoping it to the defects that actually do — and adding a real column for the ones that don't — fixed it for the right reason.",
           "svg": "<svg viewBox=\"0 0 500 110\" role=\"img\" aria-label=\"Reconciliation test: 7 failing rows before the fix, 0 after\"><text x=\"0\" y=\"18\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Before fix (expected all defects to self-heal)</text><rect x=\"0\" y=\"26\" width=\"180\" height=\"24\" class=\"viz-fill-accent-55\"></rect><text x=\"190\" y=\"43\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">7 failing</text><text x=\"0\" y=\"72\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">After fix (scoped to defects that actually resolve)</text><rect x=\"0\" y=\"80\" width=\"14\" height=\"24\" class=\"viz-fill-accent\"></rect><text x=\"24\" y=\"97\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">0 failing</text></svg>"
         }
-      ]
+      ],
+      "image": "images/projects/ad-creative-performance-pipeline-card.png"
     },
     {
       "id": "support-ticket-sentiment-tracker",
       "title": "Support Triage: Which Conversations Are About to Go Bad",
-      "year": 2023,
+      "year": 2026,
       "industry": "Customer Experience",
-      "projectType": "NLP Analysis",
-      "serviceType": "Interactive Report",
+      "projectType": "Classification + Operational Analysis",
+      "serviceType": "Analysis + Model + Dashboard",
       "tools": [
         "Python",
-        "BERT"
+        "scikit-learn",
+        "TF-IDF",
+        "VADER",
+        "pandas",
+        "pytest"
       ],
       "sectionHeadlines": {
-        "summaryImpact": "Placeholder — not yet built",
-        "problemSpace": "Problem space — TBD",
-        "inputs": "Data inputs — TBD",
-        "discovery": "Discovery — TBD",
-        "execution": "Method — TBD",
-        "results": "Results — TBD"
+        "summaryImpact": "Replying faster went with worse outcomes, not better",
+        "problemSpace": "A queue of thousands, and no way to know what matters",
+        "inputs": "2,811,774 tweets, rebuilt into 798,197 conversations",
+        "discovery": "For 83% of conversations, the outcome is invisible",
+        "execution": "An hour of reading beat four automated definitions",
+        "results": "44% hit rate in a lane one person can work"
       },
-      "cardDescription": "[Placeholder] Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end. Full case study not yet built.",
-      "impactStat": "Placeholder — project not yet built",
-      "oneSentenceDescription": "Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end.",
-      "targetIndustryRole": "Customer Experience (placeholder — to be confirmed)",
-      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Triage incoming support conversations by urgency at arrival time, and test whether faster replies actually change how conversations end.",
-      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why customer experience teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "cardDescription": "Scored 91,449 real support conversations at the moment they arrive, using nothing but the customer's first message — then tested whether replying faster changes how they end. It doesn't: the association runs the other way, and it survives every control the data allows.",
+      "impactStat": "Fast-tracking the worst 10% of the queue finds 44% bad outcomes against 23% at random — while leaving 295 bad conversations a day unprioritised",
+      "oneSentenceDescription": "A triage model over 91,449 public support conversations with AmazonHelp, Delta, TMobileHelp and Tesco, built on a label recovered from reading 100 threads by hand — and a reply-speed analysis that contradicts the thing every CX team assumes.",
+      "targetIndustryRole": "Support operations, CX and service analytics",
+      "summaryImpact": "Two questions, both operational. Which incoming messages need a human now — and does answering faster actually help?\n\nOn the first: a model reading only the customer's opening message reaches 0.361 PR-AUC against 0.251 for the keyword rule support tools ship with, on a 23% base rate. Fast-tracking the worst 10% of the queue — 159 conversations a day — finds 44% that go badly, roughly double picking at random, and catches 19% of all bad outcomes.\n\nOn the second, the answer is no, and it points the other way: every tenfold increase in first-reply time goes with -5.9 percentage points in conversations left unanswered. Slower replies, fewer bad endings. It holds within brand (-4.8pp), within predicted difficulty (-3.2pp), and at half the size (-2.1pp) when the study's biggest judgement call is reversed.",
+      "summaryMetrics": [
+        {
+          "value": "0.361",
+          "label": "PR-AUC at arrival, vs 0.251 for the keyword baseline"
+        },
+        {
+          "value": "44%",
+          "label": "of the fast-tracked lane goes badly, vs 23% at random"
+        },
+        {
+          "value": "-5.9pp",
+          "label": "per 10x slower reply — the wrong way for the 'answer faster' theory"
+        },
+        {
+          "value": "100",
+          "label": "conversations read by hand to define what 'went badly' means"
+        }
+      ],
+      "problemSpace": "A support queue receives thousands of messages a day and works them in the order they arrive. Some are about to go badly — the customer will be left talking to nobody, or will keep coming back angrier — and a triage model has to guess which at the moment the message lands, before anyone has replied.\n\nUnderneath sits a second question most CX teams answer by assumption: is first-reply time worth spending on? SLA targets are usually set on instinct, and faster is taken as self-evidently better.",
+      "stakeholders": [
+        {
+          "role": "Support-ops lead",
+          "need": "What to route to a fast lane, and how many people that lane needs"
+        },
+        {
+          "role": "CX lead",
+          "need": "Whether a faster SLA buys better outcomes, before spending on it"
+        }
+      ],
       "inputs": {
-        "description": "[Placeholder] Planned source: the Customer Support on Twitter dataset (Kaggle) — real inbound customer messages and brand-agent replies, reconstructed into conversation threads. Not yet pulled or validated — per this site's data-honesty rule, this project will not go live without confirming that label against the real download."
+        "description": "Customer Support on Twitter (Kaggle, thoughtvector/customer-support-on-twitter) — 2,811,774 real tweets between customers and brand support accounts. It ships as a flat table, not conversations: threads have to be rebuilt from two inconsistent reply columns, either of which can be missing or name a tweet that is not in the file.",
+        "stats": [
+          {
+            "value": "2,811,774",
+            "label": "tweets, the full public dataset"
+          },
+          {
+            "value": "798,197",
+            "label": "conversations recovered from the reply graph"
+          },
+          {
+            "value": "146,506",
+            "label": "across 4 brands spanning four industries"
+          },
+          {
+            "value": "91,449",
+            "label": "modelled, after excluding outcomes that cannot be observed"
+          }
+        ],
+        "dataQuality": {
+          "label": "What this corpus is and isn't",
+          "items": [
+            "**The outcome is invisible for most of it.** 83% of conversations end with the customer simply not replying, and 45% of those end with the brand pushing them to DM or a link — so whatever happened next happened where this data cannot see it.",
+            "**Public tweets are a biased sample of support.** Angry customers tweet; the merely confused email. This describes the public face of a queue, not the queue.",
+            "**Two months, not nine years.** The nominal range runs 2008 to 2017, but 687 conversations predate 2017 — 99.2% open between October and December 2017. Nothing seasonal can be claimed.",
+            "**One brand dominates.** AmazonHelp is 56% of the 146,506 conversations, so any pooled figure is mostly an Amazon figure."
+          ]
+        },
+        "closingNote": "Data quality was better than expected in one respect: no duplicate tweet ids, no unparseable timestamps, and zero replies stamped before the tweet they answer — the last verified independently of the pipeline across all 2,013,577 edges with both ends present."
+      },
+      "surprisingPatterns": {
+        "label": "What the data turned out to be hiding",
+        "items": [
+          "**The fastest replies have the worst outcomes.** Conversations answered within 0-5m are left unanswered 28% of the time; those answered in 1-4h, 13%. The relationship is not even monotonic — it turns back up for the slowest replies.",
+          "**Every conversation a human couldn't judge had the same shape.** All 18 'can't tell' verdicts in the hand audit were threads where the customer ghosted after the brand replied. That is not indecision; it is the dataset refusing to answer.",
+          "**The model's strongest feature was one customer's account number.** Raw @mentions went into the vectoriser, so it was memorising individuals rather than reading language. Removing them cost 0.011 PR-AUC — the honest size of what memorisation was buying."
+        ]
       },
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",
         "items": [
-          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+          "**Expected:** faster first replies go with better outcomes. **Found:** the opposite, at -5.9pp per tenfold increase in reply time, holding within brand and within predicted difficulty, and surviving at -2.1pp when the censoring decision is reversed.",
+          "**Expected:** one of the four candidate definitions of 'went badly' would match human judgement. **Found:** all four were high-precision and low-recall — they agree when they fire and miss most of what a human calls bad. The rule a human was actually using wasn't among them.",
+          "**Expected:** bad outcomes are a small minority, as the brief assumed. **Found:** reweighting the hand audit back to the population puts it near 56%. The label used here fires on 13% — a strict observable subset of a problem a person reads as much larger."
+        ]
+      },
+      "deadEnds": {
+        "label": "What didn't work",
+        "items": [
+          "**The keyword rule support tools ship with.** PR-AUC 0.251 against a 0.230 base rate — close to useless, and worth knowing before buying one.",
+          "**VADER for detecting a resolved conversation.** It scores \"thanks for nothing, worst service ever\" at +0.735 — more positive than \"thank you, sorted!\" at +0.420. Sarcastic thanks is exactly how an angry customer signs off, so the resolution check needs an explicit negation list before sentiment is consulted at all.",
+          "**My own summary statistic for the reply-speed analysis.** The first version compared the slowest bucket to the fastest, and the slowest bucket has as few as 8 conversations inside some strata — the headline was being set by noise and flipped sign between neighbouring strata for that reason alone. Replaced with a size-weighted slope over cells of at least 100."
+        ]
+      },
+      "executionDeadEnds": {
+        "label": "What the build had to work around",
+        "items": [
+          "**The readable implementation could not run the real file.** One dict per tweet over 2.8M tweets is several GB, on a machine with 0.6 GB free. The reconstruction runs over flat arrays indexed by tweet id instead — the ids run 1 to 2,987,950 across 2,811,774 rows, so the id can be the index. Both implementations are pinned to each other against a hand-built 15-thread fixture, so the tested code is the code that touches the data.",
+          "**The transformer variant was starved, not impossible.** Encoding was killed outright on the first attempt and ran at 1.7 texts a second on the second. Measuring showed 14.5 a second at eight threads; the encoder now writes into a memory-mapped file and records its position, so a kill costs one batch of 32 rather than hours."
         ]
       },
       "methodology": [
         {
-          "heading": "Method — TBD",
-          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+          "heading": "Rebuild conversations from an inconsistent reply graph",
+          "description": "Parent pointers and child lists both go missing, and either can name a tweet that is not in the file (172,500 do). Walking parent pointers and trusting them loses threads, so the links are treated as one undirected graph and conversations are its connected components. Validated against a hand-built 15-thread fixture covering one-directional links, branching replies, brand-opened threads, dangling references, clock skew, duplicated rows and broadcast-sized pile-ups."
+        },
+        {
+          "heading": "Define the outcome by reading, not by asserting",
+          "description": "Nothing in the data says a conversation went badly. Four candidate definitions were implemented, then 100 conversations sampled — 25 per brand, every candidate represented, plus 20 that no candidate flagged — and read blind, with no indication of which rule had fired. **67 went badly, 15 did not, 18 could not be called.** The rule that emerged from that reading became the label: the customer was left talking to nobody and never said it got sorted. It agrees with the hand verdicts on 91% of what it flags, against a best of 43% recall for the four written in advance."
+        },
+        {
+          "heading": "Enforce the leakage boundary by perturbation, not by inspection",
+          "description": "Triage happens before anyone replies, so features may read only the first inbound message and labels only what comes after it. Reading the code and agreeing it looks clean is how leaks survive, so the tests rewrite every tweet after the opener and assert the features do not move, then rewrite the opener and assert the labels do not move. The sharpest consequence: \"sentiment worsens across the thread\" cannot mean \"worse than the opening message\", because the opener is the model's input."
+        },
+        {
+          "heading": "Exclude outcomes that cannot be observed",
+          "description": "55,057 conversations — 37.6% — end with the customer ghosting after the brand pushed them to a private channel. Labelling those \"did not go badly\" asserts something nobody observed, so they are censored: excluded from training and evaluation rather than counted as negatives. The cost is a smaller set and an exclusion to defend; the gain is a negative class that means what it says."
+        },
+        {
+          "heading": "Baseline first, then calibrate — because the threshold is staffing",
+          "description": "The keyword rule is reported before anything learned, so the model is measured against what a support tool actually ships rather than against zero. Split by time, not at random. Calibration mattered more than the headline: before it, a predicted 0.74 came back at 0.40 actual — useless for sizing a shift. Isotonic regression on a time-held-out slice fixed it, and compressed the range so nothing scores above 0.6, which is the model declining to call any single message more than coin-flip risky."
+        },
+        {
+          "heading": "Attack the reply-speed finding before believing it",
+          "description": "Confounding is the whole game: brands answer easy questions faster, and a queue having a bad day is slow and bad at once. The association is therefore recomputed within brand and within predicted-difficulty band, and then re-run with the censoring decision reversed — because a thread ending in \"DM us\" is both fast-replied and a negative, so deleting fast negatives could have invented the entire effect. It survives all three, at roughly half the magnitude."
         }
       ],
       "keyResults": {
         "label": "Key Results",
         "items": [
-          "[Placeholder] No results yet — analysis hasn't been run."
+          "**The model beats the shipped rule, modestly and honestly.** PR-AUC 0.361 against 0.251 for the keyword baseline, on a 23% base rate. Per brand it ranges 0.16 to 0.40.",
+          "**A fast lane one person can work.** At the worst 10% of the queue — 159 conversations a day — 44% go badly against 23% at random, catching 19% of all bad outcomes and leaving 295 a day unprioritised.",
+          "**Faster replies go with worse outcomes.** -5.9pp per tenfold increase in reply time; -4.8pp within brand; -3.2pp within predicted difficulty; -2.1pp with the censoring reversed.",
+          "**The hand audit changed the project.** All four pre-written definitions of 'went badly' missed most of what a human flags, and the definition that replaced them came out of an hour of reading rather than out of the spec."
         ]
       },
-      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "businessInterpretation": "For a support-ops lead there are two usable conclusions and one warning.\n\nRouting on a calibrated arrival score is worth doing: it roughly doubles the hit rate of a fast lane over working the queue in order, and the score is explainable per message, which is what makes it usable by a human rather than a black box nobody trusts.\n\nBut the fast lane is not coverage. At the chosen threshold most bad conversations still arrive through the normal queue, and any staffing plan that treats triage as a solution rather than a prioritisation will fail.\n\nThe warning is about speed. The relationship between first-reply time and outcomes runs the wrong way for the 'answer faster' theory, and while this is association rather than cause, it is enough to stop a team buying down response time before checking whether their fast replies resolve anything. The plausible mechanism — that fast replies are largely templated acknowledgements — is testable by that team on their own data, and cheaper to test than to assume.",
       "recommendations": {
-        "items": [],
+        "items": [
+          {
+            "tag": "Support operations",
+            "text": "Route on the score and staff for the miss rate. At the operating point the fast lane sees 44% bad outcomes against 23% in the general queue, but 295 bad conversations a day still arrive unprioritised."
+          },
+          {
+            "tag": "CX leadership",
+            "text": "Do not buy a faster SLA on this evidence. Test whether your fast replies resolve anything before spending on making them faster — in this data the quickest answers are associated with the worst endings."
+          },
+          {
+            "tag": "Anyone productionising this",
+            "text": "The blocker is not the model, it is the outcome. A public thread hides what happened for 83% of conversations; a real desk has the ticket system, which does not. Re-audit the label by hand periodically, because it is a judgement and judgements drift."
+          },
+          {
+            "tag": "Hiring manager",
+            "text": "The interesting hour of this project was reading 100 conversations and discovering that none of the four definitions written in advance matched what a person actually judges on — and that the cases a human cannot call are a property of the data, not of the human."
+          }
+        ],
         "limitations": [
-          "This is a placeholder page — no analysis has been performed yet."
+          "The outcome is unobservable for most conversations. 83% end with the customer not replying; those handed off to DM are excluded, and the rest stay in the negative class with outcomes just as unknown. That is a middle position, not a clean one.",
+          "The label is narrower than the problem. A hand audit puts the share of conversations that went badly near 56%; this label fires on 13%.",
+          "Public tweets are a biased sample — angry customers tweet, the merely confused email.",
+          "Two months and four brands, one of which is 56% of the data. No seasonality, no before-and-after, and pooled figures are mostly Amazon figures.",
+          "Reply speed is association only. Nobody randomised who got a fast reply, and stratifying by brand and difficulty narrows the named confounders without closing them."
         ],
         "nextSteps": [
-          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
-          "Define the specific business question and stakeholder",
-          "Build and validate the model / dashboard / pipeline",
-          "Replace this placeholder with the full SPIDER write-up"
+          "Test the templated-acknowledgement hypothesis directly: classify brand first replies as substantive or holding, and see whether the speed relationship survives inside each class",
+          "Re-run against a ticketing dataset where resolution is recorded, to measure how much the public-thread label was missing",
+          "Have a second reader audit the same 100 conversations to put an inter-rater number on a label that currently rests on one person's judgement"
         ]
+      },
+      "visuals": [
+        {
+          "title": "The queue, scored and explained",
+          "description": "A real day's incoming conversations ranked by risk at arrival, with the drivers behind each score in plain words and the fast-track line marked."
+        },
+        {
+          "title": "Reply speed against outcome",
+          "description": "Bad-outcome rate by first-reply bucket, overall and within each brand, with the censoring sensitivity alongside."
+        }
+      ],
+      "image": "images/projects/support-ticket-sentiment-tracker-card.png",
+      "links": {
+        "dashboard": "https://eileenip.github.io/support-triage/dashboard/",
+        "technicalFindings": "https://github.com/EileenIp/support-triage/blob/main/deliverables/support-triage-report.md",
+        "notebookRepo": "https://github.com/EileenIp/support-triage",
+        "caseStudyPage": "https://github.com/EileenIp/support-triage#readme"
       }
     },
     {
@@ -1445,7 +1594,8 @@
           "caption": "Across 271 days. A 'below 72% positive' rule fires on a quarter of the calendar; a 12-point single-day drop fires three times and every one was a real event.",
           "svg": "<svg viewBox=\"0 0 560 150\" role=\"img\" aria-label=\"A level threshold fires on 35 of 271 days with 29 false alarms; a 12-point single-day drop fires 3 times with none\"><text x=\"0\" y=\"24\" font-size=\"11\" class=\"viz-fill-text\">Level rule: below 72% positive</text><rect x=\"0\" y=\"30\" width=\"300\" height=\"18\" fill=\"#e0645a\" opacity=\"0.35\"/><rect x=\"0\" y=\"30\" width=\"249\" height=\"18\" fill=\"#e0645a\"/><text x=\"308\" y=\"43\" font-size=\"10\" class=\"viz-fill-text\">35 days fired &#183; 29 false alarms</text><text x=\"0\" y=\"84\" font-size=\"11\" class=\"viz-fill-text\">Change rule: 12pt single-day drop</text><rect x=\"0\" y=\"90\" width=\"26\" height=\"18\" fill=\"#4fbf8b\" opacity=\"0.35\"/><rect x=\"0\" y=\"90\" width=\"0\" height=\"18\" fill=\"#4fbf8b\"/><text x=\"34\" y=\"103\" font-size=\"10\" class=\"viz-fill-text\">3 days fired &#183; 0 false alarms</text><text x=\"0\" y=\"144\" font-size=\"9\" class=\"viz-fill-text-soft\">Solid = false alarms. Across 271 days.</text></svg>"
         }
-      ]
+      ],
+      "image": "images/projects/launch-sentiment-helldivers-2024-card.png"
     }
   ]
 }

@@ -36,3 +36,7 @@ venv/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Worker toolchain (analytics/worker) — wrangler is a dev dependency, not
+# something the site needs or Pages serves.
+node_modules/
