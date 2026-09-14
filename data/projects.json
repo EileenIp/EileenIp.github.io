@@ -1841,8 +1841,12 @@
         }
       ],
       "shapDrivers": null,
-      "links": null,
-      "image": null
+      "links": {
+        "technicalFindings": "https://github.com/EileenIp/steam-pricing-engagement/blob/main/NOTES.md",
+        "notebookRepo": "https://github.com/EileenIp/steam-pricing-engagement",
+        "caseStudyPage": "https://github.com/EileenIp/steam-pricing-engagement#readme"
+      },
+      "image": "images/projects/steam-f2p-vs-paid-engagement-2026-card.png"
     }
   ]
 }

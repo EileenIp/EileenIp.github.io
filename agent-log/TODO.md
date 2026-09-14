@@ -36,110 +36,6 @@ then `Todo` top-down.
 ## In progress
 <!-- Max 1–2 items. Things move here once a plan is approved. -->
 
-### Roadmap project 3 — F2P vs Paid: Pricing & Engagement on Steam (gaming)
-Started 2026-09-13. Repo: `portfolio-projects/steam-pricing-engagement` — its
-own git repo on `master`, two commits, nothing pushed anywhere.
-(Roadmap project 2 is also being built, in a parallel session; that session
-hasn't recorded itself here yet.)
-
-Checkpoints 0 and 1 cleared by Eileen 2026-09-13 — all three spec defaults:
-owner ranges as interval midpoint with every owner-dependent result re-run at
-both bounds; inclusion at released 2015+ and an owner-midpoint floor of 20,000
-(band-aligned — it drops SteamSpy's `0 .. 20,000` band exactly, and the
-survivorship bias gets stated on the page); median playtime forever as the
-headline metric with CCU per owner as the robustness check.
-
-- [x] Phase 0 — SteamSpy catalogue puller (`all` pages) + storefront
-      enrichment, disk cache, resume file, live-verified against both APIs
-- [x] Phase 1 — inclusion rule, owner-interval handling, sensitivity bounds,
-      cohort report broken down F2P vs paid; 40 pytest tests green
-- [x] Phase 2a — engagement metric rebuilt on Steam review payloads. SteamSpy
-      serves `median_forever` / `average_forever` / `median_2weeks` /
-      `average_2weeks` but all four are zero, for all 1,000 apps on the first
-      `all` page and for both spot-checked apps (verified live 2026-09-13), so
-      every playtime option Checkpoint 1b chose between was gone. Escalated
-      as a blocker, then settled: playtime now comes from
-      `author.playtime_forever` on the appreviews endpoint (populated — 200
-      reviewers, median 5,761.5 minutes for ELDEN RING) over the cheaper option
-      of promoting CCU per owner to headline. Reasoning, and the two new biases
-      it buys, are in the project README's "What didn't work" section. CCU per
-      owner is kept as a second metric on the full cohort. 50 tests green.
-- [x] Catalogue pull — 60s per `all` page, cached and resumable. This was the
-      in-flight status line; the same pull is recorded complete three items
-      below, with the two bugs it turned up. Kept rather than deleted so the
-      order the work actually happened in still reads straight.
-- [x] Phase 2a — genre stratification moved onto SteamSpy tags rather than Steam
-      storefront genres (Eileen, 2026-09-13). The storefront genres are three
-      broad buckets — ELDEN RING is "Action, RPG" — and the confound the project
-      corrects for lives at MOBA vs Souls-like. Two guards were needed before
-      tags were usable: business-model tags are excluded by name (Dota 2's top
-      tag is "Free to Play" at 60,040 votes, three times the next, so a top-tag
-      rule would have made the strata a restatement of the pricing model and
-      left no cell containing both), and the vocabulary is an explicit allowlist
-      because most high-voted tags are descriptors, not genres. Ships with a
-      coverage audit (`python -m src.cohort coverage`) that reports the
-      classified share split by pricing model and names the tags worth adding.
-      Live-verified: ELDEN RING strata as Souls-like. 58 tests green.
-- [x] Genre vocabulary audited against a seeded 1,000-game sample (2026-09-13).
-      It did not need extending — coverage was 99.3%, and the misses were not
-      missing genres but software (Utilities, Design & Illustration, VR), now
-      excluded on the storefront's own labels: 13 of 1,000 sampled apps. What
-      it did need was tiering. Ranking eligible tags by votes put 65% of the
-      cohort in a broad bucket (Action/Adventure/Casual alone 40%), because
-      Steam's umbrella tags out-vote the informative ones — no better than the
-      storefront genres tags replaced. Specific tags now beat umbrellas
-      regardless of votes; broad-bucket share fell to 18%.
-- [x] Catalogue pull complete: 27,021 apps, 26,017 above the owner floor. Two
-      bugs fixed on the way — the owner floor used `>=`, which readmitted the
-      `0 .. 20,000` band at the upper sensitivity bound (the band the floor
-      exists to drop), and the pull had no early stop despite `all` being
-      sorted by owners descending, so it was fetching pages of excluded apps at
-      60s each.
-- [x] **Full enrichment complete — all 26,017 apps, 2026-09-13.** The audit had
-      settled that this was not optional: F2P is ~16% of the cohort, so spread
-      across 84 strata only one genre had 8+ games of each pricing model at
-      sample scale, and the within-genre correction had nothing to stand on
-      until the full pull ran. Verified rather than assumed: `resume.json`
-      records 26,017 enriched against 26,017 candidates, with 26,017 cached
-      `store_app` payloads and 26,018 `steamspy_app`, and a seeded random sample
-      of 200 storefront payloads came back with zero failures and zero empties.
-- [x] Phase 2b machinery built and validated on the audit sample (2026-09-13):
-      naive comparison, within-genre correction pooled by pairwise weight,
-      price bands, release-year cohorts, all at three owner bounds. Mann-Whitney
-      with tie and continuity corrections plus Cliff's delta, hand-written to
-      keep the dependency list at three. Includes a Simpson's-paradox test so
-      the correction is shown to reverse a naive result, not just adjust it.
-      The sample run produced no conclusion, for a recorded reason: more than
-      half the cohort has ccu 0 (56% f2p, 51% paid), so the CCU metric is mostly
-      ties and the one usable genre cell is 86% tied at zero. Tie share is now
-      printed beside every result. This is a second, independent argument for
-      not having made CCU the headline metric.
-- [x] Phase 2b complete (2026-09-13). Full enrichment landed (26,017 apps, 7
-      failures in 52,034 fetches); cohort 20,761 games. Playtime pull complete:
-      3,497 games, 0 failures, 2,797 usable after dropping 700 with fewer than
-      30 reviewers. **Result: F2P median 124 minutes against paid 530.** Cliff's
-      delta -0.457 naive, -0.482 genre-adjusted over 58 genres, identical at all
-      three owner bounds. The spec expected the naive gap to prove mostly a
-      genre effect; it is wrong twice over — there is no F2P advantage to
-      explain, and the genre correction makes paid's lead slightly larger. F2P
-      wins only in Clicker, ties in Idler, loses everywhere else including
-      MMORPG. Price beats pricing model as a signal (233 min in the 0-10 AUD
-      band rising to 2,484 in 60+). Attrition is uneven (22.5% of paid dropped
-      vs 16.5% of f2p), biasing toward overstating the gap — written into the
-      project README, not buried.
-- [ ] **Checkpoint 2 (Eileen): the interpretation.** The numbers are in; what
-      gets claimed from them has to be defensible in Eileen's own words. Gates
-      the write-ups, not the dashboard.
-- [ ] Phase 3 — dashboard. Hero is the naive-vs-genre-adjusted comparison side
-      by side. One spec assumption to revisit: it asks for an uncertainty ribbon
-      from the owner-range bounds, but the bounds move results by 0.001, so that
-      ribbon would be invisible. The real uncertainty is the 20% reviewer
-      attrition and the thin cells — worth showing that instead, and saying why.
-- [ ] Phase 4 — deck, 3-4 page report, website case study, plus Eileen's "what
-      didn't work" / limitations / recommendation.
-- [ ] `NOTES.md` decision log, written by hand — in the spec's definition of
-      done, still outstanding.
-
 ### Roadmap project 4 — Support Triage: Which Conversations Are About to Go Bad (customer experience)
 Started 2026-09-13 on Eileen's ask. Repo: `portfolio-projects/support-triage` —
 its own git repo on `master`, nothing pushed anywhere. Full spec:
@@ -490,6 +386,29 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-15 — **Roadmap project 3 — F2P vs Paid: Pricing & Engagement on
+      Steam. Built, written up and shipped.** Repo:
+      `github.com/EileenIp/steam-pricing-engagement` (public, 105 tests).
+      **Finding:** free games are played a quarter as long as paid ones — 124
+      median minutes against 530 — and the within-genre correction that was
+      meant to explain the gap widened it instead (-0.457 to -0.482 across 58
+      genres). Free wins only in Clicker, ties in Idler, loses everywhere else
+      including MMORPG. Price beats pricing model as a predictor: 233 min in the
+      0-10 AUD band rising to 2,484 in 60+. All three owner bounds agree to
+      0.001, so the Checkpoint 0 interval decision does not drive the result.
+      **What didn't work, written up rather than hidden:** the planned headline
+      metric died — SteamSpy still serves the playtime fields but they are all
+      zero — so playtime was rebuilt on Steam review payloads; genre
+      stratification needed a circularity guard (Dota 2's top tag is "Free to
+      Play" at 60,040 votes) and a specificity tier (a votes-only rule put 65%
+      of the cohort in umbrella buckets). **Shipped:** case study live on the
+      site (PR #6), 4-page report, 9-slide deck, self-contained dashboard,
+      `NOTES.md` decision log, card image screenshotted from the real dashboard.
+      **Still Eileen's:** Checkpoint 2 — the interpretation across all four
+      deliverables is currently the agent's, and the two claims that need to be
+      hers are named in `NOTES.md`.
+
 
 - [x] 2026-09-13 — **Site polish pass: social card, job tracker, project
       images.** Three items off one ask ("I have credit, what should I spend
