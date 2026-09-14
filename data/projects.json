@@ -1177,6 +1177,7 @@
         "Python",
         "scikit-learn",
         "TF-IDF",
+        "MiniLM",
         "VADER",
         "pandas",
         "pytest"
@@ -1275,6 +1276,7 @@
         "items": [
           "**The keyword rule support tools ship with.** PR-AUC 0.251 against a 0.230 base rate — close to useless, and worth knowing before buying one.",
           "**VADER for detecting a resolved conversation.** It scores \"thanks for nothing, worst service ever\" at +0.735 — more positive than \"thank you, sorted!\" at +0.420. Sarcastic thanks is exactly how an angry customer signs off, so the resolution check needs an explicit negation list before sentiment is consulted at all.",
+          "**The transformer variant — which won, and still was not shipped.** MiniLM embeddings replacing TF-IDF score 0.374 PR-AUC against 0.361, a real gain (95% CI [+0.005, +0.019] over 400 paired bootstrap resamples, ahead in every one). It buys nothing where the decision is made — 19.2% against 19.0% of bad outcomes caught at the operating point, the same rota — and it costs the plain-words explanation the dashboard runs on, which is exact for a linear model over TF-IDF terms and unavailable for embeddings.",
           "**My own summary statistic for the reply-speed analysis.** The first version compared the slowest bucket to the fastest, and the slowest bucket has as few as 8 conversations inside some strata — the headline was being set by noise and flipped sign between neighbouring strata for that reason alone. Replaced with a size-weighted slope over cells of at least 100."
         ]
       },
@@ -1282,7 +1284,7 @@
         "label": "What the build had to work around",
         "items": [
           "**The readable implementation could not run the real file.** One dict per tweet over 2.8M tweets is several GB, on a machine with 0.6 GB free. The reconstruction runs over flat arrays indexed by tweet id instead — the ids run 1 to 2,987,950 across 2,811,774 rows, so the id can be the index. Both implementations are pinned to each other against a hand-built 15-thread fixture, so the tested code is the code that touches the data.",
-          "**The transformer variant was starved, not impossible.** Encoding was killed outright on the first attempt and ran at 1.7 texts a second on the second. Measuring showed 14.5 a second at eight threads; the encoder now writes into a memory-mapped file and records its position, so a kill costs one batch of 32 rather than hours."
+          "**Encoding for the transformer variant was starved, not impossible.** It was killed outright on the first attempt and ran at 1.7 texts a second on the second. Measuring showed 14.5 a second at eight threads; the encoder now writes into a memory-mapped file and records its position, so a kill costs one batch of 32 rather than hours."
         ]
       },
       "methodology": [
