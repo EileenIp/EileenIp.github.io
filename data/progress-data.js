@@ -31,7 +31,12 @@ const PROGRESS_DATA = {
     {
       "month": "September",
       "year": 2026,
-      "entry": "I’ve been refining my advertising and sales dashboard, including advertiser views, sales activity and follow-up indicators. I’m also looking for suitable data for a player churn and LTV project. That project is paused at the dataset stage: I want to be clear about what the data can support before I build a model.\n\nI’ve organised my internship applications, BSAN4201 work and portfolio ideas into a shared goal list. The immediate focus is applications and the October presentation, with website improvements alongside them."
+      "links": [
+        { "label": "Support triage", "href": "projects.html?project=support-ticket-sentiment-tracker" },
+        { "label": "Launch sentiment", "href": "projects.html?project=launch-sentiment-helldivers-2024" },
+        { "label": "Ad creative pipeline", "href": "projects.html?project=ad-creative-performance-pipeline" }
+      ],
+      "entry": "Three projects reached a finished state this month: an ad creative pipeline built to survive a deliberately messy upstream, a launch sentiment study of a game’s review history, and a support triage model that scores a customer’s first message as it arrives. Two of the three ended somewhere I wasn’t expecting — the early-warning idea behind the sentiment project didn’t hold up, and in the triage project faster replies went with worse outcomes rather than better. Those are the ones I’d rather be asked about.\n\nThe triage project also changed how I think about labelling. Nothing in the data said which conversations went badly, so I read a hundred of them myself and decided one at a time. None of the four definitions I’d written in advance matched what I was actually judging on, and the conversations I couldn’t call turned out to share a shape — the customer simply stops replying, and the ending happens somewhere the data can’t see.\n\nA fourth project, comparing free-to-play and paid games on Steam, has its analysis done but not its write-up. The result contradicts what I assumed going in, so I want to be clear about what can honestly be claimed from it before it goes on the site.\n\nOn the site itself I rebuilt the job tracker around application stages, added proper link previews and icons, and gave every project a real image. Next is applications and my BSAN4201 presentation on 12 October."
     },
     {
       "month": "August",
