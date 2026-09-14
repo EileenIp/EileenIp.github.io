@@ -32,6 +32,9 @@ SOURCES = {
         "shot": "https://eileenip.github.io/launch-sentiment/dashboard/"},
     "subscriber-churn-retention-2026": {
         "shot": (REPOS / "subscriber-churn-ltv" / "docs" / "index.html").as_uri()},
+    # Self-contained: the dashboard embeds its data, so file:// renders fully.
+    "steam-f2p-vs-paid-engagement-2026": {
+        "shot": (REPOS / "steam-pricing-engagement" / "dashboard" / "index.html").as_uri()},
     "creator-content-decision-dashboard-2026": {
         "fetch": "https://raw.githubusercontent.com/EileenIp/"
                  "creator-content-decision-dashboard/main/dashboard.png"},
