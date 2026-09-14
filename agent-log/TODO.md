@@ -190,17 +190,79 @@ triage plus a reply-speed analysis on Twitter support threads here.
       perturbation tests in both directions: rewrite the thread after the
       opening message and the features must not move, rewrite the opener and the
       labels must not move. 74 tests green.
-- [ ] **Eileen: read 40 conversations in `portfolio-projects/support-triage/label.html`**
-      (~1 hour). Open it, answer "did this go badly for the customer?" with
-      Y / N / ?, then Export and save `audit-verdicts.json` into
-      `data/validation/`. Verdicts persist if interrupted. The page never shows
-      which candidate flagged a conversation — the audit is blind on purpose, so
-      it measures judgement rather than agreement with a hint. The sample is 25
-      per brand and includes 20 threads no candidate flagged at all.
-      Then `python -m src.score_audit` ranks the four against those verdicts and
-      Checkpoint 1 is the pick. Per the spec this reading session is the single
-      best interview story in the project, so it is worth writing down what the
-      borderline ones felt like while reading them.
+- [x] Checkpoint 1 (Eileen, 2026-09-15): she read all 100, not the 40 asked for —
+      67 bad, 15 not, 18 can't tell. Three findings, full evidence in
+      `data/validation/checkpoint1-findings.md`:
+      (a) all four of the spec's candidates are high-precision, low-recall — they
+      agree when they fire and miss most of what she calls bad. The rule she was
+      actually using was not among them, and is now implemented as
+      **`left_unanswered`**: the thread ends on a customer message that doesn't
+      say it got sorted. 91% precision against her reading, 13.4% of the subset.
+      (b) all 18 of her can't-tells are the ghosting case, which is 83% of the
+      corpus, 45% of it ending on a push to DM or a link — for most conversations
+      the outcome happens where this data cannot see it. Her difficulty was the
+      dataset answering, not indecision.
+      (c) reweighting her sample to the population puts P(went badly) near 0.56,
+      range 0.34–0.78. Bad outcomes are probably **not** the minority class the
+      spec assumes; the label carried forward is a strict observable subset of a
+      problem a human reads as much larger.
+      Also decided: ghosted-after-handoff conversations (37.6%) are **censored**,
+      excluded rather than counted as negatives, since calling them "not bad"
+      asserts something nobody observed.
+- [x] Phase 2 — modelling set 91,449 after censoring, 21% positive, split by time
+      at 2017-11-16. Keyword baseline PR-AUC 0.251 against a 23% base rate;
+      TF-IDF + logistic regression 0.368, catching 19% of bad outcomes in the
+      worst 10% of the queue. Two defects the first run exposed and fixed: the
+      model's strongest feature was a customer's account number (raw @mentions in
+      TF-IDF — memorising individuals, worth only 0.011 PR-AUC), and calibration
+      failed exactly where triage uses it (predicted 0.74, actual 0.40). Isotonic
+      on a time-held-out slice now tracks, and compresses the range so nothing
+      scores above 0.6 — the model admitting it cannot call anyone more than
+      coin-flip risky. 108 tests green.
+- [x] Checkpoint 2 (Eileen, 2026-09-15): fast-track the worst **10%** of the
+      queue, score over 0.40. Her defence in staffing terms: one handler's shift
+      is ~160 conversations and the lane is 159 a day, seeing 44% bad outcomes
+      against 23% in the queue at large. Tightening to 5% barely moves precision
+      and gives up half the bad outcomes; widening to 25% is close to not
+      prioritising. It leaves 295 bad conversations a day unprioritised, and that
+      number goes in the write-up next to the first.
+- [x] Phase 3 — **the counterintuitive result, and it survives the controls.**
+      Faster first replies go with *worse* outcomes: -5.9pp per tenfold increase
+      in reply time, -4.8pp within brand, -3.2pp within predicted-difficulty
+      band. Reversing the censoring decision halves it (-2.1pp) but does not
+      change its sign, so the exclusion amplifies the finding rather than
+      creating it. Stated as association throughout — nobody randomised who got
+      a fast reply. Also threw out the first summary statistic, which was being
+      set by buckets holding as few as 8 conversations.
+- [x] Phase 4 — all four deliverables built from the pipeline's own artifacts:
+      self-contained dashboard (hero is a real day's queue, ranked, with per-
+      message drivers in plain words and a reveal-the-outcome toggle), 4-page
+      report (.md + .docx), 9-slide deck (.pptx), and the website case study,
+      which **replaced the `support-ticket-sentiment-tracker` placeholder in
+      `data/projects.json`** and kept its id so the deep link still resolves.
+      128 tests green, 9 commits, nothing pushed anywhere.
+- [ ] **Eileen: rewrite the three reserved sections.** Limitations, "What didn't
+      work" and the Recommendation are drafted in
+      `deliverables/support-triage-report.md`, each marked
+      `[DRAFT — EILEEN TO REPLACE]` (a test enforces the marker). They are the
+      sections an interviewer probes hardest and they should be in her words.
+- [ ] **Eileen: review the site diff before committing it.** `data/projects.json`
+      and the card image are modified in the working tree, not committed —
+      166 insertions confined to the one entry.
+- [ ] Repo has no git remote, so the case study ships without links by design
+      (dead links are worse than none). Create `EileenIp/support-triage`, push,
+      then re-run `python -m src.case_study --write` and the dashboard/report
+      links appear automatically.
+- [ ] Transformer variant still encoding (16,000 of 91,449 when Phase 4 landed).
+      Resumable, so it survives a kill. If it finishes it gets added to the model
+      comparison; if it does not, cutting a model variant is the trim this
+      project's spec nominates, and the reply-speed half it protects is done.
+- [x] The 40-conversation audit — done 2026-09-15, all 100 read. Her own account of
+      the judgement, which is the interview answer and is quoted in the findings
+      file: customers usually ghost after receiving a reply; ghosting after asking
+      for assistance reads as bad, ghosting after a plain question reads as
+      undecidable; staff not replying is bad; staff asking for a response and
+      getting none is bad; a customer coming back to say it's solved is fine.
 
 ### Site — self-hosted analytics (Cloudflare Workers + D1)
 Started 2026-09-13 on Eileen's ask. This session owns it; the resume builder
