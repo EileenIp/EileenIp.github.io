@@ -310,17 +310,6 @@
       "updatedAt": "2026-09-07T21:33:30.386Z"
     },
     {
-      "id": "plan-20260908-project-churn",
-      "title": "Backlog — Player churn + LTV: resolve Checkpoint 0 dataset",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Recover the agreed specification, define minimum dataset requirements, shortlist sources and inspect samples for usable player activity and spending histories. Decide whether to proceed or adjust scope.",
-      "handoff": "Currently paused at Checkpoint 0. Break down implementation after dataset approval. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
       "id": "plan-20260908-project-sentiment",
       "title": "Backlog — Launch sentiment: choose launch and test data access",
       "owner": "Claude",
@@ -954,6 +943,27 @@
         "handoff": "Then replace sample data, validate calculations and refresh the case study. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
         "updatedAt": "2026-09-08T07:53:10.000Z"
       }
+    },
+    {
+      "id": "0dc2e6ab-ce07-4dd0-a550-64caab8d8de4",
+      "taskId": "plan-20260908-project-churn",
+      "title": "Backlog — Player churn + LTV: resolve Checkpoint 0 dataset",
+      "actor": "Claude",
+      "at": "2026-09-14T17:30:42.397Z",
+      "action": "Deleted",
+      "notes": "Deleted at Eileen's request (2026-09-15 AEST, recorded 2026-09-14 UTC above). The item had been paused at Checkpoint 0 since 2026-09-08 with no dataset agreed, and it is not one of the six roadmap projects. The built Subscriber Churn + LTV project (KKBox) is separate work and is unaffected. The September progress entry no longer mentions this idea either, so nothing on the site now refers to it. Full task recorded below; recreate from this snapshot if it comes back.",
+      "before": {
+        "id": "plan-20260908-project-churn",
+        "title": "Backlog — Player churn + LTV: resolve Checkpoint 0 dataset",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Recover the agreed specification, define minimum dataset requirements, shortlist sources and inspect samples for usable player activity and spending histories. Decide whether to proceed or adjust scope.",
+        "handoff": "Currently paused at Checkpoint 0. Break down implementation after dataset approval. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
     }
   ]
 }
