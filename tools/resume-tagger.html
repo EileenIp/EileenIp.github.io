@@ -73,6 +73,12 @@
   select { font: inherit; font-size: 13px; background: var(--bg); color: var(--text);
            border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; max-width: 460px; }
   .note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .storage-warning {
+    margin: 12px 0 0; padding: 10px 14px; border-radius: 8px;
+    border: 1px solid var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent);
+    color: var(--text); font-size: 13.5px; line-height: 1.5;
+  }
+  .storage-warning[hidden] { display: none; }
   .export-status { margin: 10px 0 0; font-size: 13px; color: var(--muted); min-height: 1.2em; }
   .export-status.ok { color: var(--ok); }
   .export-status.bad { color: var(--warn); }
@@ -95,6 +101,7 @@
     <button type="button" id="copy">Copy to clipboard</button>
     <button type="button" class="primary" id="export">Export resume.json</button>
   </div>
+  <p id="storage-warning" class="storage-warning" role="alert" hidden></p>
   <p id="export-status" class="export-status"></p>
   <textarea id="export-dump" hidden readonly spellcheck="false"
             aria-label="Corrected resume.json, for copying by hand"></textarea>
@@ -139,7 +146,42 @@
   var base = null;   // resume.json as generated
   var edits = {};    // { projects: {id: {roles, industries}}, featured: {role: [ids]} }
 
+  var storageBroken = false;
+
+  /**
+   * Prove localStorage actually persists before any tagging is done.
+   *
+   * This used to be assumed. On 2026-09-15 Eileen tagged all 29 projects, the
+   * header counted up the whole time -- it reads the in-memory object, not
+   * storage -- and every write had silently failed, so reopening the page
+   * showed nothing. An hour of work, no warning. A private window, or a
+   * browser set to block site data, is enough to cause it.
+   */
+  function storageWorks() {
+    try {
+      var probe = STORAGE + "-probe";
+      localStorage.setItem(probe, "1");
+      var ok = localStorage.getItem(probe) === "1";
+      localStorage.removeItem(probe);
+      return ok;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function warnStorage() {
+    storageBroken = true;
+    var bar = document.getElementById("storage-warning");
+    bar.hidden = false;
+    bar.textContent =
+      "This browser is not saving your progress — it is blocking site data, " +
+      "which a private window does by default. Your tagging is held in this " +
+      "tab only: closing or reloading it loses everything. Use Copy to " +
+      "clipboard as you go, or switch to a normal window and start again.";
+  }
+
   function load() {
+    if (!storageWorks()) { edits = { projects: {}, featured: {} }; return; }
     try {
       var raw = localStorage.getItem(STORAGE);
       edits = raw ? JSON.parse(raw) : {};
@@ -148,9 +190,19 @@
     if (!edits.featured) edits.featured = {};
   }
 
+  /** Write, then read it back. A write that did not persist is a failure. */
   function save() {
-    try { localStorage.setItem(STORAGE, JSON.stringify(edits)); }
-    catch (err) { /* a private window just loses the autosave */ }
+    var payload = JSON.stringify(edits);
+    try {
+      localStorage.setItem(STORAGE, payload);
+      if (localStorage.getItem(STORAGE) !== payload) throw new Error("did not persist");
+      if (storageBroken) {
+        storageBroken = false;
+        document.getElementById("storage-warning").hidden = true;
+      }
+    } catch (err) {
+      warnStorage();
+    }
     renderProgress();
   }
 
@@ -195,7 +247,8 @@
     var f = Object.keys(edits.featured).length;
     document.getElementById("progress").textContent =
       n + " of " + base.projects.length + " projects edited" +
-      (f ? ", " + f + " role order" + (f > 1 ? "s" : "") + " changed" : "");
+      (f ? ", " + f + " role order" + (f > 1 ? "s" : "") + " changed" : "") +
+      (n || f ? (storageBroken ? " — NOT SAVED" : " — saved") : "");
   }
 
   function renderProjects() {
@@ -419,6 +472,7 @@
     .then(function (json) {
       base = json;
       load();
+      if (!storageWorks()) warnStorage();
       render();
       document.getElementById("export").addEventListener("click", exportJson);
       document.getElementById("copy").addEventListener("click", copyJson);
