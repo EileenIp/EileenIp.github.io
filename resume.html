@@ -80,8 +80,14 @@
         </div>
       </div>
 
-      <div class="card rb-preview">
-        <div class="label-sm accent">What's on it</div>
+      <!-- The whole point of this page is that changing a control rewrites this
+           panel. Without a live region a screen reader user picks a role and
+           hears nothing, then has to go hunting for what moved. Polite rather
+           than assertive: it should not interrupt, only be announced once the
+           user pauses. -->
+      <div class="card rb-preview" role="region" aria-live="polite"
+           aria-label="What's on your resume">
+        <div class="label-sm accent" aria-hidden="true">What's on it</div>
 
         <div class="rb-preview-block">
           <div class="label-xs">Selected projects</div>
