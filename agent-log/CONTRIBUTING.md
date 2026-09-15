@@ -55,7 +55,10 @@ A page missing 3–4 of these is a page worth flagging in `TODO.md`.
   own words. If a number is needed and unavailable, write `[NUMBER NEEDED]`
   and raise it under "Needs Eileen" in `TODO.md`.
 - **Never push to `main`.** All work goes on a branch named
-  `agent/YYYY-MM-DD`. Eileen merges.
+  `agent/YYYY-MM-DD`, and reaches `main` through a pull request that Eileen
+  merges. Push the branch, open the PR, hand her the link — do not merge it
+  yourself, and do not merge locally and push the result. "Merge it into
+  main" means get it merged, not skip the PR. See Commits below.
 - **Never delete a project page or a project's assets.** Archiving or
   de-listing is Eileen's decision, not something to action unasked.
 - **Never overstate.** If something was small-scale, exploratory, or built on
@@ -107,21 +110,26 @@ there and findable in under 90 seconds.
   (`theme: jekyll-theme-minimal`) but no front matter and no Liquid tags
   (`{{ }}` / `{% %}`) in any `.html` file, and no Gemfile — the theme isn't
   actually applied to these hand-built pages.
-- **Deploy:** GitHub Pages, presumably built from `main` (repo's only branch;
-  no `.github/workflows` folder, so no custom Actions pipeline — this is
-  GitHub's default Pages build). Could not confirm the exact Pages source
-  setting (branch/folder) from repo files alone — that lives in the GitHub
-  repo settings, not the checkout.
+- **Deploy:** GitHub Pages, built from `main`. No `.github/workflows` folder,
+  so this is GitHub's default Pages build rather than a custom Actions
+  pipeline. Confirmed live 2026-09-15: a merge to `main` was serving at
+  `https://eileenip.github.io` within a minute. Assets come back with
+  `Cache-Control: max-age=600`, so a returning visitor can run the previous
+  version of a JS or CSS file for up to ten minutes after a deploy — worth
+  remembering before concluding a change did not ship.
 - **Project pages:** `projects.html` fetches `data/projects.json`
   (`js/projects.js:914`, `fetch('data/projects.json')`) and renders cards +
   a modal client-side, filterable by `industry` / `projectType` /
   `serviceType` / `tools`. Deep-linking via `?project=<slug>` opens a
   project's modal directly.
-- **Adding a project:** add/edit an entry in `data/projects.json`. There's a
-  helper tool at `tools/project-entry-form.html` — a standalone form that
-  builds a project JSON object and lets you load an existing
-  `projects.json`, fill in fields, then download/copy the updated file.
-  There's also `tools/add-entry.html` (not inspected in depth).
+- **Adding a project:** add/edit an entry in `data/projects.json` by hand.
+  This used to point at `tools/project-entry-form.html` and
+  `tools/add-entry.html`; both were deleted in `03e9ad3` ("remove entry
+  forms") and the pointer outlived them.
+- **`tools/`** holds standalone pages Eileen uses, not pages the site links
+  to. Currently one: `resume-tagger.html`, where she corrects the drafted
+  role and industry tags behind the resume builder. They need the site served
+  locally, since they fetch from `data/`.
 - **Local preview:** `.claude/launch.json` defines a `static-site` config —
   `python -m http.server 5500` — i.e. serve the repo root and open
   `http://localhost:5500`.
@@ -132,12 +140,29 @@ there and findable in under 90 seconds.
 
 ---
 
-## Commits
+## Commits and pull requests
 
 - One commit per task, not one commit per file.
 - Message format: `<area>: <what changed>` — e.g.
   `projects: add limitations section to ecommerce funnel writeup`
 - Never force-push. Never rewrite history on a pushed branch.
+
+Landing work:
+
+```bash
+git checkout -b agent/YYYY-MM-DD-short-topic
+# ... commit ...
+git push -u origin agent/YYYY-MM-DD-short-topic
+gh pr create --fill          # then give Eileen the link
+```
+
+Eileen merges. `main` deploys straight to the live site on merge, so the PR
+is the only place a change can be looked at before recruiters see it — that
+is the whole reason this step exists, not ceremony.
+
+Two sessions have shared this checkout before and both committed onto one
+branch (2026-09-13, recorded in `TODO.md`). If `git log` shows commits you
+did not write, say so rather than quietly folding them into your own PR.
 
 ---
 
