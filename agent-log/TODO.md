@@ -294,6 +294,28 @@ honestly. **Tag review:** a browser tool, like `label.html`.
       the slug where `analytics/README.md` documented a human-readable label,
       which would have made the dashboard's roles table read "data-analyst".
       It now sends both.
+- [x] **Five built projects added to the CV (2026-09-16), on Eileen's explicit
+      ask.** `scripts/add_cv_projects.py` writes
+      `career/cv/CV 2026 working (5 projects added).docx` — a NEW file; the
+      master is untouched until Eileen swaps it in. Launch Sentiment, Steam
+      F2P, Support Triage, Subscriber Churn and Ad Creative Pipeline, each
+      with a real GitHub link and bullets whose every number comes from
+      `data/projects.json`. Formatting is cloned from the Vendor Performance
+      entry rather than rebuilt, so tab stops, numbering and fonts are the
+      CV's own. Verified: zip intact, all XML well-formed, 34/34 hyperlinks
+      resolve, and the CV parser reads 29 -> 34 projects. NOT verified: how
+      Word renders it — no LibreOffice on this machine, so Eileen should open
+      it before trusting the layout.
+      — *Streaming Engagement was deliberately left out. Its repo is empty and
+      its own impact stat reads "Placeholder — project not yet built". This
+      corrects my earlier claim that six built projects were missing; it was
+      five.*
+- [ ] Once Eileen swaps the new CV in as the master, re-run
+      `scripts/build_resume_json.py` so the builder picks up the five. That
+      adds Gaming to the industry picker, which currently has no gaming
+      option at all despite gaming being the first target domain — and it
+      gives Data Engineer more than the three projects it scrapes by on.
+      The five arrive with drafted tags like the rest.
 - [ ] **Eileen: correct the drafted tags in `tools/resume-tagger.html`**
       (~20 minutes). Serve the site locally, open it, fix any project tagged
       for a role it doesn't really support, then Export and replace
