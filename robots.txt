@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Eileen's working tools, not portfolio pages. They are reachable by URL and
+# harmless if found -- this keeps them out of search results, not out of reach.
+Disallow: /tools/
+
 Sitemap: https://eileenip.github.io/sitemap.xml
