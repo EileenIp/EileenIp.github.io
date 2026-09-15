@@ -214,14 +214,15 @@ are in `analytics/README.md`.
       this site's dark surface rather than picked by eye — all six checks
       pass. Verified end to end against a mock `/stats`: tiles, chart,
       tooltip, all five tables, 375px with no overflow.
-- [ ] Resume-download event — the mechanism is built (`data-track="download"`,
-      optional `data-track-meta` JSON, `window.track()`), and the dashboard
-      already has the tile and a roles table reading
-      `json_extract(meta,'$.role')`. Both read zero until the resume builder
-      ships and fires the event. **Not wired to the current Resume buttons on
-      purpose: they do nothing, and counting clicks on a dead button is worse
-      than no number.** Contract for the builder session is in
-      `analytics/README.md`.
+- [x] Resume-download event — **wired 2026-09-15.** `resume.html` shipped and
+      fires `download` with `{ role, roleLabel, industry, youtube }`, verified
+      end to end against a stubbed endpoint. The roles query now prefers
+      `$.roleLabel` and falls back to `$.role`, so the table reads "Data
+      Analyst" rather than "data-analyst" while still grouping on a stable
+      slug. The warning this line used to carry — don't track the placeholder
+      Resume buttons because they do nothing — is retired: they link to
+      `resume.html` now. Still reads zero until Checkpoint 0 puts the Worker
+      online.
 - [ ] Interim hosted counter — still open, still Eileen's call. Every day
       without one is traffic that cannot be recovered later, and the Worker
       cannot go live until Checkpoint 0.
@@ -229,8 +230,9 @@ are in `analytics/README.md`.
 ### Site — recruiter-personalised resume builder
 Started 2026-09-13 on Eileen's ask. **Built 2026-09-13** in this session, not
 the parallel one that first claimed it — that session left no files, so this
-one took it over on Eileen's ask. Live at `resume.html`, on branch
-`agent/2026-09-13-resume-builder`, not merged.
+one took it over on Eileen's ask. **Merged via PR #1 and live at
+`https://eileenip.github.io/resume.html`** — verified in production
+2026-09-15: all four roles build a one-page PDF in the browser.
 
 Reframed by Eileen 2026-09-13, and the reframing is the whole design: the
 recruiters who download the CV from the site are cold — she has not sent
@@ -288,6 +290,10 @@ honestly. **Tag review:** a browser tool, like `label.html`.
 - [x] The two "Resume" buttons on the homepage were `<button>` elements with
       no handler and had never done anything. They now go to `resume.html`,
       which also joins the nav on every page.
+- [x] Role labels in the analytics meta (2026-09-15). The builder was emitting
+      the slug where `analytics/README.md` documented a human-readable label,
+      which would have made the dashboard's roles table read "data-analyst".
+      It now sends both.
 - [ ] **Eileen: correct the drafted tags in `tools/resume-tagger.html`**
       (~20 minutes). Serve the site locally, open it, fix any project tagged
       for a role it doesn't really support, then Export and replace

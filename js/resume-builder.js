@@ -127,7 +127,12 @@
 
     var btn = el("download");
     btn.dataset.trackMeta = JSON.stringify({
+      // Both, deliberately. `role` is the slug, which is what makes a row from
+      // today still group with one from a year from now if a role gets
+      // renamed; `roleLabel` is what the dashboard shows, so the table reads
+      // "Data Analyst" rather than "data-analyst".
       role: sel.roleId,
+      roleLabel: sel.roleLabel,
       industry: state.industry || null,
       youtube: state.youtube,
     });

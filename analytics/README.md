@@ -125,17 +125,29 @@ Known kinds are allowlisted in `worker.js` — `pageview`, `download`,
 `resume_build`, `outbound`. Anything else is rejected rather than stored, so
 add the kind there first.
 
-### For the resume-builder session
+### The resume builder — wired 2026-09-15
 
-The dashboard already has a "Resume downloads" tile and a roles table wired
-to `json_extract(meta, '$.role')`. Both read zero until the builder ships.
-To light them up, fire `download` on the actual download with
-`{ role: "<the role the visitor picked>" }` as meta, and `resume_build` if
-you want the picker interaction counted separately from the download.
+`resume.html` shipped 2026-09-13 and fires `download` on the real download,
+with meta `{ role, roleLabel, industry, youtube }`:
 
-**Do not** put `data-track="download"` on the current placeholder Resume
-buttons in `index.html` — they do nothing, and counting clicks on a dead
-button produces a number that is worse than no number.
+```json
+{"role": "data-analyst", "roleLabel": "Data Analyst",
+ "industry": "Marketing", "youtube": false}
+```
+
+Both a slug and a label, on purpose. The slug is the stable identifier, so a
+row recorded today still groups with one recorded after a role is renamed;
+the label is what the roles table displays. The query prefers `$.roleLabel`
+and falls back to `$.role` for any row written before this was added.
+
+`resume_build` is available for counting picker interaction separately, and
+is deliberately unused: a pageview on `/resume.html` already answers "did
+anyone open the picker", so firing both would be counting the same visit
+twice.
+
+The placeholder Resume buttons this section used to warn about are gone —
+they now link to `resume.html` rather than doing nothing, so the download
+count comes from a real download.
 
 ## Local development
 
