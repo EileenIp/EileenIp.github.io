@@ -73,6 +73,21 @@
   select { font: inherit; font-size: 13px; background: var(--bg); color: var(--text);
            border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; max-width: 460px; }
   .note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .storage-warning {
+    margin: 12px 0 0; padding: 10px 14px; border-radius: 8px;
+    border: 1px solid var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent);
+    color: var(--text); font-size: 13.5px; line-height: 1.5;
+  }
+  .storage-warning[hidden] { display: none; }
+  .export-status { margin: 10px 0 0; font-size: 13px; color: var(--muted); min-height: 1.2em; }
+  .export-status.ok { color: var(--ok); }
+  .export-status.bad { color: var(--warn); }
+  #export-dump {
+    display: block; width: 100%; height: 160px; margin-top: 10px; padding: 10px;
+    background: var(--surface); color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace;
+  }
+  #export-dump[hidden] { display: none; }
 </style>
 </head>
 <body>
@@ -83,8 +98,13 @@
     <span class="status" id="progress"></span>
     <span class="grow"></span>
     <button type="button" id="reset">Discard my edits</button>
+    <button type="button" id="copy">Copy to clipboard</button>
     <button type="button" class="primary" id="export">Export resume.json</button>
   </div>
+  <p id="storage-warning" class="storage-warning" role="alert" hidden></p>
+  <p id="export-status" class="export-status"></p>
+  <textarea id="export-dump" hidden readonly spellcheck="false"
+            aria-label="Corrected resume.json, for copying by hand"></textarea>
 </header>
 
 <main>
@@ -93,7 +113,10 @@
     that reads wrong. The tags decide which projects a recruiter's PDF shows, so a project tagged for a
     role it doesn't really support will end up in front of someone hiring for it.
     Your edits save as you go and survive a refresh. When you're done, hit
-    <strong>Export</strong> and replace <code>data/resume.json</code> with the file it downloads.
+    <strong>Export</strong> and replace <code>data/resume.json</code> with the file it downloads —
+    or <strong>Copy to clipboard</strong> if your browser blocks the download. Either way the
+    line under the buttons tells you what actually happened; if it stays blank, nothing was
+    exported.
   </p>
   <p class="intro">
     Re-running <code>scripts/build_resume_json.py</code> regenerates the draft tags from the CV and would
@@ -123,7 +146,42 @@
   var base = null;   // resume.json as generated
   var edits = {};    // { projects: {id: {roles, industries}}, featured: {role: [ids]} }
 
+  var storageBroken = false;
+
+  /**
+   * Prove localStorage actually persists before any tagging is done.
+   *
+   * This used to be assumed. On 2026-09-15 Eileen tagged all 29 projects, the
+   * header counted up the whole time -- it reads the in-memory object, not
+   * storage -- and every write had silently failed, so reopening the page
+   * showed nothing. An hour of work, no warning. A private window, or a
+   * browser set to block site data, is enough to cause it.
+   */
+  function storageWorks() {
+    try {
+      var probe = STORAGE + "-probe";
+      localStorage.setItem(probe, "1");
+      var ok = localStorage.getItem(probe) === "1";
+      localStorage.removeItem(probe);
+      return ok;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function warnStorage() {
+    storageBroken = true;
+    var bar = document.getElementById("storage-warning");
+    bar.hidden = false;
+    bar.textContent =
+      "This browser is not saving your progress — it is blocking site data, " +
+      "which a private window does by default. Your tagging is held in this " +
+      "tab only: closing or reloading it loses everything. Use Copy to " +
+      "clipboard as you go, or switch to a normal window and start again.";
+  }
+
   function load() {
+    if (!storageWorks()) { edits = { projects: {}, featured: {} }; return; }
     try {
       var raw = localStorage.getItem(STORAGE);
       edits = raw ? JSON.parse(raw) : {};
@@ -132,9 +190,19 @@
     if (!edits.featured) edits.featured = {};
   }
 
+  /** Write, then read it back. A write that did not persist is a failure. */
   function save() {
-    try { localStorage.setItem(STORAGE, JSON.stringify(edits)); }
-    catch (err) { /* a private window just loses the autosave */ }
+    var payload = JSON.stringify(edits);
+    try {
+      localStorage.setItem(STORAGE, payload);
+      if (localStorage.getItem(STORAGE) !== payload) throw new Error("did not persist");
+      if (storageBroken) {
+        storageBroken = false;
+        document.getElementById("storage-warning").hidden = true;
+      }
+    } catch (err) {
+      warnStorage();
+    }
     renderProgress();
   }
 
@@ -179,7 +247,8 @@
     var f = Object.keys(edits.featured).length;
     document.getElementById("progress").textContent =
       n + " of " + base.projects.length + " projects edited" +
-      (f ? ", " + f + " role order" + (f > 1 ? "s" : "") + " changed" : "");
+      (f ? ", " + f + " role order" + (f > 1 ? "s" : "") + " changed" : "") +
+      (n || f ? (storageBroken ? " — NOT SAVED" : " — saved") : "");
   }
 
   function renderProjects() {
@@ -315,7 +384,8 @@
     renderProgress();
   }
 
-  function exportJson() {
+  /** The corrected resume.json, as text. */
+  function exportText() {
     var out = JSON.parse(JSON.stringify(base));
     out.tagsAreDrafted = false;
     out.tagsCorrectedOn = new Date().toISOString().slice(0, 10);
@@ -335,12 +405,66 @@
       return acc;
     }, {})).sort();
 
-    var blob = new Blob([JSON.stringify(out, null, 2) + "\n"], { type: "application/json" });
-    var a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "resume.json";
-    a.click();
-    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    return JSON.stringify(out, null, 2) + "\n";
+  }
+
+  function say(message, tone) {
+    var node = document.getElementById("export-status");
+    node.textContent = message;
+    node.className = "export-status" + (tone ? " " + tone : "");
+  }
+
+  /**
+   * Download the corrected file.
+   *
+   * The anchor is put in the document before it is clicked and taken out
+   * afterwards. A detached anchor works in Chrome and silently does nothing in
+   * Firefox -- which is exactly what happened on 2026-09-15: the click looked
+   * fine, no file appeared, and there was no feedback to say so. Hence also
+   * the status line and the clipboard fallback: an export that fails must say
+   * it failed, because the alternative is losing an hour of tagging.
+   */
+  function exportJson() {
+    var text = exportText();
+    var edited = Object.keys(edits.projects).length;
+    try {
+      var blob = new Blob([text], { type: "application/json" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "resume.json";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      say("Downloaded resume.json — " + edited + " project" +
+          (edited === 1 ? "" : "s") + " edited. Check your downloads folder; " +
+          "if it isn't there, use Copy instead.", "ok");
+    } catch (err) {
+      say("Download failed (" + err.message + "). Use Copy to clipboard " +
+          "instead — your edits are safe.", "bad");
+    }
+  }
+
+  /** Fallback for any browser that blocks the download outright. */
+  function copyJson() {
+    var text = exportText();
+    var edited = Object.keys(edits.projects).length;
+    function fallback() {
+      var ta = document.getElementById("export-dump");
+      ta.value = text;
+      ta.hidden = false;
+      ta.focus();
+      ta.select();
+      say("Could not reach the clipboard. The full file is in the box below — " +
+          "select all and copy it.", "bad");
+    }
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return fallback();
+    navigator.clipboard.writeText(text).then(function () {
+      say("Copied resume.json to the clipboard — " + edited + " project" +
+          (edited === 1 ? "" : "s") + " edited. Paste it over data/resume.json.", "ok");
+    }).catch(fallback);
   }
 
   fetch("../data/resume.json")
@@ -348,8 +472,10 @@
     .then(function (json) {
       base = json;
       load();
+      if (!storageWorks()) warnStorage();
       render();
       document.getElementById("export").addEventListener("click", exportJson);
+      document.getElementById("copy").addEventListener("click", copyJson);
       document.getElementById("reset").addEventListener("click", function () {
         if (!confirm("Discard every tag edit you've made here and go back to the drafted tags?")) return;
         edits = { projects: {}, featured: {} };
