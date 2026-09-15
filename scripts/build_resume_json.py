@@ -256,34 +256,53 @@ TAGS = {
  "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report": ([DS, DE, DA], ["E-Commerce"]),
  "advertising-revenue-and-sales-efficiency-growth-diagnostic": ([DE, BI, DA], ["Digital Advertising"]),
  "creator-content-decision-dashboard": ([BI, DA], ["Media & Entertainment", "Social Media"]),
+ # Added to the CV 2026-09-16. These are the portfolio projects with the
+ # deepest write-ups, and the only ones carrying Gaming at all.
+ "launch-sentiment-review-sentiment-early-warning-analysis": ([DS, DA], ["Gaming"]),
+ "f2p-vs-paid-pricing-and-engagement-on-steam": ([DS, DA, DE], ["Gaming"]),
+ "support-triage-conversation-risk-scoring-and-reply-speed-analysis": ([DS, DA], ["Customer Experience"]),
+ "subscriber-churn-early-warning-and-ltv-segmentation": ([DS, DA, DE], ["Subscription Media", "Media & Entertainment"]),
+ # The strongest data-engineering evidence in the portfolio by some distance:
+ # dbt, a warehouse, dimensional models, data-quality tests and CI. It leads
+ # the DE list below for that reason.
+ "ad-creative-performance-data-pipeline": ([DE, BI, DA], ["Marketing", "Digital Advertising"]),
 }
 
 # Preference order within each role, best evidence first. The picker takes the
 # top 3 that also match the chosen industry, then backfills on role alone.
 FEATURED = {
  DA: ["advertising-revenue-and-sales-efficiency-growth-diagnostic",
+      "support-triage-conversation-risk-scoring-and-reply-speed-analysis",
       "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+      "launch-sentiment-review-sentiment-early-warning-analysis",
       "creator-content-decision-dashboard",
       "hotel-customer-feedback-analytics-dashboard",
       "meta-ad-performance-and-revenue-analytics-dashboard",
       "vendor-performance-and-procurement-analytics-dashboard"],
- DS: ["e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+ DS: ["subscriber-churn-early-warning-and-ltv-segmentation",
+      "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+      "support-triage-conversation-risk-scoring-and-reply-speed-analysis",
+      "launch-sentiment-review-sentiment-early-warning-analysis",
+      "f2p-vs-paid-pricing-and-engagement-on-steam",
       "credit-fraud-detection-classifier-analysis",
       "amazon-prime-movies-and-tv-shows-clustering",
-      "customer-churn-forecasting-analysis-in-telecom-services",
-      "customer-segmentation-in-bank-campaigns-presentation",
-      "dynamic-ai-chatbot"],
+      "customer-churn-forecasting-analysis-in-telecom-services"],
  BI: ["advertising-revenue-and-sales-efficiency-growth-diagnostic",
+      "ad-creative-performance-data-pipeline",
       "vendor-performance-and-procurement-analytics-dashboard",
       "creator-content-decision-dashboard",
       "meta-ad-performance-and-revenue-analytics-dashboard",
       "insurance-risk-and-claims-analytics-dashboard",
       "spotify-listening-analytics-dashboard"],
- # Three projects, and they are the three. See TODO.md: the CV's data
- # engineering evidence is data modelling and batch processing at scale --
- # no orchestration, no streaming. Nothing here claims otherwise.
- DE: ["advertising-revenue-and-sales-efficiency-growth-diagnostic",
+ # No longer three scraped together. Ad Creative Pipeline leads because it is
+ # the only project in the portfolio built on a real data-engineering stack --
+ # dbt, a warehouse, dimensional models, data-quality tests, CI. What still is
+ # not claimed anywhere: orchestration beyond GitHub Actions, and streaming.
+ DE: ["ad-creative-performance-data-pipeline",
+      "advertising-revenue-and-sales-efficiency-growth-diagnostic",
       "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+      "subscriber-churn-early-warning-and-ltv-segmentation",
+      "f2p-vs-paid-pricing-and-engagement-on-steam",
       "vendor-performance-and-procurement-analytics-dashboard"],
 }
 

@@ -310,12 +310,19 @@ honestly. **Tag review:** a browser tool, like `label.html`.
       its own impact stat reads "Placeholder — project not yet built". This
       corrects my earlier claim that six built projects were missing; it was
       five.*
-- [ ] Once Eileen swaps the new CV in as the master, re-run
-      `scripts/build_resume_json.py` so the builder picks up the five. That
-      adds Gaming to the industry picker, which currently has no gaming
-      option at all despite gaming being the first target domain — and it
-      gives Data Engineer more than the three projects it scrapes by on.
-      The five arrive with drafted tags like the rest.
+- [x] **CV swapped in and `resume.json` regenerated (2026-09-16).** Eileen
+      asked this session to do the swap; the previous master is kept as
+      `career/cv/CV 2026 working (pre-5-projects backup).docx` and both files
+      were checksum-verified before and after. 29 -> 34 projects.
+      **Gaming is now in the picker for the first time**, carried by Launch
+      Sentiment and Steam F2P. Data Engineer went from 3 projects to 6, led by
+      Ad Creative Pipeline — the only project in the portfolio on a real data
+      engineering stack (dbt, warehouse, dimensional models, tests, CI), which
+      is a better answer to the thin-DE-evidence problem than reordering the
+      old three was. Re-verified across all 128 role x industry x YouTube
+      combinations: none runs to two pages; 75 carry three projects and 53
+      carry two, up from 30 — the new bullets are longer, and the page says so.
+      The five carry drafted tags and a drafted featured order like the rest.
 - [ ] **Eileen: correct the drafted tags in `tools/resume-tagger.html`**
       (~20 minutes). Serve the site locally, open it, fix any project tagged
       for a role it doesn't really support, then Export and replace

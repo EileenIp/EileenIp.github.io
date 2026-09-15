@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-13",
+  "generated": "2026-09-16",
   "source": "career/cv/CV 2026 working.docx",
   "tagsAreDrafted": true,
   "profile": {
@@ -959,6 +959,185 @@
         "Social Media"
       ],
       "tagsDrafted": true
+    },
+    {
+      "id": "launch-sentiment-review-sentiment-early-warning-analysis",
+      "title": "Launch Sentiment: Review Sentiment Early-Warning Analysis",
+      "tools": [
+        "Python",
+        "Steam Web API",
+        "pytest"
+      ],
+      "date": "Sep 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/launch-sentiment",
+      "keywords": [
+        "Sentiment Analysis",
+        "Time Series",
+        "Hypothesis Testing",
+        "API Data Collection",
+        "Alert Design",
+        "Statistical Robustness Checks"
+      ],
+      "bullets": [
+        "Tested whether complaint themes lead review score across 886,850 Steam reviews (100% of the game's reported total, spanning 271 days), returning a null result: both sentiment collapses were triggered by dated developer actions, so complaints and score moved on the same day.",
+        "Designed a change-based alert firing 3 times in 9 months with zero false positives, against 35 alerts and 29 false positives for the obvious level threshold, by testing candidate rules against the full corpus rather than assuming a cutoff.",
+        "Rejected VADER and a RoBERTa sentiment model after hand-labelling 200 reviews blind - both scored below the 72.0% majority-class baseline, at 61.5% and 64.0% - and used Steam's own thumbs-up flag instead."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst"
+      ],
+      "industries": [
+        "Gaming"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "f2p-vs-paid-pricing-and-engagement-on-steam",
+      "title": "F2P vs Paid: Pricing and Engagement on Steam",
+      "tools": [
+        "Python",
+        "pandas",
+        "SteamSpy API",
+        "Steam Web API",
+        "pytest"
+      ],
+      "date": "Sep 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/steam-pricing-engagement",
+      "keywords": [
+        "Statistical Testing",
+        "Effect Size",
+        "Confounder Control",
+        "API Data Collection",
+        "Reproducible Pipelines",
+        "Sensitivity Analysis"
+      ],
+      "bullets": [
+        "Tested the industry claim that going free-to-play buys engagement across 20,761 Steam games released since 2015, finding free games have a median playtime of 124 minutes against 530 for paid - a gap of more than four to one.",
+        "Controlled for genre confounding across the 58 genres holding enough of both pricing models, which widened Cliff's delta from -0.457 to -0.482 rather than shrinking it, ruling out the genre explanation instead of assuming it.",
+        "Built a resumable, disk-cached collection pipeline over 26,017 apps (52,034 requests, 7 failures), using Mann-Whitney U with tie and continuity corrections and re-running every owner-dependent result at three bounds, which agreed to within 0.001."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst",
+        "data-engineer"
+      ],
+      "industries": [
+        "Gaming"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "support-triage-conversation-risk-scoring-and-reply-speed-analysis",
+      "title": "Support Triage: Conversation Risk Scoring and Reply-Speed Analysis",
+      "tools": [
+        "Python",
+        "scikit-learn",
+        "TF-IDF",
+        "MiniLM",
+        "VADER",
+        "pandas",
+        "pytest"
+      ],
+      "date": "Sep 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/support-triage",
+      "keywords": [
+        "Natural Language Processing",
+        "Classification",
+        "Model Evaluation",
+        "Graph Reconstruction",
+        "Operational Analytics",
+        "Manual Validation"
+      ],
+      "bullets": [
+        "Rebuilt 798,197 conversations from an inconsistent reply graph across 2,811,774 real support tweets by treating the links as one undirected graph after parent-pointer walking lost threads, validated against a hand-built 15-thread fixture.",
+        "Built a risk model reading only the customer's opening message, reaching 0.361 PR-AUC against 0.251 for the keyword rule support tools ship with on a 23% base rate; fast-tracking the worst 10% of the queue finds 44% bad outcomes against 23% at random.",
+        "Replaced all four pre-written definitions of a bad outcome after hand-auditing 100 conversations blind, and reported the counter-intuitive result honestly: every tenfold increase in first-reply time goes with -5.9 percentage points in unanswered conversations."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst"
+      ],
+      "industries": [
+        "Customer Experience"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "subscriber-churn-early-warning-and-ltv-segmentation",
+      "title": "Subscriber Churn Early-Warning and LTV Segmentation",
+      "tools": [
+        "Python",
+        "pandas",
+        "LightGBM",
+        "SHAP",
+        "K-Means"
+      ],
+      "date": "Sep 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/subscriber-churn-ltv",
+      "keywords": [
+        "Churn Modelling",
+        "Customer Lifetime Value",
+        "Segmentation",
+        "Feature Engineering",
+        "Leakage Control",
+        "Large-Scale Data Processing"
+      ],
+      "bullets": [
+        "Built a subscriber churn model on 21,547,746 real subscription transactions, catching 84.2% of real cancellations at the deployed threshold at 45.9% precision - a deliberately wide net, given a $75 retention offer against an $894 retained-subscriber value.",
+        "Derived the churn definition from the data rather than assuming one, finding 96.8% of renewals happen within 30 days of expiry, the point this dataset's own renewal-gap curve flattens.",
+        "Crossed churn risk against actual subscription spend to produce a risk-value quadrant a retention budget can be spent from, and reported that logistic regression beat the deployed LightGBM on every headline metric (ROC-AUC 0.936 vs 0.676) rather than softening it."
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst",
+        "data-engineer"
+      ],
+      "industries": [
+        "Subscription Media",
+        "Media & Entertainment"
+      ],
+      "tagsDrafted": true
+    },
+    {
+      "id": "ad-creative-performance-data-pipeline",
+      "title": "Ad Creative Performance Data Pipeline",
+      "tools": [
+        "dbt",
+        "DuckDB",
+        "Python",
+        "GitHub Actions"
+      ],
+      "date": "Sep 2026",
+      "year": 2026,
+      "url": "https://github.com/EileenIp/ad-creative-pipeline",
+      "keywords": [
+        "Data Engineering",
+        "dbt",
+        "Dimensional Modelling",
+        "Data Quality Testing",
+        "CI/CD",
+        "Idempotent Pipelines"
+      ],
+      "bullets": [
+        "Built a dbt-core and DuckDB pipeline over 96 daily drop files carrying 8 named defect types - late arrivals, restatements, exact and near duplicates, a mid-stream schema change, and a clicks-exceed-impressions platform bug - logged to a ground-truth manifest of 4,492 defect events so every defect's handling is checkable.",
+        "Reconciled the pipeline to ground truth exactly across 25,892 rows for every defect type the platform can correct, with 10 dbt tests on every build and the one designed to warn surfacing 76-78 rows per run.",
+        "Automated the full daily cycle (generate, load, dbt build, publish) in GitHub Actions on push, pull request, a daily schedule and manual dispatch, rather than a one-off local demo."
+      ],
+      "roles": [
+        "data-engineer",
+        "bi-developer",
+        "data-analyst"
+      ],
+      "industries": [
+        "Marketing",
+        "Digital Advertising"
+      ],
+      "tagsDrafted": true
     }
   ],
   "skills": {
@@ -1036,7 +1215,9 @@
       "label": "Data Analyst",
       "featured": [
         "advertising-revenue-and-sales-efficiency-growth-diagnostic",
+        "support-triage-conversation-risk-scoring-and-reply-speed-analysis",
         "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+        "launch-sentiment-review-sentiment-early-warning-analysis",
         "creator-content-decision-dashboard",
         "hotel-customer-feedback-analytics-dashboard",
         "meta-ad-performance-and-revenue-analytics-dashboard",
@@ -1069,12 +1250,14 @@
       "id": "data-scientist",
       "label": "Data Scientist",
       "featured": [
+        "subscriber-churn-early-warning-and-ltv-segmentation",
         "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+        "support-triage-conversation-risk-scoring-and-reply-speed-analysis",
+        "launch-sentiment-review-sentiment-early-warning-analysis",
+        "f2p-vs-paid-pricing-and-engagement-on-steam",
         "credit-fraud-detection-classifier-analysis",
         "amazon-prime-movies-and-tv-shows-clustering",
-        "customer-churn-forecasting-analysis-in-telecom-services",
-        "customer-segmentation-in-bank-campaigns-presentation",
-        "dynamic-ai-chatbot"
+        "customer-churn-forecasting-analysis-in-telecom-services"
       ],
       "languages": [
         "Python",
@@ -1104,6 +1287,7 @@
       "label": "BI Developer",
       "featured": [
         "advertising-revenue-and-sales-efficiency-growth-diagnostic",
+        "ad-creative-performance-data-pipeline",
         "vendor-performance-and-procurement-analytics-dashboard",
         "creator-content-decision-dashboard",
         "meta-ad-performance-and-revenue-analytics-dashboard",
@@ -1137,8 +1321,11 @@
       "id": "data-engineer",
       "label": "Data Engineer",
       "featured": [
+        "ad-creative-performance-data-pipeline",
         "advertising-revenue-and-sales-efficiency-growth-diagnostic",
         "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
+        "subscriber-churn-early-warning-and-ltv-segmentation",
+        "f2p-vs-paid-pricing-and-engagement-on-steam",
         "vendor-performance-and-procurement-analytics-dashboard"
       ],
       "languages": [
@@ -1170,12 +1357,14 @@
     "Customer Experience",
     "Digital Advertising",
     "E-Commerce",
+    "Gaming",
     "Insurance",
     "Marketing",
     "Media & Entertainment",
     "Real Estate",
     "Retail & Hospitality",
     "Social Media",
+    "Subscription Media",
     "Supply Chain",
     "Technology",
     "Telecom"
