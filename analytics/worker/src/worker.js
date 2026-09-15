@@ -150,9 +150,12 @@ async function stats(request, env, origin) {
     q(`SELECT kind, COUNT(*) AS count, COUNT(DISTINCT visitor) AS visitors
          FROM events WHERE day >= ? AND kind != 'pageview'
         GROUP BY kind ORDER BY count DESC`),
-    // The resume builder records which role a visitor picked. Until that
-    // ships this comes back empty, which is correct rather than broken.
-    q(`SELECT json_extract(meta, '$.role') AS role, COUNT(*) AS count
+    // Which role a visitor picked on the resume builder. It sends both a slug
+    // and a label: group on the label when it is there so the table is
+    // readable, fall back to the slug for rows written before it was added.
+    q(`SELECT COALESCE(json_extract(meta, '$.roleLabel'),
+                       json_extract(meta, '$.role')) AS role,
+              COUNT(*) AS count
          FROM events WHERE day >= ? AND kind IN ('download', 'resume_build')
                        AND json_extract(meta, '$.role') IS NOT NULL
         GROUP BY role ORDER BY count DESC`),
