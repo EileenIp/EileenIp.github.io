@@ -40,6 +40,14 @@ const KINDS = new Set(["pageview", "download", "resume_build", "outbound"]);
 const MAX_BODY = 2048;
 const MAX_META = 512;
 
+// Which events are worth interrupting someone's day for. A pageview is not.
+const NOTIFY_KINDS = new Set(["download"]);
+
+// A recruiter who clicks download twice should ping once. Ten minutes is long
+// enough to cover a double-click or a retry, short enough that two genuinely
+// separate visits on the same day still both arrive.
+const NOTIFY_DEDUPE_MINUTES = 10;
+
 function cors(origin, request) {
   const list = allowedOrigins(request);
   const allowed = list.includes(origin) ? origin : list[0];
@@ -85,7 +93,65 @@ function safePath(raw) {
   return raw.split(/[?#]/)[0].slice(0, 200);
 }
 
-async function collect(request, env, origin) {
+/**
+ * Post a Discord message when a resume download lands.
+ *
+ * Runs inside ctx.waitUntil, so a slow or broken webhook never delays the
+ * visitor's request -- and every failure here is swallowed. An analytics
+ * notification is the last thing that should be allowed to break analytics.
+ *
+ * Silent no-op when DISCORD_WEBHOOK_URL is unset, which is the correct state
+ * for local development and for a fork of this repo.
+ */
+async function notifyDownload(env, row) {
+  if (!env.DISCORD_WEBHOOK_URL) return;
+
+  try {
+    // Dedupe on the visitor rather than the event: two rows are still both
+    // stored, only the second notification is suppressed.
+    const since = new Date(Date.now() - NOTIFY_DEDUPE_MINUTES * 60000).toISOString();
+    const recent = await env.DB.prepare(
+      `SELECT COUNT(*) AS n FROM events
+        WHERE kind = 'download' AND visitor = ? AND ts >= ? AND id != ?`
+    ).bind(row.visitor, since, row.id).first();
+    if (recent && recent.n > 0) return;
+
+    const todayCount = await env.DB.prepare(
+      `SELECT COUNT(*) AS n FROM events WHERE kind = 'download' AND day = ?`
+    ).bind(row.day).first();
+
+    const meta = row.meta ? JSON.parse(row.meta) : {};
+    const role = meta.roleLabel || meta.role || "unspecified role";
+    const detail = [
+      meta.industry || null,
+      row.country || null,
+      row.referrer_host ? `via ${row.referrer_host}` : null,
+    ].filter(Boolean).join(" · ");
+
+    const n = (todayCount && todayCount.n) || 1;
+    const nth = n === 1 ? "1st" : n === 2 ? "2nd" : n === 3 ? "3rd" : `${n}th`;
+
+    await fetch(env.DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        embeds: [{
+          title: "Resume downloaded",
+          description: `**${role}**` + (detail ? `
+${detail}` : ""),
+          color: 0x9184d9, // the site's accent, so the alert looks like hers
+          footer: { text: `${nth} download today` },
+          timestamp: row.ts,
+        }],
+      }),
+    });
+  } catch (err) {
+    // Deliberately silent. There is nobody to report this to, and the event
+    // itself is already safely stored.
+  }
+}
+
+async function collect(request, env, origin, ctx) {
   // The allowlist gates the write, not just the CORS response header. Without
   // this, anyone who finds the URL can POST rows, and a local preview of the
   // site writes into the production database -- which is not hypothetical, it
@@ -120,19 +186,32 @@ async function collect(request, env, origin) {
   const now = new Date();
   const day = now.toISOString().slice(0, 10);
 
-  await env.DB.prepare(
-    `INSERT INTO events (ts, day, kind, path, referrer_host, country, visitor, meta)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-  ).bind(
-    now.toISOString(),
+  const row = {
+    ts: now.toISOString(),
     day,
     kind,
-    safePath(body.path),
-    referrerHost(body.ref),
-    request.headers.get("CF-IPCountry") || null,
-    await visitorKey(request, env, day),
-    meta
-  ).run();
+    path: safePath(body.path),
+    referrer_host: referrerHost(body.ref),
+    country: request.headers.get("CF-IPCountry") || null,
+    visitor: await visitorKey(request, env, day),
+    meta,
+  };
+
+  const inserted = await env.DB.prepare(
+    `INSERT INTO events (ts, day, kind, path, referrer_host, country, visitor, meta)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(row.ts, row.day, row.kind, row.path, row.referrer_host,
+         row.country, row.visitor, row.meta).run();
+
+  if (NOTIFY_KINDS.has(kind)) {
+    row.id = inserted.meta ? inserted.meta.last_row_id : null;
+    const notifying = notifyDownload(env, row);
+    // waitUntil keeps the Worker alive for the webhook without making the
+    // visitor wait for Discord. Without a ctx (a direct unit-test call) the
+    // promise is simply awaited instead.
+    if (ctx && ctx.waitUntil) ctx.waitUntil(notifying);
+    else await notifying;
+  }
 
   // 204: the page has nothing to do with the answer, and a body would just be
   // bytes on someone's mobile connection.
@@ -205,7 +284,7 @@ async function stats(request, env, origin) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const origin = request.headers.get("Origin") || "";
     const url = new URL(request.url);
 
@@ -213,7 +292,7 @@ export default {
       return new Response(null, { status: 204, headers: cors(origin, request) });
     }
     if (request.method === "POST" && url.pathname === "/collect") {
-      return collect(request, env, origin);
+      return collect(request, env, origin, ctx);
     }
     if (request.method === "GET" && url.pathname === "/stats") {
       return stats(request, env, origin);

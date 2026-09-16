@@ -89,6 +89,10 @@ npx wrangler secret put STATS_TOKEN
 - `STATS_TOKEN` — the key that unlocks `analytics.html`. This is the one
   you type into the dashboard.
 
+Optional, and can be added any time afterwards: `DISCORD_WEBHOOK_URL`, which
+turns on the download alerts described below. Without it the notifier is a
+silent no-op.
+
 Generate both with:
 
 ```bash
@@ -301,6 +305,47 @@ deliberately and the two CORS checks failed with the original error, while the
 other seven still passed -- including "a pageview reaches the collector",
 which is what produced the correction recorded above. A test suite nobody has
 watched fail is a guess.
+
+## Download alerts
+
+A Discord message when someone downloads the resume — the one event worth
+knowing about the same day rather than next time the dashboard gets opened.
+
+**Setup, once:** in a Discord server you own, Server Settings → Integrations →
+Webhooks → New Webhook, pick a channel, Copy Webhook URL. Then:
+
+```bash
+cd analytics/worker && npx wrangler secret put DISCORD_WEBHOOK_URL
+```
+
+Paste the URL. That is the whole configuration — **without that secret the
+notifier is a silent no-op**, which is the correct state for local development
+and for a fork of this repo.
+
+The message carries the role the visitor picked, plus industry, country and
+referring host when known, and which download of the day it is:
+
+> **Resume downloaded**
+> **Data Analyst**
+> Marketing · AU · via linkedin.com
+> *2nd download today*
+
+Three deliberate behaviours:
+
+- **It runs inside `ctx.waitUntil`**, so a slow or broken Discord never delays
+  the visitor's request.
+- **Every failure is swallowed.** The event is already stored by the time the
+  webhook is called, and an analytics notification is the last thing that
+  should be allowed to break analytics. Two tests assert a download is still
+  recorded and still answers 204 when the webhook throws or 500s.
+- **It dedupes on the visitor, not the event.** A recruiter who clicks
+  download twice pings once; both rows are still stored. Ten minutes — long
+  enough to cover a double-click or a retry, short enough that two genuinely
+  separate visits the same day both arrive.
+
+Only `download` notifies. Pageviews and outbound clicks do not, and there is a
+test that says so, because a portfolio that pings on every pageview is a
+portfolio whose alerts get muted.
 
 ## Local development
 
