@@ -135,6 +135,15 @@ A pageview fires on every load. Anything else is opt-in from the markup:
 
 Or from script: `window.track("resume_build", { role: "BI Developer" })`.
 
+**Outbound clicks are detected, not tagged.** Any click on a link to another
+host fires `outbound` with `{ to: "<host><path>" }`, query string dropped;
+`mailto:` and `tel:` record the scheme alone. Detection rather than markup,
+because the case-study links are built at runtime from `data/projects.json` —
+hand-tagging would have missed exactly the links worth measuring, which is
+whether anyone opens the repos and dashboards. Internal links and `#anchors`
+record nothing. A link carrying its own `data-track` wins, so a tagged link
+never fires twice.
+
 Known kinds are allowlisted in `worker.js` — `pageview`, `download`,
 `resume_build`, `outbound`. Anything else is rejected rather than stored, so
 add the kind there first.

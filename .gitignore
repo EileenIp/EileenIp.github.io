@@ -38,5 +38,7 @@ Thumbs.db
 desktop.ini
 
 # Worker toolchain (analytics/worker) — wrangler is a dev dependency, not
-# something the site needs or Pages serves.
+# something the site needs or Pages serves. .wrangler/ is its local state:
+# the local D1 database and build caches, which are per-machine.
 node_modules/
+.wrangler/
