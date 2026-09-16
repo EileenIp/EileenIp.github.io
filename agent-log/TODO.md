@@ -72,10 +72,6 @@ second "build a recommender" project.
 ### CV / content gaps
 - [ ] `Dynamic AI Chatbot` has no GitHub link on the CV. Either add the link
       or note why it's private.
-- [ ] The E-commerce Purchase-Prediction entry's "GitHub" link on the CV goes
-      to the site's case study (`projects.html?project=...`), not to GitHub.
-      A public repo exists, `EileenIp/Ecommerce-Behaviour-Conversion-Analysis`
-      — point the link there, or relabel it. Found 2026-09-17, not changed.
 - [ ] The Advertising Revenue entry has no italic keyword line on the CV,
       unlike every other project; one never existed. Its title line lists
       `Power BI, SQL Server, Python` and wraps its date onto a second line, as
@@ -97,6 +93,16 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-17 — **E-commerce CV link now goes to GitHub.** Its "GitHub"
+      link pointed at the site's own case study
+      (`projects.html?project=ecommerce-behavior-conversion-2019`); it now
+      points at the public repo `EileenIp/Ecommerce-Behaviour-Conversion-Analysis`,
+      on Eileen's yes. One relationship target changed in the docx, plus an
+      unused duplicate of the old link removed. Verified in Word: opens, 9
+      pages, link resolves to the repo; passes OOXML validation.
+      `data/resume.json` regenerated — that `url` is the only change, so the
+      site's PDFs link to the repo too.
 
 - [x] 2026-09-17 — **CV docx fixed at source — and found to be unopenable in
       Word.** On Eileen's ask, the four CV defects logged under `CV / content
