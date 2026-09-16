@@ -53,12 +53,14 @@ function renderLogo(info) {
 
   if (info.logo) {
     const img = document.createElement('img');
-    img.src = info.logo;
     img.alt = '';
     img.loading = 'lazy';
-    // A cached logo that 404s (or a company added to the data before its
-    // logo was fetched) leaves the initials tile showing underneath.
+    // Listener before src, not after: a failure served from cache can fire
+    // the error event before a later-attached listener exists, which would
+    // leave a broken image element sitting over the initials tile. ASIO is
+    // the live case -- its logo genuinely 404s.
     img.addEventListener('error', () => img.remove());
+    img.src = info.logo;
     wrap.append(img);
   }
   return wrap;
