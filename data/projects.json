@@ -525,8 +525,8 @@
         "Tableau",
         "Excel"
       ],
-      "image": "images/projects/creator-content-decision-dashboard-2026-card.png",
       "cardDescription": "A Tableau content decision console connecting reach, retention, momentum and audience loyalty to the next production decision. Built with synthetic demonstration data.",
+      "impactStat": "Shorts are 8.8% of views but 1.2% of watch time and 2.7% of revenue — a views leaderboard misreads the channel three ways",
       "oneSentenceDescription": "Which content should a creator scale, promote or improve next?",
       "targetIndustryRole": "Creator, Content Strategy & Marketing Analytics",
       "summaryImpact": "I built a Tableau dashboard to help a creator move from performance reporting to the next content decision. It combines five KPI cards with audience trends, an opportunity matrix, video momentum and topic-specific recommendations.\n\n**This is a synthetic-data portfolio project, not an export of my personal YouTube channel.** Its figures demonstrate analytical design rather than measured business impact.",
@@ -627,6 +627,7 @@
           "Validate recommendations through measured content experiments."
         ]
       },
+      "image": "images/projects/creator-content-decision-dashboard-2026-card.png",
       "links": {
         "dashboard": "https://github.com/EileenIp/creator-content-decision-dashboard/blob/main/Creator%20Content%20Decision%20Dashboard.twb",
         "notebookRepo": "https://github.com/EileenIp/creator-content-decision-dashboard",
