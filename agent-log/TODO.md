@@ -160,73 +160,6 @@ triage plus a reply-speed analysis on Twitter support threads here.
       undecidable; staff not replying is bad; staff asking for a response and
       getting none is bad; a customer coming back to say it's solved is fine.
 
-### Site — self-hosted analytics (Cloudflare Workers + D1)
-Started 2026-09-13 on Eileen's ask. This session owns it; the resume builder
-below is a parallel session.
-
-Note against this section's "max 1-2 items" rule, extending the flag project 4
-already raised: these two make four items in flight (roadmap 3 and 4, plus
-these). Both of these are site work rather than roadmap projects, and both
-were Eileen's explicit ask with a session assigned to each — flagging the
-count, not disputing it.
-
-The site has never had any analytics, so there is no answer to "does anyone
-reach the case studies" or "does anyone download the CV". Chosen over a
-hosted counter (GoatCounter, Cloudflare Web Analytics, Plausible) because
-Eileen asked for our own: a Workers collector, D1 for storage, and a
-dashboard page on this site, at $0 on the free tier — and because
-ingest -> store -> query -> dashboard on real traffic is the second
-data-engineering project the Todo section has been arguing about, except the
-data is hers.
-
-Standing constraint: no cookies and no third-party beacon, so the page needs
-no consent banner. That is a design input, not a nicety — the alternative is
-a banner on a portfolio site.
-
-Built 2026-09-13, not deployed. Full deploy guide and the privacy reasoning
-are in `analytics/README.md`.
-
-- [ ] **Checkpoint 0 (Eileen): free Cloudflare account.** The only step that
-      needs her, and everything below is written and waiting on it. No card
-      and no domain required for Workers + D1 on the free plan.
-- [x] Collector Worker — `analytics/worker/src/worker.js`. POST /collect and
-      a token-gated GET /stats. Stores day, kind, path, referrer *host*,
-      two-letter country and a daily-rotating visitor hash; stores no IP, no
-      user agent, no full referrer, no query string and no cookie. The hash
-      is `SHA-256(secret + UTC-day + IP + UA)` truncated, so a visitor is
-      countable within a day and an unrelated hash the next — the same
-      construction GoatCounter and Plausible use, and the reason the site
-      needs no consent banner. Event kinds are allowlisted, so a stray script
-      cannot invent event types. D1 schema in `analytics/worker/schema.sql`,
-      raw rows rather than rollups so an unanticipated question can still be
-      asked of old traffic.
-- [x] Site snippet — `js/analytics.js`, wired into all six pages. Honours Do
-      Not Track, inert when no endpoint is set, `sendBeacon` so an outbound
-      click survives the page closing. The endpoint lives in exactly one
-      place, `js/analytics-config.js`, so deploying means editing one line.
-- [x] Dashboard — `analytics.html` + `js/analytics-dashboard.js` +
-      `css/analytics.css`. Token gate, 7/30/90/365 ranges, three stat tiles,
-      a two-series daily chart with crosshair and tooltip, and tables for
-      pages, referrers, countries and events. `noindex`, absent from the nav
-      and from `sitemap.xml`: the numbers are behind the token anyway, but a
-      recruiter reading the portfolio has no reason to be shown the door.
-      The two series colours were run through the palette validator against
-      this site's dark surface rather than picked by eye — all six checks
-      pass. Verified end to end against a mock `/stats`: tiles, chart,
-      tooltip, all five tables, 375px with no overflow.
-- [x] Resume-download event — **wired 2026-09-15.** `resume.html` shipped and
-      fires `download` with `{ role, roleLabel, industry, youtube }`, verified
-      end to end against a stubbed endpoint. The roles query now prefers
-      `$.roleLabel` and falls back to `$.role`, so the table reads "Data
-      Analyst" rather than "data-analyst" while still grouping on a stable
-      slug. The warning this line used to carry — don't track the placeholder
-      Resume buttons because they do nothing — is retired: they link to
-      `resume.html` now. Still reads zero until Checkpoint 0 puts the Worker
-      online.
-- [ ] Interim hosted counter — still open, still Eileen's call. Every day
-      without one is traffic that cannot be recovered later, and the Worker
-      cannot go live until Checkpoint 0.
-
 ### Site — recruiter-personalised resume builder
 Started 2026-09-13 on Eileen's ask. **Built 2026-09-13** in this session, not
 the parallel one that first claimed it — that session left no files, so this
@@ -432,6 +365,63 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-16 — **Self-hosted analytics, live.** Built 2026-09-13,
+      deployed today. Collector at
+      `eileenip-analytics.eileen-ip.workers.dev`, D1 database
+      `eileenip-analytics` in region OC (queries serve from the Brisbane
+      colo), dashboard at `/analytics.html`. Chosen over a hosted counter
+      (GoatCounter, Cloudflare Web Analytics, Plausible) on Eileen's ask, and
+      because ingest -> store -> query -> dashboard over real traffic is a
+      data-engineering project where the data is hers. $0 on the free tier.
+
+      **The privacy design is the load-bearing part.** Stored per event: UTC
+      day, event kind, same-origin path, referrer *host*, two-letter country,
+      a daily-rotating visitor hash, and an optional small JSON blob. Not
+      stored: IP, user agent, full referrer, query string, and any identifier
+      that survives midnight. The hash is
+      `SHA-256(secret + UTC-day + IP + UA)` truncated, so a visitor is
+      countable within a day and an unrelated hash the next — the same
+      construction GoatCounter and Plausible use, and the reason the site
+      needs no consent banner. **If a later change starts writing a cookie or
+      a localStorage id, the banner question comes back with it.** That
+      constraint is recorded in the Worker, the snippet and the README.
+
+      **Verified against the deployed Worker, not just locally:** `/` 404s,
+      `/stats` 401s without a token, `/collect` 400s an unknown event kind
+      and 204s a pageview and a download. Then verified in the rows it wrote,
+      which is where the claims above either hold or don't — a referrer of
+      `https://www.linkedin.com/feed/?q=secret` stored as `www.linkedin.com`
+      with path and query gone, an oversized meta blob dropped rather than
+      stored, country resolved, one stable visitor hash across three
+      requests, no IP anywhere. Test rows deleted, so the table started
+      empty. Eileen confirmed the dashboard loads with her token — the one
+      path the agent could not check, since the token never passed through
+      it.
+
+      **Two setup facts, both now in `analytics/README.md`:** `workers.dev`
+      subdomains are globally unique, so the account's is `eileen-ip` rather
+      than `eileenip` — hence the double-barrelled host. And the TLS
+      certificate for a freshly registered subdomain takes a few minutes to
+      issue; until it does, every client fails the handshake, which reads
+      exactly like a broken deploy and isn't.
+
+      The interim hosted counter was dropped rather than done. It only ever
+      made sense as a stopgap while ours was built, and ours went live three
+      days later — a signup for a day of overlap.
+
+      **Secrets are Eileen's and deliberately never passed through the
+      agent.** `STATS_TOKEN` gates the dashboard and is safe to re-set at
+      any time; she did once, on 2026-09-16, at no cost. `SALT_SECRET` is
+      baked into the visitor hash — **changing it resets unique-visitor
+      counts** while leaving views, paths, referrers and countries intact.
+      Leave it alone.
+
+      Open, and only interesting once traffic exists: the dashboard's
+      unique-visitor tile does not dedupe across days, because the hash
+      rotates at UTC midnight by design. A person who visits Monday and
+      Friday counts twice in a 30-day total. That is the trade for storing no
+      identifier, and the tile says so underneath.
 
 - [x] 2026-09-15 — **Roadmap project 3 — F2P vs Paid: Pricing & Engagement on
       Steam. Built, written up and shipped.** Repo:
