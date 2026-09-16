@@ -5,8 +5,22 @@ Worker collects, D1 stores, and `analytics.html` on the site reads it back.
 Free tier throughout — the Workers free plan covers 100,000 requests a day,
 which is several orders of magnitude above what a portfolio site sees.
 
-Built 2026-09-13. **Not deployed yet** — everything below step 1 needs a
-Cloudflare account.
+Built 2026-09-13, **live since 2026-09-16** at
+`https://eileenip-analytics.eileen-ip.workers.dev`. The steps below are kept
+as the record of how it was set up, and for rebuilding it if the account ever
+has to be recreated.
+
+Two things from the real setup that the steps didn't predict:
+
+- `workers.dev` subdomains are globally unique — `eileenip` was taken, so the
+  account's subdomain is `eileen-ip`. That is why the host reads
+  `eileenip-analytics.eileen-ip.workers.dev`.
+- The TLS certificate for a just-registered subdomain takes a few minutes to
+  issue. Handshakes fail outright until it does, from any client, which looks
+  like a broken deploy and isn't. Wait it out.
+- Cloudflare's bot-signature check (error 1010) answers 403 to requests with a
+  scripting user agent. Real browsers are unaffected, but a `curl` or Python
+  smoke test needs a browser UA to get through.
 
 ## Why not a hosted counter
 

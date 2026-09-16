@@ -7,4 +7,4 @@
  * goes inert rather than firing failed requests, which is the right state
  * for a local preview or a fork.
  */
-window.ANALYTICS_ENDPOINT = "";
+window.ANALYTICS_ENDPOINT = "https://eileenip-analytics.eileen-ip.workers.dev";
