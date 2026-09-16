@@ -131,7 +131,7 @@ async function notifyDownload(env, row) {
     const n = (todayCount && todayCount.n) || 1;
     const nth = n === 1 ? "1st" : n === 2 ? "2nd" : n === 3 ? "3rd" : `${n}th`;
 
-    await fetch(env.DISCORD_WEBHOOK_URL, {
+    const res = await fetch(env.DISCORD_WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -145,9 +145,18 @@ ${detail}` : ""),
         }],
       }),
     });
+
+    // Swallowed, but not unobservable. The first version of this logged
+    // nothing at all, so when the alert silently failed to arrive there was
+    // no way to tell a bad webhook URL from a bug -- which is exactly what
+    // happened. The request still never fails because of this; the failure
+    // just becomes visible in `wrangler tail`.
+    if (!res.ok) {
+      console.warn(`discord webhook rejected the alert: ${res.status} ` +
+                   `${(await res.text()).slice(0, 200)}`);
+    }
   } catch (err) {
-    // Deliberately silent. There is nobody to report this to, and the event
-    // itself is already safely stored.
+    console.warn(`discord webhook threw: ${err && err.message}`);
   }
 }
 
