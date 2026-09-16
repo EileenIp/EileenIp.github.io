@@ -19,10 +19,19 @@
  * is the reason the raw IP never reaches the database.
  */
 
-const ALLOWED_ORIGINS = [
-  "https://eileenip.github.io",
-  "http://localhost:8765", // local preview; see analytics/README.md
-];
+const SITE_ORIGIN = "https://eileenip.github.io";
+
+// Only honoured when the Worker itself is running locally under
+// `wrangler dev`. Deriving that from the request's own hostname rather than a
+// config var means the deployed Worker cannot be talked into accepting a
+// localhost origin, and local development needs no separate config.
+const DEV_ORIGINS = ["http://localhost:8765", "http://127.0.0.1:8765"];
+
+function allowedOrigins(request) {
+  const host = new URL(request.url).hostname;
+  const runningLocally = host === "localhost" || host === "127.0.0.1";
+  return runningLocally ? [SITE_ORIGIN, ...DEV_ORIGINS] : [SITE_ORIGIN];
+}
 
 // Anything not on this list is dropped rather than stored, so a stray script
 // or someone curling the endpoint cannot invent event types.
@@ -31,8 +40,9 @@ const KINDS = new Set(["pageview", "download", "resume_build", "outbound"]);
 const MAX_BODY = 2048;
 const MAX_META = 512;
 
-function cors(origin) {
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+function cors(origin, request) {
+  const list = allowedOrigins(request);
+  const allowed = list.includes(origin) ? origin : list[0];
   return {
     "Access-Control-Allow-Origin": allowed,
     "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
@@ -41,10 +51,10 @@ function cors(origin) {
   };
 }
 
-function json(body, status, origin) {
+function json(body, status, origin, request) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json", ...cors(origin) },
+    headers: { "Content-Type": "application/json", ...cors(origin, request) },
   });
 }
 
@@ -76,18 +86,30 @@ function safePath(raw) {
 }
 
 async function collect(request, env, origin) {
+  // The allowlist gates the write, not just the CORS response header. Without
+  // this, anyone who finds the URL can POST rows, and a local preview of the
+  // site writes into the production database -- which is not hypothetical, it
+  // happened repeatedly while this was being built.
+  //
+  // Browsers always send Origin on a cross-origin POST, sendBeacon included,
+  // and the site is cross-origin to this Worker by construction. So real
+  // traffic always carries one, and a request without it is never a visitor.
+  if (!allowedOrigins(request).includes(origin)) {
+    return json({ error: "forbidden origin" }, 403, origin, request);
+  }
+
   const raw = await request.text();
-  if (raw.length > MAX_BODY) return json({ error: "payload too large" }, 413, origin);
+  if (raw.length > MAX_BODY) return json({ error: "payload too large" }, 413, origin, request);
 
   let body;
   try {
     body = JSON.parse(raw);
   } catch {
-    return json({ error: "invalid json" }, 400, origin);
+    return json({ error: "invalid json" }, 400, origin, request);
   }
 
   const kind = String(body.kind || "pageview");
-  if (!KINDS.has(kind)) return json({ error: "unknown kind" }, 400, origin);
+  if (!KINDS.has(kind)) return json({ error: "unknown kind" }, 400, origin, request);
 
   let meta = null;
   if (body.meta && typeof body.meta === "object") {
@@ -114,16 +136,19 @@ async function collect(request, env, origin) {
 
   // 204: the page has nothing to do with the answer, and a body would just be
   // bytes on someone's mobile connection.
-  return new Response(null, { status: 204, headers: cors(origin) });
+  return new Response(null, { status: 204, headers: cors(origin, request) });
 }
 
+// Note the asymmetry with collect(): /stats is not origin-gated, because a
+// bearer token is a stronger gate than a header the client chooses, and
+// keeping it callable from curl is what makes the thing debuggable.
 async function stats(request, env, origin) {
   const auth = request.headers.get("Authorization") || "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   // Constant-length compare is overkill here, but the token is the only thing
   // standing between the numbers and a public URL.
   if (!env.STATS_TOKEN || token !== env.STATS_TOKEN) {
-    return json({ error: "unauthorized" }, 401, origin);
+    return json({ error: "unauthorized" }, 401, origin, request);
   }
 
   const url = new URL(request.url);
@@ -172,7 +197,7 @@ async function stats(request, env, origin) {
     countries: countries.results,
     events: events.results,
     roles: roles.results,
-  }, 200, origin);
+  }, 200, origin, request);
 }
 
 export default {
@@ -181,7 +206,7 @@ export default {
     const url = new URL(request.url);
 
     if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: cors(origin) });
+      return new Response(null, { status: 204, headers: cors(origin, request) });
     }
     if (request.method === "POST" && url.pathname === "/collect") {
       return collect(request, env, origin);
@@ -189,6 +214,6 @@ export default {
     if (request.method === "GET" && url.pathname === "/stats") {
       return stats(request, env, origin);
     }
-    return json({ error: "not found" }, 404, origin);
+    return json({ error: "not found" }, 404, origin, request);
   },
 };

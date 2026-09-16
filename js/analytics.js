@@ -36,19 +36,34 @@
     });
     var url = endpoint.replace(/\/$/, "") + "/collect";
 
+    // text/plain, not application/json, and this is load-bearing rather than
+    // sloppy. application/json is not a CORS-safelisted content type, so it
+    // forces a preflight -- and sendBeacon sends with credentials mode
+    // "include", whose preflight then demands
+    // Access-Control-Allow-Credentials: true. The first version of this file
+    // used application/json and every beacon was silently blocked by CORS in
+    // the browser while curl tests passed, because curl does no CORS at all.
+    //
+    // text/plain is safelisted, so there is no preflight, no credentials
+    // question, and one request instead of two. The collector reads the body
+    // with request.text() and parses it itself, so the declared type never
+    // mattered on the server side.
+    var TYPE = "text/plain;charset=UTF-8";
+
     // sendBeacon survives the page being closed mid-request, which is exactly
     // when an outbound-link click is recorded.
     if (navigator.sendBeacon) {
       try {
-        navigator.sendBeacon(url, new Blob([payload], { type: "application/json" }));
-        return;
+        if (navigator.sendBeacon(url, new Blob([payload], { type: TYPE }))) return;
+        // A false return means the browser refused to queue it (payload over
+        // its limit, say), so fall through rather than lose the event.
       } catch (err) {
         /* fall through to fetch */
       }
     }
     fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": TYPE },
       body: payload,
       keepalive: true,
       mode: "cors",
@@ -66,16 +81,49 @@
   // in with data-track="download" is counted, with its data-track-meta JSON
   // merged in (the resume builder uses this to record the role picked).
   document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href]");
     var el = event.target.closest("[data-track]");
-    if (!el) return;
-    var meta = null;
-    if (el.dataset.trackMeta) {
-      try {
-        meta = JSON.parse(el.dataset.trackMeta);
-      } catch (err) {
-        meta = null;
+
+    // An explicit data-track wins, so a tagged link never fires twice.
+    if (el) {
+      var meta = null;
+      if (el.dataset.trackMeta) {
+        try {
+          meta = JSON.parse(el.dataset.trackMeta);
+        } catch (err) {
+          meta = null;
+        }
       }
+      send(el.dataset.track, meta);
+      return;
     }
-    send(el.dataset.track, meta);
+
+    // Outbound clicks, detected rather than hand-tagged: the case-study links
+    // are built at runtime from data/projects.json, so tagging markup would
+    // miss exactly the links worth measuring -- whether anyone actually opens
+    // the repos and dashboards.
+    if (!link) return;
+    var to = outboundTarget(link.getAttribute("href"));
+    if (to) send("outbound", { to: to });
   });
+
+  // Returns what to record for a destination, or null when the link is
+  // internal. Records host + path with the query string dropped: this is
+  // Eileen's own link being identified, not anything about the visitor, and
+  // the path is the whole point -- "github.com" would not say which repo.
+  function outboundTarget(href) {
+    if (!href || href.charAt(0) === "#") return null;
+    var url;
+    try {
+      url = new URL(href, location.href);
+    } catch (err) {
+      return null;
+    }
+    // mailto:/tel: have no host; the scheme alone is the useful signal.
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      return url.protocol.replace(":", "");
+    }
+    if (url.host === location.host) return null;
+    return (url.host + url.pathname).replace(/\/$/, "").slice(0, 160);
+  }
 })();
