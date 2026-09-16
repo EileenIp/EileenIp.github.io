@@ -124,6 +124,50 @@ The page is `noindex, nofollow` and is deliberately absent from the site nav
 and from `sitemap.xml`. The numbers sit behind the token regardless, but
 there is no reason to advertise it to a recruiter reading the portfolio.
 
+## Two things that were wrong at first
+
+Both fixed 2026-09-16. Neither announced itself.
+
+**Beacons must not declare `application/json`.** That type is not
+CORS-safelisted, so it forces a preflight — and `sendBeacon` sends with
+credentials mode `include`, whose preflight then demands
+`Access-Control-Allow-Credentials: true`. The collector doesn't send that
+header, so the browser reported every beacon as failed: `ERR_FAILED` in the
+network panel and a CORS error in the console. It went unnoticed because the
+smoke tests used `curl`, which does no CORS at all.
+
+Beacons now send `text/plain;charset=UTF-8`, which is safelisted — no
+preflight, no credentials question, one request instead of two. The collector
+reads the body with `request.text()` and parses it itself, so the declared
+type was never load-bearing on the server side.
+
+**Correction, measured afterwards with the browser smoke test:** the first
+write-up of this — including the commit message and PR #18 — said no browser
+pageview ever reached the collector. That was wrong. The preflight *succeeded*,
+the POST was sent, the Worker inserted the row, and only the *response* was
+rejected. The data landed while the browser logged failures. The real cost was
+a console full of errors and a client that could not tell success from
+failure, not the guaranteed data loss originally claimed. Rows written between
+the deploy and the fix were deleted during testing anyway, so nothing was kept
+either way.
+
+That distinction is why `smoke_test.py` asserts three separate things rather
+than one — that the row lands, that no CORS error appears, and that no
+`/collect` request fails at the network layer. A test checking only for the
+row would have called the broken version healthy.
+
+**The origin allowlist gated only the response header, not the write.**
+`/collect` inserted the row regardless of who asked, so anyone with the URL
+could post, and a local preview of the site wrote into the production
+database. It now rejects an `Origin` that isn't allowlisted with a 403, and
+the allowed list is derived from the Worker's *own* hostname — localhost
+origins are accepted only when the Worker itself is running under
+`wrangler dev`, so the deployed one can't be talked into it.
+
+`/stats` is deliberately still token-only: a bearer token is a stronger gate
+than a header the client picks, and leaving it curl-able is what makes it
+debuggable.
+
 ## Recording an event
 
 A pageview fires on every load. Anything else is opt-in from the markup:
@@ -213,17 +257,50 @@ Two real bugs surfaced while writing them, both now fixed:
   because `parseInt(...) || 30` treats a perfectly parseable zero as missing.
   Parsing and clamping are now separate steps.
 
-**What these tests still do not cover, honestly:** the browser half. The
-beacon bug lived in the interaction between `sendBeacon`, CORS preflights and
-credentials mode -- none of which exist inside `workerd`. Closing that gap
-needs a test that drives a real browser against a running Worker and asserts
-a row landed. Until then, **exercise any CORS-shaped change from a real
-browser by hand**, because the suite passing does not mean a visitor's
-pageview arrives.
+**What these tests do not cover:** the browser half. The beacon bug lived in
+the interaction between `sendBeacon`, CORS preflights and credentials mode --
+none of which exist inside `workerd`. That gap is closed by `smoke_test.py`
+below, which drives a real browser; this suite alone passing does not mean a
+visitor's pageview arrives.
 
 `npm audit` reports 4 high-severity advisories, all in a `sharp` build nested
 inside the test pool's own pinned wrangler. Dev-only, not reachable from the
 deployed Worker, and `--force` would break the pool.
+
+## Browser smoke test
+
+```bash
+cd analytics/worker && npm run smoke
+```
+
+Nine checks, driving real Chromium against a `wrangler dev` Worker and a
+locally served copy of the site, asserting that rows land in the local D1.
+This is the layer the unit suite cannot reach, and it is the layer the only
+bug that actually shipped lived in.
+
+Needs Python's playwright:
+
+```bash
+pip install playwright && playwright install chromium
+```
+
+It starts and stops both servers itself and **mutates nothing in the repo** --
+the collector URL is injected by intercepting the request for
+`js/analytics-config.js`, so the committed config keeps pointing at production
+and a crashed run cannot leave the site wired to localhost.
+
+Checked: a pageview reaches the collector from a real browser; no CORS error
+appears in the console; no `/collect` request fails at the network layer; an
+external link records an outbound event carrying host and path; a `mailto:`
+link records the scheme alone; an internal link and an `#anchor` record
+nothing; and the resume download records a `download` event carrying the role
+the visitor picked.
+
+**Verified to actually fail.** The `application/json` bug was reintroduced
+deliberately and the two CORS checks failed with the original error, while the
+other seven still passed -- including "a pageview reaches the collector",
+which is what produced the correction recorded above. A test suite nobody has
+watched fail is a guess.
 
 ## Local development
 
