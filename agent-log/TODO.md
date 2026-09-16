@@ -12,18 +12,6 @@ then `Todo` top-down.
 <!-- Blocked items move here with a one-line note on what's needed.
      Never attempt these. -->
 
-- [ ] Once the Creator dashboard has an impact stat, consider dropping
-      `ecommerce-behavior-conversion-2019` from the featured five. It
-      duplicates `subscriber-churn-retention-2026`'s method exactly (same
-      `projectType`, same Python/Pandas/LightGBM/SHAP/K-Means toolchain),
-      it's the only 2019 entry among four 2026 ones, and E-Commerce isn't
-      one of the five target domains while Media & Entertainment is. Kept
-      for now only because a card with a real number beats a card without
-      one.
-      — *no longer blocked on the impact stat, which landed 2026-09-16 —
-      all five featured cards now carry a number, so the reason for keeping
-      E-Commerce ("a card with a real number beats a card without one") has
-      expired. Still a judgement call: propose, don't execute.*
 ---
 
 ## In progress
@@ -358,6 +346,47 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-17 — **Homepage featured five re-picked: E-Commerce out, Steam
+      in.** The set was chosen on 2026-09-13, before Launch Sentiment and Steam
+      shipped, and had not been revisited since. Eileen asked which five were
+      best; this is the swap the `Needs Eileen` item had proposed, now acted on
+      at her instruction.
+
+      **The five:** Ad Creative Pipeline (the only data-engineering project),
+      Subscriber Churn (strongest data science), Advertising Revenue (BI on
+      Power BI / SQL Server), **F2P vs Paid on Steam**, Creator Dashboard (BI
+      on Tableau, Media & Entertainment).
+
+      **Why E-Commerce went:** 2019 among four 2026 projects; not one of the
+      five target domains; the identical toolchain to Subscriber Churn, which
+      was visible on the page itself as two cards both tagged
+      `Python · LightGBM`; and a single bare-repo link. The only argument for
+      keeping it — a card with a number beats a card without — expired when
+      the Creator dashboard got its stat. It remains on `projects.html`.
+
+      **Why Steam, and not Launch Sentiment:** gaming is the first target
+      domain listed and had two finished projects featured nowhere, so it
+      needed a slot. Steam reads in three seconds; Launch Sentiment's headline
+      is a null result, which is the better interview story and the worse
+      card, because a null needs a paragraph. The intro line now reads
+      "marketing, advertising, media and gaming".
+
+      The card's description is the project's own `oneSentenceDescription`,
+      verbatim. `cardDescription` was not used because it restates the impact
+      line almost word for word.
+
+      **Found while deciding, fixed separately (PR #27):** two featured cards,
+      Ad Creative Pipeline and Subscriber Churn, had `links: null` — both
+      public repos, no route to either from the site. Subscriber Churn's
+      dashboard is still unlinked, deliberately: Pages is disabled on
+      `subscriber-churn-ltv`, so its built `docs/` dashboard 404s publicly.
+      Enabling Pages is Eileen's settings change.
+
+      **Next candidate to revisit:** when Support Triage finishes, it is the
+      strongest case to displace the Creator Dashboard — Customer Experience
+      is a target domain with no featured coverage, and its stat is sharper.
+      Held until it is actually done; it is still In progress.
 
 - [x] 2026-09-16 — **Creator dashboard impact stat, the last `Needs Eileen`
       blocker on the homepage.** All five featured cards now carry a number;
