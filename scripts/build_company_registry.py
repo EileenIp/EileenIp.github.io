@@ -9,13 +9,13 @@ Domains were filled in by hand. Anything genuinely ambiguous is left with a
 null domain rather than guessed -- a wrong domain means the wrong company's
 logo on the card, which is worse than no logo at all. Any such name is
 printed at the end of a run so it can be resolved rather than forgotten.
-As of 2026-09-16 there are none. Eileen identified ADN and "GOVERNMENT" and
-removed FMD, Farrer Capital Management and Openmesh (2026-09-13), then removed
-BMW, Fujitsu, McKinsey and Spotlight Retail Group (2026-09-16) -- all four
-were unactioned leads whose logos the favicon service had nothing for. ASIO's
-logo is still missing and its row deliberately stays: it is a real
-application, withdrawn 2026-09-09, and a missing icon is not a reason to
-delete history.
+As of 2026-09-16 there are none, and every remaining company has a cached
+logo. Eileen identified ADN and "GOVERNMENT", then removed FMD, Farrer
+Capital Management and Openmesh (2026-09-13), and BMW, Fujitsu, McKinsey,
+Spotlight Retail Group and ASIO (2026-09-16). The ASIO row was a real
+application rather than a lead -- applied 2026-09-09, withdrawn -- so its
+removal was raised as a loss of history and confirmed as intentional before
+it went.
 """
 import json, re
 from pathlib import Path
@@ -34,7 +34,6 @@ COMPANIES = {
     "arup": ("Arup", "arup.com"),
     "atlassian": ("Atlassian", "atlassian.com"),
     "ausnet": ("AusNet", "ausnetservices.com.au"),
-    "australian secruity intelligence organisation asio": ("ASIO", "asio.gov.au"),
     "bank of america": ("Bank of America", "bankofamerica.com"),
     "bcg": ("BCG", "bcg.com"),
     "bdo": ("BDO", "bdo.com.au"),
