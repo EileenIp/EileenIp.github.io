@@ -72,18 +72,15 @@ second "build a recommender" project.
 ### CV / content gaps
 - [ ] `Dynamic AI Chatbot` has no GitHub link on the CV. Either add the link
       or note why it's private.
-- [ ] `Creator Content Decision Dashboard` has no GitHub link, and its bullet
-      list contains two near-duplicate entries. Deduplicate.
-- [ ] The CV docx has two more defects at source, found while building the
-      resume builder: the E-commerce Purchase-Prediction entry appears twice
-      verbatim, and the Advertising Revenue project's three bullets have no
-      title line and sit stranded under that duplicate.
-      `scripts/build_resume_json.py` works around both (and the Creator
-      duplication above) and prints all three on every run — the Advertising
-      Revenue title, tools and repo URL were recovered from
-      `data/projects.json`, not invented — but they want fixing in the docx.
-- [ ] The docx misspells `Power Bi` and `Qilk`. The generated PDFs normalise
-      them to `Power BI` and `Qlik`; the docx is still wrong.
+- [ ] The E-commerce Purchase-Prediction entry's "GitHub" link on the CV goes
+      to the site's case study (`projects.html?project=...`), not to GitHub.
+      A public repo exists, `EileenIp/Ecommerce-Behaviour-Conversion-Analysis`
+      — point the link there, or relabel it. Found 2026-09-17, not changed.
+- [ ] The Advertising Revenue entry has no italic keyword line on the CV,
+      unlike every other project; one never existed. Its title line lists
+      `Power BI, SQL Server, Python` and wraps its date onto a second line, as
+      Launch Sentiment's and Steam's already do. Eileen's wording if she wants
+      either changed.
 - [ ] Optional: `data/resume.json` has `summary: null` because the docx has no
       summary section, so nothing was invented. If Eileen wants one it is a
       single fixed line shared by every variant — her call was that the
@@ -100,6 +97,48 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-17 — **CV docx fixed at source — and found to be unopenable in
+      Word.** On Eileen's ask, the four CV defects logged under `CV / content
+      gaps` were fixed in `career/cv/CV 2026 working.docx` itself:
+      - the duplicated E-commerce Purchase-Prediction entry is gone, and its
+        second copy's title line became the missing **Advertising Revenue &
+        Sales Efficiency Growth Diagnostic** title, linked to
+        `EileenIp/advertising-revenue-sales-efficiency`, so the three stranded
+        bullets have their heading back;
+      - Creator Content Decision Dashboard's "GitHub" now links to
+        `EileenIp/creator-content-decision-dashboard`, and its two restated
+        bullets are removed — the last two, the same ones the build script was
+        already dropping, so no resume the site produces loses anything;
+      - `Power Bi` → `Power BI` (16 places) and `Qilk` → `Qlik`.
+
+      **The bigger finding: the master CV had not opened in Word since
+      2026-09-16.** Word reported "The file appears to be corrupted." The cause
+      was `scripts/add_cv_projects.py`: it rewrote the XML with ElementTree,
+      which renamed Word's namespace prefixes (`w14` → `ns2`, `mc` → `ns1`, …)
+      while the `mc:Ignorable` list still named the originals. The site's
+      parser never noticed, and the "not verified in Word" caveat on the
+      resume-builder entry below is exactly where it hid. Prefixes were
+      restored by namespace URI from the last Word-saved copy. **Do not re-run
+      `add_cv_projects.py` against the CV as it stands** — it would repeat
+      both the damage and the additions.
+
+      **Verified:** the fixed file opens in Word (9 pages) and was exported to
+      PDF and read page by page; it passes OOXML schema validation, which the
+      previous master did not; paragraph count moved by exactly the 7 removed
+      (4 duplicate, 2 Creator, 1 stray spacer). The previous master is kept
+      unmodified as `CV 2026 working (pre-cv-fixes backup, will not open in
+      Word).docx`, checksum-verified.
+
+      **Site side:** `data/resume.json` regenerated. Creator gains its link;
+      the Advertising Revenue entry now comes from the CV rather than being
+      reconstructed from `data/projects.json`, so its tools follow the CV's
+      shorter line (DAX and Power Query dropped from the list, still named in
+      its bullets). The workarounds in `build_resume_json.py` are removed; a
+      duplicated entry or an untitled bullet now stops the build rather than
+      being patched. Re-verified in the browser across all 128 role ×
+      industry × YouTube combinations against the previous data: identical
+      project picks, 75 with three projects, 53 with two, none over a page.
 
 - [x] 2026-09-17 — **Roadmap project 4 — Support Triage: Which Conversations
       Are About to Go Bad. Built, written up and shipped.** Started 2026-09-13,

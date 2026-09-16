@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-16",
+  "generated": "2026-09-17",
   "source": "career/cv/CV 2026 working.docx",
   "tagsAreDrafted": false,
   "tagsAcceptedOn": "2026-09-16",
@@ -903,8 +903,6 @@
       "tools": [
         "Power BI",
         "SQL Server",
-        "DAX",
-        "Power Query",
         "Python"
       ],
       "date": "Aug 2026",
@@ -916,7 +914,6 @@
         "Designed a Microsoft SQL Server star schema with six conformed dimensions and five fact tables, using T-SQL window functions, Power Query, Python-generated commercial data and DAX measures to govern revenue, funnel, retention, capacity and pipeline analysis.",
         "Validated an analytics pipeline spanning 30,000 source records, 1.70B impressions, 25.62M clicks and 322,798 conversions through SQL reconciliation and quality tests, then implemented six explainable account-action rules with Advertiser 360 drill-through."
       ],
-      "recovered": true,
       "roles": [
         "data-engineer",
         "bi-developer",
@@ -936,7 +933,7 @@
       ],
       "date": "Jan 2026",
       "year": 2026,
-      "url": null,
+      "url": "https://github.com/EileenIp/creator-content-decision-dashboard",
       "keywords": [
         "Performance Analytics",
         "Interactive Dashboard Design",
@@ -947,10 +944,6 @@
         "Built an interactive creator-performance decision dashboard across 6,857 daily records, 36 synthetic videos and 12 months of activity, translating reach, retention, momentum and audience-loyalty trends into production decisions.",
         "Engineered a relational data model linking video metadata with daily performance data, using weighted KPI calculations, level-of-detail and table calculations, dual-axis trends, segmentation and cross-dashboard filter actions.",
         "Designed 5 KPI scorecards, 4 interactive filters and 4 analytical views that classify videos into Scale, Improve Discovery, Fix Retention or Review actions and surface targeted next-experiment recommendations."
-      ],
-      "droppedDuplicateBullets": [
-        "Built an interactive creator-performance decision dashboard across 6,857 daily records, 36 synthetic videos and 12 months of activity, using relational modelling, weighted KPIs, level-of-detail calculations and cross-dashboard filters.",
-        "Translated reach, retention, momentum and audience-loyalty patterns into Scale, Improve Discovery, Fix Retention or Review actions through 5 KPI scorecards, 4 filters and 4 decision-focused analytical views."
       ],
       "roles": [
         "bi-developer",

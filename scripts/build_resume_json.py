@@ -7,17 +7,12 @@ hand-edit in two places. It never rewrites the docx.
 
     python scripts/build_resume_json.py
 
-Three defects in the docx are worked around here rather than silently
-absorbed; each one prints a warning and is listed in TODO.md for Eileen to
-fix at source:
-
-  1. The E-commerce Purchase-Prediction entry appears twice, verbatim.
-  2. The Advertising Revenue project's three bullets have no title line --
-     they are stranded under that duplicate. The title, tools and repo URL
-     are recovered from data/projects.json, where the same project is already
-     described. Nothing is invented.
-  3. The Creator Content Decision Dashboard carries five bullets, where the
-     last two are condensed restatements of the first three.
+Until 2026-09-17 the docx carried defects this script patched around: a
+duplicated E-commerce entry, three Advertising Revenue bullets with no title
+line, two restated Creator dashboard bullets, and the tool names "Power Bi"
+and "Qilk". All were fixed in the docx itself, so the workarounds are gone.
+A duplicated entry or bullets with no title line now stop the build instead
+of being repaired -- fix them in the docx.
 
 Role and industry tags are drafted here and were reviewed and accepted by
 Eileen on 2026-09-16 -- see TAGS_ACCEPTED below. Accepted as drafted, not
@@ -39,7 +34,6 @@ R = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 REPO = Path(__file__).resolve().parent.parent
 CV = REPO.parent / "career" / "cv" / "CV 2026 working.docx"
 OUT = REPO / "data" / "resume.json"
-PROJECTS_JSON = REPO / "data" / "projects.json"
 
 ROLES = ["data-analyst", "data-scientist", "bi-developer", "data-engineer"]
 
@@ -99,10 +93,6 @@ def first_url(text):
 
 TITLE_META = re.compile(r"^(?P<tools>.+),\s*(?P<month>[A-Z][a-z]{2})\s+(?P<year>\d{4})$")
 
-# The docx writes these two tool names with typos. Display spelling is
-# normalised; "Power BI" already matches career/build_tailored_resumes.py.
-TOOL_SPELLING = {"Power Bi": "Power BI", "Qilk": "Qlik"}
-
 
 def slugify(title):
     s = title.lower()
@@ -125,8 +115,7 @@ def split_title_line(raw):
     title = re.sub(r"\s*\|\s*GitHub\s*$", "", left).strip()
     if not title:
         return None
-    tools = [TOOL_SPELLING.get(t.strip(), t.strip())
-             for t in m.group("tools").split(",") if t.strip()]
+    tools = [t.strip() for t in m.group("tools").split(",") if t.strip()]
     return {
         "id": slugify(title),
         "title": title,
@@ -138,97 +127,40 @@ def split_title_line(raw):
 
 
 def parse_projects(paras):
-    """Walk the PROJECTS section, returning entries and the defects found."""
+    """Walk the PROJECTS section and return its entries."""
     start = next(i for i, (_, t) in enumerate(paras) if clean(t) == "PROJECTS")
     end = next(i for i, (_, t) in enumerate(paras)
                if clean(t).startswith("Template to add New Project"))
 
-    projects, defects, current = [], [], None
+    projects, current = [], None
     for is_bullet, raw in paras[start + 1:end]:
         if is_bullet:
             if current is None:
-                # Bullets with no title line above them. Recovered below.
-                defects.append(("orphan-bullet", clean(raw)))
-                projects.append({"id": None, "bullets": [clean(raw)]})
-                current = projects[-1]
-            else:
-                current.setdefault("bullets", []).append(clean(raw))
+                sys.exit(f"CV defect: bullet with no project title above it -- "
+                         f"fix it in the docx: {clean(raw)[:80]}")
+            current.setdefault("bullets", []).append(clean(raw))
             continue
 
         parsed = split_title_line(raw)
         if parsed:
+            parsed["keywords"] = []
             projects.append(parsed)
             current = projects[-1]
-        elif current is not None and not current.get("keywords"):
+        elif current is not None and not current["keywords"]:
             # The non-bullet line under a title is its keyword/method list.
             current["keywords"] = [k.strip() for k in clean(raw).split(",") if k.strip()]
-    return projects, defects
+    return projects
 
 
-def repair(projects):
-    """Fix the three docx defects, loudly. Returns (projects, notes)."""
-    notes = []
-
-    # --- Defect 1 & 2: the duplicated entry, and the bullets stranded in it.
-    seen = {}
-    deduped = []
+def check_projects(projects):
+    """Stop on docx defects rather than patching them. Returns notes for gaps."""
+    seen = set()
     for p in projects:
-        pid = p.get("id")
-        if pid in seen:
-            original = seen[pid]
-            extra = [b for b in p.get("bullets", []) if b not in original["bullets"]]
-            notes.append(
-                f"DEFECT: '{p['title']}' appears twice in the docx, verbatim. "
-                f"Second copy dropped."
-            )
-            if extra:
-                # Recovered from data/projects.json, where the same project is
-                # already titled and linked. Bullets are the docx's own.
-                canon = json.loads(PROJECTS_JSON.read_text(encoding="utf-8"))
-                entries = canon["projects"] if isinstance(canon, dict) else canon
-                match = next(e for e in entries
-                             if e["id"] == "advertising-revenue-sales-efficiency-2026")
-                recovered = {
-                    "id": slugify(match["title"]),
-                    "title": match["title"],
-                    "tools": list(match["tools"]),
-                    "date": "Aug 2026",
-                    "year": match["year"],
-                    "url": match["links"]["notebookRepo"],
-                    # No keyword line survived with these bullets. Left
-                    # empty rather than inheriting the duplicate's, which
-                    # describe a different project entirely.
-                    "keywords": [],
-                    "bullets": extra,
-                    "recovered": True,
-                }
-                deduped.append(recovered)
-                notes.append(
-                    f"DEFECT: {len(extra)} bullets belonging to "
-                    f"'{match['title']}' had no title line in the docx -- they sat "
-                    f"under the duplicate above. Title, tools and repo URL taken "
-                    f"from data/projects.json; bullets are the docx's own."
-                )
-            continue
-        seen[pid] = p
-        deduped.append(p)
-
-    # --- Defect 3: Creator dashboard's two restated bullets.
-    for p in deduped:
-        if p["id"] == "creator-content-decision-dashboard" and len(p["bullets"]) == 5:
-            dropped = p["bullets"][3:]
-            p["bullets"] = p["bullets"][:3]
-            notes.append(
-                "DEFECT: 'Creator Content Decision Dashboard' carries 5 bullets; "
-                "the last 2 are condensed restatements of the first 3. Kept the "
-                "first 3. (Already logged under CV / content gaps in TODO.md.)"
-            )
-            p["droppedDuplicateBullets"] = dropped
-
-    for p in deduped:
-        if not p.get("url"):
-            notes.append(f"NO LINK: '{p['title']}' has no GitHub URL on the CV.")
-    return deduped, notes
+        if p["id"] in seen:
+            sys.exit(f"CV defect: '{p['title']}' appears twice -- fix it in the docx.")
+        seen.add(p["id"])
+    return [f"NO LINK: '{p['title']}' has no GitHub URL on the CV."
+            for p in projects if not p.get("url")]
 
 
 # ---------------------------------------------------------------------------
@@ -452,8 +384,7 @@ def parse_skills(paras):
         key = wanted.get(slugify(label))
         if not key or not values:
             continue
-        out[key] = [TOOL_SPELLING.get(v.strip(), v.strip())
-                    for v in values.split(",") if v.strip()]
+        out[key] = [v.strip() for v in values.split(",") if v.strip()]
     missing = set(wanted.values()) - set(out)
     if missing:
         sys.exit(f"SKILLS section is missing expected rows: {sorted(missing)}")
@@ -479,8 +410,8 @@ def main():
     if not CV.exists():
         sys.exit(f"CV not found: {CV}")
     paras = read_paragraphs(CV)
-    projects, _ = parse_projects(paras)
-    projects, notes = repair(projects)
+    projects = parse_projects(paras)
+    notes = check_projects(projects)
 
     skills = parse_skills(paras)
     base_langs = set(skills["languages"])
