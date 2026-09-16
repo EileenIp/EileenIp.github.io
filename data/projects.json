@@ -883,6 +883,11 @@
           "svg": "<svg viewBox=\"0 0 640 250\" role=\"img\" aria-label=\"Churn rate by risk-value quadrant: Priority Save 47.6 percent, Low-Cost Nudge 43.1 percent, Quiet Value Monitor 39.6 percent, Stable No Action 9.5 percent\"><line x1=\"0\" y1=\"190\" x2=\"640\" y2=\"190\" class=\"viz-stroke-border\"></line><rect x=\"20\" y=\"20\" width=\"110\" height=\"170\" class=\"viz-fill-accent\"></rect><text x=\"75\" y=\"12\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">47.6%</text><rect x=\"190\" y=\"36\" width=\"110\" height=\"154\" class=\"viz-fill-accent-85\"></rect><text x=\"245\" y=\"28\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">43.1%</text><rect x=\"360\" y=\"49\" width=\"110\" height=\"141\" class=\"viz-fill-accent-65\"></rect><text x=\"415\" y=\"41\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">39.6%</text><rect x=\"530\" y=\"156\" width=\"110\" height=\"34\" class=\"viz-fill-muted\"></rect><text x=\"585\" y=\"148\" text-anchor=\"middle\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">9.5%</text><text x=\"75\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Priority</text><text x=\"75\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Save</text><text x=\"245\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Low-Cost</text><text x=\"245\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Nudge</text><text x=\"415\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Quiet Value</text><text x=\"415\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">— Monitor</text><text x=\"585\" y=\"212\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">Stable,</text><text x=\"585\" y=\"226\" text-anchor=\"middle\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"11.5\" class=\"viz-fill-muted\">No Action</text></svg>"
         }
       ],
+      "links": {
+        "technicalFindings": "https://github.com/EileenIp/subscriber-churn-ltv/blob/master/deliverables/retention-signal-report.docx",
+        "notebookRepo": "https://github.com/EileenIp/subscriber-churn-ltv",
+        "caseStudyPage": "https://github.com/EileenIp/subscriber-churn-ltv#readme"
+      },
       "image": "images/projects/subscriber-churn-retention-2026-card.png"
     },
     {
@@ -1165,6 +1170,12 @@
           "svg": "<svg viewBox=\"0 0 500 110\" role=\"img\" aria-label=\"Reconciliation test: 7 failing rows before the fix, 0 after\"><text x=\"0\" y=\"18\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">Before fix (expected all defects to self-heal)</text><rect x=\"0\" y=\"26\" width=\"180\" height=\"24\" class=\"viz-fill-accent-55\"></rect><text x=\"190\" y=\"43\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">7 failing</text><text x=\"0\" y=\"72\" font-family=\"IBM Plex Sans, sans-serif\" font-size=\"13\" class=\"viz-fill-text-soft\">After fix (scoped to defects that actually resolve)</text><rect x=\"0\" y=\"80\" width=\"14\" height=\"24\" class=\"viz-fill-accent\"></rect><text x=\"24\" y=\"97\" font-family=\"IBM Plex Mono, monospace\" font-size=\"14\" font-weight=\"600\" class=\"viz-fill-text\">0 failing</text></svg>"
         }
       ],
+      "links": {
+        "dashboard": "https://eileenip.github.io/ad-creative-pipeline/dashboard/",
+        "technicalFindings": "https://github.com/EileenIp/ad-creative-pipeline/blob/master/deliverables/same-day-reliability-report.docx",
+        "notebookRepo": "https://github.com/EileenIp/ad-creative-pipeline",
+        "caseStudyPage": "https://github.com/EileenIp/ad-creative-pipeline#readme"
+      },
       "image": "images/projects/ad-creative-performance-pipeline-card.png"
     },
     {
