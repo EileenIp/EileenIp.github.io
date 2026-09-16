@@ -172,6 +172,59 @@ The placeholder Resume buttons this section used to warn about are gone —
 they now link to `resume.html` rather than doing nothing, so the download
 count comes from a real download.
 
+## Tests
+
+```bash
+cd analytics/worker && npm test
+```
+
+53 tests, run inside `workerd` against a real local D1 rather than a mock --
+most of what this Worker does is D1 queries and header handling, and a
+hand-rolled fake would have agreed with whatever the code happened to do.
+
+What they cover, and why those things and not others:
+
+- **The origin gate**, including the case it exists for: a `localhost` origin
+  is accepted only when the Worker itself is running locally. The request URL
+  is part of each fixture, because that is what the decision is derived from.
+- **The privacy claims in this README.** Referrer reduced to a host, query
+  strings and fragments stripped from paths, oversized `meta` dropped, and --
+  asserted directly against the stored row -- neither the IP nor the user
+  agent present anywhere in it. If one of these regresses, a claim above
+  becomes false, which is why they are tested rather than trusted.
+- **The visitor hash** being 16 hex characters, stable for one visitor, and
+  different for another.
+- **`/stats` authorisation and aggregation** against seeded rows, including
+  the `roleLabel`-then-`role` fallback for rows written before the label
+  existed, and the window parsing for every shape of bad `days` input.
+- **That the content type is not part of the contract.** A regression guard
+  for the beacon bug: a unit test cannot exercise the browser's CORS layer,
+  so what is asserted is the server-side half -- the collector must not care
+  what type the body declares, which is what lets the client send the
+  safelisted `text/plain` and skip the preflight. If someone tidies that into
+  requiring `application/json`, three tests fail.
+
+Two real bugs surfaced while writing them, both now fixed:
+
+- Tied rows had no secondary sort, so SQLite was free to reorder them and the
+  dashboard's tables reshuffled between refreshes for no visible reason. Every
+  aggregate query now has a deterministic tiebreak.
+- `?days=0` returned a 30-day window while `?days=-5` returned a 1-day one,
+  because `parseInt(...) || 30` treats a perfectly parseable zero as missing.
+  Parsing and clamping are now separate steps.
+
+**What these tests still do not cover, honestly:** the browser half. The
+beacon bug lived in the interaction between `sendBeacon`, CORS preflights and
+credentials mode -- none of which exist inside `workerd`. Closing that gap
+needs a test that drives a real browser against a running Worker and asserts
+a row landed. Until then, **exercise any CORS-shaped change from a real
+browser by hand**, because the suite passing does not mean a visitor's
+pageview arrives.
+
+`npm audit` reports 4 high-severity advisories, all in a `sharp` build nested
+inside the test pool's own pinned wrangler. Dev-only, not reachable from the
+deployed Worker, and `--force` would break the pool.
+
 ## Local development
 
 ```bash
