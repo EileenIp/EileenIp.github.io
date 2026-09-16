@@ -1,7 +1,9 @@
 {
   "generated": "2026-09-16",
   "source": "career/cv/CV 2026 working.docx",
-  "tagsAreDrafted": true,
+  "tagsAreDrafted": false,
+  "tagsAcceptedOn": "2026-09-16",
+  "tagsAcceptedNote": "Drafted by Claude, reviewed and accepted as-is by Eileen -- not individually corrected.",
   "profile": {
     "name": "Eileen Ip",
     "contactLine": "Australian/Hong Kong Citizen | eileenip01@gmail.com | (Mobile) +61 492 880 564 | LinkedIn | GitHub",
@@ -90,7 +92,7 @@
       "industries": [
         "Real Estate"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "email-spam-classifier",
@@ -118,7 +120,7 @@
       "industries": [
         "Technology"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "stock-prices-forecasting",
@@ -147,7 +149,7 @@
       "industries": [
         "Banking & Finance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "dynamic-ai-chatbot",
@@ -177,7 +179,7 @@
         "Technology",
         "Media & Entertainment"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "bitcoin-s-impact-on-a-portfolio-analysis-report",
@@ -207,7 +209,7 @@
       "industries": [
         "Banking & Finance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "credit-fraud-detection-classifier-analysis",
@@ -239,7 +241,7 @@
       "industries": [
         "Banking & Finance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "customer-segmentation-in-bank-campaigns-presentation",
@@ -270,7 +272,7 @@
         "Banking & Finance",
         "Marketing"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "customer-churn-forecasting-analysis-in-telecom-services",
@@ -303,7 +305,7 @@
         "Telecom",
         "Customer Experience"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "amazon-prime-movies-and-tv-shows-clustering",
@@ -334,7 +336,7 @@
       "industries": [
         "Media & Entertainment"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "pizza-sales-dashboard",
@@ -366,7 +368,7 @@
       "industries": [
         "Retail & Hospitality"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "artist-selection-presentation",
@@ -396,7 +398,7 @@
       "industries": [
         "Media & Entertainment"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "insurance-risk-and-claims-analytics-dashboard",
@@ -427,7 +429,7 @@
       "industries": [
         "Insurance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "sales-performance-analytics-dashboard",
@@ -458,7 +460,7 @@
       "industries": [
         "Banking & Finance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "bank-loan-application-tracking-dashboard",
@@ -489,7 +491,7 @@
       "industries": [
         "Banking & Finance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "bank-fraud-transaction-monitoring-dashboard",
@@ -520,7 +522,7 @@
       "industries": [
         "Banking & Finance"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "bank-marketing-term-deposit-campaign-dashboard",
@@ -552,7 +554,7 @@
         "Banking & Finance",
         "Marketing"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "bank-customer-churn-analysis-dashboard",
@@ -584,7 +586,7 @@
         "Banking & Finance",
         "Customer Experience"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "spotify-listening-analytics-dashboard",
@@ -615,7 +617,7 @@
       "industries": [
         "Media & Entertainment"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "meta-ad-performance-and-revenue-analytics-dashboard",
@@ -647,7 +649,7 @@
         "Marketing",
         "Social Media"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "social-media-marketing-performance-dashboard",
@@ -679,7 +681,7 @@
         "Marketing",
         "Social Media"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "hotel-customer-feedback-analytics-dashboard",
@@ -709,7 +711,7 @@
         "Customer Experience",
         "Retail & Hospitality"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "superstore-sales-and-profit-analytics-dashboard",
@@ -738,7 +740,7 @@
       "industries": [
         "Retail & Hospitality"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "vendor-performance-and-procurement-analytics-dashboard",
@@ -770,7 +772,7 @@
       "industries": [
         "Supply Chain"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "shopify-sales-and-customer-funnel-analytics-dashboard",
@@ -800,7 +802,7 @@
       "industries": [
         "E-Commerce"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "e-commerce-marketing-performance-analytics-dashboard",
@@ -831,7 +833,7 @@
         "E-Commerce",
         "Marketing"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "amazon-product-sales-analytics-dashboard",
@@ -861,7 +863,7 @@
       "industries": [
         "E-Commerce"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "e-commerce-purchase-prediction-and-conversion-funnel-analysis-report",
@@ -893,7 +895,7 @@
       "industries": [
         "E-Commerce"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "advertising-revenue-and-sales-efficiency-growth-diagnostic",
@@ -923,7 +925,7 @@
       "industries": [
         "Digital Advertising"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "creator-content-decision-dashboard",
@@ -958,7 +960,7 @@
         "Media & Entertainment",
         "Social Media"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "launch-sentiment-review-sentiment-early-warning-analysis",
@@ -991,7 +993,7 @@
       "industries": [
         "Gaming"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "f2p-vs-paid-pricing-and-engagement-on-steam",
@@ -1027,7 +1029,7 @@
       "industries": [
         "Gaming"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "support-triage-conversation-risk-scoring-and-reply-speed-analysis",
@@ -1064,7 +1066,7 @@
       "industries": [
         "Customer Experience"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "subscriber-churn-early-warning-and-ltv-segmentation",
@@ -1101,7 +1103,7 @@
         "Subscription Media",
         "Media & Entertainment"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     },
     {
       "id": "ad-creative-performance-data-pipeline",
@@ -1137,7 +1139,7 @@
         "Marketing",
         "Digital Advertising"
       ],
-      "tagsDrafted": true
+      "tagsDrafted": false
     }
   ],
   "skills": {
