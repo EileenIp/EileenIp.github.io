@@ -152,7 +152,11 @@ async function stats(request, env, origin) {
   }
 
   const url = new URL(request.url);
-  const days = Math.min(Math.max(parseInt(url.searchParams.get("days") || "30", 10) || 30, 1), 365);
+  // Parse first, then clamp. `parseInt(...) || 30` would have treated a
+  // perfectly parseable 0 as missing and silently returned 30 days, while
+  // -5 clamped to 1 -- two different answers to the same class of bad input.
+  const requested = parseInt(url.searchParams.get("days") || "", 10);
+  const days = Number.isNaN(requested) ? 30 : Math.min(Math.max(requested, 1), 365);
   const since = new Date(Date.now() - days * 86400000).toISOString().slice(0, 10);
 
   const q = (sql) => env.DB.prepare(sql).bind(since).all();
@@ -165,16 +169,16 @@ async function stats(request, env, origin) {
         GROUP BY day ORDER BY day`),
     q(`SELECT path, COUNT(*) AS views, COUNT(DISTINCT visitor) AS visitors
          FROM events WHERE day >= ? AND kind = 'pageview'
-        GROUP BY path ORDER BY views DESC LIMIT 25`),
+        GROUP BY path ORDER BY views DESC, path ASC LIMIT 25`),
     q(`SELECT referrer_host AS host, COUNT(*) AS views
          FROM events WHERE day >= ? AND kind = 'pageview' AND referrer_host IS NOT NULL
-        GROUP BY host ORDER BY views DESC LIMIT 25`),
+        GROUP BY host ORDER BY views DESC, host ASC LIMIT 25`),
     q(`SELECT country, COUNT(DISTINCT visitor) AS visitors
          FROM events WHERE day >= ? AND country IS NOT NULL
-        GROUP BY country ORDER BY visitors DESC LIMIT 25`),
+        GROUP BY country ORDER BY visitors DESC, country ASC LIMIT 25`),
     q(`SELECT kind, COUNT(*) AS count, COUNT(DISTINCT visitor) AS visitors
          FROM events WHERE day >= ? AND kind != 'pageview'
-        GROUP BY kind ORDER BY count DESC`),
+        GROUP BY kind ORDER BY count DESC, kind ASC`),
     // Which role a visitor picked on the resume builder. It sends both a slug
     // and a label: group on the label when it is there so the table is
     // readable, fall back to the slug for rows written before it was added.
@@ -183,7 +187,7 @@ async function stats(request, env, origin) {
               COUNT(*) AS count
          FROM events WHERE day >= ? AND kind IN ('download', 'resume_build')
                        AND json_extract(meta, '$.role') IS NOT NULL
-        GROUP BY role ORDER BY count DESC`),
+        GROUP BY role ORDER BY count DESC, role ASC`),
   ]);
 
   return json({
