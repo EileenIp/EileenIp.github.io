@@ -323,7 +323,18 @@ honestly. **Tag review:** a browser tool, like `label.html`.
       combinations: none runs to two pages; 75 carry three projects and 53
       carry two, up from 30 — the new bullets are longer, and the page says so.
       The five carry drafted tags and a drafted featured order like the rest.
-- [ ] **Eileen: correct the drafted tags in `tools/resume-tagger.html`**
+- [x] **Tags reviewed and accepted by Eileen, 2026-09-16.** She was shown what
+      the tags are, what they control, and the four I rated shakiest — Bitcoin
+      tagged Data Analyst, Artist Selection missing BI, the chatbot tagged Data
+      Scientist, and sixteen Jan-2026 dashboards tagged identically — and
+      accepted the draft as it stood. Recorded as accepted rather than
+      corrected, because those are different things and the file should say
+      which: `TAGS_ACCEPTED` in `scripts/build_resume_json.py`, surfaced as
+      `tagsAcceptedOn` / `tagsAcceptedNote` in `data/resume.json`. A re-run
+      preserves it. `tools/resume-tagger.html` still works if she wants to
+      change any of it later.
+      — *superseded, kept for the trail:* correct the drafted tags in
+      `tools/resume-tagger.html`
       (~20 minutes). Serve the site locally, open it, fix any project tagged
       for a role it doesn't really support, then Export and replace
       `data/resume.json`. Edits autosave. It also sets what each role leads

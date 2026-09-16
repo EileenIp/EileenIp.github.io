@@ -19,10 +19,11 @@ fix at source:
   3. The Creator Content Decision Dashboard carries five bullets, where the
      last two are condensed restatements of the first three.
 
-ROLE AND INDUSTRY TAGS ARE DRAFTED, NOT AUTHORITATIVE. They are Eileen's to
-correct in tools/resume-tagger.html, which exports a corrected resume.json.
-Re-running this script regenerates the draft tags, so run it only when the CV
-itself has changed, and re-apply her corrections after.
+Role and industry tags are drafted here and were reviewed and accepted by
+Eileen on 2026-09-16 -- see TAGS_ACCEPTED below. Accepted as drafted, not
+corrected one by one. If the CV gains projects she has not seen, set
+TAGS_ACCEPTED back to None so the file stops claiming a review that did not
+cover them; tools/resume-tagger.html is there to correct any of it later.
 """
 import json
 import re
@@ -41,6 +42,16 @@ OUT = REPO / "data" / "resume.json"
 PROJECTS_JSON = REPO / "data" / "projects.json"
 
 ROLES = ["data-analyst", "data-scientist", "bi-developer", "data-engineer"]
+
+# Eileen reviewed the drafted role and industry tags on 2026-09-16 and accepted
+# them as they stood, after the four I flagged as shaky were put to her
+# (Bitcoin tagged DA, Artist Selection missing BI, the chatbot tagged DS, and
+# sixteen Jan-2026 dashboards tagged identically). Accepted, not corrected --
+# the distinction matters, so the file records which.
+#
+# Set this back to None if the CV gains projects she has not seen, so the tags
+# stop claiming a review that did not cover them.
+TAGS_ACCEPTED = "2026-09-16"
 
 
 def read_paragraphs(path):
@@ -488,7 +499,7 @@ def main():
             notes.append(f"UNTAGGED: '{p['title']}' has no draft tags -- new since the last run?")
         p["roles"] = roles
         p["industries"] = industries
-        p["tagsDrafted"] = True
+        p["tagsDrafted"] = TAGS_ACCEPTED is None
         tagged.append(p)
 
     known = {p["id"] for p in tagged}
@@ -505,7 +516,11 @@ def main():
     doc = {
         "generated": date.today().isoformat(),
         "source": "career/cv/CV 2026 working.docx",
-        "tagsAreDrafted": True,
+        "tagsAreDrafted": TAGS_ACCEPTED is None,
+        "tagsAcceptedOn": TAGS_ACCEPTED,
+        "tagsAcceptedNote": (
+            "Drafted by Claude, reviewed and accepted as-is by Eileen -- not "
+            "individually corrected." if TAGS_ACCEPTED else None),
         "profile": {
             "name": clean(paras[0][1]),
             "contactLine": contact,
