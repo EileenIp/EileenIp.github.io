@@ -77,11 +77,6 @@
       "domain": "bloomberg.com",
       "logo": "images/logos/bloomberg.com.png"
     },
-    "bmw": {
-      "name": "BMW",
-      "domain": "bmw.com",
-      "logo": "images/logos/bmw.com.png"
-    },
     "capgemini": {
       "name": "Capgemini",
       "domain": "capgemini.com",
@@ -151,11 +146,6 @@
       "name": "FTI Consulting",
       "domain": "fticonsulting.com",
       "logo": "images/logos/fticonsulting.com.png"
-    },
-    "fujitsu": {
-      "name": "Fujitsu",
-      "domain": "fujitsu.com",
-      "logo": "images/logos/fujitsu.com.png"
     },
     "general motors": {
       "name": "General Motors",
@@ -236,11 +226,6 @@
       "name": "McGrathNicol",
       "domain": "mcgrathnicol.com",
       "logo": "images/logos/mcgrathnicol.com.png"
-    },
-    "mckinsey & company": {
-      "name": "McKinsey & Company",
-      "domain": "mckinsey.com",
-      "logo": "images/logos/mckinsey.com.png"
     },
     "mercedes benz": {
       "name": "Mercedes-Benz",
@@ -346,11 +331,6 @@
       "name": "Sportsbet",
       "domain": "sportsbet.com.au",
       "logo": "images/logos/sportsbet.com.au.png"
-    },
-    "spotlight retail group (srg)": {
-      "name": "Spotlight Retail Group",
-      "domain": "spotlightretailgroup.com.au",
-      "logo": "images/logos/spotlightretailgroup.com.au.png"
     },
     "streem": {
       "name": "Streem",

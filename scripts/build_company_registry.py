@@ -9,8 +9,13 @@ Domains were filled in by hand. Anything genuinely ambiguous is left with a
 null domain rather than guessed -- a wrong domain means the wrong company's
 logo on the card, which is worse than no logo at all. Any such name is
 printed at the end of a run so it can be resolved rather than forgotten.
-As of 2026-09-13 there are none: Eileen identified ADN and "GOVERNMENT", and
-removed the other three from the tracker.
+As of 2026-09-16 there are none. Eileen identified ADN and "GOVERNMENT" and
+removed FMD, Farrer Capital Management and Openmesh (2026-09-13), then removed
+BMW, Fujitsu, McKinsey and Spotlight Retail Group (2026-09-16) -- all four
+were unactioned leads whose logos the favicon service had nothing for. ASIO's
+logo is still missing and its row deliberately stays: it is a real
+application, withdrawn 2026-09-09, and a missing icon is not a reason to
+delete history.
 """
 import json, re
 from pathlib import Path
@@ -34,7 +39,6 @@ COMPANIES = {
     "bcg": ("BCG", "bcg.com"),
     "bdo": ("BDO", "bdo.com.au"),
     "bloomberg": ("Bloomberg", "bloomberg.com"),
-    "bmw": ("BMW", "bmw.com"),
     "capgemini": ("Capgemini", "capgemini.com"),
     "cisco": ("Cisco", "cisco.com"),
     "city of gold coast": ("City of Gold Coast", "goldcoast.qld.gov.au"),
@@ -49,7 +53,6 @@ COMPANIES = {
     "ey": ("EY", "ey.com"),
     "fivecast": ("Fivecast", "fivecast.com"),
     "fti consulting": ("FTI Consulting", "fticonsulting.com"),
-    "fujitsu": ("Fujitsu", "fujitsu.com"),
     "general motors": ("General Motors", "gm.com"),
     # Typed as a bare "GOVERNMENT" in the sheet; Eileen confirmed which one.
     "government": ("Queensland Government", "qld.gov.au"),
@@ -67,7 +70,6 @@ COMPANIES = {
     "macquarie": ("Macquarie", "macquarie.com"),
     "mastercard": ("Mastercard", "mastercard.com"),
     "mcgrathnicol": ("McGrathNicol", "mcgrathnicol.com"),
-    "mckinsey & company": ("McKinsey & Company", "mckinsey.com"),
     "mercedes benz": ("Mercedes-Benz", "mercedes-benz.com"),
     "moody's corporation": ("Moody's", "moodys.com"),
     "nab": ("NAB", "nab.com.au"),
@@ -90,7 +92,6 @@ COMPANIES = {
     # applications are quant trading firms (Optiver, IMC, Jane Street).
     "sig": ("Susquehanna (SIG)", "sig.com"),
     "shell": ("Shell", "shell.com"),
-    "spotlight retail group (srg)": ("Spotlight Retail Group", "spotlightretailgroup.com.au"),
     "sportsbet": ("Sportsbet", "sportsbet.com.au"),
     "streem": ("Streem", "streem.com.au"),
     "suncorp": ("Suncorp", "suncorp.com.au"),
