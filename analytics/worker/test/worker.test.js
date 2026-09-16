@@ -1,5 +1,5 @@
 import { env } from "cloudflare:test";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import worker from "../src/worker.js";
 
 // The Worker decides what it accepts from the hostname it is *served* on, so
@@ -272,6 +272,121 @@ describe("content type is not part of the contract", () => {
       env
     );
     expect(res.status).toBe(204);
+  });
+});
+
+// The notifier posts to Discord with the global fetch, so the seam is the
+// global. There is no fetchMock in this version of the pool.
+describe("download notification", () => {
+  let posts;
+
+  beforeEach(() => {
+    posts = [];
+    vi.stubGlobal("fetch", async (url, init) => {
+      posts.push({ url: String(url), body: JSON.parse(init.body) });
+      return new Response(null, { status: 204 });
+    });
+  });
+
+  afterEach(() => vi.unstubAllGlobals());
+
+  const withHook = { ...env, DISCORD_WEBHOOK_URL: "https://discord.test/hook" };
+
+  /** collect() against an env that has the webhook configured. */
+  function download(meta, extra = {}) {
+    return worker.fetch(
+      new Request(`${PROD}/collect`, {
+        method: "POST",
+        headers: { Origin: SITE, "Content-Type": "text/plain", ...extra },
+        body: JSON.stringify({ kind: "download", path: "/resume.html", meta }),
+      }),
+      withHook
+    );
+  }
+
+  it("posts to the webhook when a download lands", async () => {
+    await download({ role: "data-analyst", roleLabel: "Data Analyst" });
+    expect(posts).toHaveLength(1);
+    expect(posts[0].url).toBe("https://discord.test/hook");
+  });
+
+  it("names the role the visitor picked", async () => {
+    await download({ role: "bi-developer", roleLabel: "BI Developer" });
+    expect(posts[0].body.embeds[0].description).toContain("BI Developer");
+  });
+
+  it("falls back to the slug when no label was sent", async () => {
+    await download({ role: "data-engineer" });
+    expect(posts[0].body.embeds[0].description).toContain("data-engineer");
+  });
+
+  it("says so rather than lying when no role was sent at all", async () => {
+    await download({});
+    expect(posts[0].body.embeds[0].description).toContain("unspecified role");
+  });
+
+  it("includes industry, country and referrer when known", async () => {
+    await download({ roleLabel: "Data Analyst", industry: "Marketing" },
+      { "CF-IPCountry": "AU" });
+    const description = posts[0].body.embeds[0].description;
+    expect(description).toContain("Marketing");
+    expect(description).toContain("AU");
+  });
+
+  it("counts the download within the day", async () => {
+    await download({ roleLabel: "A" }, { "User-Agent": "one" });
+    await download({ roleLabel: "B" }, { "User-Agent": "two" });
+    expect(posts[1].body.embeds[0].footer.text).toBe("2nd download today");
+  });
+
+  // A recruiter double-clicking should ping once, but both rows are still
+  // stored -- the dedupe is on the notification, not on the data.
+  it("does not ping twice for the same visitor in quick succession", async () => {
+    await download({ roleLabel: "Data Analyst" }, { "User-Agent": "same" });
+    await download({ roleLabel: "Data Analyst" }, { "User-Agent": "same" });
+    expect(posts).toHaveLength(1);
+    const stored = await env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM events WHERE kind = 'download'").first();
+    expect(stored.n).toBe(2);
+  });
+
+  it("pings separately for a different visitor", async () => {
+    await download({ roleLabel: "Data Analyst" }, { "User-Agent": "one" });
+    await download({ roleLabel: "Data Analyst" }, { "User-Agent": "two" });
+    expect(posts).toHaveLength(2);
+  });
+
+  it("does not notify for a pageview", async () => {
+    await worker.fetch(
+      new Request(`${PROD}/collect`, {
+        method: "POST",
+        headers: { Origin: SITE, "Content-Type": "text/plain" },
+        body: JSON.stringify({ kind: "pageview", path: "/" }),
+      }),
+      withHook
+    );
+    expect(posts).toHaveLength(0);
+  });
+
+  it("stays silent when no webhook is configured", async () => {
+    await collect({ kind: "download", path: "/resume.html", meta: { role: "x" } });
+    expect(posts).toHaveLength(0);
+  });
+
+  // The event is already stored by the time the webhook is called. A broken
+  // webhook must not turn a recorded download into a failed request.
+  it("still records the download when the webhook throws", async () => {
+    vi.stubGlobal("fetch", async () => { throw new Error("discord is down"); });
+    const res = await download({ roleLabel: "Data Analyst" });
+    expect(res.status).toBe(204);
+    const stored = await env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM events WHERE kind = 'download'").first();
+    expect(stored.n).toBe(1);
+  });
+
+  it("still returns 204 when the webhook answers an error status", async () => {
+    vi.stubGlobal("fetch", async () => new Response("no", { status: 500 }));
+    expect((await download({ roleLabel: "Data Analyst" })).status).toBe(204);
   });
 });
 
