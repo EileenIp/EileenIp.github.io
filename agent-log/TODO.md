@@ -423,6 +423,83 @@ second "build a recommender" project.
       Friday counts twice in a 30-day total. That is the trade for storing no
       identifier, and the tile says so underneath.
 
+      **Hardened and finished the same day, PRs #18 and #20-22.** Launch was
+      not the end of it; Eileen asked what was left and the answer was three
+      real things.
+
+      *The origin gate (#18).* `/collect` enforced the allowlist only on the
+      CORS response header -- the insert happened regardless of who asked. So
+      anyone with the URL could post rows, and a local preview of the site
+      wrote into the production database, which is not hypothetical: it
+      happened repeatedly while building it. The allowed list is now derived
+      from the Worker's own hostname, so localhost is honoured only under
+      `wrangler dev`. `/stats` stays token-only: a bearer token is a stronger
+      gate than a header the client picks, and curl-able is what makes it
+      debuggable.
+
+      *Outbound clicks (#18).* Detected rather than hand-tagged, because the
+      case-study links are built at runtime from `data/projects.json` and
+      tagging markup would have missed exactly the links worth measuring --
+      whether anyone opens the repos and dashboards. Records host and path
+      with the query dropped; `mailto:` records the scheme alone.
+
+      *Tests (#19, #20).* 65 inside workerd against a real local D1, plus 9
+      driving real Chromium via `analytics/smoke_test.py`. Two layers because
+      one is not enough, and the unit suite found two bugs on its own: tied
+      rows had no secondary sort so the dashboard's tables reshuffled between
+      refreshes, and `?days=0` returned 30 days while `?days=-5` returned 1,
+      because `parseInt(...) || 30` treats a parseable zero as missing.
+
+      *Download alerts (#21, #22).* A Discord webhook fires when a resume
+      download lands, carrying the role the visitor picked. Discord because
+      Cloudflare's own email sending needs a custom domain and there isn't
+      one. Runs in `ctx.waitUntil` so it cannot slow a visitor down, swallows
+      every failure so it cannot break analytics, and dedupes on the visitor
+      so a double-click pings once while both rows are still stored.
+
+      **Two corrections, recorded because the wrong versions are in this
+      repo's history.**
+
+      (1) The beacon bug was described in #18, in its commit message and to
+      Eileen as "no browser pageview ever reached the collector; the site was
+      recording nothing". That was wrong, and the browser smoke test is what
+      established it. `application/json` is not CORS-safelisted so it forced a
+      preflight that `sendBeacon`'s credentials mode made unsatisfiable -- but
+      the preflight *succeeded*, the POST was sent, the row was inserted, and
+      only the *response* was rejected. The data landed while the browser
+      logged `ERR_FAILED`. The cost was a console full of errors and a client
+      that could not tell success from failure, not data loss. Beacons now
+      send `text/plain`, which is safelisted.
+
+      (2) The notifier originally swallowed failures behind a comment saying
+      there was nobody to report them to. False -- there is `wrangler tail`.
+      When the first real alert did not arrive there was no way to tell a bad
+      webhook from a bug without adding logging and redeploying (#22).
+
+      **The lesson worth more than any of the code:** the collector was
+      verified with `curl` and declared working. curl does no CORS at all, so
+      the server was fine while the browser never got a clean request through.
+      A test suite that cannot fail the way production fails is not
+      verification. That is why `smoke_test.py` exists, and why it was
+      deliberately watched fail -- the bug was reintroduced on purpose, and
+      seven of nine checks still passed, including "a pageview reaches the
+      collector".
+
+      **Windows, `wrangler secret put` and control characters -- this cost
+      real time twice.** Pressing Ctrl+V at wrangler's secret prompt inserts
+      the SYN character (0x16) instead of pasting, and the secret is stored as
+      that one character. It happened to `STATS_TOKEN`, then to
+      `DISCORD_WEBHOOK_URL`, where it surfaced only as
+      `discord webhook threw: Invalid URL: \u0016`. **Set secrets from the
+      Cloudflare dashboard on Windows**, or pipe them from a file with
+      `(Get-Content file -Raw).Trim()`. Never paste into the prompt.
+
+      Verified live end to end on 2026-09-16: a real browser on the deployed
+      site produced a pageview, an outbound click and a download; the download
+      reached Discord with no warning logged; every test row was deleted by id
+      rather than with `DELETE FROM events`, which would have destroyed the
+      one genuine visitor row in the table.
+
 - [x] 2026-09-15 — **Roadmap project 3 — F2P vs Paid: Pricing & Engagement on
       Steam. Built, written up and shipped.** Repo:
       `github.com/EileenIp/steam-pricing-engagement` (public, 105 tests).
