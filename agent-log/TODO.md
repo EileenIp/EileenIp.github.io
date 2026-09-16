@@ -12,15 +12,6 @@ then `Todo` top-down.
 <!-- Blocked items move here with a one-line note on what's needed.
      Never attempt these. -->
 
-- [ ] `creator-content-decision-dashboard-2026` has no impact stat. It is
-      now featured on the homepage (card 5 of 5), where its
-      `.project-impact` block is deliberately omitted rather than rendered
-      blank — see the `EILEEN TO ADD` comment in `index.html`. It is the
-      only featured card without a number, and it shows.
-      — *blocking: needs Eileen to supply a real figure from that Tableau
-      dashboard, in her own words. Once it exists, set `impactStat` in
-      `data/projects.json` and restore the commented-out block in
-      `index.html`. No number gets invented here.*
 - [ ] Once the Creator dashboard has an impact stat, consider dropping
       `ecommerce-behavior-conversion-2019` from the featured five. It
       duplicates `subscriber-churn-retention-2026`'s method exactly (same
@@ -29,8 +20,10 @@ then `Todo` top-down.
       one of the five target domains while Media & Entertainment is. Kept
       for now only because a card with a real number beats a card without
       one.
-      — *blocking: judgement call, and it depends on the item above
-      landing first — propose, don't execute*
+      — *no longer blocked on the impact stat, which landed 2026-09-16 —
+      all five featured cards now carry a number, so the reason for keeping
+      E-Commerce ("a card with a real number beats a card without one") has
+      expired. Still a judgement call: propose, don't execute.*
 ---
 
 ## In progress
@@ -365,6 +358,43 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-09-16 — **Creator dashboard impact stat, the last `Needs Eileen`
+      blocker on the homepage.** All five featured cards now carry a number;
+      card 5 is no longer the conspicuous blank.
+
+      **Shipped:** "Shorts are 8.8% of views but 1.2% of watch time and 2.7%
+      of revenue — a views leaderboard misreads the channel three ways."
+      Computed from the project's own dataset,
+      `youtube-creator-trends/outputs/Synthetic_YouTube_Creator_Trends_Tableau.xlsx`:
+      6,857 daily rows, 36 videos, Sep 2025 – Aug 2026, 7.40M views and
+      616,788 watch hours. Shorts run 0.67 minutes per view against 5.00 for
+      long-form, and the single live replay delivers 14.48 — 4% of views but
+      11.6% of watch time, more than all five Shorts combined.
+
+      **A stronger-looking candidate was rejected, and this is the part worth
+      reading before an interview.** Ranking topics by views puts AI Tools
+      first and Digital Marketing last; ranking by revenue per 1,000 views
+      reverses it exactly — 73% more views for 16% less revenue per view. A
+      clean inversion, and an artifact. Every topic's median is exactly
+      $4.80/1k; the only videos that differ are the five Shorts at $1.40, and
+      Digital Marketing is the one topic with no Short. The whole finding was
+      composition, not a topic effect, and it would have collapsed the first
+      time anyone asked for the breakdown. Format is the real structure in
+      the data, which is why the shipped stat is about format.
+
+      **Authorship, stated plainly:** Eileen chose the shorts finding over
+      the alternatives and said the agent's wording was fine, so the sentence
+      on the card is the agent's, not hers. The numbers are real and
+      reproducible from the file above. Same standing caveat as projects 1
+      and 2 — **read it before an interview and make sure you would defend
+      that framing as your own.**
+
+      **One thing to check:** the stat describes a format comparison. Whether
+      the Tableau workbook itself surfaces a format breakdown was raised and
+      not answered. If it does not, "where do I see that in the dashboard?"
+      has no answer yet — either add the view or move the stat to something
+      the dashboard shows.
 
 - [x] 2026-09-16 — **Self-hosted analytics, live.** Built 2026-09-13,
       deployed today. Collector at
