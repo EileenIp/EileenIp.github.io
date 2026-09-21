@@ -1860,6 +1860,177 @@
         "caseStudyPage": "https://github.com/EileenIp/steam-pricing-engagement#readme"
       },
       "image": "images/projects/steam-f2p-vs-paid-engagement-2026-card.png"
+    },
+    {
+      "id": "converseassist-2026",
+      "title": "ConverseAssist: AI Conversation Accessibility Prototype",
+      "year": 2026,
+      "dateLabel": "August 2026",
+      "industry": "Accessibility",
+      "projectType": "AI Application",
+      "serviceType": "Personal Prototype",
+      "tools": [
+        "JavaScript",
+        "Node.js",
+        "HTML/CSS",
+        "C#",
+        ".NET 9",
+        "WASAPI",
+        "Groq API",
+        "node:test"
+      ],
+      "sectionHeadlines": {
+        "summaryImpact": "It's hard to answer a question you're still decoding",
+        "problemSpace": "Captions show what was said, not what to do next",
+        "inputs": "Desktop audio in, and a clear line on what leaves the computer",
+        "execution": "Capture, transcribe, draft, then the user decides",
+        "results": "Works end to end; not yet tested with users"
+      },
+      "cardDescription": "A Windows prototype for people who find fast or multi-part spoken questions hard to follow. It captures desktop audio, transcribes it, splits the question into parts and drafts three editable replies. Nothing is sent or spoken for the user.",
+      "impactStat": "Runs end to end on Windows with 7/7 automated tests passing. Not yet tested with the people it's designed for",
+      "oneSentenceDescription": "A personal prototype, built in August 2026, that turns a spoken question heard through a PC's speakers into a plain-language breakdown and three reply drafts the user can edit, ignore or replace.",
+      "targetIndustryRole": "AI development, accessibility and usability",
+      "summaryImpact": "In a meeting, a question can arrive fast and in three parts while you're still working out the first. For people who process speech more slowly, lose track of multi-part questions, or find it hard to put an answer into words under time pressure, the difficulty isn't hearing the words. It's the gap between hearing a question and replying to it.\n\nConverseAssist is a personal prototype I built in August 2026 to explore that gap. It listens to the audio playing on a Windows PC, such as a video call, and transcribes it. It then works out whether a reply is likely needed, breaks the question into numbered parts, and drafts three replies: short, detailed, and a request to clarify. Every suggestion is editable and optional. The app never sends, posts or speaks a reply on the user's behalf.\n\nUnder the hood, a small C#/.NET 9 helper captures desktop audio through Windows WASAPI. A Node.js server sends the audio to a speech-to-text model, then sends the transcript to a language model constrained to a strict JSON schema. A plain HTML/CSS/JavaScript interface shows the result.\n\n**It's a prototype.** It runs on one Windows machine, it sends conversation audio to an external AI provider, and it hasn't been tested with the people it's designed for.",
+      "summaryMetrics": [
+        {
+          "value": "3",
+          "label": "editable reply drafts per question: short, detailed, clarify"
+        },
+        {
+          "value": "7/7",
+          "label": "automated tests passing (node:test, re-run 21 Sep 2026)",
+          "highlight": true
+        },
+        {
+          "value": "0",
+          "label": "replies sent, posted or spoken without the user acting"
+        }
+      ],
+      "problemSpace": "Live captions solve part of the problem: they show what was said. They don't help with what comes next. That means working out what's actually being asked, keeping every part of a long question in mind, and finding words for an answer before the pause gets awkward.\n\nThe design brief I worked from set a few rules early. The tool supports the person; it doesn't speak for them. It should only offer answers when a reply is likely needed, always include a way to ask for clarification or more time, and never invent the user's opinions or experiences. Listening status must be obvious, with an immediate way to stop.\n\nIt isn't built around one diagnosis. The brief describes people who may find it difficult to process speech quickly, follow multi-part questions or respond under time pressure, for reasons that vary from person to person.",
+      "stakeholders": [
+        {
+          "role": "The person using it",
+          "description": "Needs the question broken down and a starting point for a reply, without losing control of what they actually say."
+        },
+        {
+          "role": "Others in the conversation",
+          "description": "Their speech is captured and sent to an AI service, so their consent and any meeting or workplace rules matter."
+        },
+        {
+          "role": "An organisation considering it",
+          "description": "Would need privacy, security, accessibility and legal review before anyone relied on it. None of that has happened yet."
+        }
+      ],
+      "inputs": {
+        "description": "The app works with three kinds of input.\n\n**Desktop audio:** everything playing through the PC's default output device, captured through Windows WASAPI loopback. It doesn't capture the microphone, so the user's own voice isn't recorded.\n\n**An uploaded recording:** a common audio format up to 20 MB, for testing with prerecorded conversations.\n\n**A built-in fictional example:** a sample question from a made-up colleague, so the interface can be tried without an API key or real audio.\n\nUsers can also save their preferred tone and reply length, phrases to use or avoid, and answers to questions they hear often.",
+        "stats": [
+          {
+            "value": "20 MB",
+            "label": "maximum recording per request"
+          },
+          {
+            "value": "20",
+            "label": "saved answers kept locally, at most"
+          },
+          {
+            "value": "3",
+            "label": "most relevant saved answers sent with each request"
+          }
+        ],
+        "dataQuality": {
+          "label": "What stays on the computer, and what doesn't",
+          "items": [
+            "**Stays local:** the audio capture itself; the temporary WAV file, which is deleted once it's processed or discarded; saved answers and preferences, kept in a local file excluded from version control and in the browser's storage; and the end-of-session summary, which the browser assembles from earlier results. The local server only accepts connections from the same machine, and the API key never reaches the browser.",
+            "**Sent to an external AI provider:** the recorded audio, for transcription; the transcript, or the user's corrected version of it; the user's reply preferences and up to three saved answers the app picked as most relevant; and any draft the user asks to rewrite. The provider is Groq in the current configuration, and the code can be pointed at OpenAI instead.",
+            "**Not private by default.** Conversation audio leaves the machine whenever real processing runs. A mock mode and the built-in example send nothing, but they don't process real speech."
+          ]
+        }
+      },
+      "hypothesisVsReality": {
+        "label": "Planned vs. built",
+        "items": [
+          "**Planned:** start with prerecorded audio files and leave live audio for a later phase. **Built:** both. File upload works, and live desktop-audio capture was added as a second-phase experiment. It processes the conversation in segments rather than as word-by-word live captions.",
+          "**Planned:** a React/TypeScript front end, a Python/FastAPI backend and Azure AI Speech. **Built:** a dependency-free Node.js server, plain HTML/CSS/JavaScript, a small C# helper for audio, and OpenAI-compatible APIs (Groq by default).",
+          "**Planned, not built:** Microsoft Teams or Graph integration, a rolling context window across the conversation, speaker identification from the audio, and testing with target users. The app guesses the speaker's name from the transcript text only."
+        ]
+      },
+      "methodology": [
+        {
+          "heading": "1. Capture, only after the user confirms",
+          "description": "Listening can't start until the user ticks a consent box. A C# helper opens the default output device in WASAPI loopback mode, writes a WAV file and reports the audio level. The interface shows a visible listening status, an elapsed-time counter and a level meter. **Manual mode** records until the user presses Stop. **Automatic mode** ends a segment after 1.8 seconds of silence following speech, or at 45 seconds, processes it, then starts listening again. Segments with no speech are discarded without being sent."
+        },
+        {
+          "heading": "2. Transcribe, and let the user fix it",
+          "description": "The Node.js server sends the recording to a speech-to-text model (Whisper large-v3-turbo through Groq in the current configuration). Transcripts can be wrong, so the user can correct the text and re-run the analysis on their correction rather than on what the model misheard."
+        },
+        {
+          "heading": "3. Break the question down and draft replies",
+          "description": "The transcript goes to a language model with written constraints and a strict JSON schema. The instructions tell it to simplify only what was said, never invent the user's views or experiences, leave `[add ...]` placeholders where personal details are missing, lower its confidence when unsure, and always include a clarification option. The schema fixes the shape of the answer: whether a reply is likely needed, up to five question parts, three drafts, a confidence level, and notes on names, decisions, actions and unanswered questions. The browser checks the result again before showing it."
+        },
+        {
+          "heading": "4. Review, edit, choose",
+          "description": "The interface shows the transcript, a plain-language breakdown of what's being asked, and the three drafts in tabs. The user can edit a draft, ask for it shorter, simpler, friendlier, more professional or as bullet points, swap in a support phrase such as asking for a moment to think, copy it, or have it read aloud. Nothing is sent anywhere automatically."
+        },
+        {
+          "heading": "Personalisation and saved answers",
+          "description": "Users can set tone, length, a plain-language preference, and phrases to use or avoid. They can also store answers to questions they hear often, with key points each suggestion must include. Before each request, the app scores saved answers against the transcript by shared keywords and sends only the three best matches. When the model builds on a saved answer, the interface labels it."
+        },
+        {
+          "heading": "Accessibility controls",
+          "description": "Larger text, a high-contrast mode, a reduced-distraction mode that hides helper text, and a focus mode that hides settings and secondary panels. Listening, processing, error and result messages are announced through screen-reader live regions. Reply tabs support arrow-key navigation, and there's a skip link, visible focus outlines and reduced-motion support. Keyboard shortcuts cover copying a reply, switching drafts and starting or stopping listening. A compact pop-up window can sit beside a video call."
+        }
+      ],
+      "executionDeadEnds": {
+        "label": "Technical challenges",
+        "items": [
+          "**A web page can't record system audio by itself.** Capturing what the speakers are playing needs Windows audio APIs, so a separate C# console helper does the capture through WASAPI's COM interfaces. It talks to the Node.js server over plain text lines (`READY`, `LEVEL` and a stop command), which keeps both sides simple.",
+          "**Knowing when someone has finished asking.** Automatic mode uses a basic silence rule on the audio level, not speech detection. It's easy to reason about, but a long pause mid-question can split it in two, and steady background sound can hold a segment open until the 45-second cap.",
+          "**Model output the interface can rely on.** Free text would be hard to lay out consistently, so replies are forced into a strict schema with fixed fields and allowed values. Output that doesn't match is rejected with an error rather than shown half-formed.",
+          "**Useful suggestions vs. sending personal data.** Sending every saved answer would give the model more to work with, and send more personal information. Local keyword matching narrows it to three. It matches words, not meaning, so a reworded question can miss the right saved answer."
+        ]
+      },
+      "keyResults": {
+        "label": "Testing: what has and hasn't been checked",
+        "items": [
+          "**Automated tests: 7 of 7 passing**, using Node's built-in test runner, re-run on 21 September 2026. They cover the three reply types, the fallback when an unknown draft is requested, audio-file validation, the strict output schema, limits on saved answers, saved-answer matching, and the server refusing to analyse before a recording exists.",
+          "**Build check:** the C# capture helper compiles with no warnings.",
+          "**Not covered by automated tests:** real audio capture, live transcription, the language-model call and the interface itself. They depend on audio hardware, an API key and a browser.",
+          "**Manual checks** during development aren't documented, so none are claimed here.",
+          "**No testing with users and no accessibility audit.** Nobody from the intended audience has tried it, and it hasn't been evaluated against WCAG. The accessibility features above are design choices, not measured outcomes."
+        ]
+      },
+      "businessInterpretation": "The prototype shows the whole chain working on one machine: Windows audio capture, speech-to-text, a constrained language-model call, and an interface designed around accessibility and user control rather than automation.\n\nIt doesn't yet show that the approach helps anyone. Does breaking a question into parts actually ease the pressure of replying? Are three drafts useful, or just more to read? Is segment-by-segment processing fast enough for a real conversation? Only testing with the intended users can answer those.",
+      "recommendations": {
+        "items": [
+          {
+            "tag": "Before real use",
+            "text": "Get consent from everyone whose speech is captured, check meeting and workplace policies, and complete a security and privacy review. The in-app consent box is the user confirming for themselves. It can't collect anyone else's consent."
+          },
+          {
+            "tag": "Next test",
+            "text": "Try it with a small group from the intended audience, using realistic fictional conversations, and find out whether it helps before adding features."
+          },
+          {
+            "tag": "Accessibility",
+            "text": "Run a proper evaluation with screen readers, keyboard-only use and WCAG checks, rather than relying on the features being present."
+          }
+        ],
+        "limitations": [
+          "Windows only, on one machine, started from a terminal. There's no installer and no hosted version.",
+          "Processing is per segment, not live captioning. The user waits for a segment to end, then for transcription and analysis.",
+          "Each segment is analysed on its own. Nothing carries over from earlier in the conversation apart from the end-of-session summary.",
+          "Speaker names are guessed from the transcript text, not identified from the audio.",
+          "Suggestions can be wrong. The model can misread a question or produce a plausible but unsuitable reply, which is why every draft is labelled as a suggestion and can be edited.",
+          "Not security-reviewed. It's built for local experimentation, not for handling other people's conversations at work."
+        ],
+        "nextSteps": [
+          "Test with target users before adding features",
+          "Carry recent context between segments, as the design brief planned",
+          "Evaluate supported Microsoft Teams options, such as post-meeting transcripts, before any deeper integration",
+          "Add automated tests for the transcription and analysis path using fictional recorded fixtures"
+        ]
+      },
+      "image": "images/projects/converseassist-2026-card.png"
     }
   ]
 }

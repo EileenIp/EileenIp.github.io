@@ -216,10 +216,12 @@ function renderCard(project) {
   const title = document.createElement('h3');
   title.textContent = project.title || 'Untitled project';
   head.append(title);
+  // `dateLabel` (e.g. "August 2026") is display-only; filtering and sorting
+  // still run on the numeric `year`.
   if (project.year) {
     const year = document.createElement('span');
     year.className = 'project-year';
-    year.textContent = project.year;
+    year.textContent = project.dateLabel || project.year;
     head.append(year);
   }
   body.append(head);
