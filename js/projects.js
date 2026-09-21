@@ -422,12 +422,29 @@ function buildChartCard(visual) {
     card.append(label);
   }
 
-  // SVG markup is authored data from this site's own projects.json, not
-  // third-party input — safe to insert directly, and far simpler than
-  // rebuilding each chart's shapes via createElementNS.
-  const svgWrap = document.createElement('div');
-  svgWrap.innerHTML = visual.svg || '';
-  card.append(svgWrap.firstElementChild || svgWrap);
+  if (visual.image) {
+    // Screenshot instead of a chart. `wide` spans the whole grid row; the
+    // image links to itself so small UI text can be read at full size.
+    card.classList.add('viz-shot');
+    if (visual.wide) card.classList.add('wide');
+    const link = document.createElement('a');
+    link.href = visual.image;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const img = document.createElement('img');
+    img.src = visual.image;
+    img.alt = visual.alt || visual.label || '';
+    img.loading = 'lazy';
+    link.append(img);
+    card.append(link);
+  } else {
+    // SVG markup is authored data from this site's own projects.json, not
+    // third-party input — safe to insert directly, and far simpler than
+    // rebuilding each chart's shapes via createElementNS.
+    const svgWrap = document.createElement('div');
+    svgWrap.innerHTML = visual.svg || '';
+    card.append(svgWrap.firstElementChild || svgWrap);
+  }
 
   if (visual.caption) {
     const caption = document.createElement('div');

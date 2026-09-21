@@ -1877,20 +1877,21 @@
         ".NET 9",
         "WASAPI",
         "Groq API",
-        "node:test"
+        "node:test",
+        "ChatGPT"
       ],
       "sectionHeadlines": {
         "summaryImpact": "It's hard to answer a question you're still decoding",
         "problemSpace": "Captions show what was said, not what to do next",
         "inputs": "Desktop audio in, and a clear line on what leaves the computer",
         "execution": "Capture, transcribe, draft, then the user decides",
-        "results": "Works end to end; not yet tested with users"
+        "results": "Works in real conversations; not yet tested with other users"
       },
       "cardDescription": "A Windows prototype for people who find fast or multi-part spoken questions hard to follow. It captures desktop audio, transcribes it, splits the question into parts and drafts three editable replies. Nothing is sent or spoken for the user.",
-      "impactStat": "Runs end to end on Windows with 7/7 automated tests passing. Not yet tested with the people it's designed for",
+      "impactStat": "Used end to end in several real conversations, with 7/7 automated tests passing. Not yet tested by anyone but me",
       "oneSentenceDescription": "A personal prototype, built in August 2026, that turns a spoken question heard through a PC's speakers into a plain-language breakdown and three reply drafts the user can edit, ignore or replace.",
       "targetIndustryRole": "AI development, accessibility and usability",
-      "summaryImpact": "In a meeting, a question can arrive fast and in three parts while you're still working out the first. For people who process speech more slowly, lose track of multi-part questions, or find it hard to put an answer into words under time pressure, the difficulty isn't hearing the words. It's the gap between hearing a question and replying to it.\n\nConverseAssist is a personal prototype I built in August 2026 to explore that gap. It listens to the audio playing on a Windows PC, such as a video call, and transcribes it. It then works out whether a reply is likely needed, breaks the question into numbered parts, and drafts three replies: short, detailed, and a request to clarify. Every suggestion is editable and optional. The app never sends, posts or speaks a reply on the user's behalf.\n\nUnder the hood, a small C#/.NET 9 helper captures desktop audio through Windows WASAPI. A Node.js server sends the audio to a speech-to-text model, then sends the transcript to a language model constrained to a strict JSON schema. A plain HTML/CSS/JavaScript interface shows the result.\n\n**It's a prototype.** It runs on one Windows machine, it sends conversation audio to an external AI provider, and it hasn't been tested with the people it's designed for.",
+      "summaryImpact": "In a meeting, a question can arrive fast and in three parts while you're still working out the first. For people who process speech more slowly, lose track of multi-part questions, or find it hard to put an answer into words under time pressure, the difficulty isn't hearing the words. It's the gap between hearing a question and replying to it.\n\nConverseAssist is a personal prototype I made in August 2026 to explore that gap. It listens to the audio playing on a Windows PC, such as a video call, and transcribes it. It then works out whether a reply is likely needed, breaks the question into numbered parts, and drafts three replies: short, detailed, and a request to clarify. Every suggestion is editable and optional. The app never sends, posts or speaks a reply on the user's behalf.\n\nUnder the hood, a small C#/.NET 9 helper captures desktop audio through Windows WASAPI. A Node.js server sends the audio to a speech-to-text model, then sends the transcript to a language model constrained to a strict JSON schema. A plain HTML/CSS/JavaScript interface shows the result.\n\n**How I built it:** I came up with the idea, designed the features and interface, and wrote pseudocode for each part. I refined the design with ChatGPT and used it as a coding assistant to turn that pseudocode into working code.\n\n**It's a prototype.** It runs on one Windows machine and sends conversation audio to an external AI provider. I've used it in several real conversations, but nobody else has tested it yet.",
       "summaryMetrics": [
         {
           "value": "3",
@@ -1973,7 +1974,7 @@
         },
         {
           "heading": "Personalisation and saved answers",
-          "description": "Users can set tone, length, a plain-language preference, and phrases to use or avoid. They can also store answers to questions they hear often, with key points each suggestion must include. Before each request, the app scores saved answers against the transcript by shared keywords and sends only the three best matches. When the model builds on a saved answer, the interface labels it."
+          "description": "Users can set tone, length, a plain-language preference, and phrases to use or avoid. They can also store answers to questions they hear often, with key points each suggestion must include. Before each request, the app scores saved answers against the transcript by shared keywords and sends only the three best matches. When the model builds on a saved answer, the interface labels it. A private practice mode lets users rehearse saved answers against a timer and check which key points they covered."
         },
         {
           "heading": "Accessibility controls",
@@ -1995,11 +1996,11 @@
           "**Automated tests: 7 of 7 passing**, using Node's built-in test runner, re-run on 21 September 2026. They cover the three reply types, the fallback when an unknown draft is requested, audio-file validation, the strict output schema, limits on saved answers, saved-answer matching, and the server refusing to analyse before a recording exists.",
           "**Build check:** the C# capture helper compiles with no warnings.",
           "**Not covered by automated tests:** real audio capture, live transcription, the language-model call and the interface itself. They depend on audio hardware, an API key and a browser.",
-          "**Manual checks** during development aren't documented, so none are claimed here.",
-          "**No testing with users and no accessibility audit.** Nobody from the intended audience has tried it, and it hasn't been evaluated against WCAG. The accessibility features above are design choices, not measured outcomes."
+          "**My own use:** I've used it in several informal conversations, with the other person's knowledge, and it worked end to end: capture, transcript, question breakdown and reply drafts. That's hands-on use by the person who designed it, not a user study, and nothing was measured.",
+          "**No testing with other users and no accessibility audit.** Nobody but me has tried it, and it hasn't been evaluated against WCAG. The accessibility features above are design choices, not measured outcomes."
         ]
       },
-      "businessInterpretation": "The prototype shows the whole chain working on one machine: Windows audio capture, speech-to-text, a constrained language-model call, and an interface designed around accessibility and user control rather than automation.\n\nIt doesn't yet show that the approach helps anyone. Does breaking a question into parts actually ease the pressure of replying? Are three drafts useful, or just more to read? Is segment-by-segment processing fast enough for a real conversation? Only testing with the intended users can answer those.",
+      "businessInterpretation": "The prototype shows the whole chain working on one machine: Windows audio capture, speech-to-text, a constrained language-model call, and an interface designed around accessibility and user control rather than automation.\n\nMy own use shows it can keep up with a real conversation. It doesn't show that it helps other people. Does breaking a question into parts actually ease the pressure of replying? Are three drafts useful, or just more to read? Is segment-by-segment processing fast enough for a real conversation? Only testing with the intended users can answer those.",
       "recommendations": {
         "items": [
           {
@@ -2030,6 +2031,26 @@
           "Add automated tests for the transcription and analysis path using fictional recorded fixtures"
         ]
       },
+      "visuals": [
+        {
+          "id": "interface-overview",
+          "section": "summary",
+          "label": "The interface, with the built-in fictional example",
+          "image": "images/projects/converseassist-2026-overview.webp",
+          "alt": "ConverseAssist interface. Left: a permission checkbox, listening mode and Start listening controls. Right: the transcript of a fictional question from 'Alex', conversation notes, and the question split into three numbered parts.",
+          "caption": "Consent and listening controls on the left; transcript, conversation notes and the question split into parts on the right. Everything shown is the app's fictional sample conversation. Select the image to open it full size.",
+          "wide": true
+        },
+        {
+          "id": "reply-drafts",
+          "section": "execution",
+          "label": "Step 4: editable reply drafts",
+          "image": "images/projects/converseassist-2026-drafts.webp",
+          "alt": "Reply drafts panel with Short, Detailed and Clarify tabs, a suggested answer structure, rewrite buttons such as Make shorter and Simpler words, an editable text box, and Speak response and Copy response buttons.",
+          "caption": "Short, detailed and clarify tabs, one-click rewrites, and an editor. Copying and reading aloud only happen when the user presses the button.",
+          "wide": true
+        }
+      ],
       "image": "images/projects/converseassist-2026-card.png"
     }
   ]

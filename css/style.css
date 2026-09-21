@@ -499,6 +499,9 @@ details[open] .collapsible-chevron { transform: rotate(90deg); }
 .viz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-3); margin: var(--space-3) 0; }
 .viz-card { padding: var(--space-3); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-text) 5%, transparent); }
 .viz-card svg { width: 100%; height: auto; display: block; }
+.viz-grid:has(.viz-shot) { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); align-items: start; }
+.viz-shot.wide { grid-column: 1 / -1; }
+.viz-shot img { width: 100%; height: auto; display: block; border-radius: var(--radius-sm, 6px); border: 1px solid var(--color-divider); }
 .viz-caption { margin-top: var(--space-2); font-size: 12.5px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
 
 /* — summary metrics grid (headline stat tiles) — */
