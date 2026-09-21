@@ -53,39 +53,43 @@
       </div>
       <div class="jt-summary" id="proj-summary" aria-live="polite"></div>
     </div>
-
-    <div class="jt-fields-row">
-      <div class="field">
-        <label for="f-year-from">Year from</label>
-        <input type="number" id="f-year-from" class="input" placeholder="2023">
-      </div>
-      <div class="field">
-        <label for="f-year-to">Year to</label>
-        <input type="number" id="f-year-to" class="input" placeholder="2026">
-      </div>
-    </div>
-
-    <div class="jt-filter-groups" id="filter-groups"></div>
-
-    <div class="active-filters" id="active-filters" style="display:none;"></div>
   </div>
 </div>
 
 <main>
-  <div class="jt-body">
-    <div class="proj-grid" id="proj-grid"></div>
+  <div class="jt-body proj-layout">
+    <aside class="proj-sidebar" aria-label="Project filters">
+      <div class="jt-fields-row">
+        <div class="field">
+          <label for="f-year-from">Year from</label>
+          <input type="number" id="f-year-from" class="input" placeholder="2023">
+        </div>
+        <div class="field">
+          <label for="f-year-to">Year to</label>
+          <input type="number" id="f-year-to" class="input" placeholder="2026">
+        </div>
+      </div>
 
-    <div class="jt-empty" id="proj-empty" style="display:none;">
-      <p class="text-muted" style="font-size: 14px;">No projects match these filters.</p>
-      <button type="button" class="btn btn-secondary" id="proj-empty-clear">Clear all filters</button>
+      <div class="jt-filter-groups" id="filter-groups"></div>
+
+      <div class="active-filters" id="active-filters" style="display:none;"></div>
+    </aside>
+
+    <div class="proj-results">
+      <div class="proj-grid" id="proj-grid"></div>
+
+      <div class="jt-empty" id="proj-empty" style="display:none;">
+        <p class="text-muted" style="font-size: 14px;">No projects match these filters.</p>
+        <button type="button" class="btn btn-secondary" id="proj-empty-clear">Clear all filters</button>
+      </div>
+
+      <p id="proj-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+        No projects yet — check back soon for new work.
+      </p>
+      <p id="proj-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+        Couldn't load project data. If you're viewing this file directly (file://), run it through a local server instead.
+      </p>
     </div>
-
-    <p id="proj-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
-      No projects yet — check back soon for new work.
-    </p>
-    <p id="proj-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
-      Couldn't load project data. If you're viewing this file directly (file://), run it through a local server instead.
-    </p>
   </div>
 </main>
 

@@ -470,6 +470,11 @@ footer.site-footer {
 
 /* — projects grid page — */
 .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); }
+.proj-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--space-8); align-items: start; }
+/* sidebar pins beside the grid and scrolls on its own when the filter list is taller than the screen */
+.proj-sidebar { position: sticky; top: var(--space-4); max-height: calc(100vh - 2 * var(--space-4)); overflow-y: auto; padding-right: var(--space-2); }
+.proj-sidebar .jt-fields-row { grid-template-columns: 1fr 1fr; }
+.proj-sidebar .jt-filter-groups { margin-top: var(--space-4); }
 
 /* definition list for the case-study "Inputs" block */
 
@@ -796,6 +801,8 @@ details[open] .year-chevron { transform: rotate(90deg); }
 
 /* — responsive — */
 @media (max-width: 900px) {
+  .proj-layout { grid-template-columns: 1fr; gap: var(--space-6); }
+  .proj-sidebar { position: static; max-height: none; overflow: visible; padding-right: 0; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
   .contact-grid { grid-template-columns: 1fr; }
