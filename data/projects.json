@@ -1888,7 +1888,7 @@
         "results": "Works in real conversations; not yet tested with other users"
       },
       "cardDescription": "A Windows prototype for people who find fast or multi-part spoken questions hard to follow. It captures desktop audio, transcribes it, splits the question into parts and drafts three editable replies. Nothing is sent or spoken for the user.",
-      "impactStat": "Used end to end in several real conversations, with 7/7 automated tests passing. Not yet tested by anyone but me",
+      "impactStat": "Used end to end in several real conversations, with 8/8 automated tests passing. Not yet tested by anyone but me",
       "oneSentenceDescription": "A personal prototype, built in August 2026, that turns a spoken question heard through a PC's speakers into a plain-language breakdown and three reply drafts the user can edit, ignore or replace.",
       "targetIndustryRole": "AI development, accessibility and usability",
       "summaryImpact": "In a meeting, a question can arrive fast and in three parts while you're still working out the first. For people who process speech more slowly, lose track of multi-part questions, or find it hard to put an answer into words under time pressure, the difficulty isn't hearing the words. It's the gap between hearing a question and replying to it.\n\nConverseAssist is a personal prototype I made in August 2026 to explore that gap. It listens to the audio playing on a Windows PC, such as a video call, and transcribes it. It then works out whether a reply is likely needed, breaks the question into numbered parts, and drafts three replies: short, detailed, and a request to clarify. Every suggestion is editable and optional. The app never sends, posts or speaks a reply on the user's behalf.\n\nUnder the hood, a small C#/.NET 9 helper captures desktop audio through Windows WASAPI. A Node.js server sends the audio to a speech-to-text model, then sends the transcript to a language model constrained to a strict JSON schema. A plain HTML/CSS/JavaScript interface shows the result.\n\n**How I built it:** I came up with the idea, designed the features and interface, and wrote pseudocode for each part. I refined the design with ChatGPT and used it as a coding assistant to turn that pseudocode into working code.\n\n**It's a prototype.** It runs on one Windows machine and sends conversation audio to an external AI provider. I've used it in several real conversations, but nobody else has tested it yet.",
@@ -1898,7 +1898,7 @@
           "label": "editable reply drafts per question: short, detailed, clarify"
         },
         {
-          "value": "7/7",
+          "value": "8/8",
           "label": "automated tests passing (node:test, re-run 21 Sep 2026)",
           "highlight": true
         },
@@ -1993,7 +1993,7 @@
       "keyResults": {
         "label": "Testing: what has and hasn't been checked",
         "items": [
-          "**Automated tests: 7 of 7 passing**, using Node's built-in test runner, re-run on 21 September 2026. They cover the three reply types, the fallback when an unknown draft is requested, audio-file validation, the strict output schema, limits on saved answers, saved-answer matching, and the server refusing to analyse before a recording exists.",
+          "**Automated tests: 8 of 8 passing**, using Node's built-in test runner, re-run on 21 September 2026. They cover the three reply types, the fallback when an unknown draft is requested, audio-file validation, the strict output schema, limits on saved answers, saved-answer matching, the server refusing to analyse before a recording exists, and the local server serving only the page's own files, never the API key or saved answers.",
           "**Build check:** the C# capture helper compiles with no warnings.",
           "**Not covered by automated tests:** real audio capture, live transcription, the language-model call and the interface itself. They depend on audio hardware, an API key and a browser.",
           "**My own use:** I've used it in several informal conversations, with the other person's knowledge, and it worked end to end: capture, transcript, question breakdown and reply drafts. That's hands-on use by the person who designed it, not a user study, and nothing was measured.",
