@@ -44,6 +44,9 @@ SOURCES = {
     "ecommerce-behavior-conversion-2019": {"tile": True},
     "streaming-engagement-dashboard": {"tile": True},
     "support-ticket-sentiment-tracker": {"tile": True},
+    # Local-only app with no public build, and its UI loads the owner's
+    # private saved answers on start -- a screenshot risks leaking them.
+    "converseassist-2026": {"tile": True},
 }
 
 
