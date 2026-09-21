@@ -387,6 +387,8 @@ footer.site-footer {
   backdrop-filter: blur(8px);
   padding: var(--space-6) var(--space-8) var(--space-4);
 }
+/* scrolls away instead of pinning — the projects filter stack is too tall to stay stuck */
+.jt-header-static { position: static; backdrop-filter: none; background: var(--color-bg); }
 .jt-title-row { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-6); margin-bottom: var(--space-4); flex-wrap: wrap; }
 .jt-title-row .kicker { display: block; margin-bottom: var(--space-1); }
 .jt-title-row h1 { margin: 0; font-size: 25px; }
