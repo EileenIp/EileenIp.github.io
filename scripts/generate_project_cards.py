@@ -44,9 +44,10 @@ SOURCES = {
     "ecommerce-behavior-conversion-2019": {"tile": True},
     "streaming-engagement-dashboard": {"tile": True},
     "support-ticket-sentiment-tracker": {"tile": True},
-    # Local-only app with no public build, and its UI loads the owner's
-    # private saved answers on start -- a screenshot risks leaking them.
-    "converseassist-2026": {"tile": True},
+    # Local-only app: the card is a crop of the modal's interface screenshot,
+    # taken from a copy running the built-in fictional example with no saved
+    # answers loaded. Re-take it the same way, never from the real install.
+    "converseassist-2026": {"keep": True},
 }
 
 
