@@ -119,7 +119,7 @@ function renderFilterGroups() {
     createCombobox(input, {
       getOptions: (q) => [...counts]
         .filter(([value]) => value.toLowerCase().includes(q))
-        .sort(([a, ca], [b, cb]) => (b.toLowerCase().startsWith(q) - a.toLowerCase().startsWith(q)) || (cb - ca) || a.localeCompare(b))
+        .sort(([a], [b]) => a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true }))
         .map(([value, count]) => ({
           label: value,
           meta: `${count} project${count === 1 ? '' : 's'}`,
