@@ -24,17 +24,25 @@ const FOOTER_LINKS = [
 let allProjects = [];
 const FILTER_KEYS = ['industry', 'projectType', 'serviceType', 'tools'];
 const activeFilters = { industry: new Set(), projectType: new Set(), serviceType: new Set(), tools: new Set() };
-const excludedFilters = { industry: new Set(), projectType: new Set(), serviceType: new Set(), tools: new Set() };
+const FILTER_GROUPS = [
+  ['Industry', 'industry', 'Search industries…'],
+  ['Project Type', 'projectType', 'Search project types…'],
+  ['Service Type', 'serviceType', 'Search service types…'],
+  ['Tools', 'tools', 'Search tools…'],
+];
+const YEAR_FIRST = 2023;
+const YEAR_LAST = Math.max(2026, new Date().getFullYear());
 let yearFrom = '';
 let yearTo = '';
 
-function buildFilterOptions(projects) {
-  return {
-    industry: [...new Set(projects.map((p) => p.industry).filter(Boolean))].sort(),
-    projectType: [...new Set(projects.map((p) => p.projectType).filter(Boolean))].sort(),
-    serviceType: [...new Set(projects.map((p) => p.serviceType).filter(Boolean))].sort(),
-    tools: [...new Set(projects.flatMap((p) => p.tools || []))].sort(),
-  };
+// value -> number of projects using it, for one filter key
+function countFilterValues(key) {
+  const counts = new Map();
+  for (const p of allProjects) {
+    const values = key === 'tools' ? (p.tools || []) : [p[key]];
+    for (const v of values) if (v) counts.set(v, (counts.get(v) || 0) + 1);
+  }
+  return counts;
 }
 
 function projectMatchesFilters(p) {
@@ -42,13 +50,10 @@ function projectMatchesFilters(p) {
   if (yearTo && (!p.year || p.year > Number(yearTo))) return false;
 
   for (const key of ['industry', 'projectType', 'serviceType']) {
-    const val = p[key];
-    if (excludedFilters[key].has(val)) return false;
-    if (activeFilters[key].size && !activeFilters[key].has(val)) return false;
+    if (activeFilters[key].size && !activeFilters[key].has(p[key])) return false;
   }
 
   const tools = p.tools || [];
-  if (tools.some((t) => excludedFilters.tools.has(t))) return false;
   if (activeFilters.tools.size && !tools.some((t) => activeFilters.tools.has(t))) return false;
 
   return true;
@@ -59,87 +64,69 @@ function sortProjects(projects) {
   return [...projects].sort((a, b) => (b.year || 0) - (a.year || 0));
 }
 
-function syncFilterPillStates() {
-  document.querySelectorAll('.filter-pill').forEach((pill) => {
-    const key = pill.dataset.filterKey;
-    const value = pill.dataset.filterValue;
-    pill.classList.toggle('selected', activeFilters[key].has(value));
-    pill.classList.toggle('excluded', excludedFilters[key].has(value));
-  });
+function toggleFilter(key, value) {
+  if (activeFilters[key].has(value)) activeFilters[key].delete(value);
+  else activeFilters[key].add(value);
+  renderGridView();
 }
 
-// Three-state cycle per pill: neutral -> include -> exclude -> neutral.
-function cycleFilter(key, value) {
-  const included = activeFilters[key];
-  const excluded = excludedFilters[key];
-  if (included.has(value)) {
-    included.delete(value);
-    excluded.add(value);
-  } else if (excluded.has(value)) {
-    excluded.delete(value);
-  } else {
-    included.add(value);
-  }
-  syncFilterPillStates();
+// Accepts only a 4-digit year; anything else clears that bound.
+function setYear(which, raw) {
+  const value = /^\d{4}$/.test(String(raw).trim()) ? String(raw).trim() : '';
+  if (which === 'from') yearFrom = value;
+  else yearTo = value;
+  document.getElementById(which === 'from' ? 'f-year-from' : 'f-year-to').value = value;
   renderGridView();
 }
 
 function removeFilter(key, value) {
-  if (key === 'yearFrom') { yearFrom = ''; document.getElementById('f-year-from').value = ''; }
-  else if (key === 'yearTo') { yearTo = ''; document.getElementById('f-year-to').value = ''; }
-  else if (key.endsWith('-exclude')) { excludedFilters[key.slice(0, -'-exclude'.length)].delete(value); }
-  else { activeFilters[key].delete(value); }
-  syncFilterPillStates();
-  renderGridView();
+  if (key === 'yearFrom') setYear('from', '');
+  else if (key === 'yearTo') setYear('to', '');
+  else toggleFilter(key, value);
 }
 
 function clearAllFilters() {
-  for (const key of FILTER_KEYS) {
-    activeFilters[key].clear();
-    excludedFilters[key].clear();
-  }
+  for (const key of FILTER_KEYS) activeFilters[key].clear();
   yearFrom = '';
   yearTo = '';
   document.getElementById('f-year-from').value = '';
   document.getElementById('f-year-to').value = '';
-  syncFilterPillStates();
   renderGridView();
 }
 
-function renderFilterGroups(options) {
+// Each filter group is a searchable dropdown: focusing lists every value,
+// typing narrows it, picking a value toggles it on or off.
+function renderFilterGroups() {
   const container = document.getElementById('filter-groups');
   container.replaceChildren();
-  const groups = [
-    ['Industry', 'industry', options.industry],
-    ['Project Type', 'projectType', options.projectType],
-    ['Service Type', 'serviceType', options.serviceType],
-    ['Tools', 'tools', options.tools],
-  ];
-  for (const [label, key, values] of groups) {
-    if (values.length === 0) continue;
+  for (const [label, key, placeholder] of FILTER_GROUPS) {
+    const counts = countFilterValues(key);
+    if (counts.size === 0) continue;
+
     const group = document.createElement('div');
-    group.className = 'filter-group';
-
-    const labelEl = document.createElement('div');
-    labelEl.className = 'filter-group-label';
+    group.className = 'field combo';
+    const labelEl = document.createElement('label');
+    labelEl.htmlFor = `f-${key}`;
     labelEl.textContent = label;
-    group.append(labelEl);
-
-    const pillsWrap = document.createElement('div');
-    pillsWrap.className = 'filter-pills';
-    for (const value of values) {
-      const pill = document.createElement('button');
-      pill.type = 'button';
-      pill.className = 'tag filter-pill';
-      pill.textContent = value;
-      pill.dataset.filterKey = key;
-      pill.dataset.filterValue = value;
-      pill.title = 'Click to show only this. Click again to hide it. Click again to clear.';
-      pill.addEventListener('click', () => cycleFilter(key, value));
-      pillsWrap.append(pill);
-    }
-    group.append(pillsWrap);
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.id = `f-${key}`;
+    input.className = 'input';
+    input.placeholder = placeholder;
+    group.append(labelEl, input);
     container.append(group);
+
+    createCombobox(input, {
+      getOptions: (q) => [...counts]
+        .filter(([value]) => value.toLowerCase().includes(q))
+        .sort(([a, ca], [b, cb]) => (b.toLowerCase().startsWith(q) - a.toLowerCase().startsWith(q)) || (cb - ca) || a.localeCompare(b))
+        .map(([value, count]) => ({
+          label: value,
+          meta: `${count} project${count === 1 ? '' : 's'}`,
+          selected: activeFilters[key].has(value),
+        })),
+      onChoose: (item) => toggleFilter(key, item.label),
+    });
   }
 }
 
@@ -152,7 +139,6 @@ function renderActiveFilters() {
   if (yearTo) chips.push({ key: 'yearTo', label: `To ${yearTo}` });
   for (const key of FILTER_KEYS) {
     for (const value of activeFilters[key]) chips.push({ key, value, label: value });
-    for (const value of excludedFilters[key]) chips.push({ key: `${key}-exclude`, value, label: `Not ${value}` });
   }
 
   if (chips.length === 0) {
@@ -297,156 +283,151 @@ function renderGridView() {
 }
 
 function initFilterControls() {
-  document.getElementById('f-year-from').addEventListener('change', (e) => {
-    yearFrom = e.target.value;
-    renderGridView();
+  for (const which of ['from', 'to']) {
+    const input = document.getElementById(which === 'from' ? 'f-year-from' : 'f-year-to');
+    // typed years apply when the field is left
+    input.addEventListener('change', () => setYear(which, input.value));
+    createCombobox(input, {
+      clearOnChoose: false,
+      getOptions: (q) => {
+        const years = [];
+        for (let y = YEAR_FIRST; y <= YEAR_LAST; y++) if (String(y).startsWith(q)) years.push(String(y));
+        const current = which === 'from' ? yearFrom : yearTo;
+        return years.map((y) => ({ label: y, selected: y === current }));
+      },
+      onChoose: (item) => setYear(which, item.label),
+      onEnterText: (text) => setYear(which, text),
+    });
+  }
+
+  createCombobox(document.getElementById('proj-search-input'), {
+    getOptions: (q) => (q ? allProjects
+      .filter((p) => [p.title, p.oneSentenceDescription].some((t) => t && t.toLowerCase().includes(q)))
+      .map((p) => ({ label: p.title || 'Untitled project', meta: [p.industry, p.year].filter(Boolean).join(' · '), project: p }))
+      : []),
+    onChoose: (item) => openProjectModal(item.project),
   });
-  document.getElementById('f-year-to').addEventListener('change', (e) => {
-    yearTo = e.target.value;
-    renderGridView();
-  });
+
   document.getElementById('proj-empty-clear').addEventListener('click', clearAllFilters);
 }
 
-// — Search —
-// Typing suggests matching projects (picking one opens the case study) and
-// matching filter values (picking one applies that filter), so visitors don't
-// have to scan every pill.
+// — Searchable dropdown —
+// Turns a text input into a combobox: focusing or typing shows matching
+// options below it, arrow keys move, Enter picks, Esc closes. getOptions(query)
+// gets the lowercased trimmed text and returns [{ label, meta?, selected? }].
 
-const SEARCH_GROUP_LABELS = { industry: 'Industry', projectType: 'Project type', serviceType: 'Service type', tools: 'Tool' };
-const SEARCH_LIMIT = 8;
-let searchItems = [];
-let searchActive = -1;
+function createCombobox(input, { getOptions, onChoose, onEnterText, clearOnChoose = true }) {
+  const list = document.createElement('ul');
+  list.id = `${input.id}-list`;
+  list.className = 'combo-list';
+  list.setAttribute('role', 'listbox');
+  list.hidden = true;
+  input.after(list);
+  input.parentElement.classList.add('combo');
 
-function buildSearchResults(query) {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
+  input.autocomplete = 'off';
+  input.setAttribute('role', 'combobox');
+  input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('aria-controls', list.id);
+  input.setAttribute('aria-expanded', 'false');
 
-  const projects = allProjects
-    .filter((p) => [p.title, p.oneSentenceDescription].some((t) => t && t.toLowerCase().includes(q)))
-    .map((p) => ({ kind: 'project', label: p.title || 'Untitled project', meta: p.industry || '', project: p }));
+  let items = [];
+  let active = -1;
+  let open = false;
 
-  const filters = [];
-  for (const key of FILTER_KEYS) {
-    const counts = new Map();
-    for (const p of allProjects) {
-      const values = key === 'tools' ? (p.tools || []) : [p[key]];
-      for (const v of values) if (v) counts.set(v, (counts.get(v) || 0) + 1);
+  function render() {
+    list.replaceChildren();
+    const hasText = input.value.trim() !== '';
+    const show = open && (items.length > 0 || hasText);
+    list.hidden = !show;
+    input.setAttribute('aria-expanded', String(show));
+    input.removeAttribute('aria-activedescendant');
+    if (!show) return;
+
+    if (items.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'combo-none';
+      li.textContent = 'No matches';
+      list.append(li);
+      return;
     }
-    for (const [value, count] of counts) {
-      if (!value.toLowerCase().includes(q)) continue;
-      filters.push({
-        kind: 'filter', key, value, label: value,
-        meta: `${SEARCH_GROUP_LABELS[key]} · ${count} project${count === 1 ? '' : 's'}`,
-        prefix: value.toLowerCase().startsWith(q),
-        count,
+
+    items.forEach((item, i) => {
+      const li = document.createElement('li');
+      li.id = `${list.id}-${i}`;
+      li.className = 'combo-item' + (i === active ? ' active' : '') + (item.selected ? ' selected' : '');
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', String(Boolean(item.selected)));
+
+      const label = document.createElement('span');
+      label.className = 'combo-label';
+      label.textContent = item.label;
+      li.append(label);
+      if (item.meta) {
+        const meta = document.createElement('span');
+        meta.className = 'combo-meta';
+        meta.textContent = item.meta;
+        li.append(meta);
+      }
+
+      // mousedown rather than click, so the input's blur doesn't close the list first
+      li.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        choose(item);
       });
+      li.addEventListener('mousemove', () => {
+        if (active !== i) { active = i; render(); }
+      });
+      list.append(li);
+    });
+    if (active >= 0) {
+      input.setAttribute('aria-activedescendant', `${list.id}-${active}`);
+      list.children[active].scrollIntoView({ block: 'nearest' });
     }
   }
-  filters.sort((a, b) => (b.prefix - a.prefix) || (b.count - a.count) || a.label.localeCompare(b.label));
 
-  return [...projects, ...filters].slice(0, SEARCH_LIMIT);
-}
-
-function setSearchExpanded(expanded) {
-  const input = document.getElementById('proj-search-input');
-  document.getElementById('proj-search-results').hidden = !expanded;
-  input.setAttribute('aria-expanded', String(expanded));
-  if (expanded && searchActive >= 0) input.setAttribute('aria-activedescendant', `proj-search-opt-${searchActive}`);
-  else input.removeAttribute('aria-activedescendant');
-}
-
-function renderSearchResults() {
-  const input = document.getElementById('proj-search-input');
-  const list = document.getElementById('proj-search-results');
-  list.replaceChildren();
-
-  if (!input.value.trim()) {
-    setSearchExpanded(false);
-    return;
+  function refresh() {
+    items = getOptions(input.value.trim().toLowerCase());
+    active = input.value.trim() && items.length ? 0 : -1;
+    open = true;
+    render();
   }
 
-  if (searchItems.length === 0) {
-    const li = document.createElement('li');
-    li.className = 'proj-search-none';
-    li.textContent = 'No matches';
-    list.append(li);
+  function close() {
+    open = false;
+    items = [];
+    active = -1;
+    render();
   }
 
-  searchItems.forEach((item, i) => {
-    const li = document.createElement('li');
-    li.id = `proj-search-opt-${i}`;
-    li.className = 'proj-search-item' + (i === searchActive ? ' active' : '');
-    li.setAttribute('role', 'option');
-    li.setAttribute('aria-selected', String(i === searchActive));
-
-    const label = document.createElement('span');
-    label.className = 'proj-search-label';
-    label.textContent = item.label;
-    const meta = document.createElement('span');
-    meta.className = 'proj-search-meta';
-    meta.textContent = item.kind === 'project' ? `Project${item.meta ? ` · ${item.meta}` : ''}` : item.meta;
-    li.append(label, meta);
-
-    // mousedown rather than click, so the input's blur doesn't close the list first
-    li.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      chooseSearchItem(item);
-    });
-    li.addEventListener('mousemove', () => {
-      if (searchActive !== i) { searchActive = i; renderSearchResults(); }
-    });
-    list.append(li);
-  });
-
-  setSearchExpanded(true);
-}
-
-function refreshSearch() {
-  searchItems = buildSearchResults(document.getElementById('proj-search-input').value);
-  searchActive = searchItems.length ? 0 : -1;
-  renderSearchResults();
-}
-
-function closeSearch() {
-  searchItems = [];
-  searchActive = -1;
-  document.getElementById('proj-search-results').replaceChildren();
-  setSearchExpanded(false);
-}
-
-function chooseSearchItem(item) {
-  document.getElementById('proj-search-input').value = '';
-  closeSearch();
-  if (item.kind === 'project') {
-    openProjectModal(item.project);
-    return;
+  function choose(item) {
+    if (clearOnChoose) input.value = '';
+    close();
+    onChoose(item);
   }
-  excludedFilters[item.key].delete(item.value);
-  activeFilters[item.key].add(item.value);
-  syncFilterPillStates();
-  renderGridView();
-}
 
-function initSearch() {
-  const input = document.getElementById('proj-search-input');
-  input.addEventListener('input', refreshSearch);
-  input.addEventListener('focus', () => { if (input.value.trim()) refreshSearch(); });
-  input.addEventListener('blur', closeSearch);
+  input.addEventListener('input', refresh);
+  input.addEventListener('focus', refresh);
+  input.addEventListener('blur', close);
   input.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      if (!searchItems.length) return;
       e.preventDefault();
+      if (!open) { refresh(); return; }
+      if (!items.length) return;
       const step = e.key === 'ArrowDown' ? 1 : -1;
-      searchActive = (searchActive + step + searchItems.length) % searchItems.length;
-      renderSearchResults();
-    } else if (e.key === 'Enter' && searchItems[searchActive]) {
-      e.preventDefault();
-      chooseSearchItem(searchItems[searchActive]);
+      active = active < 0 ? (step > 0 ? 0 : items.length - 1) : (active + step + items.length) % items.length;
+      render();
+    } else if (e.key === 'Enter') {
+      if (open && items[active]) {
+        e.preventDefault();
+        choose(items[active]);
+      } else if (onEnterText) {
+        e.preventDefault();
+        close();
+        onEnterText(input.value);
+      }
     } else if (e.key === 'Escape') {
-      if (input.value) e.preventDefault();
-      input.value = '';
-      closeSearch();
+      if (open) { e.preventDefault(); close(); }
     }
   });
 }
@@ -1100,8 +1081,7 @@ async function init() {
 
   allProjects = projects;
   initFilterControls();
-  initSearch();
-  renderFilterGroups(buildFilterOptions(allProjects));
+  renderFilterGroups();
   renderGridView();
   openProjectFromURL();
 }
