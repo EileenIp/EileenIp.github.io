@@ -59,6 +59,13 @@
 <main>
   <div class="jt-body proj-layout">
     <aside class="proj-sidebar" aria-label="Project filters">
+      <div class="field proj-search">
+        <label for="proj-search-input">Search</label>
+        <input type="search" id="proj-search-input" class="input" placeholder="Project, tool, industry…" autocomplete="off"
+          role="combobox" aria-expanded="false" aria-controls="proj-search-results" aria-autocomplete="list">
+        <ul class="proj-search-results" id="proj-search-results" role="listbox" aria-label="Search results" hidden></ul>
+      </div>
+
       <div class="jt-fields-row">
         <div class="field">
           <label for="f-year-from">Year from</label>

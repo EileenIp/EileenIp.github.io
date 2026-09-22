@@ -308,6 +308,149 @@ function initFilterControls() {
   document.getElementById('proj-empty-clear').addEventListener('click', clearAllFilters);
 }
 
+// — Search —
+// Typing suggests matching projects (picking one opens the case study) and
+// matching filter values (picking one applies that filter), so visitors don't
+// have to scan every pill.
+
+const SEARCH_GROUP_LABELS = { industry: 'Industry', projectType: 'Project type', serviceType: 'Service type', tools: 'Tool' };
+const SEARCH_LIMIT = 8;
+let searchItems = [];
+let searchActive = -1;
+
+function buildSearchResults(query) {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+
+  const projects = allProjects
+    .filter((p) => [p.title, p.oneSentenceDescription].some((t) => t && t.toLowerCase().includes(q)))
+    .map((p) => ({ kind: 'project', label: p.title || 'Untitled project', meta: p.industry || '', project: p }));
+
+  const filters = [];
+  for (const key of FILTER_KEYS) {
+    const counts = new Map();
+    for (const p of allProjects) {
+      const values = key === 'tools' ? (p.tools || []) : [p[key]];
+      for (const v of values) if (v) counts.set(v, (counts.get(v) || 0) + 1);
+    }
+    for (const [value, count] of counts) {
+      if (!value.toLowerCase().includes(q)) continue;
+      filters.push({
+        kind: 'filter', key, value, label: value,
+        meta: `${SEARCH_GROUP_LABELS[key]} · ${count} project${count === 1 ? '' : 's'}`,
+        prefix: value.toLowerCase().startsWith(q),
+        count,
+      });
+    }
+  }
+  filters.sort((a, b) => (b.prefix - a.prefix) || (b.count - a.count) || a.label.localeCompare(b.label));
+
+  return [...projects, ...filters].slice(0, SEARCH_LIMIT);
+}
+
+function setSearchExpanded(expanded) {
+  const input = document.getElementById('proj-search-input');
+  document.getElementById('proj-search-results').hidden = !expanded;
+  input.setAttribute('aria-expanded', String(expanded));
+  if (expanded && searchActive >= 0) input.setAttribute('aria-activedescendant', `proj-search-opt-${searchActive}`);
+  else input.removeAttribute('aria-activedescendant');
+}
+
+function renderSearchResults() {
+  const input = document.getElementById('proj-search-input');
+  const list = document.getElementById('proj-search-results');
+  list.replaceChildren();
+
+  if (!input.value.trim()) {
+    setSearchExpanded(false);
+    return;
+  }
+
+  if (searchItems.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'proj-search-none';
+    li.textContent = 'No matches';
+    list.append(li);
+  }
+
+  searchItems.forEach((item, i) => {
+    const li = document.createElement('li');
+    li.id = `proj-search-opt-${i}`;
+    li.className = 'proj-search-item' + (i === searchActive ? ' active' : '');
+    li.setAttribute('role', 'option');
+    li.setAttribute('aria-selected', String(i === searchActive));
+
+    const label = document.createElement('span');
+    label.className = 'proj-search-label';
+    label.textContent = item.label;
+    const meta = document.createElement('span');
+    meta.className = 'proj-search-meta';
+    meta.textContent = item.kind === 'project' ? `Project${item.meta ? ` · ${item.meta}` : ''}` : item.meta;
+    li.append(label, meta);
+
+    // mousedown rather than click, so the input's blur doesn't close the list first
+    li.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      chooseSearchItem(item);
+    });
+    li.addEventListener('mousemove', () => {
+      if (searchActive !== i) { searchActive = i; renderSearchResults(); }
+    });
+    list.append(li);
+  });
+
+  setSearchExpanded(true);
+}
+
+function refreshSearch() {
+  searchItems = buildSearchResults(document.getElementById('proj-search-input').value);
+  searchActive = searchItems.length ? 0 : -1;
+  renderSearchResults();
+}
+
+function closeSearch() {
+  searchItems = [];
+  searchActive = -1;
+  document.getElementById('proj-search-results').replaceChildren();
+  setSearchExpanded(false);
+}
+
+function chooseSearchItem(item) {
+  document.getElementById('proj-search-input').value = '';
+  closeSearch();
+  if (item.kind === 'project') {
+    openProjectModal(item.project);
+    return;
+  }
+  excludedFilters[item.key].delete(item.value);
+  activeFilters[item.key].add(item.value);
+  syncFilterPillStates();
+  renderGridView();
+}
+
+function initSearch() {
+  const input = document.getElementById('proj-search-input');
+  input.addEventListener('input', refreshSearch);
+  input.addEventListener('focus', () => { if (input.value.trim()) refreshSearch(); });
+  input.addEventListener('blur', closeSearch);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (!searchItems.length) return;
+      e.preventDefault();
+      const step = e.key === 'ArrowDown' ? 1 : -1;
+      searchActive = (searchActive + step + searchItems.length) % searchItems.length;
+      renderSearchResults();
+    } else if (e.key === 'Enter' && searchItems[searchActive]) {
+      e.preventDefault();
+      chooseSearchItem(searchItems[searchActive]);
+    } else if (e.key === 'Escape') {
+      if (input.value) e.preventDefault();
+      input.value = '';
+      closeSearch();
+    }
+  });
+}
+
 // — Case study modal —
 
 function appendCollapsible(container, label, text, extraNode) {
@@ -957,6 +1100,7 @@ async function init() {
 
   allProjects = projects;
   initFilterControls();
+  initSearch();
   renderFilterGroups(buildFilterOptions(allProjects));
   renderGridView();
   openProjectFromURL();
