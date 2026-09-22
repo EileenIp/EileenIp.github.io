@@ -59,14 +59,19 @@
 <main>
   <div class="jt-body proj-layout">
     <aside class="proj-sidebar" aria-label="Project filters">
+      <div class="field proj-search">
+        <label for="proj-search-input">Search projects</label>
+        <input type="search" id="proj-search-input" class="input" placeholder="Project name or keyword…">
+      </div>
+
       <div class="jt-fields-row">
         <div class="field">
           <label for="f-year-from">Year from</label>
-          <input type="number" id="f-year-from" class="input" placeholder="2023">
+          <input type="text" inputmode="numeric" maxlength="4" id="f-year-from" class="input" placeholder="Any">
         </div>
         <div class="field">
           <label for="f-year-to">Year to</label>
-          <input type="number" id="f-year-to" class="input" placeholder="2026">
+          <input type="text" inputmode="numeric" maxlength="4" id="f-year-to" class="input" placeholder="Any">
         </div>
       </div>
 
