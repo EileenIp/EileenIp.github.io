@@ -25,6 +25,22 @@
   --color-accent-2-100: #f5f4ff;
   --color-accent-2-800: #423e5d;
 
+  /* Rainbow accent set — used for project/category tags, tuned to sit against the dark surface */
+  --rainbow-red-bg: oklch(0.34 0.11 25);
+  --rainbow-red-text: oklch(0.90 0.09 25);
+  --rainbow-orange-bg: oklch(0.37 0.11 55);
+  --rainbow-orange-text: oklch(0.90 0.10 60);
+  --rainbow-yellow-bg: oklch(0.39 0.09 95);
+  --rainbow-yellow-text: oklch(0.92 0.11 100);
+  --rainbow-green-bg: oklch(0.36 0.09 145);
+  --rainbow-green-text: oklch(0.90 0.10 150);
+  --rainbow-blue-bg: oklch(0.35 0.09 240);
+  --rainbow-blue-text: oklch(0.88 0.08 235);
+  --rainbow-indigo-bg: oklch(0.34 0.10 275);
+  --rainbow-indigo-text: oklch(0.88 0.09 275);
+  --rainbow-violet-bg: oklch(0.36 0.11 320);
+  --rainbow-violet-text: oklch(0.90 0.10 320);
+
   --font-heading: "Inter", system-ui, sans-serif;
   --font-heading-weight: 500;
   --font-body: "Inter", system-ui, sans-serif;
@@ -127,6 +143,14 @@ img, svg { display: block; }
 .tag-accent-2 { background: var(--color-accent-2-800); color: var(--color-accent-2-100); }
 .tag-neutral { background: var(--color-neutral-800); color: var(--color-neutral-100); }
 .tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+
+.tag-red { background: var(--rainbow-red-bg); color: var(--rainbow-red-text); }
+.tag-orange { background: var(--rainbow-orange-bg); color: var(--rainbow-orange-text); }
+.tag-yellow { background: var(--rainbow-yellow-bg); color: var(--rainbow-yellow-text); }
+.tag-green { background: var(--rainbow-green-bg); color: var(--rainbow-green-text); }
+.tag-blue { background: var(--rainbow-blue-bg); color: var(--rainbow-blue-text); }
+.tag-indigo { background: var(--rainbow-indigo-bg); color: var(--rainbow-indigo-text); }
+.tag-violet { background: var(--rainbow-violet-bg); color: var(--rainbow-violet-text); }
 
 /* — cards — */
 .card {

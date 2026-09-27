@@ -1,6 +1,39 @@
 const ARROW_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>';
 const CHEVRON_PATH = 'M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z';
 
+// Rainbow tag colors, matching the hand-picked assignments on the homepage
+// cards so the same project shows the same colors in both places.
+const RAINBOW_TAGS = ['tag-red', 'tag-orange', 'tag-yellow', 'tag-green', 'tag-blue', 'tag-indigo', 'tag-violet'];
+const INDUSTRY_COLOR = {
+  'Marketing': 'tag-red',
+  'Digital Advertising': 'tag-orange',
+  'Media & Entertainment': 'tag-yellow',
+  'Subscription Media': 'tag-green',
+  'Gaming': 'tag-blue',
+  'E-Commerce': 'tag-indigo',
+  'Customer Experience': 'tag-violet',
+  'Accessibility': 'tag-violet',
+};
+const PROJECT_TYPE_COLOR = {
+  'Data Pipeline': 'tag-indigo',
+  'Classification + Segmentation': 'tag-violet',
+  'Business Intelligence': 'tag-red',
+  'Statistical Analysis': 'tag-orange',
+  'Dashboard': 'tag-yellow',
+  'Classification + Operational Analysis': 'tag-green',
+  'NLP Analysis': 'tag-blue',
+  'AI Application': 'tag-indigo',
+};
+// Falls back to a stable hash so any category not in the map above still
+// gets a consistent (if unassigned) rainbow color instead of breaking.
+function rainbowClass(value, map) {
+  if (!value) return 'tag-neutral';
+  if (map[value]) return map[value];
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
+  return RAINBOW_TAGS[hash % RAINBOW_TAGS.length];
+}
+
 // Long-text sections shown collapsed in the modal, in display order. Each
 // entry optionally names a `visuals` section key whose charts render inside
 // that section's body. Every SPIDER section is now a standalone
@@ -215,8 +248,8 @@ function renderCard(project) {
   const tags = document.createElement('ul');
   tags.className = 'project-tags';
   const tagSpecs = [
-    [project.projectType, 'tag-accent'],
-    [project.industry, 'tag-accent-2'],
+    [project.projectType, rainbowClass(project.projectType, PROJECT_TYPE_COLOR)],
+    [project.industry, rainbowClass(project.industry, INDUSTRY_COLOR)],
     [project.serviceType, 'tag-neutral'],
   ];
   for (const [value, cls] of tagSpecs) {
