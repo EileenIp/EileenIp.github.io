@@ -44,7 +44,7 @@
     </nav>
 </header>
 
-<div class="jt-header">
+<div class="jt-header jt-header-static">
   <div class="container-wide">
     <div class="jt-title-row">
       <div>
@@ -53,49 +53,53 @@
       </div>
       <div class="jt-summary" id="jt-summary" aria-live="polite"></div>
     </div>
-
-    <div class="jt-pipeline" id="jt-pipeline" aria-label="Applications by stage"></div>
-
-    <div class="jt-fields-row">
-      <div class="field">
-        <label for="f-company">Company</label>
-        <input type="text" id="f-company" class="input" placeholder="Search company">
-      </div>
-      <div class="field">
-        <label for="f-role">Job position</label>
-        <input type="text" id="f-role" class="input" placeholder="Search role">
-      </div>
-      <div class="field">
-        <label for="f-from">Applied from</label>
-        <input type="date" id="f-from" class="input">
-      </div>
-      <div class="field">
-        <label for="f-to">Applied to</label>
-        <input type="date" id="f-to" class="input">
-      </div>
-    </div>
-
-    <div class="jt-filter-groups" id="filter-groups"></div>
-
-    <div class="active-filters" id="active-filters" style="display:none;"></div>
   </div>
 </div>
 
 <main>
-  <div class="jt-body">
-    <div class="jt-grid" id="jt-grid"></div>
+  <div class="jt-body proj-layout">
+    <aside class="proj-sidebar" aria-label="Application filters">
+      <div class="jt-fields-row">
+        <div class="field">
+          <label for="f-company">Company</label>
+          <input type="text" id="f-company" class="input" placeholder="Search company">
+        </div>
+        <div class="field">
+          <label for="f-role">Job position</label>
+          <input type="text" id="f-role" class="input" placeholder="Search role">
+        </div>
+        <div class="field">
+          <label for="f-from">Applied from</label>
+          <input type="date" id="f-from" class="input">
+        </div>
+        <div class="field">
+          <label for="f-to">Applied to</label>
+          <input type="date" id="f-to" class="input">
+        </div>
+      </div>
 
-    <div class="jt-empty" id="jt-empty" style="display:none;">
-      <p class="text-muted" style="font-size: 14px;">No applications match these filters.</p>
-      <button type="button" class="btn btn-secondary" id="jt-empty-clear">Clear all filters</button>
+      <div class="jt-filter-groups" id="filter-groups"></div>
+
+      <div class="active-filters" id="active-filters" style="display:none;"></div>
+    </aside>
+
+    <div class="proj-results">
+      <div class="jt-pipeline" id="jt-pipeline" aria-label="Applications by stage"></div>
+
+      <div class="jt-grid" id="jt-grid"></div>
+
+      <div class="jt-empty" id="jt-empty" style="display:none;">
+        <p class="text-muted" style="font-size: 14px;">No applications match these filters.</p>
+        <button type="button" class="btn btn-secondary" id="jt-empty-clear">Clear all filters</button>
+      </div>
+
+      <p id="jt-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+        No applications yet — add rows to job-applications.xlsx and regenerate the JSON.
+      </p>
+      <p id="jt-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
+        Couldn't load application data. If you're viewing this file directly (file://), run it through a local server instead — see the README for the command.
+      </p>
     </div>
-
-    <p id="jt-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
-      No applications yet — add rows to job-applications.xlsx and regenerate the JSON.
-    </p>
-    <p id="jt-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
-      Couldn't load application data. If you're viewing this file directly (file://), run it through a local server instead — see the README for the command.
-    </p>
   </div>
 </main>
 
