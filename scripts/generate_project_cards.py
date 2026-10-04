@@ -42,7 +42,8 @@ SOURCES = {
     "advertising-revenue-sales-efficiency-2026": {"keep": True},
     # Notebook-only, no dashboard and no figure exported to a public URL.
     "ecommerce-behavior-conversion-2019": {"tile": True},
-    "streaming-engagement-dashboard": {"tile": True},
+    "streaming-engagement-dashboard": {
+        "shot": "https://eileenip.github.io/streaming-engagement/dashboard/"},
     "support-ticket-sentiment-tracker": {"tile": True},
     # Local-only app: the card is a crop of the modal's interface screenshot,
     # taken from a copy running the built-in fictional example with no saved
