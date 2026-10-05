@@ -36,20 +36,6 @@ Ordered by priority (really-should-do first) per Eileen's 2026-09-10 call.
 already-built `subscriber-churn-ltv`, not different enough to justify a
 second repo.
 
-### Roadmap project 5 — Streaming Engagement: Four Sources, One Model (media, data-engineering-led)
-Status: spec written, not built. Full spec:
-`portfolio-projects/streaming-engagement/spec-streaming-engagement.md`.
-Real sources: Netflix Engagement Report, Netflix Global Top 10 weekly, IMDb
-non-commercial datasets, Google Trends. Good entity-resolution skill
-showcase, but it competes with Ad Creative Pipeline for the same
-"data-engineering project" slot and media is already the most-covered domain
-in the portfolio — only worth doing if a second DE-flavoured project earns
-its place.
-- [ ] Checkpoint 0 (Eileen): confirm all four sources are still live and
-      downloadable as described, or swap one
-- [ ] Eileen hand-labels a 30-pair fuzzy-title-match fixture and sets the
-      fuzzy-match threshold (Phase 2)
-
 ### Roadmap project 6 — Beyond Accuracy: What a Recommender Trades Away (media)
 Status: spec written, not built. Full spec:
 `portfolio-projects/recommender-tradeoffs/spec-recommender-tradeoffs.md`.
@@ -93,6 +79,75 @@ second "build a recommender" project.
 
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
+
+- [x] 2026-10-04 — **Roadmap project 5 — Streaming Engagement: Four Sources,
+      One Model. Built, shipped and live.** Repo:
+      `github.com/EileenIp/streaming-engagement` (public, `main`, 81 tests),
+      dashboard live at `eileenip.github.io/streaming-engagement/dashboard/`,
+      case study on the site via this PR. It replaced the
+      `streaming-engagement-dashboard` placeholder and kept its id, so the deep
+      link still resolves. Decision trail: `data/validation/` in that repo — one
+      file per checkpoint, plus the match report and the full near-miss list.
+
+      **The join, which is the project.** Four real public sources that share no
+      key: six half-year Netflix engagement reports (Jul 2023 – Jun 2026), the
+      Netflix Global Top 10 weekly file, IMDb's non-commercial datasets, and
+      English Wikipedia pageviews. Exact string matching joins the two Netflix
+      files at 54–57%. Parsing what Netflix actually publishes — a name, a season
+      marker, a disambiguating year and an alternate-language name, all in one
+      string — takes it to 99.5%, and takes the IMDb join to 92.7% of 24,902
+      titles and 98.8% of reported hours. **Fuzzy matching contributes 284 pairs
+      out of 23,072**; the rest is normalisation, which is the opposite of how
+      this problem is usually described.
+
+      **Checkpoint 0 swapped a source before any code was written.** Google
+      Trends is not usable: the standard library is archived, the unofficial
+      endpoint 429s an ordinary browser, and the official API is an
+      application-only alpha. Wikipedia pageviews replaced it — absolute daily
+      counts rather than a per-query rescaled index. Scope: 2023 H2 – 2026 H1,
+      the six halves where every file carries Views and Runtime.
+
+      **Eileen's 30-pair audit moved the threshold and found a bug.** She
+      labelled 29 of 30 pairs blind — the page shows two names and their
+      sources, never the score or the pipeline's verdict. Her labels agreed on
+      24 of 29 and set the threshold at 87 (from 88). One disagreement turned
+      out to be a missing rung rather than a bad threshold: 153 film titles
+      carrying a language qualifier, almost all Indian-language versions, could
+      never reach the rung built for that shape because it was TV-only. Fixing
+      it matched 82 more titles. A test now fails if any threshold between 70
+      and 100 would disagree with her labels less often.
+
+      **Two findings worth retelling.** The Top 10 file is a live view, not an
+      archive: *Berlin* charted in December 2023 under that name, and the file
+      now labels those same 2023 weeks *"Berlin and the Jewels of Paris"*
+      because season 2 arrived in 2026 and season 1 was renamed. Nine of the
+      thirteen unmatched Top 10 titles appear only in later reports. And Netflix
+      contradicts itself inside one half-year — the Top 10 says "Season 1" where
+      the report says "Limited Series".
+
+      **Results.** Family is watched 1.65× its chart presence (interval
+      1.24–2.33) and Animation 1.32×, while Documentary runs 0.44 and Thriller
+      0.67 — nine genres clear of parity. A better IMDb rating does **not** hold
+      the chart longer once size is controlled (0.06 weeks per point, interval
+      −0.03 to +0.17). Public attention arrives the same week as viewing, not
+      before it, so there is no early-warning signal — 47 of 63 titles fit best
+      at lag zero, and a placebo pairing drops the correlation from 0.82 to 0.23.
+
+      **Authorship, stated plainly:** the Checkpoint decisions — the source swap,
+      the threshold, the headline metric, what happens to unmatched titles — are
+      Eileen's and are recorded in `data/validation/`. The interpretation and the
+      recommendation were drafted by the agent on 2026-09-27 at her request, and
+      both the report and the deck carry a note saying so, with a test keeping it
+      there. Same standing caveat as projects 1–4 — **read those two sections
+      before an interview and make sure you would defend them as your own.**
+
+      **Still open:** `NOTES.md` defending the headline metric is the spec's last
+      unticked box and is reserved for Eileen (the content is in
+      `data/validation/checkpoint3-metrics.md`). The dashboard was checked at
+      desktop width only. And now that it is built, whether it displaces
+      anything in the homepage featured five is a live question — the spec's
+      original worry was that it duplicates Ad Creative Pipeline's
+      data-engineering slot, which looks weaker now than when it was written.
 
 - [x] 2026-09-17 — **E-commerce CV link now goes to GitHub.** Its "GitHub"
       link pointed at the site's own case study

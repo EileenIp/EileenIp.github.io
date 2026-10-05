@@ -892,64 +892,201 @@
     },
     {
       "id": "streaming-engagement-dashboard",
-      "title": "Streaming Engagement Dashboard",
-      "year": 2024,
+      "title": "Streaming Engagement: Four Sources, One Model",
+      "year": 2026,
       "industry": "Media & Entertainment",
-      "projectType": "Dashboard",
-      "serviceType": "BI Dashboard",
+      "projectType": "Data Pipeline + Entity Resolution",
+      "serviceType": "Pipeline + Dashboard",
       "tools": [
         "Python",
-        "DuckDB"
+        "DuckDB",
+        "SQL",
+        "pandas",
+        "RapidFuzz",
+        "pytest"
       ],
       "sectionHeadlines": {
-        "summaryImpact": "Placeholder — not yet built",
-        "problemSpace": "Problem space — TBD",
-        "inputs": "Data inputs — TBD",
-        "discovery": "Discovery — TBD",
-        "execution": "Method — TBD",
-        "results": "Results — TBD"
+        "summaryImpact": "Four public files that share no key, joined at 92.7%",
+        "problemSpace": "Renewal decisions run on four spreadsheets nobody reconciles",
+        "inputs": "Two Netflix files that disagree with each other, IMDb and Wikipedia",
+        "discovery": "The Top 10 file is a live view, not an archive",
+        "execution": "A ladder of rungs, each one counted on its own",
+        "results": "Family is watched 1.65x more than it charts; ratings predict nothing"
       },
-      "cardDescription": "[Placeholder] Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams. Full case study not yet built.",
-      "impactStat": "Placeholder — project not yet built",
-      "oneSentenceDescription": "Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams.",
-      "targetIndustryRole": "Media & Entertainment (placeholder — to be confirmed)",
-      "summaryImpact": "**This is a placeholder page.** The project hasn't been built yet — this entry reserves its place in the case-study grid with the SPIDER structure ready to fill in once real work starts.\n\nPlanned scope: Consolidate siloed reporting spreadsheets into one self-serve engagement dashboard for content teams.",
-      "problemSpace": "[Placeholder] Problem space not yet written. Once this project starts, this section will explain why media & entertainment teams should care, who owns the decision, and what makes this worth doing over the other items in the backlog.",
+      "cardDescription": "Resolved 24,902 Netflix titles against IMDb and Wikipedia into one star schema, then asked which titles earn their place. Exact string matching gets 54-57%. Parsing the titles properly gets 92.7% - and 98.8% of all reported viewing hours.",
+      "impactStat": "92.7% of titles and 98.8% of reported hours resolved to an IMDb id, against 54-57% for exact string matching",
+      "oneSentenceDescription": "Four real, public, mutually inconsistent sources - the Netflix engagement reports, the Netflix Global Top 10, IMDb and Wikipedia pageviews - resolved into one model, with every matching rung counted separately and a threshold set by hand-labelling 30 pairs blind.",
+      "targetIndustryRole": "Content strategy, programming and media BI",
+      "summaryImpact": "Content teams decide renewals from numbers that live in separate files. Netflix publishes two of them and they do not agree with each other; IMDb knows what a title is and shares no identifier with either; Wikipedia knows how much attention it is getting off-platform.\n\nThe engineering question comes before the business one. Exact string matching joins the two Netflix files at 54-57%. Parsing what Netflix actually publishes - a name, a season marker, a disambiguating year and an alternate-language name, all in one string - takes that to 99.5%, and takes the IMDb join to 92.7% of titles and 98.8% of reported viewing hours. Fuzzy matching contributes 284 pairs out of 23,072; almost all of the work is normalisation, not string distance.\n\nWith the model built, three questions. Family and Animation are watched far more than they chart, Documentary and Thriller the reverse. A better IMDb rating does not hold the chart longer once size is held constant. And public attention arrives in the same week as viewing, not before it, so there is no early-warning signal to build on.",
+      "summaryMetrics": [
+        {
+          "value": "92.7%",
+          "label": "of 24,902 titles resolved to an IMDb id (98.8% of hours)"
+        },
+        {
+          "value": "99.5%",
+          "label": "Top 10 to engagement report, against 54-57% for exact matching"
+        },
+        {
+          "value": "1.65x",
+          "label": "Family's viewing against its chart presence, interval 1.24-2.33"
+        },
+        {
+          "value": "30",
+          "label": "title pairs hand-labelled blind to set the fuzzy threshold"
+        }
+      ],
+      "problemSpace": "Renewal and acquisition decisions are exactly the kind that run on consolidation nobody owns. The engagement report says how many hours a title got last half-year; the Top 10 file says which weeks it charted; IMDb says what it is; nothing says they are the same title. A BI team doing this by hand reconciles four files every six months and quietly drops whatever will not line up.\n\nWho cares: content strategy deciding what comes back, and the BI team that would otherwise be doing that reconciliation by hand - including the part where the answer changes depending on which file was pulled first.",
       "inputs": {
-        "description": "[Placeholder] Data source not yet chosen. Once selected, this will state plainly whether the data is real, public, sample, or synthetic — per this site's data-honesty rule, this project will not go live without that label."
+        "description": "Four real, public sources, all genuinely inconsistent with each other. Six half-year engagement reports (July 2023 to June 2026), the Netflix Global Top 10 weekly file, the IMDb non-commercial datasets, and English Wikipedia pageviews via the Wikimedia API. Raw files are never committed: a manifest records each download's URL, time, size and checksum, and every loader verifies the checksum before reading. IMDb's data is licensed for personal, non-commercial use, so no per-title ratings or vote counts appear anywhere in the deliverables.",
+        "stats": [
+          {
+            "value": "97,738",
+            "label": "title-seasons across six half-year reports"
+          },
+          {
+            "value": "10,880",
+            "label": "Top 10 chart slots over 272 weeks"
+          },
+          {
+            "value": "2.8M",
+            "label": "IMDb candidate titles, with 11.2M alternate names"
+          },
+          {
+            "value": "229",
+            "label": "Wikipedia articles of daily pageviews, rate-limited to one per 22s"
+          }
+        ]
       },
+      "stakeholders": [
+        {
+          "role": "Content strategy",
+          "need": "Which titles earn their place, on a measure that is not just chart presence"
+        },
+        {
+          "role": "Media BI",
+          "need": "One model that survives the next report, instead of a half-yearly reconciliation"
+        }
+      ],
       "hypothesisVsReality": {
         "label": "Hypothesis vs. Reality",
         "items": [
-          "[Placeholder] Not yet written — will capture what was expected going in versus what the data actually showed, once there's data to look at."
+          "**Expected:** fuzzy matching would do the heavy lifting on an entity-resolution project. **Found:** it contributed 1 pair on the Netflix-to-Netflix join and 284 on the IMDb join. Parsing the title properly did the rest.",
+          "**Expected:** two files from the same company would agree with each other. **Found:** the Top 10 calls Sean Combs: The Reckoning 'Season 1' where the engagement report calls it 'Limited Series', and omits The Manny's season entirely.",
+          "**Expected:** a better-rated title holds the chart longer. **Found:** nothing. The raw correlation is 0.118 and significant; with size held constant the estimate is 0.06 weeks per rating point, interval -0.03 to +0.17.",
+          "**Expected:** public attention would lead on-platform viewing, and be worth an early warning. **Found:** 47 of 63 titles fit best at a lag of zero, and leads and lags split 8 to 8."
         ]
       },
       "methodology": [
         {
-          "heading": "Method — TBD",
-          "description": "[Placeholder] The approach, the alternatives considered, and the reason for each choice will be documented here once work begins — following the same \"chosen over X because Y\" standard used on this site's built case studies."
+          "heading": "Refuse a file that changed shape, rather than guess",
+          "description": "Seven editions of the engagement report arrive in three layouts: sheet names change, release dates switch from Excel dates to text, and catch-all 'Other Shows' rows appear in 2025 H2 and change meaning in 2026 H1 when video podcasts are folded in. Each loader validates its columns and stops on anything unexpected. Netflix also answers an out-of-date browser with an 'unsupported browser' HTML page and HTTP 200, so the loaders check what came back rather than trusting the status code."
+        },
+        {
+          "heading": "Parse the title into the four facts Netflix packs into it",
+          "description": "A title string carries a name, a season marker, a disambiguating year and an alternate-language name: 'Suits (2011): Season 1', 'Stranger Things 4', 'Aqui no hay quien viva (2003): Temporada 4', 'Law & Order: SVU: The Sixth Year'. The Top 10 file turned out to be free ground truth for the parser - it publishes show_title and season_title as separate columns, so Netflix itself says where the suffix ends on 1,660 titles. The parser agrees with it on 1,630 and contradicts it on none."
+        },
+        {
+          "heading": "A ladder of rungs, each counted separately",
+          "description": "Exact name, then alternate-language name, then spacing (S.W.A.T. against swat), then a dropped qualifier (Shameless (U.S.), Leo (Hindi)), then a series prefix for a named arc, and only then fuzzy matching. Every rung is reported on its own so a weak one can be inspected or switched off: name 21,450, prefix 660, alternate name 450, spacing 133, qualifier 95, fuzzy 284. Where one name hits several IMDb ids they are narrowed by year, then year within one, then vote count - and the last of those is a judgement, so it is counted rather than hidden."
+        },
+        {
+          "heading": "Set the threshold by hand-labelling, not by taste",
+          "description": "30 pairs sampled across the score range were labelled blind - the page showed two names and their sources, never the score or what the pipeline had decided. The labels agreed with the pipeline on 24 of the 29 judged and put the threshold at 87. A test now holds it there: it fails if any threshold between 70 and 100 would disagree with those labels less often."
+        },
+        {
+          "heading": "Model it so the next report is an INSERT, not a migration",
+          "description": "A star schema in DuckDB: one dimension row per title carrying the resolved IMDb id, one fact row per season per period, per chart slot per week, per article per day. Netflix announced in July 2026 that the report becomes annual from 2027, so the period is data - a row with a start date, an end date and the checksum of the file it came from - rather than something baked into the schema."
         }
       ],
       "keyResults": {
         "label": "Key Results",
         "items": [
-          "[Placeholder] No results yet — analysis hasn't been run."
+          "**The join works, and the gain is not where you would expect.** 99.5% Top 10 to engagement report, 92.7% of titles to an IMDb id, 98.8% of reported hours. Exact string matching alone manages 54-57%.",
+          "**Some genres are watched far more than they chart.** Family delivers 1.65x the viewing its chart presence implies (interval 1.24-2.33) and Animation 1.32x, while Documentary runs at 0.44 and Thriller at 0.67. Nine genres have intervals clear of parity.",
+          "**A better rating does not hold the chart longer.** With hours, votes, type and language held constant, the rating term is 0.06 weeks per point, interval -0.03 to +0.17. What predicts chart time is size (+3.6 weeks per tenfold increase in hours) and being in a non-English category (+1.1 weeks).",
+          "**Outside interest arrives the same week, not before it.** 47 of 63 titles fit best at lag zero; 8 lead, 8 lag. The same-week link is real rather than an artefact of shared decay: pairing a title's hours with a different title's pageviews drops the correlation from 0.82 to 0.23."
         ]
       },
-      "businessInterpretation": "[Placeholder] Business interpretation will go here once there are real findings to interpret.",
+      "deadEnds": {
+        "label": "What didn't work",
+        "items": [
+          "**Google Trends, the source the project was specified around.** The standard Python library is archived, the unofficial endpoint answers an ordinary browser with HTTP 429, and the official API is an application-only alpha. Wikipedia pageviews replaced it and are better for this: absolute daily counts where Trends is a 0-100 index rescaled per query.",
+          "**Fetching demand for every charting title, abandoned mid-run.** The Wikimedia API answers an anonymous client with Retry-After: 22, putting all 2,297 charting titles at about eleven hours of continuous polling of a free service. Scope was cut to titles with at least five weeks in the chart; every demand finding rests on 229 titles and says so.",
+          "**A containment rung, considered and rejected.** Several near misses are real matches where one name contains the other - Full Speed: Season 1 against NASCAR: Full Speed: Season 1. Containment would have caught them, and would also have matched Avatar to Avatar: The Last Airbender. About a dozen real matches were left on the table rather than add a rule that fails silently in the wrong direction.",
+          "**Pooling every name variant into one lookup.** With the published name and the season-stripped name in the same pool, Despicable Me 3 matched Despicable Me (2010) - both legitimate hits, and the tie-break preferred the one with more votes. Keys are now tried strongest-first, and the case is a regression test."
+        ]
+      },
+      "executionDeadEnds": {
+        "label": "What the build had to work around",
+        "items": [
+          "**11.2 million alternate titles could not go through pandas.** The IMDb keys are built in SQL over the raw dumps in DuckDB and the Netflix keys in Python - two normalisers that can drift apart, so a test holds them to the same output on 4,000 sampled titles.",
+          "**Fuzzy matching 20,000 names against 2.8M titles needs blocking.** Candidates are pulled by shared rare tokens in one batched query rather than one query per title, which took that stage from over twenty minutes to about four.",
+          "**Two runs over the same data produced different ids.** The candidate pool was capped by row_number() with no ORDER BY, and equal-vote tie-breaks fell out of pandas row order. Both are ordered now and two runs agree exactly - which matters for a project whose whole claim is reproducibility.",
+          "**Deduplicating keys across rungs silently disabled one.** It stopped S.W.A.T. reaching IMDb's S.W.A.T., because the spacing rung compares compacted keys: the same string against a different column is a different comparison. Nothing failed; the match rate just came back lower."
+        ]
+      },
+      "surprisingPatterns": {
+        "label": "What the data turned out to be hiding",
+        "items": [
+          "**The Top 10 file is a live view, not an archive.** Berlin charted in December 2023 under that name; the file now labels those same 2023 weeks 'Berlin and the Jewels of Paris: Limited Series', because a second season arrived in 2026 and season 1 was renamed. Nine of the thirteen unmatched Top 10 titles are names that appear only in later reports - so a name-based join across time is unstable by construction.",
+          "**Netflix contradicts itself inside one half-year.** The Top 10 calls a title 'Season 1' where the engagement report calls it 'Limited Series'. One rung treats a first-and-only season written three ways as one thing, but only when the name matches exactly one candidate, so it can never pick the wrong season.",
+          "**Two asterisks nobody documents.** Runtime appears as '*' on 171-193 TV rows per report, and as 'H:MM*' on a growing number - 3 rows in 2024 H2, 117 in 2026 H1, mostly live events. Netflix explains neither, so both are carried as flags with no meaning assumed.",
+          "**The hand-labelling found a whole category of missing titles.** One disagreement was not a bad threshold but a missing rung: 153 film titles carrying a language qualifier - almost all Indian-language versions - could never reach the rung built for that shape, because it was restricted to TV. Fixing it matched 82 more titles, including Kalki 2898 AD (Hindi) and Baahubali 2: The Conclusion (Hindi Version)."
+        ]
+      },
+      "businessInterpretation": "The headline metric is hours per week available since release, with Top 10 longevity beside it. They correlate at 0.18, which is the point: the disagreements are where the decision actually sits. A big opening with no chart legs is a marketing result; steady hours with no chart presence is an audience the chart cannot see.\n\nThat second case has a name in this data. Family and Animation accumulate viewing without charting, so a renewal process that screens on chart presence systematically undervalues them - and overvalues Documentary and Thriller, which chart and then stop being watched. The obvious explanation for the family effect is rewatching, and viewing spread thinly across weeks rather than concentrated at release. This data cannot test that, and it is written down as a guess rather than a finding.",
       "recommendations": {
-        "items": [],
+        "items": [
+          {
+            "tag": "Content strategy",
+            "text": "Rank renewals on hours per week available, within genre and language, and require the chart to agree before treating a strong opening as a reason to renew."
+          },
+          {
+            "tag": "Content strategy",
+            "text": "Stop screening kids' and family content on chart presence. Family delivers 1.65x the viewing its chart presence implies, with an interval clear of parity."
+          },
+          {
+            "tag": "Anyone building a scorecard",
+            "text": "Drop IMDb rating from renewal inputs. It is the kind of variable that gets in because it sounds sensible, and it survives no control at all."
+          },
+          {
+            "tag": "Media BI",
+            "text": "Do not build an early warning on public attention. Wikipedia moves in the same week as viewing, not before it - useful as corroboration, and after a title leaves the chart, not as a forecast."
+          }
+        ],
         "limitations": [
-          "This is a placeholder page — no analysis has been performed yet."
+          "Half-yearly hours. The finest grain for viewing is six months - nothing here speaks to a launch week or a before-and-after.",
+          "Hours are published rounded to the nearest 100,000 with a 100,000 floor, so the long tail is missing and small numbers are rounding artefacts.",
+          "One platform. Netflix only, so no figure here is a market share.",
+          "Genre is IMDb's, not Netflix's, and a title with three genres counts in all three.",
+          "Wikipedia pageviews are English-language only and cover 229 titles, so non-English titles - half the Top 10 by construction - are under-represented.",
+          "The fuzzy rung has a measured error rate: of 29 hand-labelled pairs, two it accepts are not matches. That is recorded rather than engineered away.",
+          "The chart is zero-sum. Ten slots per category per week exist whatever gets released, so chart presence measures competition as much as quality."
         ],
         "nextSteps": [
-          "Source and validate a dataset, labelling it clearly as real, public, sample, or synthetic",
-          "Define the specific business question and stakeholder",
-          "Build and validate the model / dashboard / pipeline",
-          "Replace this placeholder with the full SPIDER write-up"
+          "Test the family-viewing explanation directly with rewatch data, which would turn the strongest finding here from a measurement into an explanation",
+          "Add per-country data to separate 'non-English titles hold the chart longer' from 'they compete in a category with fewer contenders'",
+          "Re-run when the first annual report lands in 2027 - the model stores the period as data specifically so that is an INSERT, and it is the cheapest possible test of whether that claim is true"
         ]
       },
-      "image": "images/projects/streaming-engagement-dashboard-card.png"
+      "visuals": [
+        {
+          "title": "Four sources on one screen",
+          "description": "The dashboard's hero: each source with its real row counts, feeding one star schema, with the share of reported hours that carries an IMDb id."
+        },
+        {
+          "title": "Genre delivery, with intervals",
+          "description": "Share of reported hours against share of Top 10 slots, per genre, with 95% bootstrap intervals over titles - coloured only where the interval clears parity."
+        }
+      ],
+      "image": "images/projects/streaming-engagement-dashboard-card.png",
+      "links": {
+        "dashboard": "https://eileenip.github.io/streaming-engagement/dashboard/",
+        "technicalFindings": "https://github.com/EileenIp/streaming-engagement/blob/main/deliverables/streaming-engagement-report.md",
+        "notebookRepo": "https://github.com/EileenIp/streaming-engagement",
+        "caseStudyPage": "https://github.com/EileenIp/streaming-engagement#readme"
+      }
     },
     {
       "id": "ad-creative-performance-pipeline",
