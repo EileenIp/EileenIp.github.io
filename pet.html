@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Daily progress — Eileen Ip</title>
+<meta name="description" content="What I'm working on and what I've finished lately, updated daily.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://eileenip.github.io/pet.html">
+<link rel="stylesheet" href="css/style.css">
+<style>
+.pet-stats { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 8px; }
+.pet-stat { flex: 1 1 120px; }
+.pet-stat-number { font-size: 28px; font-weight: 600; line-height: 1.2; }
+.pet-list { list-style: none; margin: 0; padding: 0; }
+.pet-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border, #e5e5e5); }
+.pet-list .pet-when { margin-left: auto; font-size: 13px; opacity: .7; }
+.pet-note { font-size: 14px; opacity: .75; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav nav-collapsible" aria-label="Main navigation">
+      <span class="nav-brand">Eileen Ip</span>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </label>
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="progress.html">Progress</a>
+        <a href="todo.html">To-do</a>
+        <a href="calendar.html">Calendar</a>
+        <a href="job-tracker.html">Job Tracker</a>
+        <a href="resume.html">Resume</a>
+      </div>
+    </nav>
+</header>
+
+<main class="progress-page container-narrow">
+  <div class="page-header">
+    <h1>Daily progress</h1>
+    <p>A short, public view of what I’m working on and what I’ve finished lately. It updates once a day from my own to-do list, and only includes the items I’ve chosen to share.</p>
+    <p class="pet-note" id="pet-updated" aria-live="polite">Loading…</p>
+  </div>
+
+  <div id="pet-content" hidden>
+    <section class="progress-section">
+      <div class="pet-stats">
+        <div class="card pet-stat"><div class="pet-stat-number" id="pet-streak">0</div><div class="card-meta">day streak</div></div>
+        <div class="card pet-stat"><div class="pet-stat-number" id="pet-week">0</div><div class="card-meta">done this week</div></div>
+        <div class="card pet-stat"><div class="pet-stat-number" id="pet-total">0</div><div class="card-meta">done in total</div></div>
+      </div>
+    </section>
+
+    <hr class="hr">
+
+    <section class="progress-section">
+      <div class="section-label">Working on</div>
+      <ul class="pet-list" id="pet-todo"></ul>
+    </section>
+
+    <hr class="hr">
+
+    <section class="progress-section">
+      <div class="section-label">Finished in the last 7 days</div>
+      <ul class="pet-list" id="pet-done"></ul>
+    </section>
+  </div>
+</main>
+
+<script src="js/pet.js"></script>
+<script src="js/analytics-config.js"></script>
+<script src="js/analytics.js"></script>
+</body>
+</html>
