@@ -1,10 +1,41 @@
 {
-  "updated": null,
+  "updated": "2026-10-26T23:49:06+10:00",
   "streak_days": 0,
   "stats": {
     "completed_this_week": 0,
     "completed_total": 0
   },
-  "todo": [],
+  "todo": [
+    {
+      "title": "Add a GitHub link (or a note on why it is private) for Dynamic AI Chatbot on my CV",
+      "category": "website",
+      "due": "2026-10-30"
+    },
+    {
+      "title": "Write a limitations section for one project page",
+      "category": "website",
+      "due": "2026-11-02"
+    },
+    {
+      "title": "Decide if Support Triage should replace Creator Dashboard on the homepage",
+      "category": "website",
+      "due": "2026-11-04"
+    },
+    {
+      "title": "Define what counts as a relevant listen for the recommender project",
+      "category": "website",
+      "due": "2026-11-06"
+    },
+    {
+      "title": "Update website projects page",
+      "category": "website",
+      "due": null
+    },
+    {
+      "title": "Tidy up resume wording",
+      "category": "website",
+      "due": null
+    }
+  ],
   "recently_done": []
 }
