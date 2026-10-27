@@ -6,12 +6,11 @@ let data = {version:1,tasks:[]}, handle = null, baseline = '', editing = null, d
 const owners = ['Unassigned','Eileen','Codex','Claude'], statuses = ['To do','In progress','Blocked','Review','Done'];
 
 const goals = [
- {id:'graduate',title:'Graduate from UQ',description:'Get an internship, enrol in RBUS3999, then graduate. Aiming for June 2027.'},
- {id:'brand',title:'Build my own brand',description:'Show you don\'t need great communication to be independent. Make things easy to understand at a glance.'},
- {id:'ai-products',title:'Build AI products',description:'Tools that help with communication and turn complex ideas into simple information.'},
- {id:'trading',title:'Learn financial trading',description:'Understand how financial trading works.'},
- {id:'chinese',title:'Learn Chinese',description:'Learn to read, listen and speak.'},
- {id:'vlog',title:'Start my vlog channel',description:'A new channel of vlogs as Eileen Ip.'},
+ {id:'graduate',title:'Graduate from UQ',description:'Get an internship first. Then RBUS3999, then graduate. Aiming for June 2027.'},
+ {id:'brand',title:'Build my own brand',description:'YouTube vlogs of me working. Faceless posts on LinkedIn and Instagram about my AI products, prompts and agents.'},
+ {id:'ai-products',title:'Build AI products',description:'Tools for people who find communication hard. Still deciding the first one.'},
+ {id:'trading',title:'Learn financial trading',description:'A carousel course from first idea to closing a trade, then practice with fake money.'},
+ {id:'languages',title:'Learn Mandarin and Japanese',description:'Mandarin for anime, miHoYo games and Taobao. Japanese kana and kanji through anime phrases.'},
  {id:'other',title:'Other tasks',description:'Tasks to organise.'}
 ];
 function goalFor(t) {

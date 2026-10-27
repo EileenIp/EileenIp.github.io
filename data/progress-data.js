@@ -3,32 +3,27 @@ const PROGRESS_DATA = {
   "goals": [
     {
       "title": "Graduate from UQ",
-      "description": "To finish my degree I need to complete RBUS3999, UQ’s Business Industry Placement course. I can only enrol once I have an internship. So the order is: land an internship, enrol, then graduate. I’m aiming to graduate in June 2027. My applications are in and I’m waiting to hear back.",
+      "description": "To finish my degree I need to complete RBUS3999, UQ’s Business Industry Placement course. I can only enrol once I have an internship, so right now I’m applying for internships. I’m aiming to graduate in June 2027.",
       "status": "In progress"
     },
     {
       "title": "Build my own brand",
-      "description": "I want to show that you don’t need to be a strong communicator to be independent. Long, wordy writing is hard for me to follow, so I make things that make sense at a glance. What I’m good at is organising ideas and systems so anyone can understand them.",
+      "description": "I want to show that you don’t need to be a strong communicator to be independent. Long, wordy writing is hard for me to follow, so I make things that make sense at a glance. I’ll post vlogs of me working on YouTube, and faceless posts about AI products, prompts and agents on LinkedIn and Instagram.",
       "status": "Not started"
     },
     {
       "title": "Build AI products",
-      "description": "I want to build tools that help people communicate and that break complex ideas down into simple information. ConverseAssist, my conversation accessibility prototype, was a first step in this direction.",
+      "description": "I want to build tools for people who find communication hard, and that break complex ideas down into simple information. ConverseAssist, my conversation accessibility prototype, was a first step in this direction.",
       "status": "Not started"
     },
     {
       "title": "Learn financial trading",
-      "description": "I want to understand how financial trading works.",
+      "description": "I want to understand how a trade works from the first idea to closing it. I’m learning through a short course, then practising with fake money.",
       "status": "Not started"
     },
     {
-      "title": "Learn Chinese",
-      "description": "I want to learn to read, listen and speak Chinese.",
-      "status": "Not started"
-    },
-    {
-      "title": "Start my vlog channel",
-      "description": "A new channel where I post vlogs as myself.",
+      "title": "Learn Mandarin and Japanese",
+      "description": "For Mandarin, I’m starting with words I actually see: anime, miHoYo games and shopping on Taobao. For Japanese, I’m learning hiragana, katakana and kanji through common anime phrases.",
       "status": "Not started"
     }
   ],
