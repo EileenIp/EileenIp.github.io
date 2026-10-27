@@ -497,7 +497,9 @@ footer.site-footer {
 .proj-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--space-8); align-items: start; }
 /* sidebar pins beside the grid; not a scroll box, so its dropdowns can overflow it */
 .proj-sidebar { position: sticky; top: var(--space-4); z-index: 5; }
-.proj-sidebar .jt-fields-row { grid-template-columns: 1fr 1fr; }
+.proj-sidebar .jt-fields-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* grid items default to min-width:auto, so date inputs push the sidebar wider than the screen */
+.proj-sidebar .field, .proj-sidebar .input { min-width: 0; width: 100%; }
 .proj-search { margin-bottom: var(--space-4); }
 
 /* searchable dropdown (createCombobox in js/projects.js) */
@@ -841,7 +843,7 @@ details[open] .year-chevron { transform: rotate(90deg); }
 
 /* — responsive — */
 @media (max-width: 900px) {
-  .proj-layout { grid-template-columns: 1fr; gap: var(--space-6); }
+  .proj-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
   .proj-sidebar { position: static; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .project-grid { grid-template-columns: repeat(2, 1fr); }
