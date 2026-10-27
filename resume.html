@@ -23,13 +23,20 @@
 <meta name="twitter:image" content="https://eileenip.github.io/images/og-card.png">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/resume.css">
+<meta name="theme-color" content="#FFF5F8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&amp;family=Cormorant+Garamond:ital,wght@1,500;1,600&amp;family=Montserrat:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 
 <div class="hero-band">
-  <header>
+  <header class="home-header">
     <nav class="nav nav-collapsible" aria-label="Main navigation">
-      <span class="nav-brand">Eileen Ip</span>
+      <a class="nav-brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 15.5 12 12 22.5 8.5 12Z" fill="currentColor"/></svg>Eileen Ip</a>
       <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
       <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -37,11 +44,10 @@
       <div class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
         <a href="projects.html">Projects</a>
-        <a href="progress.html">Progress</a>
-        <a href="todo.html">To-do</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="job-tracker.html">Job Tracker</a>
-        <a href="resume.html" aria-current="page">Resume</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#availability">Availability</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="resume.html" aria-current="page" class="h-nav-resume">Resume</a>
       </div>
     </nav>
   </header>

@@ -3,7 +3,7 @@
     {
       "id": "ecommerce-behavior-conversion-2019",
       "title": "E-Commerce Purchase-Prediction & Conversion Funnel Analysis",
-      "year": 2019,
+      "year": 2026,
       "industry": "E-Commerce",
       "projectType": "Classification + Segmentation",
       "serviceType": "Analysis + Model",
@@ -24,6 +24,11 @@
       },
       "cardDescription": "Diagnosed why visitors leave without buying using 110M+ clickstream events from a real multi-category store — and found the leak is almost entirely upstream of checkout.",
       "impactStat": "0.92 ROC-AUC purchase model, holding at 0.946 a month later with no retraining",
+      "headlineMetric": {
+        "value": "0.92",
+        "label": "ROC-AUC purchase model, still 0.946 a month later"
+      },
+      "dataSource": "real",
       "oneSentenceDescription": "A full-funnel behavioural diagnosis showing that once an item is carted it's bought 82.67% of the time — so the real leak, and the real opportunity, is at view → cart.",
       "targetIndustryRole": "E-Commerce Product, CX & Marketing Analytics",
       "summaryImpact": "Growing profit doesn't require more traffic — it's already there. The cheapest lever is converting shoppers who are already close to buying: the ones who've added something to cart. Across 42.4M October + 67.4M November 2019 clickstream events from a real multi-category online store — the full REES46 Marketing Platform dataset on Kaggle, not a sample — I diagnosed why visitors leave without buying, and where product, CX, and marketing teams can intervene.\n\nThe data says this is a **discovery problem, not a checkout problem:** at the event level, a cart converts to a purchase 82.67% of the time — yet 49.1% of October's cart-containing sessions still end with no purchase at all, since one session can cart repeatedly before converting once, or never. Either way, the leak is almost entirely upstream, at view → cart.\n\nThe core deliverable: a LightGBM model that scores which abandoned carts are closest to converting, so Marketing knows which sessions are worth a retargeting nudge — not just which customers converted historically.\n\nMethod: chunked pandas EDA on files too large for memory, session-level feature engineering across 9.2M October sessions, a LightGBM purchase-prediction model with SHAP, K-Means/decision-tree customer segmentation, and out-of-time validation on November.",
@@ -327,6 +332,11 @@
       },
       "cardDescription": "Built a five-page Power BI decision system that connects advertising performance, advertiser lifecycle, sales activity, pipeline and targets to diagnose revenue and prioritise 720 accounts.",
       "impactStat": "$10.50M revenue vs. $14.10M target, diagnosed through campaign, lifecycle and sales evidence",
+      "headlineMetric": {
+        "value": "$10.5M",
+        "label": "revenue against a $14.1M target, diagnosed"
+      },
+      "dataSource": "synthetic",
       "oneSentenceDescription": "An end-to-end commercial analytics system that explains why advertising revenue is below target and converts campaign, lifecycle and sales evidence into transparent account actions.",
       "targetIndustryRole": "Advertising, Sales Operations & Business Intelligence",
       "summaryImpact": "The executive view showed **$10.50M in advertising revenue against a $14.10M target** — a **$3.60M adverse variance, or 25.5% below target**. The challenge was not displaying that gap; it was making it diagnosable. Revenue could move because of campaign efficiency, advertiser acquisition and churn, account spending, sales coverage or pipeline conversion.\n\nI built a five-page Power BI decision system that moves from executive monitoring to campaign diagnosis, sales-team efficiency and a prioritised account worklist. An Advertiser 360 drill-through page exposes the campaign, opportunity and contact evidence behind each recommendation.\n\nThe portfolio contained **720 fictional advertisers** and used transparent Rescue, Reactivate, Optimise, Upsell, Onboard and Maintain rules. This makes every recommendation explainable in an interview and auditable by a business user instead of hiding it inside a black-box score.",
@@ -527,6 +537,11 @@
       ],
       "cardDescription": "A Tableau content decision console connecting reach, retention, momentum and audience loyalty to the next production decision. Built with synthetic demonstration data.",
       "impactStat": "Shorts are 8.8% of views but 1.2% of watch time and 2.7% of revenue — a views leaderboard misreads the channel three ways",
+      "headlineMetric": {
+        "value": "8.8% → 1.2%",
+        "label": "Shorts' share of views vs share of watch time"
+      },
+      "dataSource": "synthetic",
       "oneSentenceDescription": "Which content should a creator scale, promote or improve next?",
       "targetIndustryRole": "Creator, Content Strategy & Marketing Analytics",
       "summaryImpact": "I built a Tableau dashboard to help a creator move from performance reporting to the next content decision. It combines five KPI cards with audience trends, an opportunity matrix, video momentum and topic-specific recommendations.\n\n**This is a synthetic-data portfolio project, not an export of my personal YouTube channel.** Its figures demonstrate analytical design rather than measured business impact.",
@@ -658,6 +673,11 @@
       },
       "cardDescription": "Diagnosed which real music-streaming subscribers are worth a retention offer using 21.5M real transactions from KKBox (WSDM Cup 2018) — crossing churn risk against actual subscription spend, and catching three real methodology bugs before trusting any result.",
       "impactStat": "84.2% of real cancellations caught at the deployed threshold — risk crossed with actual subscription spend, not a proxy",
+      "headlineMetric": {
+        "value": "84.2%",
+        "label": "of real cancellations caught at the deployed threshold"
+      },
+      "dataSource": "real",
       "oneSentenceDescription": "A subscriber-level churn risk score crossed with real subscription spend — built on 21.5M real KKBox transactions, with three real methodology bugs caught and fixed before any result was trusted.",
       "targetIndustryRole": "Subscription Media Retention, Lifecycle Marketing & Data Science",
       "summaryImpact": "A churn score tells a retention team who's about to cancel. It doesn't tell them who's worth spending a retention budget on. Built on **21,547,746 real transactions** from KKBox, a real Asian music-streaming subscription service (the WSDM Cup 2018 Churn Prediction Challenge on Kaggle) — not a synthetic or engagement-proxy dataset — I built a subscriber-level churn risk model and crossed it against real subscription spend to produce a spendable priority order for retention budget.\n\nThe data says the churn definition itself has to be earned, not assumed: **96.8% of all renewals that happen, happen within 30 days of expiry** — the point this data's own renewal-gap curve flattens, and the threshold this project's churn label is built on, not copied from a blog post.\n\nThe core deliverable: a risk-value quadrant that separates subscribers worth an active retention push from subscribers who are at risk but not worth the cost of saving — so a retention team spends a $75 offer where it returns, not on whoever looks about to leave.\n\nMethod: chunked pandas processing across 21.5M+ transaction rows, out-of-time validation (never a random split), a LightGBM churn model with SHAP, K-Means subscriber segmentation, and three real methodology bugs — caught and fixed, not hidden — documented in full below.",
@@ -915,6 +935,11 @@
       },
       "cardDescription": "Resolved 24,902 Netflix titles against IMDb and Wikipedia into one star schema, then asked which titles earn their place. Exact string matching gets 54-57%. Parsing the titles properly gets 92.7% - and 98.8% of all reported viewing hours.",
       "impactStat": "92.7% of titles and 98.8% of reported hours resolved to an IMDb id, against 54-57% for exact string matching",
+      "headlineMetric": {
+        "value": "92.7%",
+        "label": "of titles resolved to IMDb, vs 54–57% by exact match"
+      },
+      "dataSource": "real",
       "oneSentenceDescription": "Four real, public, mutually inconsistent sources - the Netflix engagement reports, the Netflix Global Top 10, IMDb and Wikipedia pageviews - resolved into one model, with every matching rung counted separately and a threshold set by hand-labelling 30 pairs blind.",
       "targetIndustryRole": "Content strategy, programming and media BI",
       "summaryImpact": "Content teams decide renewals from numbers that live in separate files. Netflix publishes two of them and they do not agree with each other; IMDb knows what a title is and shares no identifier with either; Wikipedia knows how much attention it is getting off-platform.\n\nThe engineering question comes before the business one. Exact string matching joins the two Netflix files at 54-57%. Parsing what Netflix actually publishes - a name, a season marker, a disambiguating year and an alternate-language name, all in one string - takes that to 99.5%, and takes the IMDb join to 92.7% of titles and 98.8% of reported viewing hours. Fuzzy matching contributes 284 pairs out of 23,072; almost all of the work is normalisation, not string distance.\n\nWith the model built, three questions. Family and Animation are watched far more than they chart, Documentary and Thriller the reverse. A better IMDb rating does not hold the chart longer once size is held constant. And public attention arrives in the same week as viewing, not before it, so there is no early-warning signal to build on.",
@@ -1111,6 +1136,11 @@
       },
       "cardDescription": "A dbt-core + DuckDB pipeline built to survive a deliberately hostile synthetic upstream — late arrivals, restatements, duplicates, a schema change, nulls, a clicks-exceed-impressions bug, and a missing day — with 10 dbt tests, hosted lineage docs, and a live dashboard, not a local-only demo.",
       "impactStat": "Reconciles to ground truth exactly across 25,892 rows — except the 3 defect types the pipeline is never supposed to silently fix",
+      "headlineMetric": {
+        "value": "25,892",
+        "label": "rows reconciled exactly to ground truth"
+      },
+      "dataSource": "synthetic",
       "oneSentenceDescription": "A dbt-core + DuckDB pipeline that ingests openly synthetic, deliberately corrupted ad-creative performance data and proves it can still deliver reliable same-day numbers — the deliverable is the pipeline, not an advertising finding.",
       "targetIndustryRole": "BI Developer, Data Engineer, Analytics Engineer (marketing-adjacent)",
       "summaryImpact": "Media buyers usually find out which creatives are winning a week after the numbers mattered. **The deliverable here is the pipeline, not the analysis** — real creative-level ad performance data isn't published anywhere (even the Facebook Ad Library exposes creative content, not performance), so this project uses openly synthetic data with deliberately realistic failure modes instead of pretending a scraped dataset is something it isn't.\n\nBuilt with dbt-core and DuckDB: a generator injects **8 named defect types** into 96 daily drop files — late arrivals, restated numbers, exact and near duplicates, a schema change mid-stream, nulled fields, a clicks-exceed-impressions platform bug, and one day the platform never delivers at all — logged to a ground-truth manifest so every defect's handling can be checked against a known answer, not eyeballed.\n\nThe pipeline reconciles to that ground truth exactly, with one real distinction worth explaining rather than hiding: **three of the eight defect types are never corrected by the upstream platform**, so a pipeline that \"fixed\" them would be inventing numbers. The other five — including a missing day that turned out to also swallow nearby late-arriving rows — resolve correctly through a 7-day lookback window and a stated latest-delivery-wins dedup rule.\n\nCI runs the full daily cycle end to end (generate → load → `dbt build` + 10 tests → publish), with a public lineage graph and a thin dashboard, both hosted and live, not local-only.",
@@ -1341,6 +1371,11 @@
       },
       "cardDescription": "Scored 91,449 real support conversations at the moment they arrive, using nothing but the customer's first message — then tested whether replying faster changes how they end. It doesn't: the association runs the other way, and it survives every control the data allows.",
       "impactStat": "Fast-tracking the worst 10% of the queue finds 44% bad outcomes against 23% at random — while leaving 295 bad conversations a day unprioritised",
+      "headlineMetric": {
+        "value": "44% vs 23%",
+        "label": "bad outcomes in the flagged 10% vs at random"
+      },
+      "dataSource": "real",
       "oneSentenceDescription": "A triage model over 91,449 public support conversations with AmazonHelp, Delta, TMobileHelp and Tesco, built on a label recovered from reading 100 threads by hand — and a reply-speed analysis that contradicts the thing every CX team assumes.",
       "targetIndustryRole": "Support operations, CX and service analytics",
       "summaryImpact": "Two questions, both operational. Which incoming messages need a human now — and does answering faster actually help?\n\nOn the first: a model reading only the customer's opening message reaches 0.361 PR-AUC against 0.251 for the keyword rule support tools ship with, on a 23% base rate. Fast-tracking the worst 10% of the queue — 159 conversations a day — finds 44% that go badly, roughly double picking at random, and catches 19% of all bad outcomes.\n\nOn the second, the answer is no, and it points the other way: every tenfold increase in first-reply time goes with -5.9 percentage points in conversations left unanswered. Slower replies, fewer bad endings. It holds within brand (-4.8pp), within predicted difficulty (-3.2pp), and at half the size (-2.1pp) when the study's biggest judgement call is reversed.",
@@ -1546,6 +1581,11 @@
       },
       "cardDescription": "Tested whether complaint themes inside Steam reviews rise before a game's review score collapses. They don't — both events were triggered by dated developer announcements, so themes and score moved the same day. The useful finding is same-day diagnosis: the theme mix names the cause within hours.",
       "impactStat": "A 12-point single-day drop rule fires 3 times in 9 months with zero false alarms; the obvious level rule fires 35 times, 29 of them nothing",
+      "headlineMetric": {
+        "value": "0 false alarms",
+        "label": "3 alerts in 9 months; the obvious rule fired 35 times"
+      },
+      "dataSource": "real",
       "oneSentenceDescription": "886,850 Steam reviews across a launch, a review-bomb and a balance controversy, testing whether complaint themes give early warning of a score collapse — and finding they don't.",
       "targetIndustryRole": "Gaming / community and live-ops teams monitoring launch sentiment",
       "links": {
@@ -1764,6 +1804,11 @@
       ],
       "cardDescription": "Does going free-to-play actually buy engagement? Across 20,761 Steam games, free titles are played a quarter as long as paid ones — and comparing within genre makes the gap wider, not narrower.",
       "impactStat": "Free games are played a quarter as long as paid ones — 124 median minutes against 530 — and correcting for genre widens the gap rather than explaining it",
+      "headlineMetric": {
+        "value": "124 vs 530",
+        "label": "median minutes played: free vs paid games"
+      },
+      "dataSource": "real",
       "oneSentenceDescription": "A 20,761-game study of whether going free-to-play actually buys engagement on Steam, built to kill the tautology that free things get downloaded more, and to test whether any gap survives comparing like genre with like.",
       "targetIndustryRole": "Data Analyst, Data Scientist (gaming, product analytics)",
       "sectionHeadlines": {
@@ -2026,6 +2071,11 @@
       },
       "cardDescription": "A Windows prototype for people who find fast or multi-part spoken questions hard to follow. It captures desktop audio, transcribes it, splits the question into parts and drafts three editable replies. Nothing is sent or spoken for the user.",
       "impactStat": "Used end to end in several real conversations, with 8/8 automated tests passing. Not yet tested by anyone but me",
+      "headlineMetric": {
+        "value": "8/8",
+        "label": "automated tests passing; used in real conversations"
+      },
+      "dataSource": "prototype",
       "oneSentenceDescription": "A personal prototype, built in August 2026, that turns a spoken question heard through a PC's speakers into a plain-language breakdown and three reply drafts the user can edit, ignore or replace.",
       "targetIndustryRole": "AI development, accessibility and usability",
       "summaryImpact": "In a meeting, a question can arrive fast and in three parts while you're still working out the first. For people who process speech more slowly, lose track of multi-part questions, or find it hard to put an answer into words under time pressure, the difficulty isn't hearing the words. It's the gap between hearing a question and replying to it.\n\nConverseAssist is a personal prototype I made in August 2026 to explore that gap. It listens to the audio playing on a Windows PC, such as a video call, and transcribes it. It then works out whether a reply is likely needed, breaks the question into numbered parts, and drafts three replies: short, detailed, and a request to clarify. Every suggestion is editable and optional. The app never sends, posts or speaks a reply on the user's behalf.\n\nUnder the hood, a small C#/.NET 9 helper captures desktop audio through Windows WASAPI. A Node.js server sends the audio to a speech-to-text model, then sends the transcript to a language model constrained to a strict JSON schema. A plain HTML/CSS/JavaScript interface shows the result.\n\n**How I built it:** I came up with the idea, designed the features and interface, and wrote pseudocode for each part. I refined the design with ChatGPT and used it as a coding assistant to turn that pseudocode into working code.\n\n**It's a prototype.** It runs on one Windows machine and sends conversation audio to an external AI provider. I've used it in several real conversations, but nobody else has tested it yet.",

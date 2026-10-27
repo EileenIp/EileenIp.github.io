@@ -22,96 +22,127 @@
 <meta name="twitter:description" content="Filterable case study grid — data analytics and machine learning projects.">
 <meta name="twitter:image" content="https://eileenip.github.io/images/og-card.png">
 <link rel="stylesheet" href="css/style.css">
+<meta name="theme-color" content="#FFF5F8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&amp;family=Cormorant+Garamond:ital,wght@1,500;1,600&amp;family=Montserrat:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/projects-page.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="home">
 
-<header>
+<header class="home-header">
   <nav class="nav nav-collapsible" aria-label="Main navigation">
-      <span class="nav-brand">Eileen Ip</span>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
-      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-      </label>
-      <div class="nav-links" id="nav-links">
-        <a href="index.html">Home</a>
-        <a href="projects.html" aria-current="page">Projects</a>
-        <a href="progress.html">Progress</a>
-        <a href="todo.html">To-do</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="job-tracker.html">Job Tracker</a>
-        <a href="resume.html">Resume</a>
-      </div>
-    </nav>
+    <a class="nav-brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 15.5 12 12 22.5 8.5 12Z" fill="currentColor"/></svg>Eileen Ip</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </label>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="projects.html" aria-current="page" class="is-current">Projects</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#availability">Availability</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="resume.html" class="h-nav-resume">Resume</a>
+    </div>
+  </nav>
 </header>
 
-<div class="jt-header jt-header-static">
-  <div class="container-wide">
-    <div class="jt-title-row">
-      <div>
-        <span class="kicker">Case Studies</span>
-        <h1>Projects</h1>
-      </div>
-      <div class="jt-summary" id="proj-summary" aria-live="polite"></div>
-    </div>
+<main id="main">
+
+<section class="p-hero">
+  <div class="h-decor" aria-hidden="true">
+    <div class="h-glow" style="top:-60px;left:50%;margin-left:-420px;width:840px;height:380px;background:var(--t-glow-1);opacity:.55"></div>
+    <span class="h-spark h-spark-1" style="top:50px;right:14%;width:44px;height:44px;opacity:.5"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-2" style="top:130px;left:12%;width:22px;height:22px"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
   </div>
+  <div class="h-wrap p-hero-inner">
+    <p class="h-eyebrow">Project library</p>
+    <h1>Every project, <span class="h-accent">result first.</span></h1>
+    <p class="h-lede"><span id="p-total">10</span> projects across <span id="p-industries">8</span> industries · <span id="p-real">6</span> built on real data.</p>
+  </div>
+</section>
+
+<section class="p-roles-wrap" aria-labelledby="p-roles-label">
+  <div class="h-wrap">
+    <div class="p-roles" role="group" aria-labelledby="p-roles-label">
+      <span id="p-roles-label" class="p-roles-label">Hiring for</span>
+      <div id="p-roles" class="p-roles-buttons"></div>
+    </div>
+    <p id="p-role-hint" class="p-role-hint"></p>
+  </div>
+</section>
+
+<div class="p-layout">
+
+  <aside class="p-filters" aria-label="Project filters">
+    <div class="p-filters-head"><h2>Filters</h2><span id="f-active">None active</span></div>
+    <div class="p-field"><label for="f-search">Search</label><input type="search" id="f-search" placeholder="Project name, tool or keyword…"></div>
+    <fieldset class="p-field">
+      <legend>Date range</legend>
+      <div class="p-two">
+        <div class="p-field"><label for="f-from">From</label><select id="f-from"></select></div>
+        <div class="p-field"><label for="f-to">To</label><select id="f-to"></select></div>
+      </div>
+    </fieldset>
+    <div class="p-field"><label for="f-industry">Industry</label><select id="f-industry"></select></div>
+    <div class="p-field"><label for="f-ptype">Project type</label><select id="f-ptype"></select></div>
+    <div class="p-field"><label for="f-stype">Service type</label><select id="f-stype"></select></div>
+    <div class="p-field"><label for="f-tool">Tool</label><select id="f-tool"></select></div>
+    <div class="p-field"><label for="f-data">Data source</label><select id="f-data"></select></div>
+    <button type="button" id="f-clear" class="p-clear">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      Clear all filters
+    </button>
+  </aside>
+
+  <section class="p-results" aria-label="Projects">
+    <div class="p-toolbar">
+      <p role="status" aria-live="polite">Showing <strong id="p-shown">0</strong> of <span id="p-total-2">all</span> projects</p>
+      <div class="p-toolbar-right">
+        <button type="button" id="p-copy-view" class="p-btn p-btn-ghost"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span class="label">Copy link to this view</span></button>
+        <label for="f-sort">Sort</label>
+        <select id="f-sort"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="az">A–Z</option></select>
+      </div>
+    </div>
+    <div id="p-chips" class="p-chips" hidden></div>
+    <div id="p-grid" class="p-grid"></div>
+    <div id="p-empty" class="p-empty" hidden>
+      <p>No projects match these filters.</p>
+      <button type="button" id="p-empty-clear" class="p-btn p-btn-cta">Clear all filters</button>
+    </div>
+    <p id="proj-load-empty" class="p-empty" hidden>No projects yet — check back soon for new work.</p>
+    <p id="proj-load-error" class="p-empty" hidden>Couldn't load project data. If you're viewing this file directly (file://), run it through a local server instead.</p>
+  </section>
+
 </div>
-
-<main>
-  <div class="jt-body proj-layout">
-    <aside class="proj-sidebar" aria-label="Project filters">
-      <div class="field proj-search">
-        <label for="proj-search-input">Search projects</label>
-        <input type="search" id="proj-search-input" class="input" placeholder="Project name or keyword…">
-      </div>
-
-      <div class="jt-fields-row">
-        <div class="field">
-          <label for="f-year-from">Year from</label>
-          <input type="text" inputmode="numeric" maxlength="4" id="f-year-from" class="input" placeholder="Any">
-        </div>
-        <div class="field">
-          <label for="f-year-to">Year to</label>
-          <input type="text" inputmode="numeric" maxlength="4" id="f-year-to" class="input" placeholder="Any">
-        </div>
-      </div>
-
-      <div class="jt-filter-groups" id="filter-groups"></div>
-
-      <div class="active-filters" id="active-filters" style="display:none;"></div>
-    </aside>
-
-    <div class="proj-results">
-      <div class="proj-grid" id="proj-grid"></div>
-
-      <div class="jt-empty" id="proj-empty" style="display:none;">
-        <p class="text-muted" style="font-size: 14px;">No projects match these filters.</p>
-        <button type="button" class="btn btn-secondary" id="proj-empty-clear">Clear all filters</button>
-      </div>
-
-      <p id="proj-load-empty" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
-        No projects yet — check back soon for new work.
-      </p>
-      <p id="proj-load-error" class="text-muted" style="display:none; font-size: 13px; padding: 24px var(--space-4);">
-        Couldn't load project data. If you're viewing this file directly (file://), run it through a local server instead.
-      </p>
-    </div>
-  </div>
 </main>
+
+<footer class="home-footer">
+  <div class="h-wrap">
+    <p>&copy; 2026 Eileen Ip</p>
+    <p>Brisbane · Australia, Hong Kong &amp; remote</p>
+  </div>
+</footer>
+</div>
 
 <div class="dialog-backdrop" id="proj-backdrop">
   <div class="dialog dialog-wide" id="proj-dialog" role="dialog" aria-modal="true" aria-labelledby="proj-title">
     <div class="dialog-head">
       <div>
         <div class="card-kicker" id="proj-role">Target industry / role</div>
-        <div id="proj-title" class="dialog-title">Project title</div>
-        <div id="proj-onesentence" class="card-meta" style="margin-top: 4px;">One-sentence description</div>
+        <h2 id="proj-title" class="dialog-title">Project title</h2>
+        <p id="proj-onesentence" class="p-modal-lede">One-sentence description</p>
       </div>
-      <div style="display:flex; gap:8px; flex-shrink:0;">
-        <button type="button" class="btn btn-secondary" id="proj-download" style="font-size:13px;">
-          Download
-        </button>
-        <button type="button" class="btn btn-secondary btn-icon" id="proj-close" aria-label="Close">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
+      <div class="p-modal-actions">
+        <button type="button" class="p-btn p-btn-ghost" id="proj-download">Download</button>
+        <button type="button" class="p-icon-btn" id="proj-close" aria-label="Close case study">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 5l14 14"/><path d="M19 5L5 19"/></svg>
         </button>
       </div>
     </div>

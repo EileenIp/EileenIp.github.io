@@ -1,49 +1,18 @@
+/* Projects page: role picks, sidebar filters, cards and the case-study pop-up.
+   Everything is driven by data/projects.json. Filters live in the page address
+   (e.g. projects.html?role=engineer&industry=Gaming), so any view can be shared;
+   ?project=<id> opens that case study straight away. */
+'use strict';
+
 const ARROW_ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>';
 const CHEVRON_PATH = 'M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z';
+const SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg>';
+const ICON_CODE = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7 3 12l5 5"/><path d="m16 7 5 5-5 5"/><path d="m14 4-4 16"/></svg>';
+const ICON_CHART = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>';
+const ICON_LINK = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';
 
-// Rainbow tag colors, matching the hand-picked assignments on the homepage
-// cards so the same project shows the same colors in both places.
-const RAINBOW_TAGS = ['tag-red', 'tag-orange', 'tag-yellow', 'tag-green', 'tag-blue', 'tag-indigo', 'tag-violet'];
-const INDUSTRY_COLOR = {
-  'Marketing': 'tag-red',
-  'Digital Advertising': 'tag-orange',
-  'Media & Entertainment': 'tag-yellow',
-  'Subscription Media': 'tag-green',
-  'Gaming': 'tag-blue',
-  'E-Commerce': 'tag-indigo',
-  'Customer Experience': 'tag-violet',
-  'Accessibility': 'tag-violet',
-};
-const PROJECT_TYPE_COLOR = {
-  'Data Pipeline': 'tag-indigo',
-  'Classification + Segmentation': 'tag-violet',
-  'Business Intelligence': 'tag-red',
-  'Statistical Analysis': 'tag-orange',
-  'Dashboard': 'tag-yellow',
-  'Classification + Operational Analysis': 'tag-green',
-  'NLP Analysis': 'tag-blue',
-  'AI Application': 'tag-indigo',
-};
-// Falls back to a stable hash so any category not in the map above still
-// gets a consistent (if unassigned) rainbow color instead of breaking.
-function rainbowClass(value, map) {
-  if (!value) return 'tag-neutral';
-  if (map[value]) return map[value];
-  let hash = 0;
-  for (let i = 0; i < value.length; i++) hash = (hash * 31 + value.charCodeAt(i)) >>> 0;
-  return RAINBOW_TAGS[hash % RAINBOW_TAGS.length];
-}
-
-// Long-text sections shown collapsed in the modal, in display order. Each
-// entry optionally names a `visuals` section key whose charts render inside
-// that section's body. Every SPIDER section is now a standalone
-// always-visible section instead (see renderProjectBody) — this stays
-// empty but in place in case a future section wants the collapsed treatment.
+// Kept for the case-study renderer below.
 const COLLAPSIBLE_SECTIONS = [];
-
-// Footer links, in display order. caseStudyPage isn't in the original spec's
-// 4 named links, but rather than drop it silently if a project has one, it
-// renders as a 5th button.
 const FOOTER_LINKS = [
   ['dashboard', 'Dashboard'],
   ['technicalFindings', 'Technical Findings'],
@@ -52,420 +21,289 @@ const FOOTER_LINKS = [
   ['caseStudyPage', 'Full Case Study'],
 ];
 
-// — Filtering —
+// "Hiring for" quick picks. Rules, not lists, so new projects sort themselves.
+const ROLES = {
+  analyst: { label: 'Data Analyst', hint: 'Dashboards, BI and statistical analysis that answer a business question.', test: (p) => /Dashboard/.test(p.serviceType || '') || /Business Intelligence|Statistical|NLP/.test(p.projectType || '') },
+  scientist: { label: 'Data Scientist', hint: 'Predictive models, classification and NLP, validated on held-out data.', test: (p) => /Model/.test(p.serviceType || '') || /Classification|NLP|AI/.test(p.projectType || '') },
+  engineer: { label: 'Data Engineer', hint: 'Pipelines, entity resolution and tested, automated data flows.', test: (p) => /Pipeline/.test(p.projectType || '') || /Pipeline/.test(p.serviceType || '') || p.projectType === 'AI Application' },
+};
+const DATA_LABEL = { real: 'Real data', synthetic: 'Synthetic data', prototype: 'Prototype' };
 
+// Filter state <-> URL parameter names.
+const PARAMS = { role: 'role', query: 'q', industry: 'industry', projectType: 'type', serviceType: 'service', tool: 'tool', dataSource: 'data', yearFrom: 'from', yearTo: 'to', sort: 'sort' };
+const state = { role: '', query: '', industry: '', projectType: '', serviceType: '', tool: '', dataSource: '', yearFrom: '', yearTo: '', sort: 'new' };
 let allProjects = [];
-const FILTER_KEYS = ['industry', 'projectType', 'serviceType', 'tools'];
-const activeFilters = { industry: new Set(), projectType: new Set(), serviceType: new Set(), tools: new Set() };
-const FILTER_GROUPS = [
-  ['Industry', 'industry', 'Search industries…'],
-  ['Project Type', 'projectType', 'Search project types…'],
-  ['Service Type', 'serviceType', 'Search service types…'],
-  ['Tools', 'tools', 'Search tools…'],
-];
-const YEAR_FIRST = 2023;
-const YEAR_LAST = Math.max(2026, new Date().getFullYear());
-let yearFrom = '';
-let yearTo = '';
+let openId = null;
 
-// value -> number of projects using it, for one filter key
-function countFilterValues(key) {
-  const counts = new Map();
-  for (const p of allProjects) {
-    const values = key === 'tools' ? (p.tools || []) : [p[key]];
-    for (const v of values) if (v) counts.set(v, (counts.get(v) || 0) + 1);
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+// — URL —
+function readStateFromURL() {
+  const q = new URLSearchParams(window.location.search);
+  for (const [key, name] of Object.entries(PARAMS)) {
+    const v = q.get(name);
+    if (v != null) state[key] = v;
   }
-  return counts;
+  if (state.role && !ROLES[state.role]) state.role = '';
+  if (!['new', 'old', 'az'].includes(state.sort)) state.sort = 'new';
 }
 
-function projectMatchesFilters(p) {
-  if (yearFrom && (!p.year || p.year < Number(yearFrom))) return false;
-  if (yearTo && (!p.year || p.year > Number(yearTo))) return false;
-
-  for (const key of ['industry', 'projectType', 'serviceType']) {
-    if (activeFilters[key].size && !activeFilters[key].has(p[key])) return false;
+function buildURL(extra) {
+  const q = new URLSearchParams();
+  for (const [key, name] of Object.entries(PARAMS)) {
+    const v = state[key];
+    if (v && !(key === 'sort' && v === 'new')) q.set(name, v);
   }
+  // Keep a theme picked via ?theme= on links people copy.
+  const theme = new URLSearchParams(window.location.search).get('theme');
+  if (theme) q.set('theme', theme);
+  if (extra) for (const [k, v] of Object.entries(extra)) q.set(k, v);
+  const s = q.toString();
+  return window.location.pathname + (s ? '?' + s : '') + window.location.hash;
+}
 
-  const tools = p.tools || [];
-  if (activeFilters.tools.size && !tools.some((t) => activeFilters.tools.has(t))) return false;
+function syncURL() {
+  try { window.history.replaceState(null, '', buildURL(openId ? { project: openId } : null)); } catch (e) { /* file:// */ }
+}
 
+function absolute(url) {
+  return new URL(url, window.location.href).href;
+}
+
+// — Filtering —
+function matches(p, skip) {
+  if (skip !== 'role' && state.role && !ROLES[state.role].test(p)) return false;
+  if (state.yearFrom && (!p.year || p.year < Number(state.yearFrom))) return false;
+  if (state.yearTo && (!p.year || p.year > Number(state.yearTo))) return false;
+  if (state.industry && p.industry !== state.industry) return false;
+  if (state.projectType && p.projectType !== state.projectType) return false;
+  if (state.serviceType && p.serviceType !== state.serviceType) return false;
+  if (state.dataSource && p.dataSource !== state.dataSource) return false;
+  if (state.tool && !(p.tools || []).some((t) => t.toLowerCase() === state.tool)) return false;
+  if (state.query) {
+    const hay = [p.title, p.cardDescription, p.industry, p.projectType, p.serviceType, (p.tools || []).join(' ')].join(' ').toLowerCase();
+    if (!hay.includes(state.query.trim().toLowerCase())) return false;
+  }
   return true;
 }
 
-// No sort order was specified for this page — defaulting to newest year first.
-function sortProjects(projects) {
-  return [...projects].sort((a, b) => (b.year || 0) - (a.year || 0));
+function sorted(list) {
+  const out = [...list];
+  if (state.sort === 'az') out.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+  else if (state.sort === 'old') out.sort((a, b) => (a.year || 0) - (b.year || 0));
+  else out.sort((a, b) => (b.year || 0) - (a.year || 0));
+  return out;
 }
 
-function toggleFilter(key, value) {
-  if (activeFilters[key].has(value)) activeFilters[key].delete(value);
-  else activeFilters[key].add(value);
-  renderGridView();
-}
-
-// Accepts only a 4-digit year; anything else clears that bound.
-function setYear(which, raw) {
-  const value = /^\d{4}$/.test(String(raw).trim()) ? String(raw).trim() : '';
-  if (which === 'from') yearFrom = value;
-  else yearTo = value;
-  document.getElementById(which === 'from' ? 'f-year-from' : 'f-year-to').value = value;
-  renderGridView();
-}
-
-function removeFilter(key, value) {
-  if (key === 'yearFrom') setYear('from', '');
-  else if (key === 'yearTo') setYear('to', '');
-  else toggleFilter(key, value);
-}
-
-function clearAllFilters() {
-  for (const key of FILTER_KEYS) activeFilters[key].clear();
-  yearFrom = '';
-  yearTo = '';
-  document.getElementById('f-year-from').value = '';
-  document.getElementById('f-year-to').value = '';
-  renderGridView();
-}
-
-// Each filter group is a searchable dropdown: focusing lists every value,
-// typing narrows it, picking a value toggles it on or off.
-function renderFilterGroups() {
-  const container = document.getElementById('filter-groups');
-  container.replaceChildren();
-  for (const [label, key, placeholder] of FILTER_GROUPS) {
-    const counts = countFilterValues(key);
-    if (counts.size === 0) continue;
-
-    const group = document.createElement('div');
-    group.className = 'field combo';
-    const labelEl = document.createElement('label');
-    labelEl.htmlFor = `f-${key}`;
-    labelEl.textContent = label;
-    const input = document.createElement('input');
-    input.type = 'search';
-    input.id = `f-${key}`;
-    input.className = 'input';
-    input.placeholder = placeholder;
-    group.append(labelEl, input);
-    container.append(group);
-
-    createCombobox(input, {
-      getOptions: (q) => [...counts]
-        .filter(([value]) => value.toLowerCase().includes(q))
-        .sort(([a], [b]) => a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true }))
-        .map(([value, count]) => ({
-          label: value,
-          meta: `${count} project${count === 1 ? '' : 's'}`,
-          selected: activeFilters[key].has(value),
-        })),
-      onChoose: (item) => toggleFilter(key, item.label),
-    });
-  }
-}
-
-function renderActiveFilters() {
-  const wrap = document.getElementById('active-filters');
-  wrap.replaceChildren();
-
+function activeFilters() {
   const chips = [];
-  if (yearFrom) chips.push({ key: 'yearFrom', label: `From ${yearFrom}` });
-  if (yearTo) chips.push({ key: 'yearTo', label: `To ${yearTo}` });
-  for (const key of FILTER_KEYS) {
-    for (const value of activeFilters[key]) chips.push({ key, value, label: value });
-  }
-
-  if (chips.length === 0) {
-    wrap.style.display = 'none';
-    return;
-  }
-  wrap.style.display = '';
-
-  for (const chip of chips) {
-    const chipEl = document.createElement('button');
-    chipEl.type = 'button';
-    chipEl.className = 'tag tag-outline active-filter-chip';
-    chipEl.textContent = chip.label;
-    chipEl.setAttribute('aria-label', `Remove filter ${chip.label}`);
-    chipEl.addEventListener('click', () => removeFilter(chip.key, chip.value));
-    wrap.append(chipEl);
-  }
-
-  const clearBtn = document.createElement('button');
-  clearBtn.type = 'button';
-  clearBtn.className = 'btn btn-ghost';
-  clearBtn.style.fontSize = '12px';
-  clearBtn.textContent = 'Clear all';
-  clearBtn.addEventListener('click', clearAllFilters);
-  wrap.append(clearBtn);
+  if (state.role) chips.push(['Role: ' + ROLES[state.role].label, () => { state.role = ''; }]);
+  if (state.query.trim()) chips.push(['“' + state.query.trim() + '”', () => { state.query = ''; }]);
+  if (state.yearFrom || state.yearTo) chips.push([(state.yearFrom || 'Any') + ' – ' + (state.yearTo || 'Any'), () => { state.yearFrom = ''; state.yearTo = ''; }]);
+  if (state.industry) chips.push([state.industry, () => { state.industry = ''; }]);
+  if (state.projectType) chips.push([state.projectType, () => { state.projectType = ''; }]);
+  if (state.serviceType) chips.push([state.serviceType, () => { state.serviceType = ''; }]);
+  if (state.tool) chips.push([toolLabel(state.tool), () => { state.tool = ''; }]);
+  if (state.dataSource) chips.push([DATA_LABEL[state.dataSource] || state.dataSource, () => { state.dataSource = ''; }]);
+  return chips;
 }
 
-// — Cards —
+function clearAll() {
+  Object.assign(state, { role: '', query: '', industry: '', projectType: '', serviceType: '', tool: '', dataSource: '', yearFrom: '', yearTo: '' });
+  render();
+}
 
-function renderCard(project) {
-  const card = document.createElement('div');
-  card.className = 'card project-card';
-  card.setAttribute('role', 'button');
-  card.setAttribute('tabindex', '0');
-  card.setAttribute('aria-label', `View case study: ${project.title || 'Untitled project'}`);
-  card.addEventListener('click', () => openProjectModal(project));
-  card.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      openProjectModal(project);
-    }
-  });
+// — Controls —
+let toolNames = new Map();
+function toolLabel(key) { return toolNames.get(key) || key; }
 
-  const thumb = document.createElement('div');
-  thumb.className = 'project-thumb';
-  if (project.image) {
-    const img = document.createElement('img');
-    img.src = project.image;
-    img.alt = project.title || 'Project thumbnail';
+function fillSelect(select, options, value, allLabel) {
+  select.replaceChildren(new Option(allLabel, ''));
+  for (const [v, label] of options) select.append(new Option(label, v));
+  select.value = options.some(([v]) => v === value) ? value : '';
+}
+
+function countBy(fn) {
+  const m = new Map();
+  for (const p of allProjects) for (const v of [].concat(fn(p))) if (v) m.set(v, (m.get(v) || 0) + 1);
+  return m;
+}
+
+function initControls() {
+  const byLabel = (m, labeler) => [...m.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([v, n]) => [v, (labeler ? labeler(v) : v) + ' (' + n + ')']);
+  fillSelect($('f-industry'), byLabel(countBy((p) => p.industry)), state.industry, 'All industries');
+  fillSelect($('f-ptype'), byLabel(countBy((p) => p.projectType)), state.projectType, 'All project types');
+  fillSelect($('f-stype'), byLabel(countBy((p) => p.serviceType)), state.serviceType, 'All service types');
+  fillSelect($('f-data'), byLabel(countBy((p) => p.dataSource), (v) => DATA_LABEL[v] || v), state.dataSource, 'Any data source');
+
+  const tools = new Map();
+  for (const p of allProjects) for (const t of p.tools || []) {
+    const k = t.toLowerCase();
+    if (!toolNames.has(k)) toolNames.set(k, t);
+    tools.set(k, (tools.get(k) || 0) + 1);
+  }
+  const toolOpts = [...tools.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([k, n]) => [k, toolLabel(k) + ' (' + n + ')']);
+  fillSelect($('f-tool'), toolOpts, state.tool, 'All tools');
+
+  const years = allProjects.map((p) => p.year).filter(Boolean);
+  const min = Math.min(...years);
+  const max = Math.max(...years, new Date().getFullYear());
+  const list = [];
+  for (let y = min; y <= max; y++) list.push([String(y), String(y)]);
+  fillSelect($('f-from'), list, state.yearFrom, 'Any');
+  fillSelect($('f-to'), [...list].reverse(), state.yearTo, 'Any');
+  $('f-search').value = state.query;
+  $('f-sort').value = state.sort;
+
+  const bind = (id, key, evt) => $(id).addEventListener(evt || 'change', (e) => { state[key] = e.target.value; render(); });
+  bind('f-industry', 'industry'); bind('f-ptype', 'projectType'); bind('f-stype', 'serviceType');
+  bind('f-tool', 'tool'); bind('f-data', 'dataSource'); bind('f-from', 'yearFrom'); bind('f-to', 'yearTo');
+  bind('f-sort', 'sort'); bind('f-search', 'query', 'input');
+  $('f-clear').addEventListener('click', clearAll);
+  $('p-empty-clear').addEventListener('click', clearAll);
+  $('p-copy-view').addEventListener('click', () => copyLink(absolute(buildURL()), $('p-copy-view')));
+
+  $('p-total').textContent = allProjects.length; $('p-total-2').textContent = allProjects.length;
+  $('p-industries').textContent = countBy((p) => p.industry).size;
+  $('p-real').textContent = allProjects.filter((p) => p.dataSource === 'real').length;
+}
+
+function syncControls() {
+  const set = (id, v) => { if ($(id).value !== v) $(id).value = v; };
+  set('f-industry', state.industry); set('f-ptype', state.projectType); set('f-stype', state.serviceType);
+  set('f-tool', state.tool); set('f-data', state.dataSource); set('f-from', state.yearFrom); set('f-to', state.yearTo);
+  set('f-sort', state.sort);
+  if (document.activeElement !== $('f-search')) $('f-search').value = state.query;
+}
+
+function copyLink(url, button) {
+  const label = button.querySelector('.label') || button;
+  const original = label.dataset.original || label.textContent;
+  label.dataset.original = original;
+  const done = (text) => { label.textContent = text; setTimeout(() => { label.textContent = original; }, 2000); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => done('Link copied'), () => done('Copy the address bar'));
+  } else {
+    done('Copy the address bar');
+  }
+}
+
+// — Rendering —
+function renderRoles() {
+  const host = $('p-roles');
+  host.replaceChildren();
+  const make = (id, label, count) => {
+    const b = el('button', 'p-role');
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(state.role === id));
+    b.append(el('span', 'p-role-label', label), el('span', 'p-role-count', String(count)));
+    b.addEventListener('click', () => { state.role = id; render(); });
+    host.append(b);
+  };
+  make('', 'All roles', allProjects.length);
+  for (const [id, r] of Object.entries(ROLES)) make(id, r.label, allProjects.filter(r.test).length);
+  $('p-role-hint').textContent = state.role ? ROLES[state.role].hint : 'Pick a role to see the projects that fit it best.';
+}
+
+function badge(source) {
+  const b = el('span', 'p-badge p-badge-' + (source || 'unknown'), DATA_LABEL[source] || 'Data source not set');
+  return b;
+}
+
+function renderCard(p) {
+  const card = el('article', 'p-card');
+  card.append(el('div', 'p-card-bar'));
+
+  const media = el('div', 'p-card-media');
+  if (p.image) {
+    const img = new Image();
+    img.src = p.image;
+    img.alt = 'Preview of ' + (p.title || 'project');
     img.loading = 'lazy';
     img.addEventListener('error', () => img.remove());
-    thumb.append(img);
+    media.append(img);
   }
-  card.append(thumb);
+  media.append(badge(p.dataSource));
+  card.append(media);
 
-  const body = document.createElement('div');
-  body.className = 'project-body';
+  const metric = el('div', 'p-card-metric');
+  const meta = el('div', 'p-card-meta');
+  meta.append(el('span', null, p.industry || ''), el('span', null, p.year ? String(p.year) : ''));
+  metric.append(meta);
+  if (p.headlineMetric) {
+    metric.append(el('strong', null, p.headlineMetric.value), el('span', 'p-card-metric-label', p.headlineMetric.label));
+  }
+  card.append(metric);
 
-  const head = document.createElement('div');
-  head.className = 'project-head';
-  const title = document.createElement('h3');
-  title.textContent = project.title || 'Untitled project';
-  head.append(title);
-  // `dateLabel` (e.g. "August 2026") is display-only; filtering and sorting
-  // still run on the numeric `year`.
-  if (project.year) {
-    const year = document.createElement('span');
-    year.className = 'project-year';
-    year.textContent = project.dateLabel || project.year;
-    head.append(year);
-  }
-  body.append(head);
+  const body = el('div', 'p-card-body');
+  if (p.projectType) body.append(el('p', 'p-card-type', p.projectType));
+  const h = el('h2');
+  const a = el('a', null, p.title || 'Untitled project');
+  a.href = 'projects.html?project=' + encodeURIComponent(p.id);
+  a.addEventListener('click', (e) => { e.preventDefault(); openProjectModal(p); });
+  h.append(a);
+  body.append(h);
+  if (p.cardDescription) body.append(el('p', 'p-card-desc', p.cardDescription));
 
-  const tags = document.createElement('ul');
-  tags.className = 'project-tags';
-  const tagSpecs = [
-    [project.projectType, rainbowClass(project.projectType, PROJECT_TYPE_COLOR)],
-    [project.industry, rainbowClass(project.industry, INDUSTRY_COLOR)],
-    [project.serviceType, 'tag-neutral'],
-  ];
-  for (const [value, cls] of tagSpecs) {
-    if (!value) continue;
-    const li = document.createElement('li');
-    li.className = `tag ${cls}`;
-    li.textContent = value;
-    tags.append(li);
-  }
-  for (const tool of project.tools || []) {
-    const li = document.createElement('li');
-    li.className = 'tag tag-outline';
-    li.textContent = tool;
-    tags.append(li);
-  }
+  const tags = el('ul', 'p-tags');
+  tags.setAttribute('aria-label', 'Tools');
+  for (const t of (p.tools || []).slice(0, 3)) tags.append(el('li', null, t));
   body.append(tags);
 
-  if (project.cardDescription) {
-    const desc = document.createElement('p');
-    desc.className = 'project-desc';
-    desc.textContent = project.cardDescription;
-    body.append(desc);
-  }
-
-  if (project.impactStat) {
-    const impact = document.createElement('div');
-    impact.className = 'project-impact';
-    const label = document.createElement('span');
-    label.className = 'label-xs';
-    label.textContent = 'Impact';
-    const text = document.createElement('span');
-    text.textContent = project.impactStat;
-    impact.append(label, text);
-    body.append(impact);
-  }
-
-  const cta = document.createElement('div');
-  cta.className = 'project-cta';
-  cta.innerHTML = `<span>View case study</span>${ARROW_ICON}`;
-  body.append(cta);
-
+  const actions = el('div', 'p-card-actions');
+  const open = el('button', 'p-btn p-btn-cta', 'Open case study →');
+  open.type = 'button';
+  open.addEventListener('click', () => openProjectModal(p));
+  actions.append(open);
+  const quick = el('div', 'p-quick');
+  const links = p.links || {};
+  const quickLink = (href, icon, text, title) => {
+    const q = el('a', 'p-quick-link');
+    q.href = href; q.target = '_blank'; q.rel = 'noopener noreferrer';
+    q.setAttribute('aria-label', text + ' for ' + (p.title || 'this project') + ' (opens in a new tab)');
+    q.innerHTML = icon;
+    q.append(el('span', null, text));
+    q.title = title;
+    quick.append(q);
+  };
+  if (links.notebookRepo) quickLink(links.notebookRepo, ICON_CODE, 'Repo', 'Code repository');
+  if (links.dashboard) quickLink(links.dashboard, ICON_CHART, 'Dashboard', 'Dashboard');
+  actions.append(quick);
+  body.append(actions);
   card.append(body);
   return card;
 }
 
-function renderGridView() {
-  const grid = document.getElementById('proj-grid');
-  const emptyMsg = document.getElementById('proj-empty');
+function render() {
+  const list = sorted(allProjects.filter((p) => matches(p)));
+  renderRoles();
+  syncControls();
 
-  grid.replaceChildren();
+  const grid = $('p-grid');
+  grid.replaceChildren(...list.map(renderCard));
+  $('p-shown').textContent = list.length;
+  $('p-empty').hidden = list.length > 0;
 
-  const filtered = allProjects.filter(projectMatchesFilters);
-  const sorted = sortProjects(filtered);
-
-  emptyMsg.style.display = sorted.length === 0 ? '' : 'none';
-
-  for (const project of sorted) {
-    grid.append(renderCard(project));
+  const chips = activeFilters();
+  const chipHost = $('p-chips');
+  chipHost.replaceChildren();
+  for (const [label, remove] of chips) {
+    const b = el('button', 'p-chip');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Remove filter ' + label);
+    b.append(el('span', null, label), el('span', null, '✕'));
+    b.lastChild.setAttribute('aria-hidden', 'true');
+    b.addEventListener('click', () => { remove(); render(); });
+    chipHost.append(b);
   }
-
-  document.getElementById('proj-summary').textContent = `${sorted.length} of ${allProjects.length} shown`;
-
-  renderActiveFilters();
+  chipHost.hidden = chips.length === 0;
+  $('f-active').textContent = chips.length ? chips.length + ' active' : 'None active';
+  $('f-clear').classList.toggle('is-active', chips.length > 0);
+  syncURL();
 }
 
-function initFilterControls() {
-  for (const which of ['from', 'to']) {
-    const input = document.getElementById(which === 'from' ? 'f-year-from' : 'f-year-to');
-    // typed years apply when the field is left
-    input.addEventListener('change', () => setYear(which, input.value));
-    createCombobox(input, {
-      clearOnChoose: false,
-      getOptions: (q) => {
-        const years = [];
-        for (let y = YEAR_FIRST; y <= YEAR_LAST; y++) if (String(y).startsWith(q)) years.push(String(y));
-        const current = which === 'from' ? yearFrom : yearTo;
-        return years.map((y) => ({ label: y, selected: y === current }));
-      },
-      onChoose: (item) => setYear(which, item.label),
-      onEnterText: (text) => setYear(which, text),
-    });
-  }
-
-  createCombobox(document.getElementById('proj-search-input'), {
-    getOptions: (q) => (q ? allProjects
-      .filter((p) => [p.title, p.oneSentenceDescription].some((t) => t && t.toLowerCase().includes(q)))
-      .map((p) => ({ label: p.title || 'Untitled project', meta: [p.industry, p.year].filter(Boolean).join(' · '), project: p }))
-      : []),
-    onChoose: (item) => openProjectModal(item.project),
-  });
-
-  document.getElementById('proj-empty-clear').addEventListener('click', clearAllFilters);
-}
-
-// — Searchable dropdown —
-// Turns a text input into a combobox: focusing or typing shows matching
-// options below it, arrow keys move, Enter picks, Esc closes. getOptions(query)
-// gets the lowercased trimmed text and returns [{ label, meta?, selected? }].
-
-function createCombobox(input, { getOptions, onChoose, onEnterText, clearOnChoose = true }) {
-  const list = document.createElement('ul');
-  list.id = `${input.id}-list`;
-  list.className = 'combo-list';
-  list.setAttribute('role', 'listbox');
-  list.hidden = true;
-  input.after(list);
-  input.parentElement.classList.add('combo');
-
-  input.autocomplete = 'off';
-  input.setAttribute('role', 'combobox');
-  input.setAttribute('aria-autocomplete', 'list');
-  input.setAttribute('aria-controls', list.id);
-  input.setAttribute('aria-expanded', 'false');
-
-  let items = [];
-  let active = -1;
-  let open = false;
-
-  function render() {
-    list.replaceChildren();
-    const hasText = input.value.trim() !== '';
-    const show = open && (items.length > 0 || hasText);
-    list.hidden = !show;
-    input.setAttribute('aria-expanded', String(show));
-    input.removeAttribute('aria-activedescendant');
-    if (!show) return;
-
-    if (items.length === 0) {
-      const li = document.createElement('li');
-      li.className = 'combo-none';
-      li.textContent = 'No matches';
-      list.append(li);
-      return;
-    }
-
-    items.forEach((item, i) => {
-      const li = document.createElement('li');
-      li.id = `${list.id}-${i}`;
-      li.className = 'combo-item' + (i === active ? ' active' : '') + (item.selected ? ' selected' : '');
-      li.setAttribute('role', 'option');
-      li.setAttribute('aria-selected', String(Boolean(item.selected)));
-
-      const label = document.createElement('span');
-      label.className = 'combo-label';
-      label.textContent = item.label;
-      li.append(label);
-      if (item.meta) {
-        const meta = document.createElement('span');
-        meta.className = 'combo-meta';
-        meta.textContent = item.meta;
-        li.append(meta);
-      }
-
-      // mousedown rather than click, so the input's blur doesn't close the list first
-      li.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        choose(item);
-      });
-      li.addEventListener('mousemove', () => {
-        if (active !== i) { active = i; render(); }
-      });
-      list.append(li);
-    });
-    if (active >= 0) {
-      input.setAttribute('aria-activedescendant', `${list.id}-${active}`);
-      list.children[active].scrollIntoView({ block: 'nearest' });
-    }
-  }
-
-  function refresh() {
-    items = getOptions(input.value.trim().toLowerCase());
-    active = input.value.trim() && items.length ? 0 : -1;
-    open = true;
-    render();
-  }
-
-  function close() {
-    open = false;
-    items = [];
-    active = -1;
-    render();
-  }
-
-  function choose(item) {
-    if (clearOnChoose) input.value = '';
-    close();
-    onChoose(item);
-  }
-
-  input.addEventListener('input', refresh);
-  input.addEventListener('focus', refresh);
-  input.addEventListener('blur', close);
-  input.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (!open) { refresh(); return; }
-      if (!items.length) return;
-      const step = e.key === 'ArrowDown' ? 1 : -1;
-      active = active < 0 ? (step > 0 ? 0 : items.length - 1) : (active + step + items.length) % items.length;
-      render();
-    } else if (e.key === 'Enter') {
-      if (open && items[active]) {
-        e.preventDefault();
-        choose(items[active]);
-      } else if (onEnterText) {
-        e.preventDefault();
-        close();
-        onEnterText(input.value);
-      }
-    } else if (e.key === 'Escape') {
-      if (open) { e.preventDefault(); close(); }
-    }
-  });
-}
-
-// — Case study modal —
+// — Case-study renderer (unchanged) —
 
 function appendCollapsible(container, label, text, extraNode) {
   if (!text) return;
@@ -1050,81 +888,132 @@ function renderProjectBody(project) {
   }
 }
 
+// — Case-study pop-up —
+const MODAL_LINKS = [
+  ['notebookRepo', 'Notebook / Repo'],
+  ['dashboard', 'Dashboard'],
+  ['technicalFindings', 'Technical report'],
+  ['caseStudyPage', 'Full case study'],
+];
+let lastFocus = null;
+
+function renderModalIntro(project) {
+  const intro = el('div', 'p-modal-intro');
+
+  const badges = el('div', 'p-modal-badges');
+  badges.append(badge(project.dataSource));
+  for (const v of [project.industry, project.projectType, project.year]) if (v) badges.append(el('span', 'p-chip p-chip-static', String(v)));
+  intro.append(badges);
+
+  const links = project.links || {};
+  const row = el('div', 'p-modal-links');
+  MODAL_LINKS.filter(([k]) => links[k]).forEach(([k, label], i) => {
+    const a = el('a', 'p-btn ' + (i === 0 ? 'p-btn-cta' : 'p-btn-ghost'), label + ' →');
+    a.href = links[k]; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    row.append(a);
+  });
+  const copy = el('button', 'p-btn p-btn-dashed');
+  copy.type = 'button';
+  copy.innerHTML = ICON_LINK;
+  copy.append(el('span', 'label', 'Copy link to this case study'));
+  copy.addEventListener('click', () => copyLink(absolute('projects.html?project=' + encodeURIComponent(project.id)), copy));
+  row.append(copy);
+  intro.append(row);
+
+  if (project.image) {
+    const img = new Image();
+    img.src = project.image;
+    img.alt = 'Preview of ' + (project.title || 'project');
+    img.className = 'p-modal-image';
+    img.addEventListener('error', () => img.remove());
+    intro.append(img);
+  }
+  if (project.headlineMetric) {
+    const band = el('div', 'p-modal-metric');
+    band.append(el('strong', null, project.headlineMetric.value), el('p', null, project.impactStat || project.headlineMetric.label));
+    intro.append(band);
+  }
+  return intro;
+}
+
 function openProjectModal(project) {
-  document.getElementById('proj-title').textContent = project.title || 'Untitled project';
-  document.getElementById('proj-role').textContent = project.targetIndustryRole || 'Case study';
-  document.getElementById('proj-onesentence').textContent = project.oneSentenceDescription || '';
-  document.getElementById('proj-onesentence').style.display = project.oneSentenceDescription ? '' : 'none';
+  lastFocus = document.activeElement;
+  openId = project.id;
+  $('proj-title').textContent = project.title || 'Untitled project';
+  $('proj-role').textContent = project.targetIndustryRole || 'Case study';
+  $('proj-onesentence').textContent = project.oneSentenceDescription || '';
+  $('proj-onesentence').hidden = !project.oneSentenceDescription;
   renderProjectBody(project);
-  document.getElementById('proj-backdrop').classList.add('open');
+  $('proj-body').prepend(renderModalIntro(project));
+  $('proj-backdrop').classList.add('open');
+  $('proj-dialog').scrollTop = 0;
   document.body.style.overflow = 'hidden';
-  document.getElementById('proj-close').focus();
+  $('proj-close').focus();
+  syncURL();
 }
 
 function closeProjectModal() {
-  document.getElementById('proj-backdrop').classList.remove('open');
+  $('proj-backdrop').classList.remove('open');
   document.body.style.overflow = '';
+  openId = null;
+  syncURL();
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
 }
 
 function initProjectModal() {
-  const backdrop = document.getElementById('proj-backdrop');
-  document.getElementById('proj-close').addEventListener('click', closeProjectModal);
-  document.getElementById('proj-download').addEventListener('click', () => {
+  const backdrop = $('proj-backdrop');
+  $('proj-close').addEventListener('click', closeProjectModal);
+  $('proj-download').addEventListener('click', () => {
     const originalTitle = document.title;
-    const projectTitle = document.getElementById('proj-title').textContent || originalTitle;
-    document.title = projectTitle;
-    const restoreTitle = () => {
-      document.title = originalTitle;
-      window.removeEventListener('afterprint', restoreTitle);
-    };
+    document.title = $('proj-title').textContent || originalTitle;
+    const restoreTitle = () => { document.title = originalTitle; window.removeEventListener('afterprint', restoreTitle); };
     window.addEventListener('afterprint', restoreTitle);
     window.print();
   });
-  backdrop.addEventListener('click', (e) => {
-    if (e.target === backdrop) closeProjectModal();
-  });
+  backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeProjectModal(); });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && backdrop.classList.contains('open')) closeProjectModal();
+    if (!backdrop.classList.contains('open')) return;
+    if (e.key === 'Escape') { closeProjectModal(); return; }
+    if (e.key === 'Tab') {
+      // Keep keyboard focus inside the pop-up while it's open.
+      const focusables = $('proj-dialog').querySelectorAll('a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])');
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
 }
 
 // — Init —
-
 async function init() {
   initProjectModal();
-
-  const loadEmptyMsg = document.getElementById('proj-load-empty');
-  const loadErrorMsg = document.getElementById('proj-load-error');
+  readStateFromURL();
+  // Read before the first render, which rewrites the address bar.
+  const wantedId = new URLSearchParams(window.location.search).get('project');
 
   let projects;
   try {
     const res = await fetch('data/projects.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     projects = data.projects || [];
   } catch (err) {
-    loadErrorMsg.style.display = '';
+    $('proj-load-error').hidden = false;
     return;
   }
-
   if (projects.length === 0) {
-    loadEmptyMsg.style.display = '';
+    $('proj-load-empty').hidden = false;
     return;
   }
 
   allProjects = projects;
-  initFilterControls();
-  renderFilterGroups();
-  renderGridView();
-  openProjectFromURL();
-}
+  initControls();
+  render();
 
-// Lets an external link (e.g. a resume) deep-link straight into a project's
-// modal via projects.html?project=<id>, instead of just landing on the grid.
-function openProjectFromURL() {
-  const id = new URLSearchParams(window.location.search).get('project');
-  if (!id) return;
-  const project = allProjects.find((p) => p.id === id);
+  // projects.html?project=<id> opens that case study (links from the home page and resume).
+  const project = wantedId && allProjects.find((p) => p.id === wantedId);
   if (project) openProjectModal(project);
 }
 
