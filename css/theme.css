@@ -1,0 +1,315 @@
+/* ==========================================================================
+   Site themes — loaded after style.css on every page.
+
+   Three themes, switched by the dropdown that js/theme.js adds to the nav:
+     love  · Hi♪ Love Elf♥            crimson rose, rose glass, gold trim
+     pink  · Miss Pink Elf♪ (default)  violet on soft pink, blue→lavender trim
+     ego   · Herrscher of Human: Ego   ivory, rose & plum, gold buttons
+
+   Each theme defines the --t-* tokens below. The second block maps the
+   older style.css tokens (--color-*, --font-*, --radius-*) onto them, so
+   pages that haven't been redesigned yet still follow the chosen theme.
+   New page styles should use the --t-* tokens directly.
+   ========================================================================== */
+
+:root,
+:root[data-theme="pink"] {
+  --t-bg: #FFF5F8;
+  --t-surface: rgba(255, 245, 248, 0.9);
+  --t-card: #FFFFFF;
+  --t-glass: rgba(255, 255, 255, 0.72);
+  --t-text: #2A1D27;
+  --t-heading: #8354BD;
+  --t-muted: #6C5A7B;
+  --t-plum-text: #6C5A7B;
+  --t-line: #FDB7D3;
+  --t-card-title: #2A1D27;
+  --t-accent-big: #8354BD;
+  --t-accent: #8354BD;
+  --t-pink-line: rgba(253, 183, 211, 0.55);
+  --t-hair: rgba(253, 183, 211, 0.4);
+  --t-tint: #FFF5F8;
+  --t-tint-section: rgba(255, 255, 255, 0.5);
+  --t-metric-band: #FFFFFF;
+  --t-card-border: rgba(253, 183, 211, 0.7);
+  --t-tag-bg: #FFF5F8;
+  --t-tag-text: #2A1D27;
+  --t-tag-border: rgba(253, 183, 211, 0.8);
+  --t-btn: #FDB7D3;
+  --t-btn-text: #2A1D27;
+  --t-cta: #FDB7D3;
+  --t-cta-text: #2A1D27;
+  --t-cta-shadow: 0 4px 15px rgba(253, 183, 211, 0.6);
+  --t-bar: linear-gradient(135deg, #5692E5 0%, #CA99E8 100%);
+  --t-chart: #8354BD;
+  --t-check: #8354BD;
+  --t-gold: #CA99E8;
+  --t-glow-1: #FDB7D3;
+  --t-glow-2: #CA99E8;
+  --t-spark-1: #CA99E8;
+  --t-spark-2: #FDB7D3;
+  --t-spark-3: #5692E5;
+  --t-font-head: 'Playfair Display', Georgia, serif;
+  --t-font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --t-font-accent: 'Playfair Display', Georgia, serif;
+  --t-font-cta: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --t-cta-spacing: 0;
+  --t-body-weight: 400;
+  --t-logo-spacing: 0;
+  --t-radius-card: 20px;
+  --t-radius-inner: 14px;
+  --t-radius-btn: 50px;
+  --t-radius-slot: 14px;
+  --t-radius-tag: 50px;
+  --t-shadow-card: 0 10px 24px rgba(84, 54, 115, 0.08);
+  color-scheme: light;
+}
+
+:root[data-theme="love"] {
+  --t-bg: #FFFDFD;
+  --t-surface: rgba(255, 240, 243, 0.85);
+  --t-card: rgba(255, 240, 243, 0.62);
+  --t-glass: rgba(255, 240, 243, 0.66);
+  --t-text: #3D2E32;
+  --t-heading: #3D2E32;
+  --t-muted: #6E5A60;
+  --t-plum-text: #5A464C;
+  --t-line: #F2C9D2;
+  --t-card-title: #3D2E32;
+  --t-accent-big: #C2183F;
+  --t-accent: #C2183F;
+  --t-pink-line: #FFE5A3;
+  --t-hair: #FFE5A3;
+  --t-tint: #FFFFFF;
+  --t-tint-section: rgba(255, 240, 243, 0.45);
+  --t-metric-band: rgba(255, 255, 255, 0.55);
+  --t-card-border: #FFE5A3;
+  --t-tag-bg: rgba(255, 255, 255, 0.85);
+  --t-tag-text: #3D2E32;
+  --t-tag-border: #FFE5A3;
+  --t-btn: #FF4D6D;
+  --t-btn-text: #2A1B1F;
+  --t-cta: #FF4D6D;
+  --t-cta-text: #2A1B1F;
+  --t-cta-shadow: 0 8px 24px rgba(255, 77, 109, 0.28);
+  --t-bar: linear-gradient(90deg, #FF4D6D 0%, #FF9EB1 55%, #FFE5A3 100%);
+  --t-chart: #FF4D6D;
+  --t-check: #C2183F;
+  --t-gold: #E9C46A;
+  --t-glow-1: #FFD6DF;
+  --t-glow-2: #FFEFC7;
+  --t-spark-1: #FF4D6D;
+  --t-spark-2: #E9C46A;
+  --t-spark-3: #FF8FA3;
+  --t-font-head: 'Playfair Display', Georgia, serif;
+  --t-font-body: 'Quicksand', system-ui, sans-serif;
+  --t-font-accent: 'Playfair Display', Georgia, serif;
+  --t-font-cta: 'Quicksand', system-ui, sans-serif;
+  --t-cta-spacing: 0;
+  --t-body-weight: 500;
+  --t-logo-spacing: 0;
+  --t-radius-card: 16px;
+  --t-radius-inner: 10px;
+  --t-radius-btn: 16px;
+  --t-radius-slot: 12px;
+  --t-radius-tag: 16px;
+  --t-shadow-card: 0 10px 24px rgba(194, 24, 63, 0.07);
+  color-scheme: light;
+}
+
+:root[data-theme="ego"] {
+  --t-bg: #FDF9F7;
+  --t-surface: #FFFFFF;
+  --t-card: #FFFFFF;
+  --t-glass: rgba(255, 255, 255, 0.72);
+  --t-text: #262130;
+  --t-heading: #262130;
+  --t-muted: #5F566B;
+  --t-plum-text: #543673;
+  --t-line: #543673;
+  --t-card-title: #543673;
+  --t-accent-big: #D16C91;
+  --t-accent: #A8436B;
+  --t-pink-line: #F2A7C3;
+  --t-hair: #EEE6EA;
+  --t-tint: #F7EEF2;
+  --t-tint-section: rgba(214, 239, 255, 0.35);
+  --t-metric-band: #FBF1F5;
+  --t-card-border: #9D80CE;
+  --t-tag-bg: rgba(242, 167, 195, 0.25);
+  --t-tag-text: #A8436B;
+  --t-tag-border: transparent;
+  --t-btn: #7B50A7;
+  --t-btn-text: #FFFFFF;
+  --t-cta: #D9B382;
+  --t-cta-text: #262130;
+  --t-cta-shadow: 0 4px 10px rgba(217, 179, 130, 0.35);
+  --t-bar: linear-gradient(90deg, #F2A7C3 0%, #9D80CE 55%, #D9B382 100%);
+  --t-chart: #7B50A7;
+  --t-check: #B8894F;
+  --t-gold: #D9B382;
+  --t-glow-1: #D6EFFF;
+  --t-glow-2: #FFAEC9;
+  --t-spark-1: #D16C91;
+  --t-spark-2: #D9B382;
+  --t-spark-3: #9D80CE;
+  --t-font-head: 'Cinzel', Georgia, serif;
+  --t-font-body: 'Montserrat', system-ui, sans-serif;
+  --t-font-accent: 'Cormorant Garamond', Georgia, serif;
+  --t-font-cta: 'Cinzel', Georgia, serif;
+  --t-cta-spacing: 1px;
+  --t-body-weight: 400;
+  --t-logo-spacing: 0.06em;
+  --t-radius-card: 8px;
+  --t-radius-inner: 4px;
+  --t-radius-btn: 4px;
+  --t-radius-slot: 4px;
+  --t-radius-tag: 4px;
+  --t-shadow-card: 0 10px 24px rgba(84, 54, 115, 0.08);
+  color-scheme: light;
+}
+
+/* — Older style.css tokens, mapped onto the active theme — */
+:root {
+  --color-bg: var(--t-bg);
+  --color-surface: var(--t-card);
+  --color-text: var(--t-text);
+  --color-accent: var(--t-accent);
+  --color-accent-2: var(--t-plum-text);
+  --color-divider: var(--t-hair);
+
+  --color-neutral-100: var(--t-text);
+  --color-neutral-200: var(--t-text);
+  --color-neutral-300: var(--t-muted);
+  --color-neutral-400: var(--t-muted);
+  --color-neutral-500: var(--t-muted);
+  --color-neutral-600: var(--t-muted);
+  --color-neutral-700: var(--t-line);
+  --color-neutral-800: var(--t-pink-line);
+  --color-neutral-900: var(--t-tint);
+
+  --color-accent-100: var(--t-btn-text);
+  --color-accent-300: var(--t-accent);
+  --color-accent-800: var(--t-btn);
+  --color-accent-2-100: var(--t-text);
+  --color-accent-2-800: var(--t-tint);
+
+  /* Light pastel tag set (the old one was tuned for a dark page). */
+  --rainbow-red-bg: oklch(0.95 0.035 20);    --rainbow-red-text: oklch(0.42 0.13 20);
+  --rainbow-orange-bg: oklch(0.95 0.04 60);  --rainbow-orange-text: oklch(0.43 0.11 55);
+  --rainbow-yellow-bg: oklch(0.96 0.05 95);  --rainbow-yellow-text: oklch(0.42 0.09 85);
+  --rainbow-green-bg: oklch(0.95 0.04 150);  --rainbow-green-text: oklch(0.40 0.10 150);
+  --rainbow-blue-bg: oklch(0.95 0.03 240);   --rainbow-blue-text: oklch(0.42 0.11 245);
+  --rainbow-indigo-bg: oklch(0.95 0.03 280); --rainbow-indigo-text: oklch(0.42 0.12 280);
+  --rainbow-violet-bg: oklch(0.95 0.035 320);--rainbow-violet-text: oklch(0.42 0.13 320);
+
+  --font-heading: var(--t-font-head);
+  --font-heading-weight: 700;
+  --font-body: var(--t-font-body);
+
+  --radius-sm: var(--t-radius-inner);
+  --radius-md: var(--t-radius-inner);
+  --radius-lg: var(--t-radius-card);
+
+  --shadow-sm: 0 0 0 1px var(--t-pink-line);
+  --shadow-md: 0 0 0 1px var(--t-card-border), 0 6px 18px rgba(38, 33, 48, 0.08);
+  --shadow-lg: 0 0 0 1px var(--t-card-border), 0 16px 40px rgba(38, 33, 48, 0.12);
+}
+
+body {
+  background: var(--t-bg);
+  color: var(--t-text);
+  font-family: var(--t-font-body);
+  font-weight: var(--t-body-weight);
+}
+
+/* The old hero glow used black and a dark accent; replace with the theme's glows. */
+.hero-band {
+  background:
+    radial-gradient(1100px 640px at 86% -120px, color-mix(in srgb, var(--t-glow-1) 55%, transparent), transparent 60%),
+    radial-gradient(900px 700px at -8% 60%, color-mix(in srgb, var(--t-glow-2) 40%, transparent), transparent 55%),
+    var(--t-bg);
+}
+
+.btn { font-family: var(--t-font-body); border-radius: var(--t-radius-btn); }
+.btn-primary { background: var(--t-cta); color: var(--t-cta-text); border-color: var(--t-cta); box-shadow: var(--t-cta-shadow); }
+.btn-primary:hover { background: color-mix(in srgb, var(--t-cta) 85%, var(--t-text)); color: var(--t-cta-text); }
+.btn-secondary { background: var(--t-card); border-color: var(--t-line); }
+
+/* Status tags that had hard-coded dark colours. */
+.tag-to-apply { background: var(--t-metric-band); color: var(--t-text); border: 1px dashed var(--t-line); }
+.tag-finished-assessment { background: var(--t-chart); color: #FFFFFF; }
+.tag-rejected { background: var(--t-tint); color: var(--t-muted); border: 1px solid var(--t-pink-line); }
+.tag-withdrawn { background: var(--t-tint); color: var(--t-muted); border: 1px dashed var(--t-pink-line); }
+.cal-overdue-item { color: var(--t-accent); }
+.cal-task-blocked { border-left-color: var(--t-accent); }
+
+/* ==========================================================================
+   Theme switcher (built by js/theme.js)
+   ========================================================================== */
+.theme-switcher { position: relative; margin-left: 12px; flex-shrink: 0; }
+.theme-switcher-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 42px; padding: 8px 12px 8px 14px;
+  border-radius: var(--t-radius-btn);
+  border: 1px solid var(--t-line);
+  background: var(--t-card);
+  color: var(--t-text);
+  font: 700 14px/1 var(--t-font-body);
+  cursor: pointer;
+}
+.theme-switcher-btn:hover { border-color: var(--t-accent); }
+.theme-switcher-btn:focus-visible,
+.theme-switcher-menu button:focus-visible { outline: 2px solid var(--t-accent); outline-offset: 2px; }
+.theme-switcher-btn .chev { width: 14px; height: 14px; transition: transform 0.2s ease; }
+.theme-switcher-btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.theme-icon { width: 16px; height: 16px; flex-shrink: 0; }
+.theme-icon-heart { color: #FF4D6D; }
+.theme-icon-note { color: #8354BD; }
+.theme-icon-crystal { color: #D16C91; }
+
+.theme-switcher-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 100;
+  width: 280px; max-width: calc(100vw - 32px);
+  margin: 0; padding: 6px; list-style: none;
+  background: var(--t-card);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border: 1px solid var(--t-line);
+  border-radius: var(--t-radius-card);
+  box-shadow: 0 18px 40px rgba(38, 33, 48, 0.16);
+}
+.theme-switcher-menu[hidden] { display: none; }
+.theme-switcher-menu .menu-label {
+  padding: 8px 12px 6px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--t-muted);
+}
+.theme-switcher-menu button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  min-height: 44px; padding: 8px 12px;
+  border: 0; border-radius: 8px;
+  background: transparent; color: var(--t-text);
+  font: 500 14px/1.3 var(--t-font-body); text-align: left; cursor: pointer;
+}
+.theme-switcher-menu button:hover { background: var(--t-tint); }
+.theme-switcher-menu button[aria-checked="true"] { background: var(--t-tint); font-weight: 700; }
+.theme-switcher-menu .theme-icon { width: 18px; height: 18px; }
+.theme-switcher-menu .tick { margin-left: auto; width: 16px; height: 16px; visibility: hidden; }
+.theme-switcher-menu button[aria-checked="true"] .tick { visibility: visible; }
+
+.nav .nav-links { margin-left: auto; }
+@media (max-width: 1100px) {
+  .nav-collapsible .theme-switcher { order: 2; margin-left: auto; margin-right: 8px; }
+  .nav-collapsible .nav-toggle-btn { order: 3; }
+}
+@media (max-width: 520px) {
+  .theme-switcher-btn .label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switcher-btn .chev { transition: none; }
+}
+
+/* Keyboard users can jump past the nav; hidden until focused. */
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 200; padding: 10px 16px; border-radius: var(--t-radius-btn); background: var(--t-cta); color: var(--t-cta-text); font-weight: 700; text-decoration: none; }
+.skip-link:focus { top: 12px; }

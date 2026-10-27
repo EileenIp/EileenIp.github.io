@@ -22,321 +22,259 @@
 <meta name="twitter:description" content="Portfolio of Eileen Ip — dashboards, models, and data write-ups for media, marketing, and gaming teams.">
 <meta name="twitter:image" content="https://eileenip.github.io/images/og-card.png">
 <link rel="stylesheet" href="css/style.css">
+<meta name="theme-color" content="#FFF5F8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&amp;family=Cormorant+Garamond:ital,wght@1,500;1,600&amp;family=Montserrat:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="home">
 
-<div class="hero-band">
-  <header>
-    <nav class="nav nav-collapsible" aria-label="Main navigation">
-      <span class="nav-brand">Eileen Ip</span>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
-      <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-      </label>
-      <div class="nav-links" id="nav-links">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="projects.html">Projects</a>
-        <a href="progress.html">Progress</a>
-        <a href="todo.html">To-do</a>
-        <a href="calendar.html">Calendar</a>
-        <a href="job-tracker.html">Job Tracker</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="resume.html" class="btn btn-secondary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M6.5 11l5.5 5.5L17.5 11"/><path d="M4 19.5h16"/></svg>
-          Resume
-        </a>
+<header class="home-header">
+  <nav class="nav nav-collapsible" aria-label="Main navigation">
+    <a class="nav-brand" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 15.5 12 12 22.5 8.5 12Z" fill="currentColor"/></svg>Eileen Ip</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Toggle navigation menu" aria-controls="nav-links">
+    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle navigation menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </label>
+    <div class="nav-links" id="nav-links">
+      <a href="#work">Work</a>
+      <a href="projects.html">Projects</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#availability">Availability</a>
+      <a href="#contact">Contact</a>
+      <a href="resume.html" class="h-nav-resume">Resume</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+<section id="top" class="h-hero">
+  <div class="h-decor" aria-hidden="true">
+    <div class="h-glow" style="top:0;left:50%;margin-left:-460px;width:920px;height:520px;background:var(--t-glow-1);opacity:.6"></div>
+    <div class="h-glow" style="top:120px;right:-140px;width:460px;height:460px;background:var(--t-glow-2);opacity:.35"></div>
+    <span class="h-spark h-spark-1" style="top:70px;right:13%;width:52px;height:52px;opacity:.55"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-2" style="top:160px;right:9%;width:20px;height:20px"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-2" style="top:120px;left:10%;width:28px;height:28px;opacity:.85"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-3" style="bottom:90px;left:7%;width:18px;height:18px;opacity:.75"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-1" style="bottom:60px;right:6%;width:34px;height:34px;opacity:.4"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+  </div>
+  <div class="h-wrap">
+    <div class="h-hero-card">
+      <div class="h-bar" aria-hidden="true"></div>
+      <div class="h-divider" aria-hidden="true"><span></span><svg viewBox="0 0 24 24"><path d="M12 1.5 15.5 12 12 22.5 8.5 12Z" fill="currentColor"/></svg><span></span></div>
+      <p class="h-eyebrow">Data analyst · scientist · engineer</p>
+      <h1>Hi~ I'm Eileen. I turn data into <span class="h-accent">decisions.</span></h1>
+      <h2>Dashboards, models and clear write-ups for media, marketing and gaming teams.</h2>
+      <p class="h-where">Based in Brisbane — open to Australia, Hong Kong and remote.</p>
+      <div class="h-actions">
+        <a class="h-btn h-btn-cta" href="#work">Explore my work →</a>
+        <a class="h-btn h-btn-ghost" href="resume.html">Download resume</a>
       </div>
-    </nav>
-  </header>
-
-  <section class="hero container">
-    <span class="kicker">Data Analyst · Data Scientist · Data Engineer</span>
-    <h1>Eileen Ip</h1>
-    <p class="lede">I turn audience and customer data into decisions — dashboards, models, and clear write-ups for media, marketing, and gaming teams.</p>
-    <ul class="hero-tags">
-      <li class="tag tag-outline">Gaming</li>
-      <li class="tag tag-outline">Media &amp; Entertainment</li>
-      <li class="tag tag-outline">Social Media</li>
-      <li class="tag tag-outline">Marketing</li>
-      <li class="tag tag-outline">Customer Experience</li>
-    </ul>
-    <div class="hero-actions">
-      <a href="resume.html" class="btn btn-primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M6.5 11l5.5 5.5L17.5 11"/><path d="M4 19.5h16"/></svg>
-        Download resume
-      </a>
-      <a href="#projects" class="btn btn-ghost">View projects</a>
+      <dl class="h-stats">
+        <div><dt>product &amp; marketing data</dt><dd>5 yrs</dd></div>
+        <div><dt>projects, start to finish</dt><dd id="stat-projects">10</dd></div>
+        <div><dt>industries</dt><dd id="stat-industries">8</dd></div>
+        <div><dt>tools &amp; libraries used</dt><dd id="stat-tools">33</dd></div>
+      </dl>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
-<main>
-  <section id="about" class="about container">
-    <span class="kicker">About</span>
-    <div class="about-grid">
-      <div>
-        <p class="about-text">I'm a data professional who spent the last five years turning messy product and marketing data into models and dashboards teams actually use. I care most about the write-up: why an approach was chosen, what it trades off, and what breaks first at scale.</p>
-        <div>
-          <div class="label-sm">Expertise</div>
-          <ul class="tag-row">
-            <li class="tag tag-green">Data Science</li>
-            <li class="tag tag-blue">Machine Learning</li>
-            <li class="tag tag-violet">Business Analytics</li>
-            <li class="tag tag-orange">Statistics</li>
-          </ul>
+<section id="work" class="h-section h-tinted">
+  <div class="h-decor" aria-hidden="true">
+    <span class="h-spark h-spark-2" style="top:70px;left:12%;width:22px;height:22px"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-1" style="top:110px;right:14%;width:30px;height:30px;opacity:.45"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+  </div>
+  <div class="h-wrap">
+    <div class="h-head">
+      <h2 class="h-title">Selected Work</h2>
+      <div class="h-rule" aria-hidden="true"></div>
+      <p class="h-lede">The result first, then how I got there.</p>
+    </div>
+    <div class="h-cards">
+
+      <article class="h-card">
+        <div class="h-card-bar" aria-hidden="true"></div>
+        <div class="h-card-metric"><span class="h-industry">Subscription media</span><strong>84.2%</strong><span>of real cancellations caught at the deployed threshold</span></div>
+        <div class="h-card-body">
+          <h3><a href="projects.html?project=subscriber-churn-retention-2026">Subscriber Churn Early-Warning &amp; LTV Segmentation</a></h3>
+          <p>Which at-risk subscribers are actually worth saving? 21.5M streaming transactions scored and crossed with spend.</p>
+          <ul class="h-tags" aria-label="Tools"><li>#Python</li><li>#LightGBM</li></ul>
+          <span class="h-card-more" aria-hidden="true">Read case study →</span>
+        </div>
+      </article>
+
+      <article class="h-card">
+        <div class="h-card-bar" aria-hidden="true"></div>
+        <div class="h-card-metric"><span class="h-industry">Digital advertising</span><strong>$10.5M</strong><span>revenue against a $14.1M target, traced to account-level actions</span></div>
+        <div class="h-card-body">
+          <h3><a href="projects.html?project=advertising-revenue-sales-efficiency-2026">Advertising Revenue &amp; Sales Efficiency Diagnostic</a></h3>
+          <p>Why is ad revenue below target, and what should sales do next?</p>
+          <ul class="h-tags" aria-label="Tools"><li>#PowerBI</li><li>#SQLServer</li></ul>
+          <span class="h-card-more" aria-hidden="true">Read case study →</span>
+        </div>
+      </article>
+
+      <article class="h-card">
+        <div class="h-card-bar" aria-hidden="true"></div>
+        <div class="h-card-metric"><span class="h-industry">Gaming</span><strong>124 vs 530</strong><span>median minutes played: free vs paid Steam games</span></div>
+        <div class="h-card-body">
+          <h3><a href="projects.html?project=steam-f2p-vs-paid-engagement-2026">F2P vs Paid: Pricing and Engagement on Steam</a></h3>
+          <p>Does going free-to-play buy engagement? 20,761 games, compared like genre with like.</p>
+          <ul class="h-tags" aria-label="Tools"><li>#Python</li><li>#Statistics</li></ul>
+          <span class="h-card-more" aria-hidden="true">Read case study →</span>
+        </div>
+      </article>
+
+      <article class="h-card">
+        <div class="h-card-bar" aria-hidden="true"></div>
+        <div class="h-card-metric"><span class="h-industry">Media &amp; entertainment</span><strong>8.8% → 1.2%</strong><span>Shorts' share of views vs share of watch time</span></div>
+        <div class="h-card-body">
+          <h3><a href="projects.html?project=creator-content-decision-dashboard-2026">Creator Content Decision Dashboard</a></h3>
+          <p>Which content should a creator scale, promote or improve next?</p>
+          <ul class="h-tags" aria-label="Tools"><li>#Tableau</li><li>#Excel</li></ul>
+          <span class="h-card-more" aria-hidden="true">Read case study →</span>
+        </div>
+      </article>
+
+      <article class="h-card">
+        <div class="h-card-bar" aria-hidden="true"></div>
+        <div class="h-card-metric"><span class="h-industry">Marketing</span><strong>25,892</strong><span>rows reconciled exactly to ground truth</span></div>
+        <div class="h-card-body">
+          <h3><a href="projects.html?project=ad-creative-performance-pipeline">Ad Creative Performance Pipeline</a></h3>
+          <p>Can a pipeline deliver reliable same-day numbers from deliberately corrupted data?</p>
+          <ul class="h-tags" aria-label="Tools"><li>#dbt</li><li>#DuckDB</li></ul>
+          <span class="h-card-more" aria-hidden="true">Read case study →</span>
+        </div>
+      </article>
+
+      <a class="h-card-all" href="projects.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg>
+        <strong id="all-projects-count">All 10 projects</strong>
+        <span>The full library, filterable by industry and tool</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="about" class="h-section">
+  <div class="h-decor" aria-hidden="true">
+    <span class="h-spark h-spark-3" style="top:60px;right:8%;width:24px;height:24px;opacity:.7"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+  </div>
+  <div class="h-wrap">
+    <div class="h-head">
+      <h2 class="h-title">The Story of Me</h2>
+      <div class="h-rule" aria-hidden="true"></div>
+    </div>
+    <div class="h-story">
+      <div class="h-portrait">
+        <div class="h-frame">
+          <!-- To use a photo: save it as images/avatar.jpg and replace the next line with
+               <img src="images/avatar.jpg" alt="Eileen Ip" width="560" height="700"> -->
+          <div class="h-monogram" role="img" aria-label="Eileen Ip">EI</div>
+          <span class="h-spark h-spark-2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
         </div>
       </div>
-
-      <div class="card skills-card">
-        <div class="label-sm accent">Skills</div>
-        <div class="skills-groups">
-          <div class="skill-group">
-            <div class="label-xs">Languages</div>
-            <ul class="tag-row">
-              <li class="tag tag-neutral">Python</li>
-              <li class="tag tag-neutral">SQL</li>
-              <li class="tag tag-neutral">R</li>
-              <li class="tag tag-neutral">JavaScript</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <div class="label-xs">Analytics / ML</div>
-            <ul class="tag-row">
-              <li class="tag tag-neutral">pandas</li>
-              <li class="tag tag-neutral">scikit-learn</li>
-              <li class="tag tag-neutral">XGBoost</li>
-              <li class="tag tag-neutral">TensorFlow</li>
-              <li class="tag tag-neutral">A/B testing</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <div class="label-xs">Databases</div>
-            <ul class="tag-row">
-              <li class="tag tag-neutral">PostgreSQL</li>
-              <li class="tag tag-neutral">Snowflake</li>
-              <li class="tag tag-neutral">BigQuery</li>
-              <li class="tag tag-neutral">MongoDB</li>
-            </ul>
-          </div>
-          <div class="skill-group">
-            <div class="label-xs">Visualization / BI</div>
-            <ul class="tag-row">
-              <li class="tag tag-neutral">Tableau</li>
-              <li class="tag tag-neutral">Power BI</li>
-              <li class="tag tag-neutral">Looker</li>
-              <li class="tag tag-neutral">D3.js</li>
-              <li class="tag tag-neutral">Plotly</li>
-            </ul>
-          </div>
-        </div>
+      <div class="h-story-text">
+        <blockquote>"I'd rather ship a model a team trusts than a perfect one nobody uses."</blockquote>
+        <p>I've spent five years turning messy product and marketing data into models and dashboards teams actually use.</p>
+        <p>I care most about the write-up: why an approach was chosen, what it trades off, and what breaks first at scale.</p>
+        <p>I work across gaming, media and entertainment, social, marketing and customer experience.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="projects" class="projects container">
-    <span class="kicker">Selected work</span>
-    <h2>Case studies</h2>
-    <p class="intro">Five projects across marketing, advertising, media and gaming. Each card opens into a full write-up covering approach, trade-offs, and what changes at scale.</p>
-
-    <div class="project-grid">
-
-      <a href="projects.html?project=ad-creative-performance-pipeline" class="card project-card">
-        <div class="project-thumb">
-          <img src="images/projects/ad-creative-performance-pipeline-card.png" alt="Ad Creative Performance Pipeline dashboard — freshness tiles and the defects handled in the last run" loading="lazy">
-        </div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>Ad Creative Performance Pipeline</h3>
-            <span class="project-year">2026</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-indigo">Data Pipeline</li>
-            <li class="tag tag-red">Marketing</li>
-            <li class="tag tag-neutral">dbt · DuckDB</li>
-            <li class="tag tag-outline">Automated Pipeline</li>
-          </ul>
-          <p class="project-desc">A dbt-core + DuckDB pipeline that ingests openly synthetic, deliberately corrupted ad-creative performance data and proves it can still deliver reliable same-day numbers — the deliverable is the pipeline, not an advertising finding.</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>Reconciles to ground truth exactly across 25,892 rows — except the 3 defect types the pipeline is never supposed to silently fix.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <a href="projects.html?project=subscriber-churn-retention-2026" class="card project-card">
-        <div class="project-thumb">
-          <img src="images/projects/subscriber-churn-retention-2026-card.png" alt="Subscriber churn dashboard — risk and value segmentation" loading="lazy">
-        </div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>Subscriber Churn Early-Warning &amp; LTV Segmentation</h3>
-            <span class="project-year">2026</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-violet">Classification + Segmentation</li>
-            <li class="tag tag-green">Subscription Media</li>
-            <li class="tag tag-neutral">Python · LightGBM</li>
-            <li class="tag tag-outline">Analysis + Model</li>
-          </ul>
-          <p class="project-desc">Score 21.5M real music-streaming transactions for churn risk and cross it with real subscription spend, so retention budget goes to subscribers worth saving.</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>84.2% of real cancellations caught at the deployed threshold.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <a href="projects.html?project=advertising-revenue-sales-efficiency-2026" class="card project-card">
-        <div class="project-thumb">
-          <img src="images/projects/advertising-revenue-sales-efficiency-card.png" alt="Advertising revenue Power BI report — revenue against target" loading="lazy">
-        </div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>Advertising Revenue &amp; Sales Efficiency Growth Diagnostic</h3>
-            <span class="project-year">2026</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-red">Business Intelligence</li>
-            <li class="tag tag-orange">Digital Advertising</li>
-            <li class="tag tag-neutral">Power BI · SQL Server</li>
-            <li class="tag tag-outline">Dashboard + Decision System</li>
-          </ul>
-          <p class="project-desc">An end-to-end commercial analytics system that explains why advertising revenue is below target and converts campaign, lifecycle and sales evidence into transparent account actions.</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>$10.50M revenue vs. $14.10M target, diagnosed through campaign, lifecycle and sales evidence.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <a href="projects.html?project=steam-f2p-vs-paid-engagement-2026" class="card project-card">
-        <div class="project-thumb">
-          <img src="images/projects/steam-f2p-vs-paid-engagement-2026-card.png" alt="F2P vs Paid Steam dashboard — Cliff&#39;s delta of −0.457 pooled against −0.482 genre-adjusted, and median playtime of 124 minutes for free games against 530 for paid" loading="lazy">
-        </div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>F2P vs Paid: Pricing and Engagement on Steam</h3>
-            <span class="project-year">2026</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-orange">Statistical Analysis</li>
-            <li class="tag tag-blue">Gaming</li>
-            <li class="tag tag-neutral">Python · Steam Web API</li>
-            <li class="tag tag-outline">Analysis + Dashboard</li>
-          </ul>
-          <p class="project-desc">A 20,761-game study of whether going free-to-play actually buys engagement on Steam, built to kill the tautology that free things get downloaded more, and to test whether any gap survives comparing like genre with like.</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>Free games are played a quarter as long as paid ones — 124 median minutes against 530 — and correcting for genre widens the gap rather than explaining it.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
-      <a href="projects.html?project=creator-content-decision-dashboard-2026" class="card project-card">
-        <div class="project-thumb">
-          <img src="images/projects/creator-content-decision-dashboard-2026-card.png" alt="Creator Content Decision Dashboard built in Tableau" loading="lazy">
-        </div>
-        <div class="project-body">
-          <div class="project-head">
-            <h3>Creator Content Decision Dashboard</h3>
-            <span class="project-year">2026</span>
-          </div>
-          <ul class="project-tags">
-            <li class="tag tag-red">Business Intelligence</li>
-            <li class="tag tag-yellow">Media &amp; Entertainment</li>
-            <li class="tag tag-neutral">Tableau · Excel</li>
-            <li class="tag tag-outline">Dashboard</li>
-          </ul>
-          <p class="project-desc">Which content should a creator scale, promote or improve next?</p>
-          <div class="project-impact">
-            <span class="label-xs">Impact</span>
-            <span>Shorts are 8.8% of views but 1.2% of watch time and 2.7% of
-              revenue &mdash; a views leaderboard misreads the channel three ways.</span>
-          </div>
-          <div class="project-cta">
-            <span>View case study</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-          </div>
-        </div>
-      </a>
-
+<section id="skills" class="h-section h-tinted">
+  <div class="h-wrap">
+    <div class="h-head">
+      <h2 class="h-title">Signatures of My Craft</h2>
+      <div class="h-rule" aria-hidden="true"></div>
     </div>
-  </section>
-
-  <section id="contact" class="contact container">
-    <span class="kicker">Contact</span>
-    <h2>Let's talk data</h2>
-    <p class="intro">Based in Brisbane — open to opportunities across Australia and Hong Kong, including remote work.</p>
-
-    <div class="contact-grid">
-      <a href="mailto:eileenip01@gmail.com" class="contact-row">
-        <span class="left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-          <span>
-            <span class="field-label">Email</span>
-            <span class="field-value">eileenip01@gmail.com</span>
-          </span>
-        </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-
-      <a href="https://www.linkedin.com/in/eileen-ip/" class="contact-row">
-        <span class="left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7"/><path d="M7 7.2v.1"/><path d="M11 17v-4.5a2 2 0 0 1 4 0V17"/><path d="M11 10v7"/></svg>
-          <span>
-            <span class="field-label">LinkedIn</span>
-            <span class="field-value">/in/eileen-ip</span>
-          </span>
-        </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-
-      <a href="https://github.com/EileenIp" class="contact-row">
-        <span class="left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a9 9 0 0 0-2.85 17.54c.45.08.62-.2.62-.43v-1.68c-2.5.55-3.03-1.07-3.03-1.07-.41-1.03-1-1.3-1-1.3-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.1.98 2.6.75.08-.58.32-.98.57-1.2-2-.23-4.1-1-4.1-4.45 0-.98.35-1.79.93-2.42-.1-.23-.4-1.15.09-2.4 0 0 .76-.24 2.5.92a8.6 8.6 0 0 1 4.55 0c1.74-1.16 2.5-.92 2.5-.92.5 1.25.2 2.17.1 2.4.58.63.93 1.44.93 2.42 0 3.46-2.1 4.22-4.1 4.44.33.29.62.85.62 1.72v2.55c0 .24.16.52.63.43A9 9 0 0 0 12 3z"/></svg>
-          <span>
-            <span class="field-label">GitHub</span>
-            <span class="field-value">/EileenIp</span>
-          </span>
-        </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
-
-      <a href="https://www.youtube.com/@EileenIp_Youtube" class="contact-row">
-        <span class="left">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
-          <span>
-            <span class="field-label">YouTube</span>
-            <span class="field-value">@EileenIp_Youtube</span>
-          </span>
-        </span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-      </a>
+    <div class="h-skills">
+      <div class="h-skill"><div class="h-skill-body"><h3>Languages</h3><ul>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>Python</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>SQL</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>R</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>JavaScript</li>
+      </ul></div></div>
+      <div class="h-skill"><div class="h-skill-body"><h3>Analytics &amp; ML</h3><ul>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>pandas</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>scikit-learn</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>XGBoost</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>TensorFlow</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>A/B testing</li>
+      </ul></div></div>
+      <div class="h-skill"><div class="h-skill-body"><h3>Databases</h3><ul>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>PostgreSQL</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>Snowflake</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>BigQuery</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>MongoDB</li>
+      </ul></div></div>
+      <div class="h-skill"><div class="h-skill-body"><h3>Visualisation &amp; BI</h3><ul>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>Tableau</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>Power BI</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>Looker</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>D3.js</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"/></svg>Plotly</li>
+      </ul></div></div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section id="availability" class="h-section">
+  <div class="h-wrap">
+    <div class="h-head">
+      <h2 class="h-title">Free for a Chat</h2>
+      <div class="h-rule" aria-hidden="true"></div>
+      <p class="h-week-note">Times in Brisbane (AEST, UTC+10). Busy days come from my calendar.</p>
+    </div>
+    <div class="h-week" id="week" aria-live="polite">
+      <p class="h-week-note">Loading this week…</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="h-section h-tinted">
+  <div class="h-decor" aria-hidden="true">
+    <span class="h-spark h-spark-1" style="top:60px;left:16%;width:30px;height:30px;opacity:.45"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+    <span class="h-spark h-spark-2" style="bottom:70px;right:15%;width:22px;height:22px"><svg viewBox="0 0 24 24"><path d="M12 1.5 14.4 9.6 22.5 12 14.4 14.4 12 22.5 9.6 14.4 1.5 12 9.6 9.6Z" fill="currentColor"/></svg></span>
+  </div>
+  <div class="h-wrap">
+    <div class="h-contact">
+      <svg class="h-divider-gem" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5 15.5 12 12 22.5 8.5 12Z" fill="currentColor"/></svg>
+      <h2>Let's Talk <span class="h-accent">Data</span></h2>
+      <p class="h-lede">Have a role or a project in mind? I'd love to hear about it.</p>
+      <div class="h-socials">
+        <a class="h-btn h-btn-cta" href="mailto:eileenip01@gmail.com">Email me →</a>
+        <a class="h-btn h-btn-ghost" href="https://www.linkedin.com/in/eileen-ip/">LinkedIn</a>
+        <a class="h-btn h-btn-ghost" href="https://github.com/EileenIp">GitHub</a>
+        <a class="h-btn h-btn-ghost" href="https://www.youtube.com/@EileenIp_Youtube">YouTube</a>
+      </div>
+      <p class="h-email">eileenip01@gmail.com</p>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer class="site-footer container">
-  <p>&copy; 2026 Eileen Ip.</p>
+<footer class="home-footer">
+  <div class="h-wrap">
+    <p>&copy; 2026 Eileen Ip</p>
+    <p>Brisbane · Australia, Hong Kong &amp; remote</p>
+  </div>
 </footer>
+</div>
 
+<script src="js/home.js"></script>
 <script src="js/analytics-config.js"></script>
 <script src="js/analytics.js"></script>
 </body>

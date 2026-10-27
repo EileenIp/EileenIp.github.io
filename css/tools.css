@@ -1,0 +1,129 @@
+/* ==========================================================================
+   "My tools" pages: progress.html, todo.html, calendar.html, job-tracker.html.
+   Loaded last on those pages. Restyles their existing markup (the page
+   scripts are unchanged) and adds the shared tools header and tabs.
+   ========================================================================== */
+
+/* — tools header — */
+.tools-header { position: relative; z-index: 30; background: var(--t-surface); border-bottom: 2px solid var(--t-pink-line); }
+.tools-header::before { content: ""; display: block; height: 4px; background: var(--t-bar); }
+.tools-header .nav {
+  max-width: 1320px; margin: 0 auto; padding: 12px clamp(16px, 4vw, 48px);
+  justify-content: flex-start; flex-wrap: wrap; gap: 8px 14px;
+}
+.tools-header .nav-brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--t-font-head); font-size: 21px; font-weight: 700;
+  letter-spacing: var(--t-logo-spacing); color: var(--t-accent-big); text-decoration: none;
+}
+.tools-header .nav-brand svg { width: 17px; height: 17px; color: var(--t-gold); }
+.tools-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px;
+  border-radius: var(--t-radius-tag); background: var(--t-tint); border: 1px dashed var(--t-line);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--t-muted);
+}
+.tools-pill svg { width: 13px; height: 13px; }
+.tools-back { margin-left: auto; color: var(--t-plum-text); font-size: 14px; font-weight: 600; text-decoration: none; padding: 10px 8px; }
+.tools-back:hover { color: var(--t-accent); }
+.tools-header .theme-switcher { margin-left: 0; }
+.tools-tabs { max-width: 1320px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; gap: 4px; }
+.tools-tabs a {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 0 16px;
+  border-bottom: 3px solid transparent; color: var(--t-plum-text);
+  font-size: 15px; font-weight: 700; text-decoration: none;
+}
+.tools-tabs a:hover { color: var(--t-accent); }
+.tools-tabs a[aria-current="page"] { color: var(--t-accent); border-bottom-color: var(--t-accent-big); }
+.tools-tabs a:focus-visible, .tools-back:focus-visible { outline: 2px solid var(--t-accent); outline-offset: 2px; }
+.tools-note { max-width: 1320px; margin: 0 auto; padding: 10px clamp(16px, 4vw, 48px); font-size: 13px; color: var(--t-muted); }
+
+/* — page titles — */
+.page-header h1, .todo-page h1, .calendar-page h1, .jt-title-row h1 {
+  font-family: var(--t-font-head); font-weight: 700; color: var(--t-heading);
+  font-size: clamp(32px, 4.4vw, 48px); line-height: 1.12;
+}
+.page-header p, .todo-page > p, .calendar-page > p { color: var(--t-muted); }
+.kicker, .section-label { color: var(--t-accent); font-weight: 700; letter-spacing: 0.14em; }
+.jt-header, .jt-header-static { background: transparent; }
+
+/* — cards with the theme's accent bar — */
+.card, .goal-group, .todo-help, .todo-editor, .todo-card, .today-panel {
+  position: relative; overflow: hidden;
+  background: var(--t-card); border: 1px solid var(--t-card-border);
+  border-radius: var(--t-radius-card); box-shadow: var(--t-shadow-card);
+}
+.goal-card::before, .goal-group::before, .today-panel::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--t-bar);
+}
+.goal-card { padding: 22px 20px 18px; }
+.card-title, .goal-title { font-family: var(--t-font-head); font-weight: 700; color: var(--t-card-title); }
+.goal-description, .goal-count, .todo-meta, #notice, #cal-notice, .cal-dow, .cal-daynum, .cal-more { color: var(--t-muted); }
+
+/* — progress page — */
+.month-label { font-family: var(--t-font-head); font-weight: 700; font-size: 17px; color: var(--t-card-title); }
+.log-entry { color: var(--t-text); border-left: 3px solid var(--t-pink-line); padding-left: 16px; }
+.year-num { font-family: var(--t-font-head); font-weight: 700; color: var(--t-accent-big); }
+.year-row { border-bottom: 1px solid var(--t-hair); }
+
+/* — to-do page — */
+.todo-page input, .todo-page select, .todo-page textarea {
+  background: var(--t-card); border: 1px solid var(--t-line); border-radius: var(--t-radius-inner); min-height: 44px;
+}
+.todo-page textarea { min-height: 88px; }
+.goal-group > summary { padding-top: 26px; }
+.goal-group > summary:after { color: var(--t-accent); top: 26px; }
+.goal-group progress { accent-color: var(--t-chart); height: 8px; }
+.goal-group progress::-webkit-progress-bar { background: var(--t-tint); }
+.goal-group progress::-webkit-progress-value { background: var(--t-chart); }
+.goal-tasks .todo-card { background: var(--t-tint); border-color: var(--t-pink-line); box-shadow: none; }
+.todo-card h3 { font-family: var(--t-font-head); color: var(--t-card-title); }
+.todo-page .btn-primary { font-family: var(--t-font-cta); letter-spacing: var(--t-cta-spacing); }
+
+/* — calendar page — */
+.cal-cell { background: var(--t-bg); border-color: var(--t-pink-line); border-radius: var(--t-radius-inner); }
+.cal-cell-today { border-color: var(--t-accent-big); box-shadow: 0 0 0 1px var(--t-accent-big); }
+.cal-cell-today .cal-daynum { color: var(--t-accent-big); font-weight: 700; }
+.cal-task { background: var(--t-btn); color: var(--t-btn-text); border-radius: 4px; }
+.cal-task:hover { color: var(--t-btn-text); filter: brightness(0.96); }
+.calendar-toolbar h2 { font-family: var(--t-font-head); font-weight: 700; color: var(--t-card-title); font-size: 22px; }
+.cal-overdue-item { background: var(--t-tint); border-left: 3px solid var(--t-accent-big); border-radius: var(--t-radius-inner); padding: 8px 12px; margin: 6px 0; color: var(--t-text); }
+.calendar-grid { background: var(--t-card); border: 1px solid var(--t-card-border); border-radius: var(--t-radius-card); padding: clamp(8px, 2vw, 18px); }
+
+/* — job tracker — */
+.proj-sidebar {
+  position: relative; overflow: hidden; align-self: flex-start;
+  background: var(--t-glass); border: 1px solid var(--t-card-border); border-radius: var(--t-radius-card);
+  padding: 22px 18px;
+}
+.proj-sidebar::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--t-bar); }
+.proj-sidebar .input { background: var(--t-card); border: 1px solid var(--t-line); border-radius: var(--t-radius-btn); min-height: 44px; }
+.filter-pill { border-color: var(--t-line); border-radius: var(--t-radius-tag); min-height: 32px; }
+.filter-pill.selected { background: var(--t-btn); color: var(--t-btn-text); border-color: var(--t-btn); }
+.jt-pipe { border: 1px solid var(--t-card-border); background: var(--t-card); border-radius: var(--t-radius-card); padding: 12px 14px 10px; min-width: 120px; }
+.jt-pipe.selected { background: var(--t-metric-band); border: 2px solid var(--t-accent-big); }
+.jt-pipe-count { font-family: var(--t-font-head); font-weight: 700; font-size: 28px; color: var(--t-accent-big); }
+.jt-group-head { font-family: var(--t-font-head); font-weight: 700; color: var(--t-card-title); }
+.jt-row { background: var(--t-card); border: 1px solid var(--t-pink-line); border-radius: var(--t-radius-card); margin-bottom: 8px; }
+.jt-row-interactive:hover { background: var(--t-metric-band); border-color: var(--t-accent); }
+.jt-row-company { font-family: var(--t-font-head); font-weight: 700; color: var(--t-card-title); }
+.jt-logo { background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--t-pink-line); }
+.jt-logo-initials { color: var(--t-muted); }
+
+@media (max-width: 640px) {
+  .tools-back { margin-left: 0; order: 3; }
+  .tools-tabs a { padding: 0 10px; font-size: 14px; }
+}
+
+/* Overdue list: show task names as plain links, not calendar chips. */
+.cal-overdue-item .cal-task {
+  display: inline; padding: 0; background: none; color: var(--t-text);
+  font-size: 15px; font-weight: 600; white-space: normal; text-decoration: underline; text-underline-offset: 3px;
+}
+.cal-overdue-item .cal-task:hover { color: var(--t-accent); filter: none; }
+
+/* Job tracker: line the title and body up with the header. */
+.jt-header .container-wide, .jt-body {
+  max-width: 1320px; margin-inline: auto; box-sizing: border-box;
+  padding-inline: clamp(16px, 4vw, 48px);
+}
+.jt-header { padding-top: clamp(24px, 4vw, 44px); }
