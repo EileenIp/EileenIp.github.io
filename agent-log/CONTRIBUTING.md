@@ -11,10 +11,23 @@ Eileen Ip's personal portfolio site, served by GitHub Pages at
 and hiring managers. Treat it as production.
 
 **Owner:** Eileen Ip — BCompSci/BCom (Data Science + Business Analytics),
-University of Queensland, graduating Dec 2026. Based in Brisbane, AU.
+University of Queensland, graduating June 2027 (planned: she needs an
+internship first to enrol in RBUS3999, Business Industry Placement).
+Based in Brisbane, AU.
 
-**Target roles:** Data Analyst, Data Scientist, Data Engineer, BI Developer.
-Technical, heads-down, written/async communication. Not client-facing.
+**Target roles** (set by Eileen on 2026-10-27): roles where the work speaks
+for itself. **No roles built around presenting to stakeholders.**
+
+1. Data Engineer / Analytics Engineer: pipelines and data models.
+2. BI Developer: self-serve dashboards.
+3. AI / ML Engineer, or developer on an AI product team.
+4. Technical writer / documentation / knowledge management.
+5. Market data or trading operations analyst.
+
+Avoid: consulting, business analyst, client-facing analyst, product manager,
+and "data storytelling" roles. Data Analyst and Data Scientist are fine only
+where the role is not presentation-led. Technical, heads-down, written/async
+communication. Not client-facing. Prefer teams that work in writing.
 
 **Target domains (projects should come from these):** gaming, media &
 entertainment, social media, marketing, customer experience.

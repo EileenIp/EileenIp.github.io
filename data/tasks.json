@@ -5,111 +5,111 @@
       "id": "plan-20260908-tiktok-resume",
       "title": "TikTok: locate and review current résumé",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Provide the current résumé file so we can assess it against the Business Data Analyst Project Intern (GBS) role.",
-      "handoff": "Next: share the résumé file location.",
-      "updatedAt": "2026-09-07T21:33:30.365Z"
+      "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-tiktok-availability",
       "title": "TikTok: confirm internship availability",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Confirm possible start/end dates and availability for the Sydney role. The listing requests at least three months.",
-      "handoff": "",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-tiktok-tailor",
       "title": "TikTok: tailor résumé to the role",
       "owner": "Codex",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Use existing experience and completed analytics/marketing projects to demonstrate business performance analysis, sales efficiency, and relevant tools. Done when the tailored résumé is ready for Eileen to review.",
-      "handoff": "Depends on: current résumé and availability. Role: https://lifeattiktok.com/search/7673389875300272389 Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
+      "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-tiktok-review",
       "title": "TikTok: review application and portfolio links",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Review the tailored résumé, prepare any answers requested by the application, and verify linked projects.",
-      "handoff": "Depends on: tailored résumé.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-tiktok-submit",
       "title": "TikTok: submit application and record confirmation",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Submit the reviewed application and save confirmation in the application tracker.",
-      "handoff": "Rolling review: apply promptly. The tracker’s December 31 date was not confirmed by the official listing.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-adn-shortlist",
       "title": "ADN: shortlist and rank internship opportunities",
       "owner": "Codex",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Review current opportunities, role requirements, locations and individual closing dates. Produce an ordered shortlist with position IDs for Eileen to select.",
-      "handoff": "Summer 2026/27 programme deadline previously checked: September 27. Check individual role deadlines. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
+      "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-adn-documents",
       "title": "ADN: gather required application documents",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Gather current résumé, academic transcript and programme-required supporting documents privately. Done when the application documents are ready.",
-      "handoff": "Keep supporting documents and personal information out of the public website task file.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-adn-draft",
       "title": "ADN: prepare application answers and preferences",
       "owner": "Codex",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "",
       "details": "Prepare answers using relevant experience and the selected role descriptions, and record ranked role preferences.",
-      "handoff": "Depends on: shortlist and current résumé. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
+      "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-adn-review",
       "title": "ADN: review complete application",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "2026-09-24",
       "details": "Check answers, documents, role IDs and preferences. September 24 is a proposed internal target to leave a submission buffer.",
-      "handoff": "Depends on: draft application and documents.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-adn-submit",
       "title": "ADN: submit application and save confirmation",
       "owner": "Eileen",
-      "status": "To do",
+      "status": "Done",
       "priority": "High",
       "due": "2026-09-27",
       "details": "Submit before the applicable deadline and record confirmation. Programme deadline is September 27; an earlier individual role deadline takes precedence.",
-      "handoff": "Depends on: Eileen’s final review.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+      "updatedAt": "2026-10-27T08:36:44.000Z"
     },
     {
       "id": "plan-20260908-applications-tracker",
@@ -141,140 +141,8 @@
       "priority": "High",
       "due": "",
       "details": "After securing an offer, track the course enrolment, placement and completion steps confirmed by the university. Done when course completion is confirmed.",
-      "handoff": "Course code supplied by Eileen: RBUS39992. Requirements have not been verified; an offer and course completion are separate milestones.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
-    },
-    {
-      "id": "plan-20260908-bsan-format",
-      "title": "BSAN4201: confirm individual presentation format",
-      "owner": "Eileen",
-      "status": "To do",
-      "priority": "High",
-      "due": "",
-      "details": "Confirm presentation length, submission time and submission method. Brief slide 10 describes a group presentation of 15 minutes plus 5 minutes Q&A; Eileen’s assignment is individual.",
-      "handoff": "User-confirmed deadline: October 12, 2026.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
-    },
-    {
-      "id": "plan-20260908-bsan-product",
-      "title": "BSAN4201: choose product and customer problem",
-      "owner": "Eileen",
-      "status": "To do",
-      "priority": "High",
-      "due": "",
-      "details": "Choose a traditional product in personal care, household, mobility or apparel and describe its proposed AI-enabled service and customer problem in one paragraph.",
-      "handoff": "First assignment decision to make together.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
-    },
-    {
-      "id": "plan-20260908-bsan-persona",
-      "title": "BSAN4201: develop persona and empathy map",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Describe the intended customer, needs and pain points; write a focused How might we question.",
-      "handoff": "Depends on: chosen product and problem. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-prototype",
-      "title": "BSAN4201: sketch prototype and gather ChatGPT feedback",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Sketch the service experience, conduct the feedback session requested in the brief, and document resulting changes. Clearly identify simulated feedback.",
-      "handoff": "Depends on: persona and problem statement. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-conjoint-design",
-      "title": "BSAN4201: define conjoint attributes and persona inputs",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Obtain the six course-specified Roy Morgan personas and relevant course guidance. Define product attributes and levels for synthetic conjoint analysis.",
-      "handoff": "Depends on: product concept. Do not invent missing course persona definitions. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-conjoint",
-      "title": "BSAN4201: run and interpret synthetic conjoint analysis",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Generate and analyse synthetic preference data using course guidance. Recommend features and a target segment, and explain synthetic-data limitations.",
-      "handoff": "Depends on: approved attributes, levels and persona inputs. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-business",
-      "title": "BSAN4201: complete 5Vs canvas and ecosystem map",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Use the course framework to describe the business model, monetisation approach and partner ecosystem.",
-      "handoff": "Depends on: product recommendation and relevant course materials. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-data",
-      "title": "BSAN4201: map AI and data strategy",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Explain data collection, AI techniques and the flow from data to insight to action. Address privacy and bias.",
-      "handoff": "Depends on: service design. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-organisation",
-      "title": "BSAN4201: assess organisational changes",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "Normal",
-      "due": "",
-      "details": "Identify process changes, roles and skills, build/buy/partner options, and scalability requirements.",
-      "handoff": "Depends on: service and AI/data strategy. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-deck",
-      "title": "BSAN4201: assemble and check presentation deck",
-      "owner": "Codex",
-      "status": "To do",
-      "priority": "High",
-      "due": "",
-      "details": "Combine design, analysis, business model, technology and organisational work into a coherent deck. Check against the brief and include sources.",
-      "handoff": "Depends on: completed analysis and confirmed individual format. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-bsan-rehearse",
-      "title": "BSAN4201: rehearse and prepare Q&A",
-      "owner": "Eileen",
-      "status": "To do",
-      "priority": "High",
-      "due": "",
-      "details": "Rehearse to the confirmed time limit, refine speaker notes and prepare answers about assumptions, analysis and implementation.",
-      "handoff": "Depends on: complete deck.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
-    },
-    {
-      "id": "plan-20260908-bsan-submit",
-      "title": "BSAN4201: submit final presentation",
-      "owner": "Eileen",
-      "status": "To do",
-      "priority": "High",
-      "due": "2026-10-12",
-      "details": "Check the final file and submit using the course’s required method by the confirmed time. Save submission confirmation.",
-      "handoff": "Deadline supplied by Eileen.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Course code supplied by Eileen: RBUS3999. Requirements have not been verified; an offer and course completion are separate milestones. Course: Business Industry Placement (RBUS3999), confirmed by Eileen 27 Oct 2026. Target graduation: June 2027.",
+      "updatedAt": "2026-10-27T09:23:35.000Z"
     },
     {
       "id": "plan-20260908-website-location",
@@ -310,48 +178,28 @@
       "updatedAt": "2026-09-07T21:33:30.386Z"
     },
     {
-      "id": "plan-20260908-project-sentiment",
-      "title": "Backlog — Launch sentiment: choose launch and test data access",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Choose a game or media launch, date window and business question. Check Reddit and Steam access and inspect a small review sample before committing to collection.",
-      "handoff": "Plan analysis and dashboard tasks after the sample is viable. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
+      "id": "adn-20261027-workshop",
+      "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+      "owner": "Eileen",
+      "status": "In progress",
+      "priority": "High",
+      "due": "2026-10-29",
+      "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
+      "handoff": "Mark Done after attending.",
+      "goal": "graduate",
+      "updatedAt": "2026-10-27T09:06:31.000Z"
     },
     {
-      "id": "plan-20260908-project-ads",
-      "title": "Backlog — Ad creative pipeline: define scope and source",
-      "owner": "Claude",
+      "id": "adn-20261027-shortlist",
+      "title": "ADN: watch for shortlist and cover-letter request",
+      "owner": "Eileen",
       "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Define reporting questions, required fields and metrics. Select a viable source and sketch ingestion, transformation and reporting steps.",
-      "handoff": "Then break down ingestion, quality checks, scheduling and documentation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-project-streaming",
-      "title": "Backlog — Streaming dashboard: define sources and metrics",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Choose the reporting audience and questions, identify usable sources, and agree consistent metric definitions.",
-      "handoff": "Then break down cleaning, consolidation, dashboard design and validation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-project-pricing",
-      "title": "Backlog — Gaming pricing dashboard: test real SteamSpy data",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Inspect the existing dashboard’s data requirements, verify available SteamSpy fields and pull a sample that maps to the current structure.",
-      "handoff": "Then replace sample data, validate calculations and refresh the case study. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
+      "priority": "High",
+      "due": "2026-11-07",
+      "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
+      "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
+      "goal": "graduate",
+      "updatedAt": "2026-10-27T09:06:31.000Z"
     }
   ],
   "activity": [
@@ -964,6 +812,793 @@
         "updatedAt": "2026-09-08T07:53:10.000Z"
       },
       "after": null
+    },
+    {
+      "id": "8b07d658-4dff-4e67-9259-83f661c5e0d8",
+      "taskId": "plan-20260908-bsan-format",
+      "title": "BSAN4201: confirm individual presentation format",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-format",
+        "title": "BSAN4201: confirm individual presentation format",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Confirm presentation length, submission time and submission method. Brief slide 10 describes a group presentation of 15 minutes plus 5 minutes Q&A; Eileen’s assignment is individual.",
+        "handoff": "User-confirmed deadline: October 12, 2026.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": null
+    },
+    {
+      "id": "74730824-0e31-447f-b7e4-92fa10424502",
+      "taskId": "plan-20260908-bsan-product",
+      "title": "BSAN4201: choose product and customer problem",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-product",
+        "title": "BSAN4201: choose product and customer problem",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Choose a traditional product in personal care, household, mobility or apparel and describe its proposed AI-enabled service and customer problem in one paragraph.",
+        "handoff": "First assignment decision to make together.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": null
+    },
+    {
+      "id": "1001d1b0-bad1-4f38-90d3-b670d26a5014",
+      "taskId": "plan-20260908-bsan-persona",
+      "title": "BSAN4201: develop persona and empathy map",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-persona",
+        "title": "BSAN4201: develop persona and empathy map",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Describe the intended customer, needs and pain points; write a focused How might we question.",
+        "handoff": "Depends on: chosen product and problem. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "adf54531-26e3-4dbe-a7f1-8f3b177d177e",
+      "taskId": "plan-20260908-bsan-prototype",
+      "title": "BSAN4201: sketch prototype and gather ChatGPT feedback",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-prototype",
+        "title": "BSAN4201: sketch prototype and gather ChatGPT feedback",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Sketch the service experience, conduct the feedback session requested in the brief, and document resulting changes. Clearly identify simulated feedback.",
+        "handoff": "Depends on: persona and problem statement. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "2abcbe09-9c1f-442b-a27a-6e7a0dad941f",
+      "taskId": "plan-20260908-bsan-conjoint-design",
+      "title": "BSAN4201: define conjoint attributes and persona inputs",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-conjoint-design",
+        "title": "BSAN4201: define conjoint attributes and persona inputs",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Obtain the six course-specified Roy Morgan personas and relevant course guidance. Define product attributes and levels for synthetic conjoint analysis.",
+        "handoff": "Depends on: product concept. Do not invent missing course persona definitions. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "d6cf86cf-e729-4187-af13-41b28a9f38ce",
+      "taskId": "plan-20260908-bsan-conjoint",
+      "title": "BSAN4201: run and interpret synthetic conjoint analysis",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-conjoint",
+        "title": "BSAN4201: run and interpret synthetic conjoint analysis",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Generate and analyse synthetic preference data using course guidance. Recommend features and a target segment, and explain synthetic-data limitations.",
+        "handoff": "Depends on: approved attributes, levels and persona inputs. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "b65687c1-a80f-418f-9fea-cf85d4ce7376",
+      "taskId": "plan-20260908-bsan-business",
+      "title": "BSAN4201: complete 5Vs canvas and ecosystem map",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-business",
+        "title": "BSAN4201: complete 5Vs canvas and ecosystem map",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Use the course framework to describe the business model, monetisation approach and partner ecosystem.",
+        "handoff": "Depends on: product recommendation and relevant course materials. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "c86dfa8c-8542-416b-a29c-b79e13af5875",
+      "taskId": "plan-20260908-bsan-data",
+      "title": "BSAN4201: map AI and data strategy",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-data",
+        "title": "BSAN4201: map AI and data strategy",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Explain data collection, AI techniques and the flow from data to insight to action. Address privacy and bias.",
+        "handoff": "Depends on: service design. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "4641e2a5-7a64-4219-b641-3654eac68c18",
+      "taskId": "plan-20260908-bsan-organisation",
+      "title": "BSAN4201: assess organisational changes",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-organisation",
+        "title": "BSAN4201: assess organisational changes",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "Normal",
+        "due": "",
+        "details": "Identify process changes, roles and skills, build/buy/partner options, and scalability requirements.",
+        "handoff": "Depends on: service and AI/data strategy. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "c969e3d6-e222-4c0f-942e-24deb9ffa4c8",
+      "taskId": "plan-20260908-bsan-deck",
+      "title": "BSAN4201: assemble and check presentation deck",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-deck",
+        "title": "BSAN4201: assemble and check presentation deck",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Combine design, analysis, business model, technology and organisational work into a coherent deck. Check against the brief and include sources.",
+        "handoff": "Depends on: completed analysis and confirmed individual format. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "f8f51aef-55e3-44ab-ad8b-a84c9fbac35a",
+      "taskId": "plan-20260908-bsan-rehearse",
+      "title": "BSAN4201: rehearse and prepare Q&A",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-rehearse",
+        "title": "BSAN4201: rehearse and prepare Q&A",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Rehearse to the confirmed time limit, refine speaker notes and prepare answers about assumptions, analysis and implementation.",
+        "handoff": "Depends on: complete deck.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": null
+    },
+    {
+      "id": "35ff6a27-b3b8-46da-9ef0-30eaf94f45ff",
+      "taskId": "plan-20260908-bsan-submit",
+      "title": "BSAN4201: submit final presentation",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Deleted",
+      "notes": "Removed at Eileen's request on 27 Oct 2026: BSAN4201 is finished. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-bsan-submit",
+        "title": "BSAN4201: submit final presentation",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-10-12",
+        "details": "Check the final file and submit using the course’s required method by the confirmed time. Save submission confirmation.",
+        "handoff": "Deadline supplied by Eileen.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": null
+    },
+    {
+      "id": "fb6d9e37-203e-4122-9fb9-62a3993ccedb",
+      "taskId": "plan-20260908-tiktok-resume",
+      "title": "TikTok: locate and review current résumé",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: application recorded as submitted on 12 Sep 2026 in the job tracker.",
+      "before": {
+        "id": "plan-20260908-tiktok-resume",
+        "title": "TikTok: locate and review current résumé",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Provide the current résumé file so we can assess it against the Business Data Analyst Project Intern (GBS) role.",
+        "handoff": "Next: share the résumé file location.",
+        "updatedAt": "2026-09-07T21:33:30.365Z"
+      },
+      "after": {
+        "id": "plan-20260908-tiktok-resume",
+        "title": "TikTok: locate and review current résumé",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Provide the current résumé file so we can assess it against the Business Data Analyst Project Intern (GBS) role.",
+        "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "2ef47cab-a149-48ca-859c-0b8a1f1fe6f1",
+      "taskId": "plan-20260908-tiktok-availability",
+      "title": "TikTok: confirm internship availability",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: application recorded as submitted on 12 Sep 2026 in the job tracker.",
+      "before": {
+        "id": "plan-20260908-tiktok-availability",
+        "title": "TikTok: confirm internship availability",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Confirm possible start/end dates and availability for the Sydney role. The listing requests at least three months.",
+        "handoff": "",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-tiktok-availability",
+        "title": "TikTok: confirm internship availability",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Confirm possible start/end dates and availability for the Sydney role. The listing requests at least three months.",
+        "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "d21eab9b-bde4-401f-8800-8f603e5b8034",
+      "taskId": "plan-20260908-tiktok-tailor",
+      "title": "TikTok: tailor résumé to the role",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: application recorded as submitted on 12 Sep 2026 in the job tracker.",
+      "before": {
+        "id": "plan-20260908-tiktok-tailor",
+        "title": "TikTok: tailor résumé to the role",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Use existing experience and completed analytics/marketing projects to demonstrate business performance analysis, sales efficiency, and relevant tools. Done when the tailored résumé is ready for Eileen to review.",
+        "handoff": "Depends on: current résumé and availability. Role: https://lifeattiktok.com/search/7673389875300272389 Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": {
+        "id": "plan-20260908-tiktok-tailor",
+        "title": "TikTok: tailor résumé to the role",
+        "owner": "Codex",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Use existing experience and completed analytics/marketing projects to demonstrate business performance analysis, sales efficiency, and relevant tools. Done when the tailored résumé is ready for Eileen to review.",
+        "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "3cb37fc6-20bc-4fcf-a5ec-03cc2599fac5",
+      "taskId": "plan-20260908-tiktok-review",
+      "title": "TikTok: review application and portfolio links",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: application recorded as submitted on 12 Sep 2026 in the job tracker.",
+      "before": {
+        "id": "plan-20260908-tiktok-review",
+        "title": "TikTok: review application and portfolio links",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Review the tailored résumé, prepare any answers requested by the application, and verify linked projects.",
+        "handoff": "Depends on: tailored résumé.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-tiktok-review",
+        "title": "TikTok: review application and portfolio links",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Review the tailored résumé, prepare any answers requested by the application, and verify linked projects.",
+        "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "ace502e3-4183-4fa6-88d6-68f5ddc9ae3d",
+      "taskId": "plan-20260908-tiktok-submit",
+      "title": "TikTok: submit application and record confirmation",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: application recorded as submitted on 12 Sep 2026 in the job tracker.",
+      "before": {
+        "id": "plan-20260908-tiktok-submit",
+        "title": "TikTok: submit application and record confirmation",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Submit the reviewed application and save confirmation in the application tracker.",
+        "handoff": "Rolling review: apply promptly. The tracker’s December 31 date was not confirmed by the official listing.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-tiktok-submit",
+        "title": "TikTok: submit application and record confirmation",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Submit the reviewed application and save confirmation in the application tracker.",
+        "handoff": "Applied 12 Sep 2026, per data/job-applications.json (status Applied).",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "01bff461-c86d-4d2c-85b5-5385f8b00f90",
+      "taskId": "plan-20260908-adn-shortlist",
+      "title": "ADN: shortlist and rank internship opportunities",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: AusDN emails confirm the application went in on 16 Sep 2026. Follow-up tracked in the new ADN workshop and shortlist tasks.",
+      "before": {
+        "id": "plan-20260908-adn-shortlist",
+        "title": "ADN: shortlist and rank internship opportunities",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Review current opportunities, role requirements, locations and individual closing dates. Produce an ordered shortlist with position IDs for Eileen to select.",
+        "handoff": "Summer 2026/27 programme deadline previously checked: September 27. Check individual role deadlines. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": {
+        "id": "plan-20260908-adn-shortlist",
+        "title": "ADN: shortlist and rank internship opportunities",
+        "owner": "Codex",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Review current opportunities, role requirements, locations and individual closing dates. Produce an ordered shortlist with position IDs for Eileen to select.",
+        "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "056f8db4-6311-4771-a550-5bbc78c66bc3",
+      "taskId": "plan-20260908-adn-documents",
+      "title": "ADN: gather required application documents",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: AusDN emails confirm the application went in on 16 Sep 2026. Follow-up tracked in the new ADN workshop and shortlist tasks.",
+      "before": {
+        "id": "plan-20260908-adn-documents",
+        "title": "ADN: gather required application documents",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Gather current résumé, academic transcript and programme-required supporting documents privately. Done when the application documents are ready.",
+        "handoff": "Keep supporting documents and personal information out of the public website task file.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-adn-documents",
+        "title": "ADN: gather required application documents",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Gather current résumé, academic transcript and programme-required supporting documents privately. Done when the application documents are ready.",
+        "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "3434c5fe-fadf-4c97-99b1-dbbafc149366",
+      "taskId": "plan-20260908-adn-draft",
+      "title": "ADN: prepare application answers and preferences",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: AusDN emails confirm the application went in on 16 Sep 2026. Follow-up tracked in the new ADN workshop and shortlist tasks.",
+      "before": {
+        "id": "plan-20260908-adn-draft",
+        "title": "ADN: prepare application answers and preferences",
+        "owner": "Codex",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "Prepare answers using relevant experience and the selected role descriptions, and record ranked role preferences.",
+        "handoff": "Depends on: shortlist and current résumé. Reassigned owner to Codex at Eileen's request (2026-09-08) so job-application and BSAN4201 work is delegated there.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": {
+        "id": "plan-20260908-adn-draft",
+        "title": "ADN: prepare application answers and preferences",
+        "owner": "Codex",
+        "status": "Done",
+        "priority": "High",
+        "due": "",
+        "details": "Prepare answers using relevant experience and the selected role descriptions, and record ranked role preferences.",
+        "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "f421f269-d25c-4e14-847b-76160820faec",
+      "taskId": "plan-20260908-adn-review",
+      "title": "ADN: review complete application",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: AusDN emails confirm the application went in on 16 Sep 2026. Follow-up tracked in the new ADN workshop and shortlist tasks.",
+      "before": {
+        "id": "plan-20260908-adn-review",
+        "title": "ADN: review complete application",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-09-24",
+        "details": "Check answers, documents, role IDs and preferences. September 24 is a proposed internal target to leave a submission buffer.",
+        "handoff": "Depends on: draft application and documents.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-adn-review",
+        "title": "ADN: review complete application",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "2026-09-24",
+        "details": "Check answers, documents, role IDs and preferences. September 24 is a proposed internal target to leave a submission buffer.",
+        "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "2d31d6c6-b93a-425a-8555-25c4064f9844",
+      "taskId": "plan-20260908-adn-submit",
+      "title": "ADN: submit application and save confirmation",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Updated",
+      "notes": "Closed in 27 Oct cleanup: AusDN emails confirm the application went in on 16 Sep 2026. Follow-up tracked in the new ADN workshop and shortlist tasks.",
+      "before": {
+        "id": "plan-20260908-adn-submit",
+        "title": "ADN: submit application and save confirmation",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-09-27",
+        "details": "Submit before the applicable deadline and record confirmation. Programme deadline is September 27; an earlier individual role deadline takes precedence.",
+        "handoff": "Depends on: Eileen’s final review.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-adn-submit",
+        "title": "ADN: submit application and save confirmation",
+        "owner": "Eileen",
+        "status": "Done",
+        "priority": "High",
+        "due": "2026-09-27",
+        "details": "Submit before the applicable deadline and record confirmation. Programme deadline is September 27; an earlier individual role deadline takes precedence.",
+        "handoff": "Applied to the AusDN Internship Program on 16 Sep 2026; preferences updated 21 Sep. AusDN confirmed the application was reviewed on 29 Sep.",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "d564b282-c370-4fd6-a26b-3be49287c928",
+      "taskId": "adn-20261027-workshop",
+      "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Created",
+      "notes": "Added in 27 Oct cleanup from AusDN's 22 Oct email (workshop and timeline).",
+      "before": null,
+      "after": {
+        "id": "adn-20261027-workshop",
+        "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+        "owner": "Eileen",
+        "status": "In progress",
+        "priority": "High",
+        "due": "2026-10-29",
+        "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
+        "handoff": "Mark Done after attending.",
+        "goal": "internship",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "bd3da94a-447f-4cd0-b7cb-ccad5cdcb1dd",
+      "taskId": "adn-20261027-shortlist",
+      "title": "ADN: watch for shortlist and cover-letter request",
+      "actor": "Claude",
+      "at": "2026-10-27T08:36:44.000Z",
+      "action": "Created",
+      "notes": "Added in 27 Oct cleanup from AusDN's 22 Oct email (workshop and timeline).",
+      "before": null,
+      "after": {
+        "id": "adn-20261027-shortlist",
+        "title": "ADN: watch for shortlist and cover-letter request",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-11-07",
+        "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
+        "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
+        "goal": "internship",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "de205375-1bdb-412d-832c-955c49234ef0",
+      "taskId": "plan-20260908-project-sentiment",
+      "title": "Backlog — Launch sentiment: choose launch and test data access",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-sentiment",
+        "title": "Backlog — Launch sentiment: choose launch and test data access",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Choose a game or media launch, date window and business question. Check Reddit and Steam access and inspect a small review sample before committing to collection.",
+        "handoff": "Plan analysis and dashboard tasks after the sample is viable. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "7df093ed-210e-4dd8-b55c-b58ebfdac0b0",
+      "taskId": "plan-20260908-project-ads",
+      "title": "Backlog — Ad creative pipeline: define scope and source",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-ads",
+        "title": "Backlog — Ad creative pipeline: define scope and source",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Define reporting questions, required fields and metrics. Select a viable source and sketch ingestion, transformation and reporting steps.",
+        "handoff": "Then break down ingestion, quality checks, scheduling and documentation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "91b66687-38e2-4d59-b329-993014edd2ab",
+      "taskId": "plan-20260908-project-streaming",
+      "title": "Backlog — Streaming dashboard: define sources and metrics",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-streaming",
+        "title": "Backlog — Streaming dashboard: define sources and metrics",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Choose the reporting audience and questions, identify usable sources, and agree consistent metric definitions.",
+        "handoff": "Then break down cleaning, consolidation, dashboard design and validation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "aefcce4d-03de-4157-9895-ca4c9b509526",
+      "taskId": "plan-20260908-project-pricing",
+      "title": "Backlog — Gaming pricing dashboard: test real SteamSpy data",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-pricing",
+        "title": "Backlog — Gaming pricing dashboard: test real SteamSpy data",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Inspect the existing dashboard’s data requirements, verify available SteamSpy fields and pull a sample that maps to the current structure.",
+        "handoff": "Then replace sample data, validate calculations and refresh the case study. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "018a0f49-9040-40a5-afae-0a9da802bf11",
+      "taskId": "adn-20261027-workshop",
+      "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Updated",
+      "notes": "Goal renamed: 'Secure an internship' is now part of 'Graduate from UQ' (internship, then RBUS39992, then graduate).",
+      "before": {
+        "id": "adn-20261027-workshop",
+        "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+        "owner": "Eileen",
+        "status": "In progress",
+        "priority": "High",
+        "due": "2026-10-29",
+        "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
+        "handoff": "Mark Done after attending.",
+        "goal": "internship",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      },
+      "after": {
+        "id": "adn-20261027-workshop",
+        "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+        "owner": "Eileen",
+        "status": "In progress",
+        "priority": "High",
+        "due": "2026-10-29",
+        "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
+        "handoff": "Mark Done after attending.",
+        "goal": "graduate",
+        "updatedAt": "2026-10-27T09:06:31.000Z"
+      }
+    },
+    {
+      "id": "8118ac4c-1fb2-495d-a52b-ad3a375ecb55",
+      "taskId": "adn-20261027-shortlist",
+      "title": "ADN: watch for shortlist and cover-letter request",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Updated",
+      "notes": "Goal renamed: 'Secure an internship' is now part of 'Graduate from UQ' (internship, then RBUS39992, then graduate).",
+      "before": {
+        "id": "adn-20261027-shortlist",
+        "title": "ADN: watch for shortlist and cover-letter request",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-11-07",
+        "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
+        "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
+        "goal": "internship",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      },
+      "after": {
+        "id": "adn-20261027-shortlist",
+        "title": "ADN: watch for shortlist and cover-letter request",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-11-07",
+        "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
+        "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
+        "goal": "graduate",
+        "updatedAt": "2026-10-27T09:06:31.000Z"
+      }
+    },
+    {
+      "id": "d3d6ea2d-af03-4737-831e-1e192d79a8bb",
+      "taskId": "plan-20260908-course-completion",
+      "title": "University: complete required internship course",
+      "actor": "Claude",
+      "at": "2026-10-27T09:23:35.000Z",
+      "action": "Updated",
+      "notes": "Course code corrected to RBUS3999 (Business Industry Placement) and June 2027 graduation target noted, per Eileen.",
+      "before": {
+        "id": "plan-20260908-course-completion",
+        "title": "University: complete required internship course",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "After securing an offer, track the course enrolment, placement and completion steps confirmed by the university. Done when course completion is confirmed.",
+        "handoff": "Course code supplied by Eileen: RBUS39992. Requirements have not been verified; an offer and course completion are separate milestones.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-course-completion",
+        "title": "University: complete required internship course",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "After securing an offer, track the course enrolment, placement and completion steps confirmed by the university. Done when course completion is confirmed.",
+        "handoff": "Course code supplied by Eileen: RBUS3999. Requirements have not been verified; an offer and course completion are separate milestones. Course: Business Industry Placement (RBUS3999), confirmed by Eileen 27 Oct 2026. Target graduation: June 2027.",
+        "updatedAt": "2026-10-27T09:23:35.000Z"
+      }
     }
   ]
 }

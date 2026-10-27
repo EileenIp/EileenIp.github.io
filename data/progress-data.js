@@ -2,28 +2,33 @@
 const PROGRESS_DATA = {
   "goals": [
     {
-      "title": "Find my next internship",
-      "description": "I’m studying Computer Science and Commerce at UQ and looking for an internship where I can use both. Right now, I’m preparing applications and working on how I explain my experience and projects.",
+      "title": "Graduate from UQ",
+      "description": "To finish my degree I need to complete RBUS3999, UQ’s Business Industry Placement course. I can only enrol once I have an internship. So the order is: land an internship, enrol, then graduate. I’m aiming to graduate in June 2027. My applications are in and I’m waiting to hear back.",
       "status": "In progress"
     },
     {
-      "title": "Complete my BSAN4201 presentation",
-      "description": "I’m exploring how a traditional product could become a useful AI-enabled service. My individual presentation is due on 12 October. I’m still choosing the idea, then I’ll work through the customer problem, analysis and business model.",
-      "status": "In progress"
+      "title": "Build my own brand",
+      "description": "I want to show that you don’t need to be a strong communicator to be independent. Long, wordy writing is hard for me to follow, so I make things that make sense at a glance. What I’m good at is organising ideas and systems so anyone can understand them.",
+      "status": "Not started"
     },
     {
-      "title": "Make my portfolio reflect my work",
-      "description": "I want someone visiting my website to understand what I built, why I built it and what I learned. I’m improving the case studies and dashboards I already have, while making the site easier to explore.",
-      "status": "In progress"
+      "title": "Build AI products",
+      "description": "I want to build tools that help people communicate and that break complex ideas down into simple information. ConverseAssist, my conversation accessibility prototype, was a first step in this direction.",
+      "status": "Not started"
     },
     {
-      "title": "Build toward media, marketing and gaming",
-      "description": "These are the areas I want to work in. I’m exploring projects around player retention, launch sentiment, advertising and streaming, with a focus on questions a team could actually use the answers to.",
-      "status": "In progress"
+      "title": "Learn financial trading",
+      "description": "I want to understand how financial trading works.",
+      "status": "Not started"
     },
     {
-      "title": "Finish my internship course",
-      "description": "An internship is part of my path to completing university. Securing an offer is the next milestone; completing the placement and course comes after that.",
+      "title": "Learn Chinese",
+      "description": "I want to learn to read, listen and speak Chinese.",
+      "status": "Not started"
+    },
+    {
+      "title": "Start my vlog channel",
+      "description": "A new channel where I post vlogs as myself.",
       "status": "Not started"
     }
   ],
@@ -36,7 +41,7 @@ const PROGRESS_DATA = {
         { "label": "Launch sentiment", "href": "projects.html?project=launch-sentiment-helldivers-2024" },
         { "label": "Ad creative pipeline", "href": "projects.html?project=ad-creative-performance-pipeline" }
       ],
-      "entry": "Three projects reached a finished state this month: an ad creative pipeline built to survive a deliberately messy upstream, a launch sentiment study of a game’s review history, and a support triage model that scores a customer’s first message as it arrives. Two of the three ended somewhere I wasn’t expecting — the early-warning idea behind the sentiment project didn’t hold up, and in the triage project faster replies went with worse outcomes rather than better. Those are the ones I’d rather be asked about.\n\nThe triage project also changed how I think about labelling. Nothing in the data said which conversations went badly, so I read a hundred of them myself and decided one at a time. None of the four definitions I’d written in advance matched what I was actually judging on, and the conversations I couldn’t call turned out to share a shape — the customer simply stops replying, and the ending happens somewhere the data can’t see.\n\nA fourth project, comparing free-to-play and paid games on Steam, has its analysis done but not its write-up. The result contradicts what I assumed going in, so I want to be clear about what can honestly be claimed from it before it goes on the site.\n\nOn the site itself I rebuilt the job tracker around application stages, added proper link previews and icons, and gave every project a real image. Next is applications and my BSAN4201 presentation on 12 October."
+      "entry": "Three projects reached a finished state this month: an ad creative pipeline built to survive a deliberately messy upstream, a launch sentiment study of a game’s review history, and a support triage model that scores a customer’s first message as it arrives. Two of the three ended somewhere I wasn’t expecting — the early-warning idea behind the sentiment project didn’t hold up, and in the triage project faster replies went with worse outcomes rather than better. Those are the ones I’d rather be asked about.\n\nThe triage project also changed how I think about labelling. Nothing in the data said which conversations went badly, so I read a hundred of them myself and decided one at a time. None of the four definitions I’d written in advance matched what I was actually judging on, and the conversations I couldn’t call turned out to share a shape — the customer simply stops replying, and the ending happens somewhere the data can’t see.\n\nA fourth project, comparing free-to-play and paid games on Steam, went up mid-month. The result contradicted what I assumed going in: going free did not buy more playtime.\n\nOn the site itself I rebuilt the job tracker around application stages, added proper link previews and icons, and gave every project a real image. Next is applications and my BSAN4201 presentation on 12 October."
     },
     {
       "month": "August",
