@@ -6,21 +6,19 @@ let data = {version:1,tasks:[]}, handle = null, baseline = '', editing = null, d
 const owners = ['Unassigned','Eileen','Codex','Claude'], statuses = ['To do','In progress','Blocked','Review','Done'];
 
 const goals = [
- {id:'internship',title:'Secure an internship',description:'Applications, interviews and an offer.'},
- {id:'bsan',title:'Complete BSAN4201',description:'Individual assignment · Due 12 October 2026'},
- {id:'website',title:'Improve my website',description:'Polish completed work and prepare recruiter outreach.'},
- {id:'projects',title:'Build portfolio projects',description:'Five project ideas to develop alongside priority work.'},
- {id:'course',title:'Complete my internship course',description:'Placement and course completion.'},
+ {id:'graduate',title:'Graduate from UQ',description:'Get an internship, enrol in RBUS39992, then finish my degree.'},
+ {id:'brand',title:'Build my own brand',description:'Show you don\'t need great communication to be independent. Make things easy to understand at a glance.'},
+ {id:'ai-products',title:'Build AI products',description:'Tools that help with communication and turn complex ideas into simple information.'},
+ {id:'trading',title:'Learn financial trading',description:'Understand how financial trading works.'},
+ {id:'chinese',title:'Learn Chinese',description:'Learn to read, listen and speak.'},
+ {id:'vlog',title:'Start my vlog channel',description:'A new channel of vlogs as Eileen Ip.'},
  {id:'other',title:'Other tasks',description:'Tasks to organise.'}
 ];
 function goalFor(t) {
  if (goals.some(g => g.id === t.goal)) return t.goal;
+ if (t.goal === 'internship' || t.goal === 'course') return 'graduate';
  const id = t.id.replace('plan-20260908-','');
- if (/^(tiktok-|adn-|applications-|internship-)/.test(id)) return 'internship';
- if (id.startsWith('bsan-')) return 'bsan';
- if (/^(website-|recruiters$)/.test(id)) return 'website';
- if (id.startsWith('project-')) return 'projects';
- if (id.startsWith('course-')) return 'course';
+ if (/^(tiktok-|adn-|applications-|internship-|course-|recruiters$)/.test(id)) return 'graduate';
  return 'other';
 }
 for (const g of goals) { const option = document.createElement('option'); option.value = g.id; option.textContent = g.title; form.elements.namedItem('goal').append(option); }
@@ -75,7 +73,7 @@ function render() {
  for (const g of goals) {
   const all = data.tasks.filter(t => goalFor(t) === g.id);
   const matched = visible.filter(t => goalFor(t) === g.id);
-  if (!matched.length) continue;
+  if (!matched.length && (query || owner || status || g.id === 'other')) continue;
   const group = document.createElement('details'); group.className = 'goal-group'; group.dataset.goal = g.id;
   group.open = expanded.has(g.id) || Boolean(query || owner || status);
   const heading = document.createElement('summary');
@@ -86,6 +84,7 @@ function render() {
   const progress = document.createElement('progress'); progress.max = all.length; progress.value = done; progress.setAttribute('aria-label',g.title + ' progress');
   heading.append(name,description,count,progress); group.append(heading);
   const list = document.createElement('div'); list.className = 'goal-tasks'; group.append(list); groups.set(g.id,list); $('tasks').append(group);
+  if (!all.length) { const empty = document.createElement('p'); empty.className = 'goal-empty'; empty.textContent = 'No tasks yet. Open Add a task to plan the first step.'; list.append(empty); }
  }
 
  if (!visible.length) { const p = document.createElement('p'); p.textContent = data.tasks.length ? 'No tasks match these filters.' : 'Your next step starts here. Open Add a task to begin.'; $('tasks').append(p); }

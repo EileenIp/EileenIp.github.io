@@ -178,50 +178,6 @@
       "updatedAt": "2026-09-07T21:33:30.386Z"
     },
     {
-      "id": "plan-20260908-project-sentiment",
-      "title": "Backlog — Launch sentiment: choose launch and test data access",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Choose a game or media launch, date window and business question. Check Reddit and Steam access and inspect a small review sample before committing to collection.",
-      "handoff": "Plan analysis and dashboard tasks after the sample is viable. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-project-ads",
-      "title": "Backlog — Ad creative pipeline: define scope and source",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Define reporting questions, required fields and metrics. Select a viable source and sketch ingestion, transformation and reporting steps.",
-      "handoff": "Then break down ingestion, quality checks, scheduling and documentation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-project-streaming",
-      "title": "Backlog — Streaming dashboard: define sources and metrics",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Choose the reporting audience and questions, identify usable sources, and agree consistent metric definitions.",
-      "handoff": "Then break down cleaning, consolidation, dashboard design and validation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
-      "id": "plan-20260908-project-pricing",
-      "title": "Backlog — Gaming pricing dashboard: test real SteamSpy data",
-      "owner": "Claude",
-      "status": "To do",
-      "priority": "Low",
-      "due": "",
-      "details": "Inspect the existing dashboard’s data requirements, verify available SteamSpy fields and pull a sample that maps to the current structure.",
-      "handoff": "Then replace sample data, validate calculations and refresh the case study. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
-      "updatedAt": "2026-09-08T07:53:10.000Z"
-    },
-    {
       "id": "adn-20261027-workshop",
       "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
       "owner": "Eileen",
@@ -230,8 +186,8 @@
       "due": "2026-10-29",
       "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
       "handoff": "Mark Done after attending.",
-      "goal": "internship",
-      "updatedAt": "2026-10-27T08:36:44.000Z"
+      "goal": "graduate",
+      "updatedAt": "2026-10-27T09:06:31.000Z"
     },
     {
       "id": "adn-20261027-shortlist",
@@ -242,8 +198,8 @@
       "due": "2026-11-07",
       "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
       "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
-      "goal": "internship",
-      "updatedAt": "2026-10-27T08:36:44.000Z"
+      "goal": "graduate",
+      "updatedAt": "2026-10-27T09:06:31.000Z"
     }
   ],
   "activity": [
@@ -1461,6 +1417,156 @@
         "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
         "goal": "internship",
         "updatedAt": "2026-10-27T08:36:44.000Z"
+      }
+    },
+    {
+      "id": "de205375-1bdb-412d-832c-955c49234ef0",
+      "taskId": "plan-20260908-project-sentiment",
+      "title": "Backlog — Launch sentiment: choose launch and test data access",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-sentiment",
+        "title": "Backlog — Launch sentiment: choose launch and test data access",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Choose a game or media launch, date window and business question. Check Reddit and Steam access and inspect a small review sample before committing to collection.",
+        "handoff": "Plan analysis and dashboard tasks after the sample is viable. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "7df093ed-210e-4dd8-b55c-b58ebfdac0b0",
+      "taskId": "plan-20260908-project-ads",
+      "title": "Backlog — Ad creative pipeline: define scope and source",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-ads",
+        "title": "Backlog — Ad creative pipeline: define scope and source",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Define reporting questions, required fields and metrics. Select a viable source and sketch ingestion, transformation and reporting steps.",
+        "handoff": "Then break down ingestion, quality checks, scheduling and documentation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "91b66687-38e2-4d59-b329-993014edd2ab",
+      "taskId": "plan-20260908-project-streaming",
+      "title": "Backlog — Streaming dashboard: define sources and metrics",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-streaming",
+        "title": "Backlog — Streaming dashboard: define sources and metrics",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Choose the reporting audience and questions, identify usable sources, and agree consistent metric definitions.",
+        "handoff": "Then break down cleaning, consolidation, dashboard design and validation. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "aefcce4d-03de-4157-9895-ca4c9b509526",
+      "taskId": "plan-20260908-project-pricing",
+      "title": "Backlog — Gaming pricing dashboard: test real SteamSpy data",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Deleted",
+      "notes": "Removed 27 Oct 2026: Eileen took projects out of her goals. This project is already built and on the site. Full task kept in 'before'.",
+      "before": {
+        "id": "plan-20260908-project-pricing",
+        "title": "Backlog — Gaming pricing dashboard: test real SteamSpy data",
+        "owner": "Claude",
+        "status": "To do",
+        "priority": "Low",
+        "due": "",
+        "details": "Inspect the existing dashboard’s data requirements, verify available SteamSpy fields and pull a sample that maps to the current structure.",
+        "handoff": "Then replace sample data, validate calculations and refresh the case study. Reassigned owner to Claude at Eileen's request (2026-09-08): Claude is taking website polish and the portfolio-project backlog items.",
+        "updatedAt": "2026-09-08T07:53:10.000Z"
+      },
+      "after": null
+    },
+    {
+      "id": "018a0f49-9040-40a5-afae-0a9da802bf11",
+      "taskId": "adn-20261027-workshop",
+      "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Updated",
+      "notes": "Goal renamed: 'Secure an internship' is now part of 'Graduate from UQ' (internship, then RBUS39992, then graduate).",
+      "before": {
+        "id": "adn-20261027-workshop",
+        "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+        "owner": "Eileen",
+        "status": "In progress",
+        "priority": "High",
+        "due": "2026-10-29",
+        "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
+        "handoff": "Mark Done after attending.",
+        "goal": "internship",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      },
+      "after": {
+        "id": "adn-20261027-workshop",
+        "title": "ADN: attend AusDN Plan for Success workshop (mandatory)",
+        "owner": "Eileen",
+        "status": "In progress",
+        "priority": "High",
+        "due": "2026-10-29",
+        "details": "Registered for 'Beyond the Internship: Alumni Stories & Career Insights', 29 Oct 2026, 2pm (online, Teams). Attending one Plan for Success session is required to stay in the AusDN Internship Program.",
+        "handoff": "Mark Done after attending.",
+        "goal": "graduate",
+        "updatedAt": "2026-10-27T09:06:31.000Z"
+      }
+    },
+    {
+      "id": "8118ac4c-1fb2-495d-a52b-ad3a375ecb55",
+      "taskId": "adn-20261027-shortlist",
+      "title": "ADN: watch for shortlist and cover-letter request",
+      "actor": "Claude",
+      "at": "2026-10-27T09:06:31.000Z",
+      "action": "Updated",
+      "notes": "Goal renamed: 'Secure an internship' is now part of 'Graduate from UQ' (internship, then RBUS39992, then graduate).",
+      "before": {
+        "id": "adn-20261027-shortlist",
+        "title": "ADN: watch for shortlist and cover-letter request",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-11-07",
+        "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
+        "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
+        "goal": "internship",
+        "updatedAt": "2026-10-27T08:36:44.000Z"
+      },
+      "after": {
+        "id": "adn-20261027-shortlist",
+        "title": "ADN: watch for shortlist and cover-letter request",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "2026-11-07",
+        "details": "AusDN's 22 Oct timeline: shortlisting mid to end of October, shortlist sent to host organisations early November, host recruitment November to December, internship December 2026 to March 2027. If shortlisted, AusDN emails asking for a personalised cover letter.",
+        "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
+        "goal": "graduate",
+        "updatedAt": "2026-10-27T09:06:31.000Z"
       }
     }
   ]
