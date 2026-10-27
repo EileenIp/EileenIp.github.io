@@ -141,8 +141,8 @@
       "priority": "High",
       "due": "",
       "details": "After securing an offer, track the course enrolment, placement and completion steps confirmed by the university. Done when course completion is confirmed.",
-      "handoff": "Course code supplied by Eileen: RBUS39992. Requirements have not been verified; an offer and course completion are separate milestones.",
-      "updatedAt": "2026-09-07T21:33:30.386Z"
+      "handoff": "Course code supplied by Eileen: RBUS3999. Requirements have not been verified; an offer and course completion are separate milestones. Course: Business Industry Placement (RBUS3999), confirmed by Eileen 27 Oct 2026. Target graduation: June 2027.",
+      "updatedAt": "2026-10-27T09:23:35.000Z"
     },
     {
       "id": "plan-20260908-website-location",
@@ -1567,6 +1567,37 @@
         "handoff": "Due date is an estimate for 'early November'. Move it when AusDN gives a firm date.",
         "goal": "graduate",
         "updatedAt": "2026-10-27T09:06:31.000Z"
+      }
+    },
+    {
+      "id": "d3d6ea2d-af03-4737-831e-1e192d79a8bb",
+      "taskId": "plan-20260908-course-completion",
+      "title": "University: complete required internship course",
+      "actor": "Claude",
+      "at": "2026-10-27T09:23:35.000Z",
+      "action": "Updated",
+      "notes": "Course code corrected to RBUS3999 (Business Industry Placement) and June 2027 graduation target noted, per Eileen.",
+      "before": {
+        "id": "plan-20260908-course-completion",
+        "title": "University: complete required internship course",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "After securing an offer, track the course enrolment, placement and completion steps confirmed by the university. Done when course completion is confirmed.",
+        "handoff": "Course code supplied by Eileen: RBUS39992. Requirements have not been verified; an offer and course completion are separate milestones.",
+        "updatedAt": "2026-09-07T21:33:30.386Z"
+      },
+      "after": {
+        "id": "plan-20260908-course-completion",
+        "title": "University: complete required internship course",
+        "owner": "Eileen",
+        "status": "To do",
+        "priority": "High",
+        "due": "",
+        "details": "After securing an offer, track the course enrolment, placement and completion steps confirmed by the university. Done when course completion is confirmed.",
+        "handoff": "Course code supplied by Eileen: RBUS3999. Requirements have not been verified; an offer and course completion are separate milestones. Course: Business Industry Placement (RBUS3999), confirmed by Eileen 27 Oct 2026. Target graduation: June 2027.",
+        "updatedAt": "2026-10-27T09:23:35.000Z"
       }
     }
   ]

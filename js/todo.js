@@ -6,7 +6,7 @@ let data = {version:1,tasks:[]}, handle = null, baseline = '', editing = null, d
 const owners = ['Unassigned','Eileen','Codex','Claude'], statuses = ['To do','In progress','Blocked','Review','Done'];
 
 const goals = [
- {id:'graduate',title:'Graduate from UQ',description:'Get an internship, enrol in RBUS39992, then finish my degree.'},
+ {id:'graduate',title:'Graduate from UQ',description:'Get an internship, enrol in RBUS3999, then graduate. Aiming for June 2027.'},
  {id:'brand',title:'Build my own brand',description:'Show you don\'t need great communication to be independent. Make things easy to understand at a glance.'},
  {id:'ai-products',title:'Build AI products',description:'Tools that help with communication and turn complex ideas into simple information.'},
  {id:'trading',title:'Learn financial trading',description:'Understand how financial trading works.'},

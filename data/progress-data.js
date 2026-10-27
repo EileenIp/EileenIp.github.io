@@ -3,7 +3,7 @@ const PROGRESS_DATA = {
   "goals": [
     {
       "title": "Graduate from UQ",
-      "description": "To finish my degree I need to complete RBUS39992, UQ’s internship course. I can only enrol once I have an internship. So the order is: land an internship, enrol, then graduate. My applications are in and I’m waiting to hear back.",
+      "description": "To finish my degree I need to complete RBUS3999, UQ’s Business Industry Placement course. I can only enrol once I have an internship. So the order is: land an internship, enrol, then graduate. I’m aiming to graduate in June 2027. My applications are in and I’m waiting to hear back.",
       "status": "In progress"
     },
     {
