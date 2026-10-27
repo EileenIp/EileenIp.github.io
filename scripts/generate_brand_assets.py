@@ -95,9 +95,14 @@ def build_icon(path, size, scale=8):
 if __name__ == "__main__":
     (ROOT / "images").mkdir(exist_ok=True)
     print(build_og_card(ROOT / "images" / "og-card.png"))
-    print(build_icon(ROOT / "apple-touch-icon.png", 180))
-    ico = ROOT / "favicon.ico"
-    Image.open(build_icon(ROOT / "images" / "_icon512.png", 512)).save(
-        ico, sizes=[(16, 16), (32, 32), (48, 48)])
-    (ROOT / "images" / "_icon512.png").unlink()
-    print(ico)
+    # The site icon is now the "prism crystal" sparkle in favicon.svg, with
+    # favicon.ico and apple-touch-icon.png rendered from it (2026-10-27).
+    # Pass --old-monogram-icon to rebuild the previous "E" monogram instead.
+    import sys
+    if "--old-monogram-icon" in sys.argv:
+        print(build_icon(ROOT / "apple-touch-icon.png", 180))
+        ico = ROOT / "favicon.ico"
+        Image.open(build_icon(ROOT / "images" / "_icon512.png", 512)).save(
+            ico, sizes=[(16, 16), (32, 32), (48, 48)])
+        (ROOT / "images" / "_icon512.png").unlink()
+        print(ico)
