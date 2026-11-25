@@ -80,6 +80,15 @@ second "build a recommender" project.
 ## Done
 <!-- Appended here on final approval, newest first, with the date. -->
 
+- [x] 2026-11-26 — **My Tools and Desk Pet moved off the site.** Eileen's
+      decision: the progress, to-do, calendar and job tracker pages, their
+      data (`tasks.json`, `job-applications.xlsx`/`.json`, `companies.json`,
+      `progress-data.js`), the company logos and the Desk Pet page now live
+      only in her local My Tools app, not in this repo. This replaces the
+      2026-09-13 standing decision to keep those pages public. Old versions
+      stay in git history: she chose not to rewrite it. The homepage
+      availability week no longer reads the task list.
+
 - [x] 2026-10-04 — **Roadmap project 5 — Streaming Engagement: Four Sources,
       One Model. Built, shipped and live.** Repo:
       `github.com/EileenIp/streaming-engagement` (public, `main`, 81 tests),

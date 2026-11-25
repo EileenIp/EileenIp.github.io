@@ -1,7 +1,8 @@
 /* Home page: keeps the hero numbers and the availability week in step with
    the data files, so nothing here needs editing by hand.
    - data/projects.json -> project, industry and tool counts
-   - data/tasks.json    -> a weekday is busy when an unfinished task is due that day
+   The availability week is drawn with no busy days; the task list it used to
+   read now lives only on Eileen's PC.
    The HTML already holds sensible fallback text if either file can't load. */
 (function () {
   'use strict';
@@ -69,7 +70,5 @@
     });
   }
 
-  fetchJson('data/tasks.json').then(function (data) {
-    renderWeek(Array.isArray(data.tasks) ? data.tasks : []);
-  }).catch(function () { renderWeek([]); });
+  renderWeek([]);
 })();
