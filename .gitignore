@@ -13,13 +13,13 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 
-# Excel lock files. job-applications.xlsx is tracked, and simply opening it
-# creates a ~$ sibling alongside — easy to commit by accident with `git add -A`,
-# and it carries the editing user's name.
+# Excel lock files. Opening a spreadsheet creates a ~$ sibling alongside —
+# easy to commit by accident with `git add -A`, and it carries the editing
+# user's name.
 ~$*.xlsx
 ~$*.xls
 
-# Python — scripts/generate_job_data.py and the local preview server.
+# Python — scripts/ and the local preview server.
 __pycache__/
 *.pyc
 .venv/

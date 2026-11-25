@@ -334,7 +334,7 @@ footer.site-footer {
   color: color-mix(in srgb, var(--color-text) 45%, transparent);
 }
 
-/* — shared narrow-page container (progress.html) — */
+/* — shared narrow-page container — */
 .container-narrow {
   max-width: 720px;
   margin: 0 auto;
@@ -523,7 +523,7 @@ footer.site-footer {
 /* definition list for the case-study "Inputs" block */
 
 /* collapsible long-text sections in the case-study modal — same interaction
-   as progress.html's past-years <details>, generically named/styled here. */
+   as a past-years <details> list, generically named/styled here. */
 .collapsible-row {
   display: flex;
   align-items: center;
